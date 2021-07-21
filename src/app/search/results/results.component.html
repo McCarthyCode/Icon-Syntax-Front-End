@@ -1,0 +1,22 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-md="9" size-lg="7" size-xl="6">
+      <ion-searchbar
+        #searchbar
+        color="medium"
+        [value]="query"
+        (ionChange)="onChange($event)"
+        (ionClear)="clear()"
+      ></ion-searchbar>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col *ngFor="let icon of icons">
+      <ion-card class="ion-padding">
+        <ion-img src="data:image/gif;base64,{{ icon.icon }}"></ion-img>
+        <ion-card-title class="ion-text-nowrap">{{ icon.word }}</ion-card-title>
+        <ion-card-subtitle>{{ icon.descriptor }}</ion-card-subtitle>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,30 @@
+ion-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+
+  ion-col {
+    display: flex;
+    justify-content: space-evenly;
+    align-self: center;
+
+    ion-card {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      cursor: pointer;
+      min-width: 5rem;
+      flex-grow: 0;
+
+      ion-img {
+        width: 100%;
+        height: 54px;
+      }
+
+      ion-card-title {
+        margin: .5rem 0 .25rem 0;
+      }
+    }
+  }
+}

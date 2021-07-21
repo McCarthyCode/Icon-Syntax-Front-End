@@ -2,8 +2,16 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const backEndDomain = 'http://localhost:8000';
+
+export const common = {
+  backEndDomain: backEndDomain,
+  APIBase: backEndDomain + '/api/v0-alpha',
+};
+
 export const environment = {
-  production: false
+  ...common,
+  production: false,
 };
 
 /*

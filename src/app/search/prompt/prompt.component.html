@@ -1,0 +1,14 @@
+<ion-grid id="container" class="ion-padding">
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="ion-text-center" size-md="9" size-lg="7" size-xl="6">
+      <strong>Are you ready to learn?</strong>
+      <p>Search for a word or phrase to get started.</p>
+      <ion-searchbar
+        #searchbar
+        color="medium"
+        [value]="query"
+        (ionChange)="onChange($event)"
+      ></ion-searchbar>
+    </ion-col>
+  </ion-row>
+</ion-grid>
