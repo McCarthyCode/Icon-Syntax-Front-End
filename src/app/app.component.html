@@ -1,3 +1,38 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane when="md" contentId="main">
+    <ion-menu contentId="main">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-menu-button contentId="menu">
+              <ion-icon name="close"></ion-icon>
+            </ion-menu-button>
+          </ion-buttons>
+          <ion-title>IconSyntax</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-item button disabled>
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-text> Home </ion-text>
+          </ion-item>
+          <ion-item button disabled>
+            <ion-icon name="log-in" slot="start"></ion-icon>
+            <ion-text> Login/Register </ion-text>
+          </ion-item>
+          <ion-item routerLink="/find" button>
+            <ion-icon name="search" slot="start"></ion-icon>
+            <ion-text> Find Icons </ion-text>
+          </ion-item>
+          <ion-item button disabled>
+            <ion-icon name="mic" slot="start"></ion-icon>
+            <ion-text> Speech to Icon </ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>
