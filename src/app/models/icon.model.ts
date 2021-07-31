@@ -9,10 +9,13 @@ export namespace Icon {
     icon: string;
     md5: string;
   }
-  export interface IResponseBody extends Model.IResponseBody {
+  export interface IResponseBodyList extends Model.IResponseBodyList<IIcon> {
+    pagination: IPagination;
+  }
+  export interface IClientData extends Model.IClientData, IIcon {}
+  export interface IClientDataList extends Model.IClientDataList {
     results: IIcon[];
     pagination: IPagination;
   }
-  export interface IClientData extends Model.IClientData, IResponseBody {}
   export interface IRequestBody extends Model.IRequestBody {}
 }
