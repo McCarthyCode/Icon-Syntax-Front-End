@@ -27,8 +27,9 @@
           class="ion-margin-bottom"
           color="medium"
           placeholder="Filter Icons by Text"
+          (ionChange)="searchbar($event.target.value)"
         ></ion-searchbar>
-        <h1 class="ion-margin-vertical">Categories</h1>
+        <h1 class="ion-margin-vertical">Word List</h1>
         <div class="spinner-wrapper" *ngIf="loading">
           <ion-spinner></ion-spinner>
         </div>
@@ -42,7 +43,7 @@
           <ion-item
             detail="true"
             button
-            (click)="clickChild(category.id)"
+            (click)="clickCategory(category.id)"
             *ngFor="let category of (children$ | async).results"
           >
             <ion-text>{{ category.name }}</ion-text>

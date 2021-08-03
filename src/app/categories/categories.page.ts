@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IconsService } from '../icons.service';
 import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
 
@@ -13,6 +13,7 @@ import { Icon } from '../models/icon.model';
   styleUrls: ['./categories.page.scss'],
 })
 export class CategoriesPage implements OnInit {
+  // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
   children$ = new BehaviorSubject<Category.IClientDataList>(null);
   icons$ = new BehaviorSubject<Icon.IClientDataList>({
@@ -29,69 +30,34 @@ export class CategoriesPage implements OnInit {
     retrieved: new Date(),
   });
 
+  // Subscriptions
+  iconsSub: Subscription;
+  categoriesSub: Subscription;
+
+  // Misc.
   loading = true;
   breadcrumbs: Category.IClientData[] = [];
-  search = '';
+  query = '';
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _iconsSrv: IconsService) {}
 
   ngOnInit() {
-    this.listCategories().subscribe(() => {
-      this.listIcons().subscribe(() => {
+    this.search();
+  }
+
+  search(): void {
+    this.categoriesSub = this.listCategories().subscribe(() => {
+      this.iconsSub = this.listIcons().subscribe((icons) => {
+        this.icons$.next(icons);
         this.loading = false;
       });
     });
   }
 
-  listCategories(): Observable<Category.IClientDataList> {
+  searchbar(query: string): void {
     this.loading = true;
-    return this._http
-      .get<Category.IResponseBodyList>(environment.apiBase + '/categories')
-      .pipe(
-        map((body) => {
-          const clientDataList: Category.IClientDataList = {
-            ...body,
-            retrieved: new Date(),
-          };
-
-          this.category$.next(null);
-          this.children$.next(clientDataList);
-
-          this.breadcrumbs = [];
-
-          return clientDataList;
-        })
-      );
-  }
-
-  listIcons(): Observable<Icon.IClientDataList> {
-    this.loading = true;
-
-    let params = {};
-    const category = this.category$.value;
-    if (category !== null) {
-      params = { ...params, category: category.id };
-    }
-    if (this.search) {
-      params = { ...params, search: this.search };
-    }
-
-    return this._http
-      .get<Icon.IResponseBodyList>(environment.apiBase + '/icons', {
-        params: params,
-      })
-      .pipe(
-        map((body) => {
-          const clientDataList: Icon.IClientDataList = {
-            ...body,
-            retrieved: new Date(),
-          };
-
-          this.icons$.next(clientDataList);
-
-          return clientDataList;
-        })
-      );
+    this.query = query;
+    this.search();
   }
 
   retrieveCategory(id: number): Observable<Category.IClientData> {
@@ -118,7 +84,38 @@ export class CategoriesPage implements OnInit {
       );
   }
 
-  clickChild(id: number): void {
+  listCategories(): Observable<Category.IClientDataList> {
+    this.loading = true;
+    return this._http
+      .get<Category.IResponseBodyList>(environment.apiBase + '/categories')
+      .pipe(
+        map((body) => {
+          const clientDataList: Category.IClientDataList = {
+            ...body,
+            retrieved: new Date(),
+          };
+
+          this.category$.next(null);
+          this.children$.next(clientDataList);
+
+          this.breadcrumbs = [];
+
+          return clientDataList;
+        })
+      );
+  }
+
+  listIcons(): Observable<Icon.IClientDataList> {
+    this.loading = true;
+    const category = this.category$.value;
+
+    return this._iconsSrv.list(
+      this.query ? this.query : undefined,
+      category ? category.id : undefined
+    );
+  }
+
+  clickCategory(id: number): void {
     this.breadcrumbs.push(this.category$.value);
 
     this.retrieveCategory(id).subscribe(() => {

@@ -10,23 +10,30 @@ import { IPagination } from './models/pagination.interface';
   providedIn: 'root',
 })
 export class IconsService {
-  data$ = new BehaviorSubject<Icon.IClientData>(null);
-  private _pagination$ = new BehaviorSubject<IPagination>(null);
+  list$ = new BehaviorSubject<Icon.IClientDataList>(null);
 
   constructor(private _http: HttpClient) {}
 
-  search(query: string): Observable<Icon.IClientData> {
+  list(query?: string, categoryId?: number): Observable<Icon.IClientDataList> {
+    let params = {};
+    if (categoryId) {
+      params = { category: categoryId };
+    }
+    if (query) {
+      params = { ...params, search: query };
+    }
+
     return this._http
-      .get<Icon.IResponseBody>(environment.apiBase + '/search/' + query)
+      .get<Icon.IResponseBodyList>(environment.apiBase + '/icons', {
+        params: params,
+      })
       .pipe(
         map((body) => {
           const clientData = {
             ...body,
             retrieved: new Date(),
           };
-
-          this.data$.next(clientData);
-          this._pagination$.next(body.pagination);
+          this.list$.next(clientData);
 
           return clientData;
         })
