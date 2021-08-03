@@ -15,7 +15,7 @@ import { Icon } from '../models/icon.model';
 export class CategoriesPage implements OnInit {
   // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
-  children$ = new BehaviorSubject<Category.IClientDataList>(null);
+  categories$ = new BehaviorSubject<Category.IClientDataList>(null);
   icons$ = new BehaviorSubject<Icon.IClientDataList>({
     results: [],
     pagination: {
@@ -42,10 +42,6 @@ export class CategoriesPage implements OnInit {
   constructor(private _http: HttpClient, private _iconsSrv: IconsService) {}
 
   ngOnInit() {
-    this.search();
-  }
-
-  search(): void {
     this.categoriesSub = this.listCategories().subscribe(() => {
       this.iconsSub = this.listIcons().subscribe((icons) => {
         this.icons$.next(icons);
@@ -57,11 +53,17 @@ export class CategoriesPage implements OnInit {
   searchbar(query: string): void {
     this.loading = true;
     this.query = query;
-    this.search();
+    this.categoriesSub = this.category$.subscribe(() => {
+      this.iconsSub = this.listIcons().subscribe((icons) => {
+        this.icons$.next(icons);
+        this.loading = false;
+      });
+    });
   }
 
   retrieveCategory(id: number): Observable<Category.IClientData> {
     this.loading = true;
+
     return this._http
       .get<Category.IResponseBody>(environment.apiBase + '/categories/' + id)
       .pipe(
@@ -77,7 +79,7 @@ export class CategoriesPage implements OnInit {
           };
 
           this.category$.next(category);
-          this.children$.next(children);
+          this.categories$.next(children);
 
           return category;
         })
@@ -96,7 +98,7 @@ export class CategoriesPage implements OnInit {
           };
 
           this.category$.next(null);
-          this.children$.next(clientDataList);
+          this.categories$.next(clientDataList);
 
           this.breadcrumbs = [];
 
@@ -119,8 +121,11 @@ export class CategoriesPage implements OnInit {
     this.breadcrumbs.push(this.category$.value);
 
     this.retrieveCategory(id).subscribe(() => {
-      this.children$.subscribe(() =>
-        this.listIcons().subscribe(() => (this.loading = false))
+      this.categories$.subscribe(() =>
+        this.listIcons().subscribe((icons) => {
+          this.icons$.next(icons);
+          this.loading = false;
+        })
       );
     });
   }

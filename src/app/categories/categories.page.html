@@ -35,16 +35,16 @@
         </div>
         <p
           class="italic ion-text-center"
-          *ngIf="!loading && (children$ | async).results.length === 0"
+          *ngIf="!loading && (categories$ | async).results.length === 0"
         >
           <ion-text color="medium"> No more categories to show. </ion-text>
         </p>
-        <ion-list *ngIf="!loading && (children$ | async).results.length > 0">
+        <ion-list *ngIf="!loading && (categories$ | async).results.length > 0">
           <ion-item
             detail="true"
             button
             (click)="clickCategory(category.id)"
-            *ngFor="let category of (children$ | async).results"
+            *ngFor="let category of (categories$ | async).results"
           >
             <ion-text>{{ category.name }}</ion-text>
           </ion-item>
