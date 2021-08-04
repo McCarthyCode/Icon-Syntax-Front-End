@@ -1,4 +1,6 @@
 ion-searchbar {
+  // Normally we would use .ion-padding-vertical here, but defining it this way
+  // removes horizontal padding.
   padding: 16px 0;
 }
 

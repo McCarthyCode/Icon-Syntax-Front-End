@@ -8,8 +8,8 @@
       >
       </ion-back-button>
     </ion-buttons>
-    <ion-spinner *ngIf="loading"></ion-spinner>
-    <ion-title *ngIf="!loading">
+    <ion-spinner *ngIf="loadingCategories"></ion-spinner>
+    <ion-title *ngIf="!loadingCategories">
       {{ (category$ | async) === null ? 'Find Icons' : (category$ | async).path
       }}
     </ion-title>
@@ -30,16 +30,21 @@
           (ionChange)="searchbar($event.target.value)"
         ></ion-searchbar>
         <h1 class="ion-margin-vertical">Word List</h1>
-        <div class="spinner-wrapper" *ngIf="loading">
+        <div
+          class="spinner-wrapper"
+          [style.display]="loadingCategories ? 'block' : 'none'"
+        >
           <ion-spinner></ion-spinner>
         </div>
         <p
           class="italic ion-text-center"
-          *ngIf="!loading && (categories$ | async).results.length === 0"
+          [style.display]="!loadingCategories && (categories$ | async).results.length === 0 ? 'block' : 'none'"
         >
           <ion-text color="medium"> No more categories to show. </ion-text>
         </p>
-        <ion-list *ngIf="!loading && (categories$ | async).results.length > 0">
+        <ion-list
+          [style.display]="!loadingCategories && (categories$ | async).results.length > 0 ? 'block' : 'none'"
+        >
           <ion-item
             detail="true"
             button
@@ -56,7 +61,12 @@
         <h1 class="ion-margin-vertical">Icons</h1>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row [style.display]="page === 1 && loadingIcons ? 'flex' : 'none'">
+      <ion-col class="spinner-wrapper">
+        <ion-spinner></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row [style.display]="page === 1 && loadingIcons ? 'none' : 'flex'">
       <ion-col>
         <div class="icons">
           <ion-card
@@ -80,4 +90,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-infinite-scroll threshold="200px" (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
