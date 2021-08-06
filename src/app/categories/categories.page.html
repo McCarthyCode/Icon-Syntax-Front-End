@@ -68,25 +68,11 @@
     </ion-row>
     <ion-row [style.display]="page === 1 && loadingIcons ? 'none' : 'flex'">
       <ion-col>
-        <div class="icons">
-          <ion-card
-            class="ion-padding"
-            *ngFor="let icon of (icons$ | async).results"
-          >
-            <div class="icon-frame">
-              <img src="data:image/gif;base64,{{ icon.icon }}" />
-            </div>
-            <ion-text class="ion-text-center ion-no-padding">
-              <h2>{{ icon.word }}</h2>
-            </ion-text>
-            <ion-text
-              class="ion-text-center ion-no-padding"
-              *ngIf="icon.descriptor"
-            >
-              <h3>{{ icon.descriptor }}</h3>
-            </ion-text>
-          </ion-card>
-        </div>
+        <ul class="icons ion-no-padding">
+          <li *ngFor="let icon of (icons$ | async).results">
+            <app-icon [icon]="icon"></app-icon>
+          </li>
+        </ul>
       </ion-col>
     </ion-row>
   </ion-grid>

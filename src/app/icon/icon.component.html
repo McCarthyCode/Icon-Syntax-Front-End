@@ -1,0 +1,9 @@
+<ion-card class="ion-padding">
+  <img src="data:image/gif;base64,{{ icon.icon }}" />
+  <ion-text class="ion-text-center ion-no-padding">
+    <h2>{{ icon.word }}</h2>
+  </ion-text>
+  <ion-text class="ion-text-center ion-no-padding" *ngIf="icon.descriptor">
+    <h3>{{ icon.descriptor }}</h3>
+  </ion-text>
+</ion-card>

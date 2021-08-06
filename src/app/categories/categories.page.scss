@@ -10,25 +10,10 @@ ion-searchbar {
   align-items: center;
   flex-wrap: wrap;
 
-  ion-card {
+  li {
     display: flex;
     flex-direction: column;
+    list-style: none;
     cursor: pointer;
-
-    .icon-frame {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    ion-text {
-      h2 {
-        margin-bottom: 0;
-      }
-
-      h3 {
-        margin: 0.5rem 0 0 0;
-      }
-    }
   }
 }
