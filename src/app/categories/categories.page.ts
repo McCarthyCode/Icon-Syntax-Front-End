@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IconDetailService } from '../icon-detail.service';
 import { IconsService } from '../icons.service';
 import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
@@ -39,6 +41,7 @@ export class CategoriesPage implements OnInit {
   // Subscriptions
   iconsSub: Subscription;
   categoriesSub: Subscription;
+  iconClickSub: Subscription;
 
   // Spinners
   loadingCategories = true;
@@ -51,7 +54,15 @@ export class CategoriesPage implements OnInit {
   query = '';
   page = 1;
 
-  constructor(private _http: HttpClient, private _iconsSrv: IconsService) {}
+  // Event emitters
+  @Output() iconClick = new EventEmitter<Icon.IIcon>();
+
+  constructor(
+    private _http: HttpClient,
+    private _iconsSrv: IconsService,
+    private _iconsDetailSrv: IconDetailService,
+    private _menuCtrl: MenuController
+  ) {}
 
   ngOnInit() {
     this.categoriesSub = this.listCategories().subscribe(() => {
@@ -74,8 +85,7 @@ export class CategoriesPage implements OnInit {
       this.page = 1;
       this.icons$.next(emptyIcons);
     } else {
-
-    this.page++;
+      this.page++;
     }
   }
 
@@ -181,6 +191,10 @@ export class CategoriesPage implements OnInit {
         () => (this.loadingCategories = false)
       );
     }
+  }
+
+  clickIcon(icon: Icon.IIcon): void {
+    this._iconsDetailSrv.click(icon);
   }
 
   nextPage($event): void {

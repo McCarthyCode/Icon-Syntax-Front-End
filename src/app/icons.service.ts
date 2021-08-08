@@ -27,7 +27,6 @@ export class IconsService {
       params = { ...params, page: page };
     }
 
-
     return this._http
       .get<Icon.IResponseBodyList>(environment.apiBase + '/icons', {
         params: params,

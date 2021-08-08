@@ -19,7 +19,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content id="categories">
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size-md="9" size-lg="7" size-xl="6">
@@ -70,7 +70,7 @@
       <ion-col>
         <ul class="icons ion-no-padding">
           <li *ngFor="let icon of (icons$ | async).results">
-            <app-icon [icon]="icon"></app-icon>
+            <app-icon (click)="clickIcon(icon)" [icon]="icon"></app-icon>
           </li>
         </ul>
       </ion-col>
@@ -80,3 +80,5 @@
     <ion-infinite-scroll-content> </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+
+<app-icon-detail></app-icon-detail>
