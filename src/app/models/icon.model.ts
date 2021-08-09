@@ -1,5 +1,5 @@
 import { Model } from './model';
-import { IPagination } from './pagination.interface';
+import { IPagination } from '../interfaces/pagination.interface';
 
 export namespace Icon {
   export interface IIcon {

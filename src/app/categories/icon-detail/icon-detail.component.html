@@ -4,7 +4,52 @@
       <ion-title>Dictionary Entry</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
-    <app-icon [icon]="icon" *ngIf="icon"></app-icon>
+  <ion-content>
+    <app-icon class="ion-margin-end" [icon]="icon" *ngIf="icon"></app-icon>
+    <div class="ion-padding-horizontal">
+      <p
+        class="ion-margin-bottom"
+        *ngIf="icon && suggestions$.value.length > 0"
+      >
+        <em>
+          No dictionary entry found for "{{ icon.word }}." Try clicking one of
+          the suggested terms below.
+        </em>
+      </p>
+      <p
+        class="ion-margin-bottom"
+        *ngIf="
+          icon &&
+          dictEntries$.value.length === 0 &&
+          suggestions$.value.length === 0
+        "
+      >
+        <em>
+          No dictionary entry or suggested terms found for "{{ icon.word }}."
+        </em>
+      </p>
+      <ol class="ion-no-margin" *ngIf="icon && dictEntries$.value.length > 0">
+        <li *ngFor="let entry of dictEntries$ | async">
+          <strong>{{ entry.hwi.hw }}</strong> - <em>{{ entry.fl }}</em>
+          <ul>
+            <li class="ion-margin-vertical" *ngFor="let def of entry.shortdef">
+              {{ def }}
+            </li>
+          </ul>
+        </li>
+      </ol>
+      <ol
+        class="ion-no-margin suggestions"
+        *ngIf="icon && suggestions$.value.length > 0"
+      >
+        <li
+          class="ion-margin-vertical"
+          *ngFor="let suggestion of suggestions$ | async"
+          (click)="clickSuggestion(suggestion)"
+        >
+          <strong>{{ suggestion }}</strong>
+        </li>
+      </ol>
+    </div>
   </ion-content>
 </ion-menu>
