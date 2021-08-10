@@ -7,9 +7,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AboutComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

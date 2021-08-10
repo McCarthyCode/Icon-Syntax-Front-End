@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { CategoriesPage } from './categories/categories.page';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   {
@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'find',
     loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
 ];
 
