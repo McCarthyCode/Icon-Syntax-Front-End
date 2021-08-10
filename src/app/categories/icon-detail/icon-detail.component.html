@@ -31,6 +31,12 @@
       <ol class="ion-no-margin" *ngIf="icon && dictEntries$.value.length > 0">
         <li *ngFor="let entry of dictEntries$ | async">
           <strong>{{ entry.hwi.hw }}</strong> - <em>{{ entry.fl }}</em>
+          <ion-icon
+            class="speaker"
+            name="volume-off"
+            (click)="playAudio($event, entry.hwi.prs)"
+          >
+          </ion-icon>
           <ul>
             <li class="ion-margin-vertical" *ngFor="let def of entry.shortdef">
               {{ def }}

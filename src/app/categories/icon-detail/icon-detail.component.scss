@@ -6,3 +6,12 @@ ul {
 .suggestions li {
   cursor: pointer;
 }
+
+ion-icon.speaker {
+  padding: 0 8px;
+  cursor: pointer;
+
+  &[name="volume-mute"] {
+    cursor: not-allowed;
+  }
+}

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { AudioPlaybackService } from 'src/app/audio-playback.service';
 import { IconDetailService } from 'src/app/icon-detail.service';
 import { IWordEntry } from 'src/app/interfaces/word-entry.interface';
 import { MerriamWebsterService } from 'src/app/merriam-webster.service';
@@ -23,7 +24,8 @@ export class IconDetailComponent implements OnInit {
   constructor(
     private _menuCtrl: MenuController,
     private _iconDetailSrv: IconDetailService,
-    private _mwSrv: MerriamWebsterService
+    private _mwSrv: MerriamWebsterService,
+    private _playbackSrv: AudioPlaybackService
   ) {}
 
   ngOnInit() {
@@ -60,5 +62,27 @@ export class IconDetailComponent implements OnInit {
 
       this.loading = false;
     });
+  }
+
+  playAudio(
+    $event,
+    prs: {
+      sound?: {
+        audio: string;
+      };
+    }[]
+  ) {
+    if (prs && prs.length > 0) {
+      $event.target.name = 'volume-high';
+      for (let pr of prs) {
+        if (pr.sound !== undefined && pr.sound.audio !== undefined) {
+          this._playbackSrv.play(pr.sound.audio, $event);
+          return;
+        }
+      }
+      $event.target.name = 'volume-off';
+    } else {
+      $event.target.name = 'volume-mute';
+    }
   }
 }
