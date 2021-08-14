@@ -1,0 +1,10 @@
+ion-grid {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-row {
+    min-width: 320px;
+  }
+}
