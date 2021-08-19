@@ -6,10 +6,10 @@ import { environment } from 'src/environments/environment';
 import { Category } from './models/category.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoriesService {
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
   retrieve(id: number): Observable<Category.IClientData> {
     return this._http
@@ -39,6 +39,19 @@ export class CategoriesService {
           };
 
           return clientDataList;
+        })
+      );
+  }
+
+  create(category: Category.IRequestBody): Observable<Category.IClientData> {
+    return this._http
+      .post<Category.IResponseBody>(
+        environment.apiBase + '/categories',
+        category
+      )
+      .pipe(
+        map((data) => {
+          return { ...data, retrieved: new Date() };
         })
       );
   }

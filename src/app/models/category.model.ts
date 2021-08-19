@@ -4,6 +4,7 @@ export namespace Category {
   export interface ICategory {
     id: number;
     name: string;
+    parent: number;
     path: string;
     children?: ICategory[];
   }
@@ -14,5 +15,10 @@ export namespace Category {
   export interface IClientDataList
     extends Model.IClientDataList,
       IResponseBodyList {}
-  export interface IRequestBody extends Model.IRequestBody {}
+  export interface IRequestBody extends Model.IRequestBody {
+    id?: number;
+    name: string;
+    parent?: number;
+    path?: string;
+  }
 }

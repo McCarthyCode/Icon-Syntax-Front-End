@@ -5,6 +5,7 @@ import { IconsService } from '../icons.service';
 import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
 import { CategoriesService } from '../categories.service';
+import { AuthService } from '../auth.service';
 
 const emptyCategories: Category.IClientDataList = {
   results: [],
@@ -57,7 +58,8 @@ export class CategoriesPage implements OnInit {
   constructor(
     private _iconsSrv: IconsService,
     private _iconsDetailSrv: IconDetailService,
-    private _categoriesSrv: CategoriesService
+    private _categoriesSrv: CategoriesService,
+    public authSrv: AuthService
   ) {}
 
   ngOnInit(): void {

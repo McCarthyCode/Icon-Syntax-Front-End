@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import { AuthGuard } from './auth.guard';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -12,19 +14,27 @@ const routes: Routes = [
   },
   {
     path: 'find',
-    loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+    loadChildren: () =>
+      import('./categories/categories.module').then(
+        (m) => m.CategoriesPageModule
+      ),
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+  },
+  {
+    path: 'category/create',
+    component: CreateCategoryComponent,
+    canActivate: [AuthGuard],
   },
 ];
 
