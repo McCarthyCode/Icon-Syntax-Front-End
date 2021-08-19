@@ -14,9 +14,10 @@ const emailRegex =
 })
 export class AuthService {
   credentials$ = new BehaviorSubject<Auth.ICredentials>(null);
-  get isAuthenticated(): boolean {
-    return Boolean(this.credentials$.value);
-  }
+  isAuthenticated = false;
+  // get isAuthenticated(): boolean {
+  //   return Boolean(this.credentials$.value);
+  // }
 
   constructor(private _http: HttpClient, private _router: Router) {}
 
@@ -53,7 +54,16 @@ export class AuthService {
   }
   */
 
+  mockLogin(): Observable<Auth.IResponse> {
+    this.isAuthenticated = true;
+
+    return of({
+      success: 'You have successfully logged in.',
+    });
+  }
+
   login(username: string, password: string): Observable<Auth.IResponse> {
+    return this.mockLogin();
     return this._http
       .post<Auth.ISuccessResponse>(
         environment.apiBase + '/auth/login',

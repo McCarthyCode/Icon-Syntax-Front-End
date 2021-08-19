@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { BehaviorSubject, of } from 'rxjs';
 import { AuthService } from '../auth.service';
@@ -15,15 +15,21 @@ import { Auth } from '../interfaces/auth.interface';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   errors$: BehaviorSubject<{ identifier: string[]; password: string[] }>;
+  redirect: string;
 
   constructor(
     private _authSrv: AuthService,
     private _loadingCtrl: LoadingController,
     private _toastCtrl: ToastController,
-    private _router: Router
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this._activatedRoute.queryParams.subscribe((params) => {
+      this.redirect = params.redirect;
+    });
+
     this.form = new FormGroup({
       identifier: new FormControl('', {
         updateOn: 'change',
@@ -71,13 +77,28 @@ export class LoginComponent implements OnInit {
     response: Auth.ISuccessResponse,
     loader: HTMLIonLoadingElement
   ) {
-    const redirect = response.redirect ? response.redirect : '/find';
-    this._router.navigateByUrl(redirect);
+    this._toastCtrl
+      .create({
+        message: response.success,
+        position: 'top',
+        color: 'success',
+        duration: 3000,
+        buttons: [
+          {
+            text: 'Close',
+            role: 'cancel',
+          },
+        ],
+      })
+      .then((toast) => {
+        this.form.reset();
+        this.errors$.next({ identifier: [], password: [] });
 
-    this.form.reset();
-    this.errors$.next({ identifier: [], password: [] });
+        loader.dismiss();
+        toast.present();
 
-    loader.dismiss();
+        this._router.navigateByUrl(this.redirect ? this.redirect : '/');
+      });
   }
 
   async loginErrorHandler(
@@ -86,7 +107,7 @@ export class LoginComponent implements OnInit {
   ) {
     console.error(response);
 
-    const error: Auth.IErrorResponse = response.error;
+    const error = response.error as Auth.IErrorResponse;
     const errors = error.errors;
 
     if (errors) {
@@ -94,6 +115,7 @@ export class LoginComponent implements OnInit {
         const toast = await this._toastCtrl.create({
           message: err,
           position: 'top',
+          color: 'warning',
           buttons: [
             {
               text: 'Close',
