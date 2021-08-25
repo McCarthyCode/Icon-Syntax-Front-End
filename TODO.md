@@ -2,15 +2,6 @@
 
 ## High Priorities
 
-- Category CRUD
-  - Back end
-    - ~~Create~~
-    - ~~Read~~
-    - Update
-    - Destroy
-  - Front end
-    - Create/Update/Delete Category buttons
-    - Create/Update/Delete Category modal
 - Icon CRUD
   - Back end
     - Create
@@ -24,7 +15,7 @@
 
 ## Medium Priorities
 
-- Dismiss menu on item click
+_None at this time._
 
 ## Low Priorities
 
