@@ -108,20 +108,14 @@ export class UpdateCategoryComponent implements OnInit {
             parent: parent,
             category: this.category,
             path: changePath ? this.path : this.category.path,
+            mode: 'update',
           },
         })
         .then((modal) => modal.present());
     };
 
-    if (this.category.id) {
-      this._categoriesSrv.retrieve(this.category.id).subscribe({
-        next: (parent) => {
-          presentModal(parent);
-        },
-        error: (res) => {
-          console.error(res);
-        },
-      });
+    if (this.breadcrumbs.length > 0) {
+      presentModal(this.breadcrumbs[this.breadcrumbs.length - 1]);
     } else {
       presentModal(null);
     }

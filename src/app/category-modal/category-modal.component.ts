@@ -1,7 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { CategoriesService } from '../categories.service';
 import { Category } from '../models/category.model';
 
@@ -14,22 +18,20 @@ export class CategoryModalComponent implements OnInit {
   parent: Category.IClientData;
   category: Category.IRequestBody;
   path: string;
-
-  get updateMode(): boolean {
-    return Boolean(this.category) && Boolean(this.category.id);
-  }
-  get createMode(): boolean {
-    return this.category === undefined;
-  }
+  mode: 'create' | 'update';
 
   form: FormGroup;
   name: string;
 
+  nonFieldErrors: string[] = [];
+  nameErrors: string[] = [];
+
   constructor(
+    private _router: Router,
     private _categoriesSrv: CategoriesService,
     private _alertCtrl: AlertController,
-    private _router: Router,
-    private _modalCtrl: ModalController
+    private _modalCtrl: ModalController,
+    private _toastCtrl: ToastController
   ) {}
 
   ngOnInit() {
@@ -53,41 +55,67 @@ export class CategoryModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.updateMode) {
-      this._categoriesSrv.update(this.category).subscribe(() => {
-        this._alertCtrl
+    const errorHandler = (response: { error: Category.IErrorResponse }) => {
+      for (let error of response.error.errors) {
+        this._toastCtrl
           .create({
-            header: 'Category Updated',
-            message: 'The category has been edited successfully.',
+            message: error,
+            position: 'top',
+            color: 'danger',
+            duration: 5000,
             buttons: [
               {
-                text: 'Okay',
-                handler: () => {
-                  this._modalCtrl.dismiss();
-                  this._router.navigateByUrl('/find');
-                },
+                text: 'Close',
+                role: 'cancel',
               },
             ],
           })
-          .then((alert: HTMLIonAlertElement) => alert.present());
+          .then((toast) => toast.present());
+      }
+    };
+
+    if (this.mode === 'create') {
+      this._categoriesSrv.create(this.category).subscribe({
+        next: () => {
+          this._alertCtrl
+            .create({
+              header: 'Category Added',
+              message: 'The category has been created successfully.',
+              buttons: [
+                {
+                  text: 'Okay',
+                  handler: () => {
+                    this._modalCtrl.dismiss();
+                    this._router.navigateByUrl('/find');
+                  },
+                },
+              ],
+            })
+            .then((alert: HTMLIonAlertElement) => alert.present());
+        },
+        error: errorHandler,
       });
-    } else if (this.createMode) {
-      this._categoriesSrv.create(this.category).subscribe(() => {
-        this._alertCtrl
-          .create({
-            header: 'Category Added',
-            message: 'The category has been created successfully.',
-            buttons: [
-              {
-                text: 'Okay',
-                handler: () => {
-                  this._modalCtrl.dismiss();
-                  this._router.navigateByUrl('/find');
+    } else if (this.mode === 'update') {
+      this.category.parent = this.parent ? this.parent.id : null;
+      this._categoriesSrv.update(this.category).subscribe({
+        next: () => {
+          this._alertCtrl
+            .create({
+              header: 'Category Updated',
+              message: 'The category has been edited successfully.',
+              buttons: [
+                {
+                  text: 'Okay',
+                  handler: () => {
+                    this._modalCtrl.dismiss();
+                    this._router.navigateByUrl('/find');
+                  },
                 },
-              },
-            ],
-          })
-          .then((alert: HTMLIonAlertElement) => alert.present());
+              ],
+            })
+            .then((alert: HTMLIonAlertElement) => alert.present());
+        },
+        error: errorHandler,
       });
     }
   }

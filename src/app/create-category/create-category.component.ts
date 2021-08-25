@@ -98,6 +98,7 @@ export class CreateCategoryComponent {
         componentProps: {
           parent: this.category,
           path: this.path,
+          mode: 'create',
         },
       })
       .then((modal) => modal.present());

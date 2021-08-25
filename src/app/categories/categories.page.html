@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button
+      <ion-button
         (click)="clickBack()"
         [style.display]="breadcrumbs.length > 0 ? 'inline-block' : 'none'"
-        defaultHref="/find"
       >
-      </ion-back-button>
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-spinner *ngIf="loadingCategories"></ion-spinner>
     <ion-title *ngIf="!loadingCategories">
@@ -63,13 +63,13 @@
                 color="tertiary"
                 routerLink="/category/update/{{category.id}}"
               >
-              Update
+                Update
               </ion-item-option>
               <ion-item-option
                 color="danger"
                 (click)="deleteCategory(category.id)"
               >
-              Delete
+                Delete
               </ion-item-option>
             </ion-item-options>
           </ion-item-sliding>

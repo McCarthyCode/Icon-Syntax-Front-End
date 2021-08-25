@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> {{ createMode ? "Add" : "Update" }} a Category </ion-title>
+    <ion-title>
+      {{ mode === "create" ? "Add" : "Update" }} a Category
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onClose()">
         <ion-icon name="close"></ion-icon>
@@ -13,23 +15,26 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-list>
-          <ion-item>
-            <ion-label position="floating"> Name </ion-label>
-            <ion-input
-              value="{{ category.name }}"
-              (ionChange)="onInputChange($event.target.value)"
-            ></ion-input>
-          </ion-item>
-          <ion-item class="ion-text-wrap">
-            <ion-text *ngIf="!path">
-              <em>root</em> » {{ category.name }}
-            </ion-text>
-            <ion-text *ngIf="path">
-              {{ path }} » {{ category.name }}
-            </ion-text>
-          </ion-item>
-        </ion-list>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating"> Name </ion-label>
+              <ion-input
+                value="{{ category.name }}"
+                formControlName="name"
+                (ionChange)="onInputChange($event.target.value)"
+              ></ion-input>
+            </ion-item>
+            <ion-item class="ion-text-wrap">
+              <ion-text *ngIf="!path">
+                <em>root</em> » {{ category.name }}
+              </ion-text>
+              <ion-text *ngIf="path">
+                {{ path }} » {{ category.name }}
+              </ion-text>
+            </ion-item>
+          </ion-list>
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>

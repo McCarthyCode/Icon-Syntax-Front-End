@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  async loginErrorHandler(
+  loginErrorHandler(
     response: HttpErrorResponse,
     loader: HTMLIonLoadingElement
   ) {
@@ -113,18 +113,20 @@ export class LoginComponent implements OnInit {
 
     if (errors) {
       for (let err of errors) {
-        const toast = await this._toastCtrl.create({
-          message: err,
-          position: 'top',
-          color: 'warning',
-          buttons: [
-            {
-              text: 'Close',
-              role: 'cancel',
-            },
-          ],
-        });
-        toast.present();
+        this._toastCtrl
+          .create({
+            message: err,
+            position: 'top',
+            color: 'danger',
+            duration: 3000,
+            buttons: [
+              {
+                text: 'Close',
+                role: 'cancel',
+              },
+            ],
+          })
+          .then((toast) => toast.present());
       }
     }
 
