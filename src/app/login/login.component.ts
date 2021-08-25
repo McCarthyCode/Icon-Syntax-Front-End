@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
     });
 
     this.form = new FormGroup({
-      identifier: new FormControl('', {
+      identifier: new FormControl('test1', {
         updateOn: 'change',
         validators: [Validators.required],
       }),
-      password: new FormControl('', {
+      password: new FormControl('Easypass123!', {
         updateOn: 'change',
         validators: [Validators.required],
       }),
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
         message: response.success,
         position: 'top',
         color: 'success',
-        duration: 3000,
+        duration: 5000,
         buttons: [
           {
             text: 'Close',
@@ -95,10 +95,10 @@ export class LoginComponent implements OnInit {
         this.form.reset();
         this.errors$.next({ identifier: [], password: [] });
 
+        this._router.navigateByUrl(this.redirect ? this.redirect : '/');
+
         loader.dismiss();
         toast.present();
-
-        this._router.navigateByUrl(this.redirect ? this.redirect : '/');
       });
   }
 
@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
             message: err,
             position: 'top',
             color: 'danger',
-            duration: 3000,
+            duration: 5000,
             buttons: [
               {
                 text: 'Close',

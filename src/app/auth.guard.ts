@@ -6,26 +6,56 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private _authSrv: AuthService, private _router: Router) {}
+  constructor(
+    private _authSrv: AuthService,
+    private _router: Router,
+    private _toastCtrl: ToastController
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const isAuthenticated = this._authSrv.isAuthenticated;
-
-    if (!isAuthenticated) {
-      this._router.navigate(['/login'], {
-        queryParams: { redirect: state.url },
-      });
+    const credentials = this._authSrv.credentials$.value;
+    if (!credentials) {
+      this.redirectToLogin(state);
+      return false;
     }
 
-    return isAuthenticated;
+    if (route.data && route.data.allowAdmin) {
+      if (!credentials.isAdmin) {
+        this._toastCtrl
+          .create({
+            message: `You do not have permission to access the resource at ${state.url}.`,
+            position: 'bottom',
+            color: 'warning',
+            duration: 5000,
+            buttons: [
+              {
+                text: 'Close',
+                role: 'cancel',
+              },
+            ],
+          })
+          .then((toast) => toast.present());
+      }
+      return credentials.isAdmin;
+    }
+
+    return true;
+  }
+
+  redirectToLogin(state: RouterStateSnapshot): void {
+    this._router.navigate(['/login'], {
+      queryParams: { redirect: state.url },
+    });
   }
 }

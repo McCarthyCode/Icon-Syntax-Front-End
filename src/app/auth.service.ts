@@ -14,10 +14,6 @@ const emailRegex =
 })
 export class AuthService {
   credentials$ = new BehaviorSubject<Auth.ICredentials>(null);
-  isAuthenticated = false;
-  // get isAuthenticated(): boolean {
-  //   return Boolean(this.credentials$.value);
-  // }
 
   constructor(private _http: HttpClient, private _router: Router) {}
 
@@ -54,27 +50,18 @@ export class AuthService {
   }
   */
 
-  mockLogin(): Observable<Auth.IResponse> {
-    this.isAuthenticated = true;
-
-    return of({
-      success: 'You have successfully logged in.',
-    });
-  }
-
   login(username: string, password: string): Observable<Auth.IResponse> {
-    return this.mockLogin();
-    // return this._http
-    //   .post<Auth.ISuccessResponse>(
-    //     environment.apiBase + '/auth/login',
-    //     emailRegex.test(username)
-    //       ? { email: username, password: password }
-    //       : { username: username, password: password }
-    //   )
-    //   .pipe(
-    //     tap((response: Auth.ISuccessResponse) => {
-    //       this.credentials$.next(response.credentials);
-    //     })
-    //   );
+    return this._http
+      .post<Auth.ISuccessResponse>(
+        environment.apiBase + '/auth/login',
+        emailRegex.test(username)
+          ? { email: username, password: password }
+          : { username: username, password: password }
+      )
+      .pipe(
+        tap((response: Auth.ISuccessResponse) => {
+          this.credentials$.next(response.credentials);
+        })
+      );
   }
 }

@@ -36,12 +36,24 @@ const routes: Routes = [
     path: 'category/create',
     component: CreateCategoryComponent,
     canActivate: [AuthGuard],
+    data: { allowAdmin: true },
   },
   {
     path: 'category/update/:id',
     component: UpdateCategoryComponent,
     canActivate: [AuthGuard],
+    data: { allowAdmin: true },
   },
+  // {
+  //   path: 'icon/create',
+  //   component: CreateIconComponent,
+  //   canActivate: [AuthGuard],
+  // },
+  // {
+  //   path: 'icon/update/:id',
+  //   component: UpdateIconComponent,
+  //   canActivate: [AuthGuard],
+  // },
 ];
 
 @NgModule({
