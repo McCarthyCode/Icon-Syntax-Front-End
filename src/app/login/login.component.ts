@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (!this.form) {
       console.error('Form must be initialized before submitting.');
+
       return;
     }
 

@@ -64,17 +64,17 @@ export class AuthService {
 
   login(username: string, password: string): Observable<Auth.IResponse> {
     return this.mockLogin();
-    return this._http
-      .post<Auth.ISuccessResponse>(
-        environment.apiBase + '/auth/login',
-        emailRegex.test(username)
-          ? { email: username, password: password }
-          : { username: username, password: password }
-      )
-      .pipe(
-        tap((response: Auth.ISuccessResponse) => {
-          this.credentials$.next(response.credentials);
-        })
-      );
+    // return this._http
+    //   .post<Auth.ISuccessResponse>(
+    //     environment.apiBase + '/auth/login',
+    //     emailRegex.test(username)
+    //       ? { email: username, password: password }
+    //       : { username: username, password: password }
+    //   )
+    //   .pipe(
+    //     tap((response: Auth.ISuccessResponse) => {
+    //       this.credentials$.next(response.credentials);
+    //     })
+    //   );
   }
 }

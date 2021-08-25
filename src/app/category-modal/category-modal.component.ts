@@ -13,6 +13,7 @@ import { Category } from '../models/category.model';
 export class CategoryModalComponent implements OnInit {
   parent: Category.IClientData;
   category: Category.IRequestBody;
+  path: string;
 
   get updateMode(): boolean {
     return Boolean(this.category) && Boolean(this.category.id);
@@ -23,8 +24,6 @@ export class CategoryModalComponent implements OnInit {
 
   form: FormGroup;
   name: string;
-
-  @Output() dismissModalEmitter = new EventEmitter<void>();
 
   constructor(
     private _categoriesSrv: CategoriesService,
@@ -54,22 +53,46 @@ export class CategoryModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this._categoriesSrv.create(this.category).subscribe(() => {
-      this._alertCtrl
-        .create({
-          header: 'Category Added',
-          message: 'The category has been created successfully.',
-          buttons: [
-            {
-              text: 'Okay',
-              handler: () => {
-                this._modalCtrl.dismiss();
-                this._router.navigateByUrl('/find');
+    if (this.updateMode) {
+      this._categoriesSrv.update(this.category).subscribe(() => {
+        this._alertCtrl
+          .create({
+            header: 'Category Updated',
+            message: 'The category has been edited successfully.',
+            buttons: [
+              {
+                text: 'Okay',
+                handler: () => {
+                  this._modalCtrl.dismiss();
+                  this._router.navigateByUrl('/find');
+                },
               },
-            },
-          ],
-        })
-        .then((alert: HTMLIonAlertElement) => alert.present());
-    });
+            ],
+          })
+          .then((alert: HTMLIonAlertElement) => alert.present());
+      });
+    } else if (this.createMode) {
+      this._categoriesSrv.create(this.category).subscribe(() => {
+        this._alertCtrl
+          .create({
+            header: 'Category Added',
+            message: 'The category has been created successfully.',
+            buttons: [
+              {
+                text: 'Okay',
+                handler: () => {
+                  this._modalCtrl.dismiss();
+                  this._router.navigateByUrl('/find');
+                },
+              },
+            ],
+          })
+          .then((alert: HTMLIonAlertElement) => alert.present());
+      });
+    }
+  }
+
+  onClose() {
+    this._modalCtrl.dismiss();
   }
 }

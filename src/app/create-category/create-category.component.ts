@@ -17,11 +17,20 @@ const emptyCategories: Category.IClientDataList = {
   styleUrls: ['./create-category.component.scss'],
 })
 export class CreateCategoryComponent {
-  category$ = new BehaviorSubject<Category.IClientData>(null);
+  category: Category.IClientData = null;
   categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
 
   loading = false;
   breadcrumbs = [];
+
+  get path(): string {
+    const path: string = this.breadcrumbs
+      .filter((category) => Boolean(category))
+      .map((category) => category.name)
+      .join(' » ');
+
+    return path;
+  }
 
   constructor(
     private _categoriesSrv: CategoriesService,
@@ -39,10 +48,11 @@ export class CreateCategoryComponent {
 
   clickCategory(id: number): void {
     this.loading = true;
-    this.breadcrumbs.push(this.category$.value);
+    // this.breadcrumbs.push(this.category);
 
     this._categoriesSrv.retrieve(id).subscribe((category) => {
-      this.category$.next(category);
+      this.category = category;
+      this.breadcrumbs.push(category);
 
       const categories: Category.IClientDataList = {
         retrieved: category.retrieved,
@@ -62,16 +72,16 @@ export class CreateCategoryComponent {
       return;
     }
 
-    this.category$.next(category);
+    this.category = category;
 
-    if (category === null) {
+    if (category.parent === null) {
       this._categoriesSrv.list().subscribe((categories) => {
         this.categories$.next(categories);
         this.loading = false;
       });
     } else {
-      this._categoriesSrv.retrieve(category.id).subscribe((category) => {
-        this.category$.next(category);
+      this._categoriesSrv.retrieve(category.parent).subscribe((category) => {
+        this.category = category;
         this.categories$.next({
           results: category.children,
           retrieved: new Date(),
@@ -86,9 +96,9 @@ export class CreateCategoryComponent {
       .create({
         component: CategoryModalComponent,
         componentProps: {
-          parent: this.category$.value,
+          parent: this.category,
+          path: this.path,
         },
-
       })
       .then((modal) => modal.present());
   }

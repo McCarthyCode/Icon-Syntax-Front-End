@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Category } from './models/category.model';
@@ -54,5 +54,24 @@ export class CategoriesService {
           return { ...data, retrieved: new Date() };
         })
       );
+  }
+
+  update(category: Category.IRequestBody): Observable<Category.IClientData> {
+    return this._http
+      .put<Category.IResponseBody>(
+        `${environment.apiBase}/categories/${category.id}`,
+        category
+      )
+      .pipe(
+        map((data) => {
+          return { ...data, retrieved: new Date() };
+        })
+      );
+  }
+
+  delete(id: number): Observable<Category.IResponse> {
+    return this._http.delete<Category.IResponse>(
+      `${environment.apiBase}/categories/${id}`
+    );
   }
 }

@@ -31,10 +31,7 @@
         ></ion-searchbar>
         <div class="header ion-margin-vertical">
           <h1 class="ion-no-margin">Word List</h1>
-          <ion-button
-            class="ion-no-margin"
-            routerLink="/category/create"
-          >
+          <ion-button class="ion-no-margin" routerLink="/category/create">
             <ion-icon name="add" slot="start"> </ion-icon>
             Add Category
           </ion-button>
@@ -54,14 +51,28 @@
         <ion-list
           [style.display]="!loadingCategories && (categories$ | async).results.length > 0 ? 'block' : 'none'"
         >
-          <ion-item
-            detail="true"
-            button
-            (click)="clickCategory(category.id)"
+          <ion-item-sliding
             *ngFor="let category of (categories$ | async).results"
           >
-            <ion-text>{{ category.name }}</ion-text>
-          </ion-item>
+            <ion-item detail="true" button (click)="clickCategory(category.id)">
+              <ion-text>{{ category.name }}</ion-text>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option
+                color="tertiary"
+                routerLink="/category/update/{{category.id}}"
+              >
+              Update
+              </ion-item-option>
+              <ion-item-option
+                color="danger"
+                (click)="deleteCategory(category.id)"
+              >
+              Delete
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -69,10 +80,7 @@
       <ion-col size-md="9" size-lg="7" size-xl="6">
         <div class="header ion-margin-top">
           <h1 class="ion-no-margin">Icons</h1>
-          <ion-button
-            class="ion-no-margin"
-            routerLink="/"
-          >
+          <ion-button class="ion-no-margin" routerLink="/">
             <ion-icon name="add" slot="start"> </ion-icon>
             Add Icon
           </ion-button>

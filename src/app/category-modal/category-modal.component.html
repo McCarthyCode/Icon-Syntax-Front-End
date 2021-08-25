@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title> {{ createMode ? "Add" : "Update" }} a Category </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,14 +17,16 @@
           <ion-item>
             <ion-label position="floating"> Name </ion-label>
             <ion-input
+              value="{{ category.name }}"
               (ionChange)="onInputChange($event.target.value)"
             ></ion-input>
           </ion-item>
           <ion-item class="ion-text-wrap">
-            <ion-text>
-              <em *ngIf="!parent">root</em>
-              {{ parent ? parent.path : "" }} »
-              {{ category ? category.name : "" }}
+            <ion-text *ngIf="!path">
+              <em>root</em> » {{ category.name }}
+            </ion-text>
+            <ion-text *ngIf="path">
+              {{ path }} » {{ category.name }}
             </ion-text>
           </ion-item>
         </ion-list>

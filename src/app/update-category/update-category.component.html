@@ -7,7 +7,7 @@
     </ion-buttons>
     <ion-spinner *ngIf="loading"></ion-spinner>
     <ion-title *ngIf="!loading">
-      {{ path ? path : "Create a Category" }}
+      {{ path ? path : "Update a Category" }}
     </ion-title>
     <ion-buttons slot="end">
       <ion-menu-button contentId="menu"> </ion-menu-button>
@@ -27,9 +27,13 @@
           <ion-spinner></ion-spinner>
         </div>
         <ion-list *ngIf="!loading">
-          <ion-item color="secondary" (click)="clickCreateCategory()">
-            <ion-text color="light">Add Category Here</ion-text>
-            <ion-icon color="light" slot="end" name="add"></ion-icon>
+          <ion-item color="secondary" (click)="clickEditCategory(false)">
+            <ion-text color="light">Edit Category Without Moving</ion-text>
+            <ion-icon color="light" slot="end" name="create"></ion-icon>
+          </ion-item>
+          <ion-item color="secondary" (click)="clickEditCategory(true)">
+            <ion-text color="light">Edit Category and Move Here</ion-text>
+            <ion-icon color="light" slot="end" name="create"></ion-icon>
           </ion-item>
           <ion-item
             detail="true"

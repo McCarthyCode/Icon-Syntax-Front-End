@@ -5,6 +5,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { UpdateCategoryComponent } from './update-category/update-category.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'category/create',
     component: CreateCategoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'category/update/:id',
+    component: UpdateCategoryComponent,
     canActivate: [AuthGuard],
   },
 ];

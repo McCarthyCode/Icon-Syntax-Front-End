@@ -6,6 +6,7 @@ import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
 import { CategoriesService } from '../categories.service';
 import { AuthService } from '../auth.service';
+import { AlertController } from '@ionic/angular';
 
 const emptyCategories: Category.IClientDataList = {
   results: [],
@@ -59,10 +60,13 @@ export class CategoriesPage implements OnInit {
     private _iconsSrv: IconsService,
     private _iconsDetailSrv: IconDetailService,
     private _categoriesSrv: CategoriesService,
+    private _alertCtrl: AlertController,
     public authSrv: AuthService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ionViewWillEnter(): void {
     this.categoriesSub = this._categoriesSrv.list().subscribe((categories) => {
       this.breadcrumbs = [];
       this.categories$.next(categories);
@@ -222,5 +226,38 @@ export class CategoriesPage implements OnInit {
           this.loadingIcons = false;
         });
     });
+  }
+
+  updateCategory(category: Category.IClientData): void {
+    this._categoriesSrv.update(category).subscribe()
+  }
+
+  deleteCategory(id: number): void {
+    this._categoriesSrv.delete(id).subscribe(
+      () => {
+        this._alertCtrl
+          .create({
+            header: 'Category Deleted',
+            message: 'The category has been removed successfully.',
+            buttons: [
+              {
+                text: 'Okay',
+                handler: () => this.ionViewWillEnter(),
+              },
+            ],
+          })
+          .then((alert: HTMLIonAlertElement) => alert.present());
+      },
+      () => {
+        this._alertCtrl
+          .create({
+            header: 'Error Deleting Category',
+            message:
+              'A server error has prevented the category from being removed. Please try again later.',
+            buttons: ['Okay'],
+          })
+          .then((alert: HTMLIonAlertElement) => alert.present());
+      }
+    );
   }
 }

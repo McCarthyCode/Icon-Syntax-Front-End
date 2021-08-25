@@ -21,4 +21,11 @@ export namespace Category {
     parent?: number;
     path?: string;
   }
+  export interface ISuccessResponse {
+    success: string;
+  }
+  export interface IErrorResponse {
+    errors?: string[];
+  }
+  export type IResponse = ISuccessResponse | IErrorResponse;
 }

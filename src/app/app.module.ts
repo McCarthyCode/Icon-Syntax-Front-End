@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
+import { UpdateCategoryComponent } from './update-category/update-category.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CategoryModalComponent } from './category-modal/category-modal.componen
     RegisterComponent,
     CategoryModalComponent,
     CreateCategoryComponent,
+    UpdateCategoryComponent
   ],
   entryComponents: [],
   imports: [
