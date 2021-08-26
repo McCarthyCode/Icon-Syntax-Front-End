@@ -6,7 +6,8 @@ import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
 import { CategoriesService } from '../categories.service';
 import { AuthService } from '../auth.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
+import { HttpResponse } from '@angular/common/http';
 
 const emptyCategories: Category.IClientDataList = {
   results: [],
@@ -61,6 +62,7 @@ export class CategoriesPage implements OnInit {
     private _iconsDetailSrv: IconDetailService,
     private _categoriesSrv: CategoriesService,
     private _alertCtrl: AlertController,
+    private _toastCtrl: ToastController,
     public authSrv: AuthService
   ) {}
 
@@ -229,34 +231,59 @@ export class CategoriesPage implements OnInit {
   }
 
   updateCategory(category: Category.IClientData): void {
-    this._categoriesSrv.update(category).subscribe()
+    this._categoriesSrv.update(category).subscribe();
   }
 
   deleteCategory(id: number): void {
     this._categoriesSrv.delete(id).subscribe(
-      () => {
-        this._alertCtrl
-          .create({
-            header: 'Category Deleted',
-            message: 'The category has been removed successfully.',
-            buttons: [
-              {
-                text: 'Okay',
-                handler: () => this.ionViewWillEnter(),
-              },
-            ],
-          })
-          .then((alert: HTMLIonAlertElement) => alert.present());
+      (success) => {
+        if (success) {
+          this._alertCtrl
+            .create({
+              header: 'Category Deleted',
+              message: 'The category has been removed successfully.',
+              buttons: [
+                {
+                  text: 'Okay',
+                  handler: () => this.ionViewWillEnter(),
+                },
+              ],
+            })
+            .then((alert: HTMLIonAlertElement) => alert.present());
+        }
       },
-      () => {
-        this._alertCtrl
-          .create({
-            header: 'Error Deleting Category',
-            message:
-              'A server error has prevented the category from being removed. Please try again later.',
-            buttons: ['Okay'],
-          })
-          .then((alert: HTMLIonAlertElement) => alert.present());
+      (error) => {
+        switch (error.status) {
+          case 403:
+            this._toastCtrl
+              .create({
+                message:
+                  'You do not have permission to perform the requested action.',
+                position: 'bottom',
+                color: 'warning',
+                duration: 5000,
+                buttons: [
+                  {
+                    text: 'Close',
+                    role: 'cancel',
+                  },
+                ],
+              })
+              .then((toast) => toast.present());
+            break;
+
+          case 500:
+          default:
+            this._alertCtrl
+              .create({
+                header: 'Error Deleting Category',
+                message:
+                  'A server error has prevented the category from being removed. Please try again later.',
+                buttons: ['Okay'],
+              })
+              .then((alert: HTMLIonAlertElement) => alert.present());
+            break;
+        }
       }
     );
   }

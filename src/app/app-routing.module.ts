@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './auth.guard';
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { CreateIconComponent } from './create-icon/create-icon.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
