@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
+import { CreateIconComponent } from './create-icon/create-icon.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UpdateCategoryComponent } from './update-category/update-category.compo
     RegisterComponent,
     CategoryModalComponent,
     CreateCategoryComponent,
-    UpdateCategoryComponent
+    UpdateCategoryComponent,
+    CreateIconComponent
   ],
   entryComponents: [],
   imports: [

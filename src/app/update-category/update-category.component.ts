@@ -6,11 +6,6 @@ import { CategoriesService } from '../categories.service';
 import { CategoryModalComponent } from '../category-modal/category-modal.component';
 import { Category } from '../models/category.model';
 
-const emptyCategories: Category.IClientDataList = {
-  results: [],
-  retrieved: new Date(),
-};
-
 @Component({
   selector: 'app-update-category',
   templateUrl: './update-category.component.html',
@@ -18,7 +13,9 @@ const emptyCategories: Category.IClientDataList = {
 })
 export class UpdateCategoryComponent implements OnInit {
   category: Category.IClientData = null;
-  categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
+  categories$ = new BehaviorSubject<Category.IClientDataList>(
+    Category.emptyList
+  );
 
   loading = false;
   breadcrumbs: Category.IClientData[] = [];

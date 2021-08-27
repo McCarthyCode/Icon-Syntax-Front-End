@@ -3,16 +3,14 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { CategoriesService } from '../categories.service';
-import { CategoryModalComponent } from '../category-modal/category-modal.component';
 import { Category } from '../models/category.model';
 
 @Component({
-  selector: 'app-create-category',
-  templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.scss'],
+  selector: 'app-create-icon',
+  templateUrl: './create-icon.component.html',
+  styleUrls: ['./create-icon.component.scss'],
 })
-export class CreateCategoryComponent {
-  category: Category.IClientData = null;
+export class CreateIconComponent {
   categories$ = new BehaviorSubject<Category.IClientDataList>(
     Category.emptyList
   );
@@ -35,7 +33,7 @@ export class CreateCategoryComponent {
     private _router: Router
   ) {}
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this.loading = true;
     this._categoriesSrv.list().subscribe((categories) => {
       this.categories$.next(categories);
@@ -47,7 +45,6 @@ export class CreateCategoryComponent {
     this.loading = true;
 
     this._categoriesSrv.retrieve(id).subscribe((category) => {
-      this.category = category;
       this.breadcrumbs.push(category);
 
       const categories: Category.IClientDataList = {
@@ -68,8 +65,6 @@ export class CreateCategoryComponent {
       return;
     }
 
-    this.category = category;
-
     if (category.parent === null) {
       this._categoriesSrv.list().subscribe((categories) => {
         this.categories$.next(categories);
@@ -77,7 +72,6 @@ export class CreateCategoryComponent {
       });
     } else {
       this._categoriesSrv.retrieve(category.parent).subscribe((category) => {
-        this.category = category;
         this.categories$.next({
           results: category.children,
           retrieved: new Date(),
@@ -87,16 +81,5 @@ export class CreateCategoryComponent {
     }
   }
 
-  async clickCreateCategory(): Promise<void> {
-    return this._modalCtrl
-      .create({
-        component: CategoryModalComponent,
-        componentProps: {
-          parent: this.category,
-          path: this.path,
-          mode: 'create',
-        },
-      })
-      .then((modal) => modal.present());
-  }
+  clickCreateIcon(): void {}
 }

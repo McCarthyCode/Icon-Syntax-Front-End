@@ -4,7 +4,7 @@
 
 - Icon CRUD
   - Back end
-    - Create
+    - ~~Create~~
     - ~~Read~~
     - Update
     - Destroy
@@ -14,7 +14,8 @@
 
 ## Medium Priorities
 
-_None at this time._
+- Change `.italic` to `<em></em>`
+- Update CRUD page back buttons
 
 ## Low Priorities
 

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button
+        *ngIf="breadcrumbs.length === 0"
+        routerDirection="back"
+        routerLink="/find"
+        shape="round"
+      >
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button
+        *ngIf="breadcrumbs.length > 0"
+        (click)="clickBack()"
+        shape="round"
+      >
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <ion-title *ngIf="!loading">
+      {{ path ? path : "Create an Icon" }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button contentId="menu"> </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="9" size-lg="7" size-xl="6">
+        <h1 class="ion-margin-vertical">Word List</h1>
+        <div
+          class="spinner-wrapper"
+          [style.display]="loading ? 'flex' : 'none'"
+        >
+          <ion-spinner></ion-spinner>
+        </div>
+        <ion-list *ngIf="!loading">
+          <ion-item color="secondary" (click)="clickCreateIcon()">
+            <ion-text color="light">Add Icon Here</ion-text>
+            <ion-icon color="light" slot="end" name="add"></ion-icon>
+          </ion-item>
+          <ion-item
+            detail="true"
+            button
+            (click)="clickCategory(category.id)"
+            *ngFor="let category of (categories$ | async).results"
+          >
+            <ion-text>{{ category.name }}</ion-text>
+          </ion-item>
+        </ion-list>
+        <p
+          class="italic ion-text-center"
+          [style.display]="
+            !loading && (categories$ | async).results.length === 0
+              ? 'block'
+              : 'none'
+          "
+        >
+          <ion-text color="medium"> No more categories to show. </ion-text>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

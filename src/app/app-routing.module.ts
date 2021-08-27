@@ -45,11 +45,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { allowAdmin: true },
   },
-  // {
-  //   path: 'icon/create',
-  //   component: CreateIconComponent,
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: 'icon/create',
+    component: CreateIconComponent,
+    // canActivate: [AuthGuard],
+  },
   // {
   //   path: 'icon/update/:id',
   //   component: UpdateIconComponent,

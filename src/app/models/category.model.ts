@@ -28,4 +28,8 @@ export namespace Category {
     errors?: string[];
   }
   export type IResponse = ISuccessResponse | IErrorResponse;
+  export const emptyList: Category.IClientDataList = {
+    results: [],
+    retrieved: new Date(),
+  };
 }
