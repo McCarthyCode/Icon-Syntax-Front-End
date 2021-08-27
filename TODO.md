@@ -9,7 +9,6 @@
     - Update
     - Destroy
   - Front end
-    - Create Icon button (Find page)
     - Update/Delete Icon button (Icon Detail pane)
     - Create/Update/Delete Icon modal
 
