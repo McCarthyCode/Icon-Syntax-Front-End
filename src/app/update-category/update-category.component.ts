@@ -78,6 +78,10 @@ export class UpdateCategoryComponent implements OnInit {
     });
   }
 
+  ionViewDidLeave() {
+    this.breadcrumbs = [];
+  }
+
   clickCategory(id: number): void {
     this.loading = true;
 

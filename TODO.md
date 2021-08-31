@@ -16,6 +16,7 @@
 
 - Change `.italic` to `<em></em>`
 - Update CRUD page back buttons
+- Show empty message on Find page
 
 ## Low Priorities
 

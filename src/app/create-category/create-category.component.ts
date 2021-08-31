@@ -18,7 +18,7 @@ export class CreateCategoryComponent {
   );
 
   loading = false;
-  breadcrumbs = [];
+  breadcrumbs: Category.IClientData[] = [];
 
   get path(): string {
     const path: string = this.breadcrumbs
@@ -41,6 +41,10 @@ export class CreateCategoryComponent {
       this.categories$.next(categories);
       this.loading = false;
     });
+  }
+
+  ionViewDidLeave() {
+    this.breadcrumbs = [];
   }
 
   clickCategory(id: number): void {

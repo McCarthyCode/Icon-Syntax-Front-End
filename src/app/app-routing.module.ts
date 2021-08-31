@@ -48,7 +48,7 @@ const routes: Routes = [
   {
     path: 'icon/create',
     component: CreateIconComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   // {
   //   path: 'icon/update/:id',

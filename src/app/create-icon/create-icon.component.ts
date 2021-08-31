@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { CategoriesService } from '../categories.service';
+import { IconModalComponent } from '../icon-modal/icon-modal.component';
 import { Category } from '../models/category.model';
 
 @Component({
@@ -16,7 +17,17 @@ export class CreateIconComponent {
   );
 
   loading = false;
-  breadcrumbs = [];
+  breadcrumbs: Category.IClientData[] = [];
+
+  get showAddButton(): boolean {
+    const breadcrumbsLength = this.breadcrumbs.length;
+    const childrenLength =
+      breadcrumbsLength > 0
+        ? this.breadcrumbs[breadcrumbsLength - 1].children.length
+        : 0;
+
+    return breadcrumbsLength > 0 && childrenLength === 0;
+  }
 
   get path(): string {
     const path: string = this.breadcrumbs
@@ -39,6 +50,10 @@ export class CreateIconComponent {
       this.categories$.next(categories);
       this.loading = false;
     });
+  }
+
+  ionViewDidLeave(): void {
+    this.breadcrumbs = [];
   }
 
   clickCategory(id: number): void {
@@ -81,5 +96,19 @@ export class CreateIconComponent {
     }
   }
 
-  clickCreateIcon(): void {}
+  clickCreateIcon(): void {
+    this._modalCtrl
+      .create({
+        component: IconModalComponent,
+        componentProps: {
+          category:
+            this.breadcrumbs.length > 0
+              ? this.breadcrumbs[this.breadcrumbs.length - 1]
+              : null,
+          mode: 'create',
+          breadcrumbs: this.breadcrumbs,
+        },
+      })
+      .then((modal) => modal.present());
+  }
 }

@@ -39,7 +39,12 @@
           <ion-spinner></ion-spinner>
         </div>
         <ion-list *ngIf="!loading">
-          <ion-item color="secondary" (click)="clickCreateIcon()">
+          <ion-item
+            *ngIf="showAddButton"
+            color="secondary"
+            (click)="clickCreateIcon()"
+            button
+          >
             <ion-text color="light">Add Icon Here</ion-text>
             <ion-icon color="light" slot="end" name="add"></ion-icon>
           </ion-item>

@@ -15,6 +15,7 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { CategoryModalComponent } from './category-modal/category-modal.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { CreateIconComponent } from './create-icon/create-icon.component';
+import { IconModalComponent } from './icon-modal/icon-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,11 @@ import { CreateIconComponent } from './create-icon/create-icon.component';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
-    CategoryModalComponent,
     CreateCategoryComponent,
     UpdateCategoryComponent,
-    CreateIconComponent
+    CategoryModalComponent,
+    CreateIconComponent,
+    IconModalComponent
   ],
   entryComponents: [],
   imports: [
