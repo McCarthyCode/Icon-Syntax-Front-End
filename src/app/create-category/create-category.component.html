@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="clickBack()">
+      <ion-button (click)="clickBack()" shape="round">
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -41,14 +41,16 @@
           </ion-item>
         </ion-list>
         <p
-          class="italic ion-text-center"
+          class="ion-text-center"
           [style.display]="
             !loading && (categories$ | async).results.length === 0
               ? 'block'
               : 'none'
           "
         >
-          <ion-text color="medium"> No more categories to show. </ion-text>
+          <ion-text color="medium">
+            <em>No more categories to show.</em>
+          </ion-text>
         </p>
       </ion-col>
     </ion-row>

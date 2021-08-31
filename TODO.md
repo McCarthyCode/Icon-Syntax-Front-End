@@ -14,9 +14,7 @@
 
 ## Medium Priorities
 
-- Change `.italic` to `<em></em>`
-- Update CRUD page back buttons
-- Show empty message on Find page
+_None at this time._
 
 ## Low Priorities
 

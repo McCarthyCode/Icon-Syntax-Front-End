@@ -58,14 +58,16 @@
           </ion-item>
         </ion-list>
         <p
-          class="italic ion-text-center"
+          class="ion-text-center"
           [style.display]="
             !loading && (categories$ | async).results.length === 0
               ? 'block'
               : 'none'
           "
         >
-          <ion-text color="medium"> No more categories to show. </ion-text>
+          <ion-text color="medium">
+            <em>No more categories to show.</em>
+          </ion-text>
         </p>
       </ion-col>
     </ion-row>

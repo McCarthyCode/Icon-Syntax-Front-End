@@ -2,6 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button
+        shape="round"
         (click)="clickBack()"
         [style.display]="breadcrumbs.length > 0 ? 'inline-block' : 'none'"
       >
@@ -43,10 +44,12 @@
           <ion-spinner></ion-spinner>
         </div>
         <p
-          class="italic ion-text-center"
+          class="ion-text-center"
           [style.display]="!loadingCategories && (categories$ | async).results.length === 0 ? 'block' : 'none'"
         >
-          <ion-text color="medium"> No more categories to show. </ion-text>
+          <ion-text color="medium">
+            <em>No more categories to show.</em>
+          </ion-text>
         </p>
         <ion-list
           [style.display]="!loadingCategories && (categories$ | async).results.length > 0 ? 'block' : 'none'"
@@ -80,7 +83,7 @@
       <ion-col size-md="9" size-lg="7" size-xl="6">
         <div class="header ion-margin-top">
           <h1 class="ion-no-margin">Icons</h1>
-          <ion-button class="ion-no-margin"  routerLink="/icon/create">
+          <ion-button class="ion-no-margin" routerLink="/icon/create">
             <ion-icon name="add" slot="start"> </ion-icon>
             Add Icon
           </ion-button>
@@ -92,13 +95,28 @@
         <ion-spinner></ion-spinner>
       </ion-col>
     </ion-row>
-    <ion-row [style.display]="page === 1 && loadingIcons ? 'none' : 'flex'">
-      <ion-col>
+    <ion-row
+      class="ion-justify-content-center"
+      [style.display]="page === 1 && loadingIcons ? 'none' : 'flex'"
+    >
+      <ion-col *ngIf="(icons$ | async).results.length > 0">
         <ul class="icons ion-no-margin ion-no-padding">
           <li *ngFor="let icon of (icons$ | async).results">
             <app-icon (click)="clickIcon(icon)" [icon]="icon"></app-icon>
           </li>
         </ul>
+      </ion-col>
+      <ion-col
+        *ngIf="(icons$ | async).results.length === 0"
+        size-md="9"
+        size-lg="7"
+        size-xl="6"
+      >
+        <p class="ion-text-center">
+          <ion-text color="medium">
+            <em>No icons to show. Please broaden your search.</em>
+          </ion-text>
+        </p>
       </ion-col>
     </ion-row>
   </ion-grid>
