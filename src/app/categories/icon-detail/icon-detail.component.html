@@ -1,20 +1,63 @@
 <ion-menu side="end" contentId="categories">
   <ion-header>
     <ion-toolbar color="tertiary">
-      <ion-title>Dictionary Entry</ion-title>
+      <ion-title>Icon Detail</ion-title>
+      <ion-buttons slot="end">
+        <ion-button shape="round" (click)="onClose()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <app-icon class="ion-margin-end" [icon]="icon" *ngIf="icon"></app-icon>
     <div class="ion-padding-horizontal">
+      <ion-grid class="ion-margin-bottom ion-no-padding">
+        <ion-row *ngIf="icon" class="ion-justify-content-center">
+          <ion-col class="ion-text-center">
+            <app-icon [icon]="icon"></app-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h1><ion-text color="secondary">Category</ion-text></h1>
+            <p class="ion-no-margin" *ngIf="category?.path">
+              {{ category.path }} » {{ category.name }}
+            </p>
+            <p class="ion-no-margin" *ngIf="category && !category.path">
+              {{ category.name }}
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isAuthenticated">
+          <ion-col>
+            <h1><ion-text color="secondary">Actions</ion-text></h1>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isAuthenticated">
+          <ion-col size="6">
+            <ion-button
+              expand="block"
+              color="tertiary"
+              routerLink="/icon/update/{{ icon ? icon.id : 0 }}"
+              >Update</ion-button
+            >
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" color="danger">Delete</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <h1><ion-text color="secondary">Dictionary Entries</ion-text></h1>
       <p
         class="ion-margin-bottom"
         *ngIf="icon && suggestions$.value.length > 0"
       >
-        <em>
-          No dictionary entry found for "{{ icon.word }}." Try clicking one of
-          the suggested terms below.
-        </em>
+        <ion-text color="medium">
+          <em>
+            No dictionary entry found for "{{ icon.word }}." Try clicking one of
+            the suggested terms below.
+          </em>
+        </ion-text>
       </p>
       <p
         class="ion-margin-bottom"
@@ -24,9 +67,11 @@
           suggestions$.value.length === 0
         "
       >
-        <em>
-          No dictionary entry or suggested terms found for "{{ icon.word }}."
-        </em>
+        <ion-text color="medium">
+          <em>
+            No dictionary entry or suggested terms found for "{{ icon.word }}."
+          </em>
+        </ion-text>
       </p>
       <ol class="ion-no-margin" *ngIf="icon && dictEntries$.value.length > 0">
         <li *ngFor="let entry of dictEntries$ | async">

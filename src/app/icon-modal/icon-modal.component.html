@@ -15,7 +15,7 @@
       <ion-col>
         <form [formGroup]="form" enctype="multipart/form-data">
           <ion-list>
-            <ion-item>
+            <ion-item *ngIf="mode === 'create'">
               <ion-input
                 type="file"
                 formControlName="icon"
@@ -47,7 +47,7 @@
             </ion-item>
             <ion-item class="ion-text-wrap">
               <ion-text>
-                <span *ngIf="breadcrumbs.length > 1">
+                <span *ngIf="category.path">
                   {{ category.path }} »
                 </span>
                 {{ category.name }} » {{ form.value.word }}

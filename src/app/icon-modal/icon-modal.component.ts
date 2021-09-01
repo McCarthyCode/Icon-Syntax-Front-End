@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   AlertController,
@@ -23,9 +18,11 @@ import { Icon } from '../models/icon.model';
 })
 export class IconModalComponent implements OnInit {
   form: FormGroup;
-  mode: 'create' | 'update';
+  icon: Icon.IClientData;
 
+  mode: 'create' | 'update';
   breadcrumbs: Category.IClientData[] = [];
+  category: Category.IClientData;
 
   constructor(
     private _authSrv: AuthService,
@@ -40,22 +37,19 @@ export class IconModalComponent implements OnInit {
     this.form = new FormGroup({
       icon: new FormControl(null, {
         updateOn: 'change',
-        validators: [Validators.required],
+        validators: this.mode === 'create' ? [Validators.required] : undefined,
       }),
-      word: new FormControl('', {
+      word: new FormControl(this.icon ? this.icon.word : '', {
         updateOn: 'change',
         validators: [Validators.required],
       }),
-      descriptor: new FormControl('', {
+      descriptor: new FormControl(this.icon ? this.icon.descriptor : '', {
         updateOn: 'change',
       }),
-      category: new FormControl(
-        this.breadcrumbs[this.breadcrumbs.length - 1].id,
-        {
-          updateOn: 'change',
-          validators: [Validators.required],
-        }
-      ),
+      category: new FormControl(this.category ? this.category.id : null, {
+        updateOn: 'change',
+        validators: [Validators.required],
+      }),
     });
   }
 
@@ -80,7 +74,7 @@ export class IconModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const redirectLogin = () => {
+    const redirectFind = () => {
       this._modalCtrl.dismiss();
       this._router.navigateByUrl('/find');
     };
@@ -115,13 +109,32 @@ export class IconModalComponent implements OnInit {
           buttons: [
             {
               text: 'Okay',
-              handler: redirectLogin,
+              handler: redirectFind,
             },
           ],
         })
         .then((alert) => {
           alert.present();
         });
+    };
+
+    const errorHandler = (response: {
+      status: number;
+      error: Icon.IErrorResponse;
+    }) => {
+      switch (response.status) {
+        case 400:
+          http400Handler(response);
+          break;
+        case 401:
+          this._router.navigateByUrl('/login');
+          break;
+        case 500:
+          http500Handler(response);
+          break;
+        default:
+          console.error(response);
+      }
     };
 
     if (this.mode === 'create') {
@@ -137,7 +150,7 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: redirectLogin,
+                  handler: redirectFind,
                 },
               ],
             })
@@ -145,23 +158,35 @@ export class IconModalComponent implements OnInit {
               alert.present();
             });
         },
-        error: (response) => {
-          switch (response.status) {
-            case 400:
-              http400Handler(response);
-              break;
-            case 401:
-              redirectLogin();
-              break;
-            case 500:
-              http500Handler(response);
-              break;
-            default:
-              console.error(response);
-          }
-        },
+        error: errorHandler,
       });
     } else if (this.mode === 'update') {
+      const body: Icon.IRequestBody = {
+        id: this.icon.id,
+        ...this.form.value,
+      };
+      this._iconsSrv.update(body).subscribe({
+        next: () => {
+          const credentials = this._authSrv.credentials$.value;
+          this._alertCtrl
+            .create({
+              header: 'Icon Updated Successfully',
+              message: `The icon has been modified in our database${
+                credentials.isAdmin ? '' : ' and is pending approval'
+              }.`,
+              buttons: [
+                {
+                  text: 'Okay',
+                  handler: redirectFind,
+                },
+              ],
+            })
+            .then((alert) => {
+              alert.present();
+            });
+        },
+        error: errorHandler,
+      });
     }
   }
 }

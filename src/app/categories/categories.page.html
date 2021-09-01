@@ -11,8 +11,7 @@
     </ion-buttons>
     <ion-spinner *ngIf="loadingCategories"></ion-spinner>
     <ion-title *ngIf="!loadingCategories">
-      {{ (category$ | async) === null ? 'Find Icons' : (category$ | async).path
-      }}
+      {{ path ? path : 'Find Icons' }}
     </ion-title>
     <ion-buttons slot="end">
       <ion-menu-button contentId="menu"> </ion-menu-button>

@@ -6,6 +6,7 @@ export namespace Icon {
     id: number;
     word: string;
     descriptor: string;
+    category: number;
     icon: string;
     md5: string;
   }
@@ -22,12 +23,14 @@ export namespace Icon {
     id?: number;
     word: string;
     descriptor: string;
+    category: number;
     icon: string;
   }
   export const emptyRequestBody: IRequestBody = {
     icon: null,
     word: '',
     descriptor: '',
+    category: null
   };
   export interface ISuccessResponse {
     success: string;

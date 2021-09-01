@@ -7,6 +7,7 @@ import { CreateIconComponent } from './create-icon/create-icon.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
+import { UpdateIconComponent } from './update-icon/update-icon.component';
 
 const routes: Routes = [
   {
@@ -50,11 +51,11 @@ const routes: Routes = [
     component: CreateIconComponent,
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'icon/update/:id',
-  //   component: UpdateIconComponent,
-  //   canActivate: [AuthGuard],
-  // },
+  {
+    path: 'icon/update/:id',
+    component: UpdateIconComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

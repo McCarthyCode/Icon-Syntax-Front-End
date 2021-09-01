@@ -54,6 +54,15 @@ export class CategoriesPage implements OnInit {
   query = '';
   page = 1;
 
+  get path(): string {
+    const path: string = this.breadcrumbs
+      .filter((category) => Boolean(category))
+      .map((category) => category.name)
+      .join(' » ');
+
+    return path;
+  }
+
   // Event emitters
   @Output() iconClick = new EventEmitter<Icon.IIcon>();
 
@@ -121,9 +130,8 @@ export class CategoriesPage implements OnInit {
     this.resetCategories();
     this.resetIcons();
 
-    this.breadcrumbs.push(this.category$.value);
-
     this._categoriesSrv.retrieve(id).subscribe((category) => {
+      this.breadcrumbs.push(category);
       this.category$.next(category);
 
       const categories: Category.IClientDataList = {
@@ -150,7 +158,11 @@ export class CategoriesPage implements OnInit {
     this.resetCategories();
     this.resetIcons();
 
-    const category = this.breadcrumbs.pop();
+    this.breadcrumbs.pop();
+    const category =
+      this.breadcrumbs.length > 0
+        ? this.breadcrumbs[this.breadcrumbs.length - 1]
+        : null;
     this.category$.next(category);
 
     if (category === null) {

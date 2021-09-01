@@ -16,6 +16,7 @@ import { CategoryModalComponent } from './category-modal/category-modal.componen
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { CreateIconComponent } from './create-icon/create-icon.component';
 import { IconModalComponent } from './icon-modal/icon-modal.component';
+import { UpdateIconComponent } from './update-icon/update-icon.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { IconModalComponent } from './icon-modal/icon-modal.component';
     UpdateCategoryComponent,
     CategoryModalComponent,
     CreateIconComponent,
+    UpdateIconComponent,
     IconModalComponent
   ],
   entryComponents: [],

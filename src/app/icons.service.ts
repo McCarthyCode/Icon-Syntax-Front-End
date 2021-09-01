@@ -52,7 +52,19 @@ export class IconsService {
   }
 
   retrieve(pk: number): Observable<Icon.IClientData> {
-    return of(null);
+    return this._http
+      .get<Icon.IResponseBody>(`${environment.apiBase}/icons/${pk}`)
+      .pipe(
+        debounceTime(250),
+        map((body) => {
+          const clientData = {
+            ...body,
+            retrieved: new Date(),
+          };
+
+          return clientData;
+        })
+      );
   }
 
   create(body: Icon.IRequestBody): Observable<Icon.IClientData> {
@@ -109,8 +121,8 @@ export class IconsService {
         );
 
         return this._http
-          .post<Icon.IResponseBody>(
-            `${environment.apiBase}/icons/${body.id}`,
+          .put<Icon.IResponseBody>(
+            `${environment.apiBase}/icons/update/${body.id}`,
             body,
             {
               headers: headers,
