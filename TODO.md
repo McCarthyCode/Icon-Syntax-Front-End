@@ -2,15 +2,11 @@
 
 ## High Priorities
 
-- Icon CRUD
-  - Back end
-    - ~~Create~~
-    - ~~Read~~
-    - Update
-    - Destroy
-  - Front end
-    - Update/Delete Icon button (Icon Detail pane)
-    - Create/Update/Delete Icon modal
+- Update CategoryModalComponent
+- Delete actions w/ alert
+- Rename CategoriesPage to FindPage
+- Remove test user login credentials
+- Deploy
 
 ## Medium Priorities
 
