@@ -20,18 +20,39 @@
             <ion-item>
               <ion-label position="floating"> Name </ion-label>
               <ion-input
-                value="{{ category.name }}"
+                value="{{ form.value.name }}"
                 formControlName="name"
                 (ionChange)="onInputChange($event.target.value)"
               ></ion-input>
+              <ion-text
+                *ngIf="
+                  form.get('name').touched && form.get('name').errors?.required
+                "
+                class="error"
+                color="danger"
+              >
+                <small>This field is required.</small>
+              </ion-text>
+              <ion-text
+                *ngIf="form.get('name').errors?.maxlength"
+                class="error"
+                color="danger"
+              >
+                <small>
+                  This field may not contain more than 40 characters.
+                </small>
+              </ion-text>
             </ion-item>
             <ion-item class="ion-text-wrap">
-              <ion-text *ngIf="!path">
-                <em>root</em> » {{ category.name }}
-              </ion-text>
-              <ion-text *ngIf="path">
-                {{ path }} » {{ category.name }}
-              </ion-text>
+              <p class="ion-no-margin">
+                <ion-text *ngIf="!path" color="medium">
+                  <em>root</em>
+                </ion-text>
+                <ion-text *ngIf="path">
+                  {{ path }}
+                </ion-text>
+                » {{ form.value.name }}
+              </p>
             </ion-item>
           </ion-list>
         </form>
@@ -46,6 +67,7 @@
       slot="end"
       type="submit"
       (click)="onSubmit()"
+      [disabled]="!form.valid"
     >
       Submit
     </ion-button>

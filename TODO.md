@@ -2,10 +2,11 @@
 
 ## High Priorities
 
-- Update CategoryModalComponent
+- Error messages for IconModalComponent
 - Delete actions w/ alert
 - Rename CategoriesPage to FindPage
 - Remove test user login credentials
+- Forgot password pages
 - Deploy
 
 ## Medium Priorities

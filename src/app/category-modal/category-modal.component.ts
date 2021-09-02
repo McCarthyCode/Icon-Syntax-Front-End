@@ -38,20 +38,16 @@ export class CategoryModalComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(this.category ? this.category.name : '', {
         updateOn: 'change',
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(40)],
+      }),
+      parent: new FormControl(this.parent ? this.parent.id : null, {
+        updateOn: 'change',
       }),
     });
-
-    if (!this.category) {
-      this.category = {
-        name: '',
-        parent: this.parent ? this.parent.id : undefined,
-      };
-    }
   }
 
   onInputChange(value: string) {
-    this.category.name = value;
+    this.form.patchValue({ name: value });
   }
 
   onSubmit() {
@@ -75,7 +71,7 @@ export class CategoryModalComponent implements OnInit {
     };
 
     if (this.mode === 'create') {
-      this._categoriesSrv.create(this.category).subscribe({
+      this._categoriesSrv.create(this.form.value).subscribe({
         next: () => {
           this._alertCtrl
             .create({
@@ -96,8 +92,7 @@ export class CategoryModalComponent implements OnInit {
         error: errorHandler,
       });
     } else if (this.mode === 'update') {
-      this.category.parent = this.parent ? this.parent.id : null;
-      this._categoriesSrv.update(this.category).subscribe({
+      this._categoriesSrv.update(this.form.value).subscribe({
         next: () => {
           this._alertCtrl
             .create({
