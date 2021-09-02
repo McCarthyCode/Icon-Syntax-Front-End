@@ -41,10 +41,11 @@ export class IconModalComponent implements OnInit {
       }),
       word: new FormControl(this.icon ? this.icon.word : '', {
         updateOn: 'change',
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(40)],
       }),
       descriptor: new FormControl(this.icon ? this.icon.descriptor : '', {
         updateOn: 'change',
+        validators: [Validators.maxLength(80)],
       }),
       category: new FormControl(this.category ? this.category.id : null, {
         updateOn: 'change',

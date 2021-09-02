@@ -1,0 +1,10 @@
+.error {
+  margin-bottom: 8px;
+}
+
+@media screen and (max-width: 405px) {
+  .file-error {
+    max-width: 68px;
+    line-height: 1;
+  }
+}

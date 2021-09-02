@@ -21,6 +21,17 @@
                 formControlName="icon"
                 (change)="onFileChange($event.target.files)"
               ></ion-input>
+              <ion-text
+                *ngIf="
+                  mode === 'create' &&
+                  form.get('icon').touched &&
+                  form.get('icon').errors?.required
+                "
+                class="file-error"
+                color="danger"
+              >
+                <small>This field is required.</small>
+              </ion-text>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Word</ion-label>
@@ -30,6 +41,24 @@
                 formControlName="word"
                 (ionChange)="onWordChange($event.target.value)"
               ></ion-input>
+              <ion-text
+                *ngIf="
+                  form.get('word').touched && form.get('word').errors?.required
+                "
+                class="error"
+                color="danger"
+              >
+                <small>This field is required.</small>
+              </ion-text>
+              <ion-text
+                *ngIf="form.get('word').errors?.maxlength"
+                class="error"
+                color="danger"
+              >
+                <small>
+                  This field may not contain more than 40 characters.
+                </small>
+              </ion-text>
             </ion-item>
             <ion-item>
               <ion-label position="floating">
@@ -44,12 +73,19 @@
                 formControlName="descriptor"
                 (ionChange)="onDescriptorChange($event.target.value)"
               ></ion-input>
+              <ion-text
+                *ngIf="form.get('descriptor').errors?.maxlength"
+                class="error"
+                color="danger"
+              >
+                <small>
+                  This field may not contain more than 80 characters.
+                </small>
+              </ion-text>
             </ion-item>
             <ion-item class="ion-text-wrap">
               <ion-text>
-                <span *ngIf="category.path">
-                  {{ category.path }} »
-                </span>
+                <span *ngIf="category.path">{{ category.path }} » </span>
                 {{ category.name }} » {{ form.value.word }}
               </ion-text>
             </ion-item>
