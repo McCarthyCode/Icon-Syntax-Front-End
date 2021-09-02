@@ -28,10 +28,10 @@ const emptyIcons: Icon.IClientDataList = {
 
 @Component({
   selector: 'app-find',
-  templateUrl: './find.page.html',
-  styleUrls: ['./find.page.scss'],
+  templateUrl: './find.component.html',
+  styleUrls: ['./find.component.scss'],
 })
-export class CategoriesPage implements OnInit {
+export class FindComponent implements OnInit {
   // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
   categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);

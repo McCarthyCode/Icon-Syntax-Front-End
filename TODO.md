@@ -3,9 +3,14 @@
 ## High Priorities
 
 - Delete actions w/ alert
+  - Category
+  - Icon
 - Rename CategoriesPage to FindPage
 - Remove test user login credentials
-- Forgot password pages
+- Authentication
+  - Forgot password process
+  - Register functionality
+  - Logout functionality
 - Deploy
 
 ## Medium Priorities

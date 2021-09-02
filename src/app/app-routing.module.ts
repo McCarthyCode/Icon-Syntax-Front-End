@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './auth.guard';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CreateIconComponent } from './create-icon/create-icon.component';
+import { FindComponent } from './find/find.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
@@ -17,10 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'find',
-    loadChildren: () =>
-      import('./categories/categories.module').then(
-        (m) => m.CategoriesPageModule
-      ),
+    component: FindComponent,
   },
   {
     path: 'about',

@@ -17,6 +17,9 @@ import { UpdateCategoryComponent } from './update-category/update-category.compo
 import { CreateIconComponent } from './create-icon/create-icon.component';
 import { IconModalComponent } from './icon-modal/icon-modal.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
+import { FindComponent } from './find/find.component';
+import { IconDetailComponent } from './find/icon-detail/icon-detail.component';
+import { IconComponent } from './icon/icon.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,15 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
+    FindComponent,
+    IconDetailComponent,
     CreateCategoryComponent,
     UpdateCategoryComponent,
     CategoryModalComponent,
     CreateIconComponent,
     UpdateIconComponent,
-    IconModalComponent
+    IconModalComponent,
+    IconComponent,
   ],
   entryComponents: [],
   imports: [
