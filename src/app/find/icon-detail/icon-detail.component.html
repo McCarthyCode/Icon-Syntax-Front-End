@@ -38,12 +38,18 @@
             <ion-button
               expand="block"
               color="tertiary"
-              routerLink="/icon/update/{{ icon ? icon.id : 0 }}"
+              routerLink="/icon/update/{{ icon?.id }}"
               >Update</ion-button
             >
           </ion-col>
           <ion-col size="6">
-            <ion-button expand="block" color="danger">Delete</ion-button>
+            <ion-button
+              expand="block"
+              color="danger"
+              (click)="deleteIcon(icon?.id)"
+            >
+              Delete
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

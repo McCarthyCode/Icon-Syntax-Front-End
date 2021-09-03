@@ -2,8 +2,6 @@
 
 ## High Priorities
 
-- Delete actions w/ alert
-  - Icon
 - Fix update Category bug
 - Authentication
   - Forgot password process

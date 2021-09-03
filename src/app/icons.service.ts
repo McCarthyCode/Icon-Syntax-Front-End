@@ -156,10 +156,13 @@ export class IconsService {
           `Bearer ${credentials.tokens.access}`
         );
 
-        return this._http.delete<null>(`${environment.apiBase}/icons/${id}`, {
-          headers: headers,
-          observe: 'response',
-        });
+        return this._http.delete<null>(
+          `${environment.apiBase}/icons/delete/${id}`,
+          {
+            headers: headers,
+            observe: 'response',
+          }
+        );
       })
     );
   }

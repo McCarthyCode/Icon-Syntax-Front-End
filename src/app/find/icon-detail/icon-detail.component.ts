@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AudioPlaybackService } from 'src/app/audio-playback.service';
 import { AuthService } from 'src/app/auth.service';
 import { CategoriesService } from 'src/app/categories.service';
 import { IconDetailService } from 'src/app/icon-detail.service';
+import { IconsService } from 'src/app/icons.service';
 import { IWordEntry } from 'src/app/interfaces/word-entry.interface';
 import { MerriamWebsterService } from 'src/app/merriam-webster.service';
 import { Category } from 'src/app/models/category.model';
@@ -31,7 +32,9 @@ export class IconDetailComponent implements OnInit {
     private _mwSrv: MerriamWebsterService,
     private _playbackSrv: AudioPlaybackService,
     private _categoriesSrv: CategoriesService,
-    private _authSrv: AuthService
+    private _authSrv: AuthService,
+    private _alertCtrl: AlertController,
+    private _iconsSrv: IconsService
   ) {}
 
   get isAuthenticated(): boolean {
@@ -106,5 +109,30 @@ export class IconDetailComponent implements OnInit {
 
   onClose() {
     this._menuCtrl.close('end');
+  }
+
+  deleteIcon(id: number): void {
+    this._alertCtrl
+      .create({
+        header: 'Confirm Icon Deletion',
+        message:
+          'Are you sure you want to delete the icon "' + this.icon.word + '"?',
+        buttons: [
+          { text: 'Cancel', role: 'dismiss' },
+          { text: 'Okay', handler: () => this._deleteIcon(id) },
+        ],
+      })
+      .then((alert) => alert.present());
+  }
+
+  private _deleteIcon(id: number): void {
+    this._iconsSrv.delete(id).subscribe(() => {
+      this._alertCtrl
+        .create({
+          header: 'Icon Successfully Deleted',
+          buttons: ['Okay'],
+        })
+        .then((alert) => alert.present());
+    });
   }
 }
