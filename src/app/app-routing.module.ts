@@ -5,6 +5,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CreateIconComponent } from './create-icon/create-icon.component';
 import { FindComponent } from './find/find.component';
+import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -56,8 +57,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'forgot',
+    path: 'forgot-password',
     component: ForgotComponent,
+  },
+  {
+    path: 'forgot-password/:access',
+    component: ForgotVerifyComponent,
   },
 ];
 

@@ -3,7 +3,6 @@
 ## High Priorities
 
 - Authentication
-  - Forgot password process
   - Register functionality
   - Logout functionality
   - Token management

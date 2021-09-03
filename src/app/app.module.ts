@@ -21,6 +21,7 @@ import { FindComponent } from './find/find.component';
 import { IconDetailComponent } from './find/icon-detail/icon-detail.component';
 import { IconComponent } from './icon/icon.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ForgotComponent } from './forgot/forgot.component';
     LoginComponent,
     RegisterComponent,
     ForgotComponent,
+    ForgotVerifyComponent,
     FindComponent,
     IconDetailComponent,
     CreateCategoryComponent,

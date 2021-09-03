@@ -71,4 +71,19 @@ export class AuthService {
       body
     );
   }
+
+  verify(
+    body: { password: string },
+    access: string
+  ): Observable<Auth.IResponse> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${access}`,
+    });
+
+    return this._http.post(
+      environment.apiBase + '/auth/password/forgot/verify',
+      body,
+      { headers: headers }
+    );
+  }
 }
