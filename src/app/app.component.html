@@ -18,9 +18,13 @@
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-text> Home </ion-text>
           </ion-item>
-          <ion-item button routerLink="/login">
+          <ion-item *ngIf="!isAuthenticated" button routerLink="/login">
             <ion-icon name="log-in" slot="start"></ion-icon>
             <ion-text> Login/Register </ion-text>
+          </ion-item>
+          <ion-item *ngIf="isAuthenticated" button (click)="logout()">
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            <ion-text> Logout </ion-text>
           </ion-item>
           <ion-item routerLink="/find" button>
             <ion-icon name="search" slot="start"></ion-icon>

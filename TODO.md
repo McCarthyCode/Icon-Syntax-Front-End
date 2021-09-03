@@ -4,7 +4,6 @@
 
 - Authentication
   - Register functionality
-  - Logout functionality
   - Token management
 - Error pages
   - 403

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { MenuController, ToastController } from '@ionic/angular';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +9,36 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private _menuCtrl: MenuController) {}
+  constructor(
+    private _menuCtrl: MenuController,
+    private _authSrv: AuthService,
+    private _toastCtrl: ToastController,
+    private _router: Router
+  ) {}
 
-  onMenuClick() {
+  get isAuthenticated(): boolean {
+    return this._authSrv.credentials$.value !== null;
+  }
+
+  onMenuClick(): void {
     this._menuCtrl.close();
+  }
+
+  logout(): void {
+    this._authSrv.logout().subscribe(() => {
+      this._toastCtrl
+        .create({
+          message: 'You have successfully logged out.',
+          buttons: [{ text: 'Close', role: 'dismiss' }],
+          duration: 5000,
+          position: 'top',
+          color: 'success'
+        })
+        .then((toast) => {
+          toast.present();
+          this._authSrv.credentials$.next(null);
+          this._router.navigateByUrl('/');
+        });
+    });
   }
 }

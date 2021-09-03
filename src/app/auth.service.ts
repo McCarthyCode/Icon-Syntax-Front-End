@@ -65,6 +65,20 @@ export class AuthService {
       );
   }
 
+  logout(): Observable<Auth.IResponse> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.credentials$.value.tokens.access}`,
+    });
+
+    console.log(this.credentials$.value.tokens.access);
+
+    return this._http.post<Auth.ISuccessResponse>(
+      environment.apiBase + '/auth/logout',
+      {},
+      { headers: headers }
+    );
+  }
+
   forgot(body: { email: string }): Observable<Auth.IResponse> {
     return this._http.post<Auth.ISuccessResponse>(
       environment.apiBase + '/auth/password/forgot',
