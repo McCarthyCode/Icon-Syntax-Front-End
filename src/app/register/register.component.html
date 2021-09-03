@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start"> </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button shape="round" routerLink="/login" routerDirection="back">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Register</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button contentId="menu"> </ion-menu-button>
@@ -24,11 +28,15 @@
           <ion-label position="floating">Password</ion-label>
           <ion-input></ion-input>
         </ion-item>
-        <a routerLink="/login" routerDirection="back">
-          <ion-button class="ion-margin-top" expand="block" color="medium">
-            Login
-          </ion-button>
-        </a>
+        <ion-button
+          class="ion-margin-top"
+          routerLink="/login"
+          routerDirection="back"
+          expand="block"
+          color="medium"
+        >
+          Login
+        </ion-button>
         <ion-button expand="block" color="primary" type="submit">
           Submit
         </ion-button>

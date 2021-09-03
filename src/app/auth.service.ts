@@ -64,4 +64,11 @@ export class AuthService {
         })
       );
   }
+
+  forgot(body: { email: string }): Observable<Auth.IResponse> {
+    return this._http.post<Auth.ISuccessResponse>(
+      environment.apiBase + '/auth/password/forgot',
+      body
+    );
+  }
 }

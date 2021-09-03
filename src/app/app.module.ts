@@ -20,6 +20,7 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
 import { FindComponent } from './find/find.component';
 import { IconDetailComponent } from './find/icon-detail/icon-detail.component';
 import { IconComponent } from './icon/icon.component';
+import { ForgotComponent } from './forgot/forgot.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { IconComponent } from './icon/icon.component';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
+    ForgotComponent,
     FindComponent,
     IconDetailComponent,
     CreateCategoryComponent,

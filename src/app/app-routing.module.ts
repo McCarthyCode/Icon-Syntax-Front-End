@@ -5,6 +5,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CreateIconComponent } from './create-icon/create-icon.component';
 import { FindComponent } from './find/find.component';
+import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
@@ -53,6 +54,10 @@ const routes: Routes = [
     path: 'icon/update/:id',
     component: UpdateIconComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'forgot',
+    component: ForgotComponent,
   },
 ];
 
