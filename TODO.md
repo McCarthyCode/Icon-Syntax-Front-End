@@ -3,14 +3,17 @@
 ## High Priorities
 
 - Delete actions w/ alert
-  - Category
   - Icon
-- Rename CategoriesPage to FindPage
-- Remove test user login credentials
+- Fix update Category bug
 - Authentication
   - Forgot password process
   - Register functionality
   - Logout functionality
+- Error pages
+  - 403
+  - 404
+  - 500
+- Remove test user login credentials
 - Deploy
 
 ## Medium Priorities

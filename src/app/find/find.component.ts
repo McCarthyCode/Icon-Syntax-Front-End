@@ -246,6 +246,27 @@ export class FindComponent implements OnInit {
   }
 
   deleteCategory(id: number): void {
+    this._categoriesSrv.retrieve(id).subscribe({
+      next: (category) => {
+        this._alertCtrl
+          .create({
+            header: 'Confirm Category Deletion',
+            message:
+              'Are you sure you want to delete the category "' +
+              category.name +
+              '"?',
+            buttons: [
+              { text: 'Cancel', role: 'dismiss' },
+              { text: 'Okay', handler: () => this._deleteCategory(id) },
+            ],
+          })
+          .then((alert) => alert.present());
+      },
+      error: (res) => console.error(res),
+    });
+  }
+
+  private _deleteCategory(id: number): void {
     this._categoriesSrv.delete(id).subscribe(
       (success) => {
         if (success) {
