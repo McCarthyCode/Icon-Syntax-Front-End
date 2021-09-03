@@ -36,6 +36,14 @@ export class CategoryModalComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
+      id: new FormControl(
+        this.mode === 'update' ? this.category?.id : undefined,
+        {
+          updateOn: 'change',
+          validators:
+            this.mode === 'update' ? [Validators.required] : undefined,
+        }
+      ),
       name: new FormControl(this.category ? this.category.name : '', {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(40)],

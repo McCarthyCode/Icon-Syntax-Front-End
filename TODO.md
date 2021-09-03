@@ -2,7 +2,6 @@
 
 ## High Priorities
 
-- Fix update Category bug
 - Authentication
   - Forgot password process
   - Register functionality
