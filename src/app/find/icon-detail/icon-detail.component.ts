@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AudioPlaybackService } from 'src/app/audio-playback.service';
@@ -34,7 +35,8 @@ export class IconDetailComponent implements OnInit {
     private _categoriesSrv: CategoriesService,
     private _authSrv: AuthService,
     private _alertCtrl: AlertController,
-    private _iconsSrv: IconsService
+    private _iconsSrv: IconsService,
+    private _router: Router
   ) {}
 
   get isAuthenticated(): boolean {
@@ -132,7 +134,12 @@ export class IconDetailComponent implements OnInit {
           header: 'Icon Successfully Deleted',
           buttons: ['Okay'],
         })
-        .then((alert) => alert.present());
+        .then((alert) => {
+          alert.present();
+          this._iconDetailSrv.refresh();
+          this._menuCtrl.close('end');
+          this._router.navigateByUrl('/find');
+        });
     });
   }
 }

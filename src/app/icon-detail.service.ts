@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Icon } from './models/icon.model';
 
 @Injectable({
@@ -12,5 +12,9 @@ export class IconDetailService {
 
   click(icon: Icon.IIcon): void {
     this.icon$.next(icon);
+  }
+
+  refresh(): void {
+    this.icon$.next(null);
   }
 }

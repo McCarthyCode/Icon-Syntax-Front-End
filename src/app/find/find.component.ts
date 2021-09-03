@@ -74,7 +74,13 @@ export class FindComponent implements OnInit {
     public authSrv: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._iconsDetailSrv.icon$.subscribe((icon) => {
+      if (icon === null) {
+        this.ionViewWillEnter();
+      }
+    });
+  }
 
   ionViewWillEnter(): void {
     this.categoriesSub = this._categoriesSrv.list().subscribe((categories) => {
