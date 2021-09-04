@@ -1,9 +1,14 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { Icon } from './models/icon.model';
@@ -67,7 +72,10 @@ export class IconsService {
       );
   }
 
-  create(body: Icon.IRequestBody): Observable<Icon.IClientData> {
+  create(
+    body: Icon.IRequestBody,
+    refresh = true
+  ): Observable<Icon.IClientData> {
     return this._authSrv.credentials$.pipe(
       switchMap((credentials) => {
         if (!credentials) {
@@ -101,13 +109,25 @@ export class IconsService {
               };
 
               return clientData;
+            }),
+            catchError((response: HttpErrorResponse) => {
+              if (refresh && response.status === 401) {
+                return this._authSrv
+                  .refresh()
+                  .pipe(switchMap(() => this.create(body, false)));
+              } else {
+                return of(response);
+              }
             })
           );
       })
     );
   }
 
-  update(body: Icon.IRequestBody): Observable<Icon.IClientData> {
+  update(
+    body: Icon.IRequestBody,
+    refresh = true
+  ): Observable<Icon.IClientData> {
     return this._authSrv.credentials$.pipe(
       switchMap((credentials) => {
         if (!credentials) {
@@ -137,13 +157,22 @@ export class IconsService {
               };
 
               return clientData;
+            }),
+            catchError((response: HttpErrorResponse) => {
+              if (refresh && response.status === 401) {
+                return this._authSrv
+                  .refresh()
+                  .pipe(switchMap(() => this.update(body, false)));
+              } else {
+                return of(response);
+              }
             })
           );
       })
     );
   }
 
-  delete(id: number): Observable<HttpResponse<null> | null> {
+  delete(id: number, refresh = true): Observable<HttpResponse<null> | null> {
     return this._authSrv.credentials$.pipe(
       switchMap((credentials) => {
         if (!credentials) {
@@ -162,6 +191,17 @@ export class IconsService {
             headers: headers,
             observe: 'response',
           }
+        )
+        .pipe(
+          catchError((response: HttpErrorResponse) => {
+            if (refresh && response.status === 401) {
+              return this._authSrv
+                .refresh()
+                .pipe(switchMap(() => this.delete(id, false)));
+            } else {
+              return of(response);
+            }
+          })
         );
       })
     );
