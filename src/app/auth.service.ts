@@ -7,7 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Auth } from './interfaces/auth.interface';
 
@@ -20,40 +20,17 @@ const emailRegex =
 export class AuthService {
   credentials$ = new BehaviorSubject<Auth.ICredentials>(null);
 
-  constructor(private _http: HttpClient, private _router: Router) {}
+  constructor(private _http: HttpClient) {}
 
-  /*
-  register(
-    username: string,
-    email: string,
-    password: string
-  ): Observable<Auth.IResponse> {
+  register(body: {
+    username: string;
+    email: string;
+    password: string;
+  }): Observable<Auth.IResponse> {
     return this._http
-      .post<Auth.ISuccessResponse>(environment.apiBase + '/auth/login', {
-        username: username,
-        email: email,
-        password: password,
-      })
-      .pipe(
-        catchError((response: Auth.IErrorResponse) => {
-          for (let error in response.errors ? response.errors : []) {
-            console.error(error);
-          }
-          if (response.username) {
-            console.error('username', response.username);
-          }
-          if (response.email) {
-            console.error('email', response.email);
-          }
-          if (response.password) {
-            console.error('password', response.password);
-          }
-
-          return of(response);
-        })
-      );
+      .post<Auth.ISuccessResponse>(environment.apiBase + '/auth/register', body)
+      .pipe(debounceTime(250));
   }
-  */
 
   login(username: string, password: string): Observable<Auth.IResponse> {
     return this._http

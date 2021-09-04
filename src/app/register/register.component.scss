@@ -5,6 +5,12 @@ ion-grid {
   align-items: center;
 
   ion-row {
-    min-width: 320px;
+    min-width: 400px;
   }
+}
+
+ion-item small {
+  line-height: 1;
+  margin-bottom: 8px;
+  display: block;
 }
