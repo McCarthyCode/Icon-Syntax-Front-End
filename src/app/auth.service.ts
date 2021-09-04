@@ -1,8 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Auth } from './interfaces/auth.interface';
 
@@ -65,18 +70,38 @@ export class AuthService {
       );
   }
 
-  logout(): Observable<Auth.IResponse> {
+  refresh(): Observable<Auth.IResponse> {
+    return this._http
+      .post<Auth.IResponse>(environment.apiBase + '/auth/refresh', {
+        refresh: this.credentials$.value.tokens.refresh,
+      })
+      .pipe(
+        tap((response: Auth.ISuccessResponse) => {
+          this.credentials$.next(response.credentials);
+        })
+      );
+  }
+
+  logout(refresh = true): Observable<Auth.IResponse | HttpErrorResponse> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentials$.value.tokens.access}`,
     });
 
-    console.log(this.credentials$.value.tokens.access);
-
-    return this._http.post<Auth.ISuccessResponse>(
-      environment.apiBase + '/auth/logout',
-      {},
-      { headers: headers }
-    );
+    return this._http
+      .post<Auth.ISuccessResponse>(
+        environment.apiBase + '/auth/logout',
+        {},
+        { headers: headers }
+      )
+      .pipe(
+        catchError((response: HttpErrorResponse) => {
+          if (refresh && response.status === 401) {
+            return this.refresh().pipe(switchMap(() => this.logout(false)));
+          } else {
+            return of(response);
+          }
+        })
+      );
   }
 
   forgot(body: { email: string }): Observable<Auth.IResponse> {
