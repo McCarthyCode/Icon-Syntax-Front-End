@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      username: new FormControl('mtt', {
+      username: new FormControl('', {
         updateOn: 'change',
         validators: [Validators.required],
       }),

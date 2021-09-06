@@ -2,15 +2,12 @@
 
 ## High Priorities
 
-- Remove test user login credentials
+- Demo
 - Deploy
 
 ## Medium Priorities
 
-- Error pages
-  - 403
-  - 404
-  - 500
+_None at this time._
 
 ## Low Priorities
 

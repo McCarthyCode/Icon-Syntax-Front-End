@@ -1,0 +1,14 @@
+ion-grid {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-row {
+    max-width: 600px;
+
+    ion-icon {
+      font-size: 128px;
+    }
+  }
+}

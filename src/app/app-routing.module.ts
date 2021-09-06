@@ -8,6 +8,7 @@ import { FindComponent } from './find/find.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
@@ -69,6 +70,11 @@ const routes: Routes = [
     path: 'forgot-password/:access',
     component: ForgotVerifyComponent,
   },
+  {
+    path: '404',
+    component: NotFoundComponent,
+  },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
 @NgModule({
