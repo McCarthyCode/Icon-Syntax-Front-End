@@ -2,8 +2,6 @@
 
 ## High Priorities
 
-- Authentication
-  - Register functionality
 - Remove test user login credentials
 - Deploy
 

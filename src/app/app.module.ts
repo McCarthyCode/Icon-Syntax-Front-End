@@ -22,6 +22,7 @@ import { IconDetailComponent } from './find/icon-detail/icon-detail.component';
 import { IconComponent } from './icon/icon.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
+import { RegisterVerifyComponent } from './register/verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
+    RegisterVerifyComponent,
     ForgotComponent,
     ForgotVerifyComponent,
     FindComponent,

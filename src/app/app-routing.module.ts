@@ -9,6 +9,7 @@ import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
 
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'register/:access',
+    component: RegisterVerifyComponent,
   },
   {
     path: 'category/create',

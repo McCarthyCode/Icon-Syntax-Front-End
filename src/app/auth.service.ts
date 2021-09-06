@@ -32,6 +32,18 @@ export class AuthService {
       .pipe(debounceTime(250));
   }
 
+  registerVerify(access: string): Observable<Auth.IResponse> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${access}`,
+    });
+
+    return this._http.post<Auth.ISuccessResponse>(
+      environment.apiBase + '/auth/register/verify',
+      {},
+      { headers: headers }
+    );
+  }
+
   login(username: string, password: string): Observable<Auth.IResponse> {
     return this._http
       .post<Auth.ISuccessResponse>(
