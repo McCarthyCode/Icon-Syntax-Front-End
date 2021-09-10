@@ -11,7 +11,7 @@
     </ion-buttons>
     <ion-spinner *ngIf="loadingCategories"></ion-spinner>
     <ion-title *ngIf="!loadingCategories">
-      {{ path ? path : 'Find Icons' }}
+      {{ path ? path : "Find Icons" }}
     </ion-title>
     <ion-buttons slot="end">
       <ion-menu-button contentId="menu"> </ion-menu-button>
@@ -30,7 +30,13 @@
           (ionChange)="searchbar($event.target.value)"
         ></ion-searchbar>
         <div class="header ion-margin-vertical">
-          <h1 class="ion-no-margin">Library</h1>
+          <h1 class="ion-no-margin" (click)="libraryToggle()">
+            <ion-icon
+              name="{{ libraryVisible ? 'chevron-up' : 'chevron-down' }}"
+            >
+            </ion-icon>
+            Library
+          </h1>
           <ion-button class="ion-no-margin" routerLink="/category/create">
             <ion-icon name="add" slot="start"> </ion-icon>
             Add Category
@@ -44,14 +50,27 @@
         </div>
         <p
           class="ion-text-center"
-          [style.display]="!loadingCategories && (categories$ | async).results.length === 0 ? 'block' : 'none'"
+          [style.display]="
+            libraryVisible &&
+            !loadingCategories &&
+            (categories$ | async).results.length === 0
+              ? 'block'
+              : 'none'
+          "
         >
           <ion-text color="medium">
             <em>No more categories to show.</em>
           </ion-text>
         </p>
         <ion-list
-          [style.display]="!loadingCategories && (categories$ | async).results.length > 0 ? 'block' : 'none'"
+          #library
+          [style.display]="
+            libraryVisible &&
+            !loadingCategories &&
+            (categories$ | async).results.length > 0
+              ? 'block'
+              : 'none'
+          "
         >
           <ion-item-sliding
             *ngFor="let category of (categories$ | async).results"
@@ -63,7 +82,7 @@
             <ion-item-options side="end">
               <ion-item-option
                 color="tertiary"
-                routerLink="/category/update/{{category.id}}"
+                routerLink="/category/update/{{ category.id }}"
               >
                 Update
               </ion-item-option>

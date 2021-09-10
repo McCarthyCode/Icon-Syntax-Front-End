@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { IconDetailService } from '../icon-detail.service';
 import { IconsService } from '../icons.service';
@@ -7,6 +14,7 @@ import { Icon } from '../models/icon.model';
 import { CategoriesService } from '../categories.service';
 import { AuthService } from '../auth.service';
 import { AlertController, ToastController } from '@ionic/angular';
+import { DOMAnimations } from '../dom-animations';
 
 const emptyCategories: Category.IClientDataList = {
   results: [],
@@ -42,9 +50,10 @@ export class FindComponent implements OnInit {
   categoriesSub: Subscription;
   iconClickSub: Subscription;
 
-  // Spinners
+  // Booleans
   loadingCategories = true;
   loadingIcons = true;
+  libraryVisible: boolean;
 
   // Navigation history
   breadcrumbs: Category.IClientData[] = [];
@@ -53,6 +62,10 @@ export class FindComponent implements OnInit {
   query = '';
   page = 1;
 
+  // DOM Elements
+  @ViewChild('library') library: any;
+
+  // Getters
   get path(): string {
     const path: string = this.breadcrumbs
       .filter((category) => Boolean(category))
@@ -92,6 +105,13 @@ export class FindComponent implements OnInit {
         this.icons$.next(icons);
         this.loadingIcons = false;
       });
+    });
+  }
+
+  libraryToggle() {
+    DOMAnimations.slideToggle(this.library.el).then(() => {
+      this.libraryVisible =
+        window.getComputedStyle(this.library.el).display !== 'none';
     });
   }
 
