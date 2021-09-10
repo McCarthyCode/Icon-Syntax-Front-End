@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,13 +25,103 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+/* Font family imports */
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+
 .spinner-wrapper {
   display: flex;
-  justify-content:  center;
+  justify-content: center;
   align-items: center;
   min-height: 10rem;
 }
 
 ion-item {
   line-height: 1.6;
+}
+
+.gradient {
+  --ion-background-color: radial-gradient(circle, #10434d, #111a4b, #3a0a61);
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 2.125rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.875rem;
+  }
+
+  h4 {
+    font-size: 1.75rem;
+  }
+
+  h5 {
+    font-size: 1.625rem;
+  }
+
+  h6,
+  p,
+  li {
+    font-size: 1.5rem;
+  }
+
+  ion-menu {
+    --max-width: 23rem;
+    --min-width: 23rem;
+    --width: 23rem;
+  }
+
+  ion-toolbar {
+    --min-height: 5rem;
+
+    ion-title {
+      font-size: 2rem;
+    }
+  }
+
+  ion-item {
+    font-size: 1.75rem;
+    --min-height: 5rem;
+
+    ion-icon {
+      font-size: 2rem;
+    }
+  }
+
+  .searchbar {
+
+  }
+}
+
+@media screen and (min-width: 992px) {
+  h1 {
+    font-size: 2.625rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 2.375rem;
+  }
+
+  h4 {
+    font-size: 2.25rem;
+  }
+
+  h5 {
+    font-size: 2.125rem;
+  }
+
+  h6,
+  p,
+  li {
+    font-size: 2rem;
+  }
 }

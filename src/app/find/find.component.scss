@@ -4,11 +4,22 @@ ion-searchbar {
   padding: 16px 0;
 }
 
+ion-grid {
+  padding: 2rem;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  gap: 1rem;
+
+  h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
 
 .icons {
@@ -22,5 +33,27 @@ ion-searchbar {
     flex-direction: column;
     list-style: none;
     cursor: pointer;
+  }
+}
+
+.searchbar ion-icon[name="close"] {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .searchbar {
+    ion-icon,
+    ion-input {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .searchbar {
+    ion-icon,
+    ion-input {
+      font-size: 2rem;
+    }
   }
 }

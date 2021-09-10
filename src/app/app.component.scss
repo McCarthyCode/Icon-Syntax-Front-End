@@ -1,13 +1,17 @@
 ion-split-pane {
-  --side-max-width: 18rem;
-  --side-min-width: 18rem;
-  --side-width: 18rem;
+  --side-max-width: 20rem;
+  --side-min-width: 20rem;
+  --side-width: 20rem;
 }
 
 ion-menu {
   --max-width: 18rem;
   --min-width: 18rem;
   --width: 18rem;
+
+  ion-title {
+    font-family: "Libre Baskerville", serif;
+  }
 }
 
 .no-select {
@@ -17,4 +21,12 @@ ion-menu {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@media screen and (min-width: 768px) {
+  ion-menu {
+    --max-width: 20rem;
+    --min-width: 20rem;
+    --width: 20rem;
+  }
 }

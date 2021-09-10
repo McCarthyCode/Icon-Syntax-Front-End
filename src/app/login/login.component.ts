@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
     });
 
     this.form = new FormGroup({
-      identifier: new FormControl('', {
+      identifier: new FormControl('matt', {
         updateOn: 'change',
         validators: [Validators.required],
       }),
-      password: new FormControl('', {
+      password: new FormControl('Easypass123!', {
         updateOn: 'change',
         validators: [Validators.required],
       }),

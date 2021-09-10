@@ -2,9 +2,9 @@ app-icon {
   display: inline-block;
 }
 
-ol,
-ul {
-  padding-left: 20px;
+ion-button {
+  font-size: 2rem;
+  line-height: 2;
 }
 
 .suggestions li {
@@ -17,5 +17,12 @@ ion-icon.speaker {
 
   &[name="volume-mute"] {
     cursor: not-allowed;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  ion-menu {
+    --min-width: 448px;
+    --max-width: 448px;
   }
 }

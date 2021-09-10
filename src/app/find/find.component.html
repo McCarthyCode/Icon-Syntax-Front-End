@@ -19,28 +19,37 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="categories">
+<ion-content id="categories" class="gradient">
   <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-md="9" size-lg="7" size-xl="6">
-        <ion-searchbar
-          class="ion-margin-bottom ion-no-padding"
-          color="medium"
-          placeholder="Filter Icons by Text"
-          (ionChange)="searchbar($event.target.value)"
-        ></ion-searchbar>
-        <div class="header ion-margin-vertical">
-          <h1 class="ion-no-margin" (click)="libraryToggle()">
+    <ion-row>
+      <ion-col>
+        <ion-item class="searchbar" color="medium">
+          <ion-icon name="search" slot="start"></ion-icon>
+          <ion-input
+            #searchbar
+            placeholder="Filter Icons by Text"
+            (ionChange)="onSearchbar($event.target.value)"
+          >
+          </ion-input>
+          <ion-icon name="close" slot="end" (click)="onClear()"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="header ion-margin-vertical" (click)="libraryToggle()">
+          <h1 class="ion-no-margin">
             <ion-icon
               name="{{ libraryVisible ? 'chevron-up' : 'chevron-down' }}"
             >
             </ion-icon>
             Library
           </h1>
-          <ion-button class="ion-no-margin" routerLink="/category/create">
-            <ion-icon name="add" slot="start"> </ion-icon>
-            Add Category
-          </ion-button>
+          <p class="ion-no-margin ion-text-end">
+            <ion-text color="medium">
+              <em>click for more filters</em>
+            </ion-text>
+          </p>
         </div>
         <div
           class="spinner-wrapper"
@@ -97,15 +106,9 @@
         </ion-list>
       </ion-col>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size-md="9" size-lg="7" size-xl="6">
-        <div class="header ion-margin-top">
-          <h1 class="ion-no-margin">Icons</h1>
-          <ion-button class="ion-no-margin" routerLink="/icon/create">
-            <ion-icon name="add" slot="start"> </ion-icon>
-            Add Icon
-          </ion-button>
-        </div>
+    <ion-row>
+      <ion-col>
+        <h1 class="ion-no-margin">Icons</h1>
       </ion-col>
     </ion-row>
     <ion-row [style.display]="page === 1 && loadingIcons ? 'flex' : 'none'">

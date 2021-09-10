@@ -53,7 +53,7 @@ export class FindComponent implements OnInit {
   // Booleans
   loadingCategories = true;
   loadingIcons = true;
-  libraryVisible: boolean;
+  libraryVisible = false;
 
   // Navigation history
   breadcrumbs: Category.IClientData[] = [];
@@ -64,6 +64,7 @@ export class FindComponent implements OnInit {
 
   // DOM Elements
   @ViewChild('library') library: any;
+  @ViewChild('searchbar') searchbar: any;
 
   // Getters
   get path(): string {
@@ -130,7 +131,7 @@ export class FindComponent implements OnInit {
     }
   }
 
-  searchbar(query: string): void {
+  onSearchbar(query: string): void {
     this.resetCategories();
     this.resetIcons();
 
@@ -177,6 +178,10 @@ export class FindComponent implements OnInit {
           this.loadingIcons = false;
         });
     });
+  }
+
+  onClear():void{
+    this.searchbar.value = '';
   }
 
   clickBack(): void {
