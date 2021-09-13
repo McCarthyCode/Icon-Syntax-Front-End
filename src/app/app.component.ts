@@ -31,6 +31,7 @@ export class AppComponent {
           message: 'You have successfully logged out.',
           buttons: [{ text: 'Close', role: 'dismiss' }],
           duration: 5000,
+          cssClass: 'toast',
           position: 'top',
           color: 'success'
         })

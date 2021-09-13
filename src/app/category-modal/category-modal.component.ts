@@ -67,6 +67,7 @@ export class CategoryModalComponent implements OnInit {
             position: 'top',
             color: 'danger',
             duration: 5000,
+            cssClass: 'toast',
             buttons: [
               {
                 text: 'Close',

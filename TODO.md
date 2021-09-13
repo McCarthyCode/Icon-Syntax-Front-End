@@ -3,7 +3,6 @@
 ## High Priorities
 
 - Resize text
-  - Toast
   - Alerts
   - Sliding Options
   - Spinners

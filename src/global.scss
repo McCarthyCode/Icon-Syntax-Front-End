@@ -68,6 +68,42 @@ ion-card.content {
   }
 }
 
+.toast {
+  @media screen and(min-width: 768px) {
+    & {
+      font-size: 1.5rem;
+    }
+
+    &::part(message) {
+      line-height: 30px;
+    }
+  }
+
+  @media screen and(min-width: 992px) {
+    & {
+      font-size: 2rem;
+    }
+
+    &::part(message) {
+      line-height: 40px;
+    }
+  }
+
+  &::part(button) {
+    @media screen and(min-width: 768px) {
+      & {
+        font-size: 1.125rem;
+      }
+    }
+
+    @media screen and(min-width: 992px) {
+      & {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 768px) {
   h1 {
     font-size: 2.125rem;
@@ -94,11 +130,13 @@ ion-card.content {
   li,
   a,
   ion-button,
-  ion-icon  {
+  ion-icon {
     font-size: 1.5rem;
   }
 
-  ion-button {height: 3rem;}
+  ion-button {
+    height: 3rem;
+  }
 
   ion-menu {
     --max-width: 23rem;
@@ -153,5 +191,7 @@ ion-card.content {
   ion-icon {
     font-size: 2rem;
   }
-  ion-button {height: 4rem;}
+  ion-button {
+    height: 4rem;
+  }
 }

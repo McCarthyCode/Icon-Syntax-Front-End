@@ -325,6 +325,7 @@ export class FindComponent implements OnInit {
                 position: 'bottom',
                 color: 'warning',
                 duration: 5000,
+                cssClass: 'toast',
                 buttons: [
                   {
                     text: 'Close',

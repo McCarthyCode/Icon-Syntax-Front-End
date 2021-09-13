@@ -84,6 +84,7 @@ export class LoginComponent implements OnInit {
         position: 'top',
         color: 'success',
         duration: 5000,
+        cssClass: 'toast',
         buttons: [
           {
             text: 'Close',
@@ -119,6 +120,7 @@ export class LoginComponent implements OnInit {
             position: 'top',
             color: 'danger',
             duration: 5000,
+            cssClass: 'toast',
             buttons: [
               {
                 text: 'Close',
