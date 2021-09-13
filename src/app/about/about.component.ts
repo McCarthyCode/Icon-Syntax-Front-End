@@ -3,7 +3,7 @@ import { IonSlides } from '@ionic/angular';
 
 interface IContent {
   header: string;
-  page: number;
+  index: number;
 }
 
 @Component({
@@ -12,56 +12,76 @@ interface IContent {
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  page = 1;
-  contents: IContent[] = [
-    { header: 'Title', page: 1 },
-    { header: 'About Our Vision', page: 2 },
-    { header: 'Executive Summary', page: 3 },
-    { header: 'About Syntax', page: 4 },
-    { header: 'About Icons', page: 5 },
-    { header: 'About Parts of Speech', page: 6 },
-    { header: 'About Words', page: 7 },
-    { header: 'About Mary Beth', page: 8 },
-    { header: 'About Matt & Robert', page: 9 },
-    { header: 'History of ILS', page: 10 },
-    { header: 'About Demand', page: 11 },
-    { header: 'About Us', page: 12 },
-    { header: 'Contact Us', page: 13 },
-    { header: 'Community Notes', page: 14 },
+  index = 0;
+  titles: string[] = [
+    'Title',
+    'Our Vision',
+    'Executive Summary',
+    'Executive Summary (cont.)',
+    'Syntax',
+    'Icons',
+    'Parts of Speech',
+    'Parts of Speech (cont.)',
+    'Words by Language',
+    'Meet Mary Beth',
+    'Meet Mary Beth (cont.)',
+    'Meet Matt',
+    'Meet Robert',
+    'History of ILS',
+    'Demand',
+    'Our Goals',
   ];
+  contents: IContent[];
 
   @ViewChild('slides', { static: true }) slides: IonSlides;
 
   constructor() {}
 
-  ngOnInit() {}
-
-  updatePage() {
-    this.slides.getActiveIndex().then((index) => {
-      this.page = index + 1;
+  ngOnInit() {
+    this.contents = this.titles.map((value, index) => {
+      return { header: value, index: index };
     });
   }
 
-  onIonSlideNextEnd() {
-    this.updatePage();
+  ionViewWillEnter() {
+    // window.addEventListener('keyup', () => console.log(this.slides));
+    window.addEventListener('keyup', this.keyListener);
   }
 
-  onIonSlidePrevEnd() {
-    this.updatePage();
+  ionViewDidLeave() {
+    // window.removeEventListener('keyup', () => console.log(this.slides));
+    window.removeEventListener('keyup', this.keyListener);
   }
 
-  onNavigate(page: number) {
-    this.slides.slideTo(page - 1);
+  keyListener = ($event) => {
+    switch ($event.key) {
+      case 'ArrowRight':
+        this.slides.slideNext();
+        break;
+      case 'ArrowLeft':
+        this.slides.slidePrev();
+        break;
+    }
+  };
+
+  updatePage() {
+    this.slides.getActiveIndex().then((index) => {
+      this.index = index;
+    });
+  }
+
+  onNavigate(index: number) {
+    this.slides.slideTo(index);
   }
 
   onMouseEnter($event: Event) {
     ($event.target as HTMLIonTextElement).color = 'warning';
   }
 
-  onMouseLeave($event: Event, page: number) {
-    this.slides.getActiveIndex().then((index) => {
+  onMouseLeave($event: Event, index: number) {
+    this.slides.getActiveIndex().then((activeIndex) => {
       ($event.target as HTMLIonTextElement).color =
-        page === index + 1 ? 'warning' : 'medium';
+        index === activeIndex ? 'warning' : 'medium';
     });
   }
 }

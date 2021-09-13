@@ -3,6 +3,10 @@ ion-grid {
   ion-row {
     height: 100%;
   }
+
+  ion-row {
+    flex-wrap: nowrap;
+  }
 }
 
 ion-slides {
@@ -12,6 +16,8 @@ ion-slides {
     padding: 2rem;
 
     & > div {
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -19,7 +25,6 @@ ion-slides {
   }
 
   .content {
-    max-width: 600px;
     text-align: left;
   }
 
@@ -27,7 +32,23 @@ ion-slides {
     margin-bottom: 1rem;
   }
 
-  #slide-1 {
+  ion-img {
+    max-width: 250px;
+    max-height: 250px;
+    display: inline-block;
+    margin: 1rem;
+    border: 4px solid #7f7f7f;
+  }
+
+  @media screen and (min-width: 768px) {
+    p,
+    li,
+    ion-slide ion-grid {
+      font-size: 1.5rem;
+    }
+  }
+
+  #title {
     h2 {
       margin-top: 0;
     }
@@ -38,7 +59,7 @@ ion-slides {
     }
   }
 
-  #slide-7 {
+  #number-of-words {
     div {
       width: 100%;
     }
@@ -48,36 +69,40 @@ ion-slides {
     }
   }
 
-  #slide-8 ion-row:first-child,
-  #slide-9 {
-    ion-col {
-      &:first-child {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+  #history {
+    ion-col:first-child {
+      text-align: right;
+      max-width: 7rem;
+    }
+  }
 
-      &:last-child p {
-        margin-bottom: 0;
-      }
+  #demand {
+    ion-col:first-child {
+      max-width: 15rem;
     }
   }
 }
 
 .card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 22rem;
 
   ion-card {
-    max-width: 200px;
+    max-height: 80vh;
+    max-width: 25rem;
 
-    ul {
-      padding-left: 0;
+    .ul-container {
+      height: calc(80vh - 108px);
+      overflow-y: auto;
 
-      li {
-        list-style: none;
-        cursor: pointer;
+      ul {
+        padding-left: 0;
+        height: 100%;
+
+        li {
+          font-size: 1.5rem;
+          list-style: none;
+          cursor: pointer;
+        }
       }
     }
   }

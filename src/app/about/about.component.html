@@ -11,13 +11,13 @@
 <ion-content>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-md="9">
+      <ion-col size-xl="8">
         <ion-slides
           #slides
-          (ionSlideNextEnd)="onIonSlideNextEnd()"
-          (ionSlidePrevEnd)="onIonSlidePrevEnd()"
+          (ionSlideNextEnd)="updatePage()"
+          (ionSlidePrevEnd)="updatePage()"
         >
-          <ion-slide id="slide-1">
+          <ion-slide id="title">
             <div>
               <img src="/assets/logo.png" />
               <h1>
@@ -27,7 +27,7 @@
                 <small>
                   <em>
                     <ion-text color="medium">
-                      Swipe left<span class="ion-hide-lg-down">
+                      Swipe left<span class="ion-hide-xl-down">
                         or use the contents pane</span
                       >
                       to navigate.
@@ -37,7 +37,7 @@
               </h2>
             </div>
           </ion-slide>
-          <ion-slide id="slide-2">
+          <ion-slide id="vision">
             <div>
               <h1><ion-text color="primary">About the Vision</ion-text></h1>
               <div class="content">
@@ -65,7 +65,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-3">
+          <ion-slide id="summary">
             <div>
               <h1><ion-text color="primary">Executive Summary</ion-text></h1>
               <div class="content">
@@ -80,6 +80,16 @@
                   images to different speakers, artists from cultures outside
                   the U.S. can supply synonyms that are ethnically specific.
                 </p>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide id="summary-continued">
+            <div>
+              <h1><ion-text color="primary">Executive Summary</ion-text></h1>
+              <p class="ion-no-margin">
+                <ion-text color="medium"><em>(continued)</em></ion-text>
+              </p>
+              <div class="content">
                 <p>
                   To this end, we are looking for development funding. We are
                   pursuing multiple revenue streams and expect financial growth
@@ -92,7 +102,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-4">
+          <ion-slide id="syntax">
             <div>
               <h1><ion-text color="primary">What Is Syntax?</ion-text></h1>
               <div class="content">
@@ -114,7 +124,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-5">
+          <ion-slide id="good-icon">
             <div>
               <h1>
                 <ion-text color="primary">What Makes a Good Icon?</ion-text>
@@ -141,7 +151,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-6">
+          <ion-slide id="parts-of-speech">
             <div>
               <h1>
                 <ion-text color="primary">
@@ -160,6 +170,24 @@
                     each page here. A verb against a grayed background clues the
                     user that the verb is past tense.
                   </li>
+                </ul>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide id="parts-of-speech-continued">
+            <div>
+              <h1>
+                <ion-text color="primary">
+                  What Are Icon Parts of Speech?
+                </ion-text>
+              </h1>
+              <p class="ion-no-margin">
+                <ion-text color="medium">
+                  <em>(continued)</em>
+                </ion-text>
+              </p>
+              <div class="content">
+                <ul>
                   <li>
                     <strong>FUNCTION WORDS</strong>&mdash;like conjunctions or
                     prepositions&mdash;are links between words that give the
@@ -177,7 +205,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-7">
+          <ion-slide id="number-of-words">
             <div>
               <h1>
                 <ion-text color="primary">Are We There Yet?</ion-text>
@@ -224,23 +252,28 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-8">
+          <ion-slide id="mary-beth">
             <div>
               <h1>
-                <ion-text color="primary">About Mary Beth Guinan</ion-text>
+                <ion-text color="primary">Meet Mary Beth</ion-text>
               </h1>
               <div class="content">
                 <ion-grid>
-                  <ion-row>
-                    <ion-col size="4">
+                  <ion-row class="ion-hide-xl-up">
+                    <ion-col class="ion-text-center">
                       <ion-img src="/assets/logo.png"></ion-img>
                     </ion-col>
-                    <ion-col size="8">
+                  </ion-row>
+                  <ion-row>
+                    <ion-col class="ion-hide-xl-down" size="4">
+                      <ion-img src="/assets/logo.png"></ion-img>
+                    </ion-col>
+                    <ion-col size="12" size-xl="8">
                       <p>
-                        <strong>Mary Beth Guinan</strong>
-                        <a href="mailto:marybethguinan@gmail.com">
-                          marybethguinan@gmail.com
-                        </a>
+                        <strong>Mary Beth Guinan </strong>
+                        <a href="mailto:marybethguinan@gmail.com"
+                          >marybethguinan@gmail.com</a
+                        >
                       </p>
                       <p>
                         <em>
@@ -255,42 +288,53 @@
                       </p>
                     </ion-col>
                   </ion-row>
-                  <ion-row>
-                    <ion-col>
-                      <p>
-                        . . . . . . . . “Icons are a bridge to reading for
-                        unschooled or dyslexic adults, and second-language
-                        learners.”
-                      </p>
-                      <p>
-                        “In the 1980’s I taught English to Cambodian refugees by
-                        drawing sentences on the Board. It worked great, so I
-                        invented and patented a program that read icon sentences
-                        to users while they typed from dictation. The City
-                        Colleges of Chicago funded the Windows 95 version and
-                        used it for over a decade. I drew about 20,000 GIFs that
-                        I used in stories, songs, tests and forms at Truman
-                        College. The icons became Iconopedia, a multi-volume
-                        reference organized by parts of speech.”
-                      </p>
-                    </ion-col>
-                  </ion-row>
                 </ion-grid>
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-9">
+          <ion-slide id="mary-beth-continued">
             <div>
               <h1>
-                <ion-text color="primary">Meet Matt and Robert</ion-text>
+                <ion-text color="primary">Meet Mary Beth</ion-text>
+              </h1>
+              <p class="ion-no-margin">
+                <ion-text color="medium"><em>(continued)</em></ion-text>
+              </p>
+              <div class="content">
+                <p>
+                  “Icons are a bridge to reading for unschooled or dyslexic
+                  adults, and second-language learners.”
+                </p>
+                <p>
+                  “In the 1980’s I taught English to Cambodian refugees by
+                  drawing sentences on the Board. It worked great, so I invented
+                  and patented a program that read icon sentences to users while
+                  they typed from dictation. The City Colleges of Chicago funded
+                  the Windows 95 version and used it for over a decade. I drew
+                  about 20,000 GIFs that I used in stories, songs, tests and
+                  forms at Truman College. The icons became Iconopedia, a
+                  multi-volume reference organized by parts of speech.”
+                </p>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide id="matt">
+            <div>
+              <h1>
+                <ion-text color="primary">Meet Matt</ion-text>
               </h1>
               <div class="content">
                 <ion-grid>
-                  <ion-row>
-                    <ion-col size="4">
-                      <ion-img src="/assets/logo.png"></ion-img>
+                  <ion-row class="ion-hide-xl-up">
+                    <ion-col class="ion-text-center">
+                      <ion-img id="matt-img-a" src="/assets/matt.png"></ion-img>
                     </ion-col>
-                    <ion-col size="8">
+                  </ion-row>
+                  <ion-row>
+                    <ion-col class="ion-hide-xl-down" size="4">
+                      <ion-img id="matt-img-b" src="/assets/matt.png"></ion-img>
+                    </ion-col>
+                    <ion-col size="12" size-xl="8">
                       <p>
                         <strong>Matt McCarthy</strong>:
                         <a href="mailto:matt@mccarthycode.com">
@@ -303,17 +347,33 @@
                           projects on Github: code hosting service and version
                           control system for open source and collaborative
                           coding. // Language fluencies: CSS, HTML, Python,
-                          Sass, Javascript, Bash // School and courses: UIC,
-                          Coding Dojo.
+                          Sass, JavaScript, TypeScript, Bash // School and
+                          courses: UIC, Coding Dojo.
                         </em>
                       </p>
                     </ion-col>
                   </ion-row>
-                  <ion-row>
-                    <ion-col size="4">
+                </ion-grid>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide id="robert">
+            <div>
+              <h1>
+                <ion-text color="primary">Meet Robert</ion-text>
+              </h1>
+              <div class="content">
+                <ion-grid>
+                  <ion-row class="ion-hide-xl-up">
+                    <ion-col>
                       <ion-img src="/assets/logo.png"></ion-img>
                     </ion-col>
-                    <ion-col size="8">
+                  </ion-row>
+                  <ion-row>
+                    <ion-col class="ion-hide-xl-down" size="4">
+                      <ion-img src="/assets/logo.png"></ion-img>
+                    </ion-col>
+                    <ion-col size="12" size-xl="8">
                       <p>
                         <strong>Robert Armband</strong>:
                         <a href="mailto:robert.armband@gmail.com">
@@ -334,7 +394,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-10">
+          <ion-slide id="history">
             <div>
               <h1>
                 <ion-text color="primary">History</ion-text>
@@ -342,14 +402,14 @@
               <div class="content">
                 <ion-grid>
                   <ion-row>
-                    <ion-col size="2">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">then</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="10">
+                    <ion-col>
                       <ul>
                         <li>Patented Icon Language Teaching Systems</li>
                         <li>Formed a corporation</li>
@@ -363,14 +423,14 @@
                     </ion-col>
                   </ion-row>
                   <ion-row>
-                    <ion-col size="2">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">now</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="10">
+                    <ion-col>
                       <ul>
                         <li>Formed NFT to market icons</li>
                         <li>
@@ -388,7 +448,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-11">
+          <ion-slide id="demand">
             <div>
               <h1>
                 <ion-text color="primary">IconSyntax Is for and by:</ion-text>
@@ -396,26 +456,26 @@
               <div class="content">
                 <ion-grid>
                   <ion-row>
-                    <ion-col size="3">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">Publishers</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="9">
+                    <ion-col>
                       <p>Add icons to existing lexical resources.</p>
                     </ion-col>
                   </ion-row>
                   <ion-row>
-                    <ion-col size="3">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">Linguists</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="9">
+                    <ion-col>
                       <p>
                         Create a latinized list of words from a language that is
                         “disappearing”.
@@ -423,14 +483,14 @@
                     </ion-col>
                   </ion-row>
                   <ion-row>
-                    <ion-col size="3">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">Teachers</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="9">
+                    <ion-col>
                       <p>
                         Create icon sentences for poems, songs, tests, forms,
                         and games.
@@ -438,14 +498,14 @@
                     </ion-col>
                   </ion-row>
                   <ion-row>
-                    <ion-col size="3">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">Artists</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="9">
+                    <ion-col>
                       <p>
                         Create monochrome icons, &#x2264;60px W &times; 54px H.
                         If it’s a photo, convert it to grayscale and email to
@@ -454,14 +514,14 @@
                     </ion-col>
                   </ion-row>
                   <ion-row>
-                    <ion-col size="3">
+                    <ion-col>
                       <h2>
                         <em>
                           <ion-text color="secondary">Students</ion-text>
                         </em>
                       </h2>
                     </ion-col>
-                    <ion-col size="9">
+                    <ion-col>
                       <p>
                         Type or speak the word you want or shop around in the
                         library.
@@ -472,7 +532,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-12">
+          <ion-slide id="business-goals">
             <div>
               <h1>
                 <ion-text color="primary">Our Business Goals</ion-text>
@@ -501,44 +561,29 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide id="slide-13">
-            <div>
-              <h1>
-                <ion-text color="primary">Contact Us</ion-text>
-              </h1>
-              <h2>Phone</h2>
-              <div class="content"></div>
-            </div>
-          </ion-slide>
-          <ion-slide id="slide-14">
-            <div>
-              <h1>
-                <ion-text color="primary">Community Notes</ion-text>
-              </h1>
-              <div class="content"></div>
-            </div>
-          </ion-slide>
         </ion-slides>
       </ion-col>
-      <ion-col class="ion-hide-lg-down card-container" size="0" size-md="3">
+      <ion-col class="ion-hide-xl-down card-container" size="4">
         <ion-card class="ion-padding">
           <h2><ion-text color="dark">Contents</ion-text></h2>
-          <ul>
-            <li
-              class="ion-margin-bottom"
-              *ngFor="let item of contents"
-              (click)="onNavigate(item.page)"
-            >
-              <ion-text
-                class="no-select"
-                (mouseenter)="onMouseEnter($event)"
-                (mouseleave)="onMouseLeave($event, item.page)"
-                [color]="page === item.page ? 'warning' : 'medium'"
+          <div class="ul-container">
+            <ul>
+              <li
+                class="ion-margin-bottom"
+                *ngFor="let item of contents"
+                (click)="onNavigate(item.index)"
               >
-                {{ item.header }}
-              </ion-text>
-            </li>
-          </ul>
+                <ion-text
+                  class="no-select"
+                  (mouseenter)="onMouseEnter($event)"
+                  (mouseleave)="onMouseLeave($event, item.index)"
+                  [color]="index === item.index ? 'warning' : 'medium'"
+                >
+                  {{ item.header }}
+                </ion-text>
+              </li>
+            </ul>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>
