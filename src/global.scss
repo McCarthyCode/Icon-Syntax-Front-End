@@ -66,9 +66,14 @@ ion-item {
 
   h6,
   p,
-  li {
+  li,
+  a,
+  ion-button,
+  ion-icon  {
     font-size: 1.5rem;
   }
+
+  ion-button {height: 3rem;}
 
   ion-menu {
     --max-width: 23rem;
@@ -91,10 +96,6 @@ ion-item {
     ion-icon {
       font-size: 2rem;
     }
-  }
-
-  .searchbar {
-
   }
 }
 
@@ -121,7 +122,11 @@ ion-item {
 
   h6,
   p,
-  li {
+  li,
+  a,
+  ion-button,
+  ion-icon {
     font-size: 2rem;
   }
+  ion-button {height: 4rem;}
 }
