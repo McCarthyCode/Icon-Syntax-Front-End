@@ -43,6 +43,31 @@ ion-item {
   --ion-background-color: radial-gradient(circle, #10434d, #111a4b, #3a0a61);
 }
 
+ion-card.content {
+  margin: 1rem 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+
+  ion-card-content p {
+    font-size: 1rem;
+    color: var(--ion-text-color);
+    margin-bottom: 1rem;
+
+    @media screen and(min-width: 768px) {
+      & {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media screen and(min-width: 992px) {
+      & {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 768px) {
   h1 {
     font-size: 2.125rem;

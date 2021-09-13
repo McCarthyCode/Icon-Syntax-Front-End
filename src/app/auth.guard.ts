@@ -4,10 +4,8 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({

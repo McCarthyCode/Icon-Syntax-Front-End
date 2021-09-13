@@ -15,6 +15,17 @@
       <ion-col>
         <form [formGroup]="form" enctype="multipart/form-data">
           <ion-list>
+            <ion-card class="content">
+              <ion-card-content>
+                <p>
+                  Please click <em>Browse</em> to select an icon from your
+                  computer, then enter the <em>Word</em> the image describes.
+                </p>
+                <p>
+                  If your word has multiple meanings, please enter a related word or phrase under <em>Descriptor</em>.
+                </p>
+              </ion-card-content>
+            </ion-card>
             <ion-item *ngIf="mode === 'create'">
               <ion-input
                 type="file"

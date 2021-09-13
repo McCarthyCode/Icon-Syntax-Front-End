@@ -17,6 +17,11 @@
       <ion-col>
         <form [formGroup]="form" (submit)="onSubmit()">
           <ion-list>
+            <ion-card class="content">
+              <ion-card-content>
+                <p>Please name your group and hit <em>Submit</em>.</p>
+              </ion-card-content>
+            </ion-card>
             <ion-item>
               <ion-label position="floating"> Name </ion-label>
               <ion-input

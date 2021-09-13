@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { CategoriesService } from '../categories.service';
+import { CategoryModalComponent } from '../category-modal/category-modal.component';
 import { IconModalComponent } from '../icon-modal/icon-modal.component';
 import { Category } from '../models/category.model';
 
@@ -36,6 +37,11 @@ export class CreateIconComponent {
       .join(' » ');
 
     return path;
+  }
+
+  get category(): Category.IClientData {
+    const length = this.breadcrumbs.length;
+    return length > 0 ? this.breadcrumbs[length - 1] : null;
   }
 
   constructor(
@@ -107,6 +113,19 @@ export class CreateIconComponent {
               : null,
           mode: 'create',
           breadcrumbs: this.breadcrumbs,
+        },
+      })
+      .then((modal) => modal.present());
+  }
+
+  async clickCreateCategory(): Promise<void> {
+    return this._modalCtrl
+      .create({
+        component: CategoryModalComponent,
+        componentProps: {
+          parent: this.category,
+          path: this.path,
+          mode: 'create',
         },
       })
       .then((modal) => modal.present());

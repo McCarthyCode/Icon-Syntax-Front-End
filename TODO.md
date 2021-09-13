@@ -2,7 +2,12 @@
 
 ## High Priorities
 
-- Demo
+- Resize text
+  - Toast
+  - Alerts
+  - Sliding Options
+  - Spinners
+- Add logo to Home page
 - Deploy
 
 ## Medium Priorities
