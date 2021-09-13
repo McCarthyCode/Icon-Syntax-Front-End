@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
     this._loadingCtrl
       .create({
         message: 'Logging in&hellip;',
+        cssClass: 'loader',
       })
       .then((loader: HTMLIonLoadingElement) => {
         loader.present();

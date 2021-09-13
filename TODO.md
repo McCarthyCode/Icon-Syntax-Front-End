@@ -5,7 +5,6 @@
 - Resize text
   - Alerts
   - Sliding Options
-  - Spinners
 - Add logo to Home page
 - Deploy
 

@@ -43,46 +43,48 @@ export class ForgotVerifyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this._loadingCtrl.create({ message: 'Loading&hellip;' }).then((loader) => {
-      loader.present();
+    this._loadingCtrl
+      .create({ message: 'Loading&hellip;', cssClass: 'loader' })
+      .then((loader) => {
+        loader.present();
 
-      this._authSrv.verify(this.form.value, this.access).subscribe({
-        next: (response: Auth.ISuccessResponse) => {
-          this._authSrv.credentials$.next(response.credentials);
+        this._authSrv.verify(this.form.value, this.access).subscribe({
+          next: (response: Auth.ISuccessResponse) => {
+            this._authSrv.credentials$.next(response.credentials);
 
-          this._alertCtrl
-            .create({
-              header: 'Password Reset Successfully',
-              message: response.success,
-              buttons: [
-                {
-                  text: 'Okay',
-                  handler: () => this._router.navigateByUrl('/find'),
-                },
-              ],
-            })
-            .then((alert) => {
-              loader.dismiss();
-              alert.present();
-            });
-        },
-        error: (response: any) => {
-          console.log(response);
-          this._alertCtrl
-            .create({
-              header: 'Error Resetting Password',
-              subHeader: response.statusText,
-              message: response.error.errors
-                ? response.error.errors.join('\n')
-                : 'An unspecified error occurred.',
-              buttons: ['Okay'],
-            })
-            .then((alert) => {
-              loader.dismiss();
-              alert.present();
-            });
-        },
+            this._alertCtrl
+              .create({
+                header: 'Password Reset Successfully',
+                message: response.success,
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => this._router.navigateByUrl('/find'),
+                  },
+                ],
+              })
+              .then((alert) => {
+                loader.dismiss();
+                alert.present();
+              });
+          },
+          error: (response: any) => {
+            console.log(response);
+            this._alertCtrl
+              .create({
+                header: 'Error Resetting Password',
+                subHeader: response.statusText,
+                message: response.error.errors
+                  ? response.error.errors.join('\n')
+                  : 'An unspecified error occurred.',
+                buttons: ['Okay'],
+              })
+              .then((alert) => {
+                loader.dismiss();
+                alert.present();
+              });
+          },
+        });
       });
-    });
   }
 }

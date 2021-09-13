@@ -29,7 +29,7 @@ export class ForgotComponent implements OnInit {
 
   onSubmit(): void {
     this._loadingCtrl
-      .create({ message: 'Sending email&hellip;' })
+      .create({ message: 'Sending email&hellip;', cssClass: 'loader' })
       .then((loader) => {
         loader.present();
 

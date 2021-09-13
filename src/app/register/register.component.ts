@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this._loadingCtrl
-      .create({ message: 'Submitting&hellip;' })
+      .create({ message: 'Submitting&hellip;', cssClass: 'loader' })
       .then((loader) => {
         loader.present();
         this._authSrv.register(this.form.value).subscribe({
