@@ -120,6 +120,20 @@ ion-card.content {
   }
 }
 
+ion-item-option  {
+  @media screen and(min-width: 768px) {
+    & {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and(min-width: 992px) {
+    & {
+      font-size: 2rem;
+    }
+  }
+}
+
 @media screen and (min-width: 768px) {
   h1 {
     font-size: 2.125rem;

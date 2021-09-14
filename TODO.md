@@ -4,7 +4,6 @@
 
 - Resize text
   - Alerts
-  - Sliding Options
 - Add logo to Home page
 - Deploy
 
