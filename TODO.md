@@ -2,8 +2,6 @@
 
 ## High Priorities
 
-- Resize text
-  - Alerts
 - Add logo to Home page
 - Deploy
 

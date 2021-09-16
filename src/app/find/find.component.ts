@@ -180,7 +180,7 @@ export class FindComponent implements OnInit {
     });
   }
 
-  onClear():void{
+  onClear(): void {
     this.searchbar.value = '';
   }
 
@@ -286,6 +286,7 @@ export class FindComponent implements OnInit {
               'Are you sure you want to delete the category "' +
               category.name +
               '"?',
+            cssClass: 'alert',
             buttons: [
               { text: 'Cancel', role: 'dismiss' },
               { text: 'Okay', handler: () => this._deleteCategory(id) },
@@ -305,6 +306,7 @@ export class FindComponent implements OnInit {
             .create({
               header: 'Category Deleted',
               message: 'The category has been removed successfully.',
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',
@@ -343,6 +345,7 @@ export class FindComponent implements OnInit {
                 header: 'Error Deleting Category',
                 message:
                   'A server error has prevented the category from being removed. Please try again later.',
+                cssClass: 'alert',
                 buttons: ['Okay'],
               })
               .then((alert: HTMLIonAlertElement) => alert.present());

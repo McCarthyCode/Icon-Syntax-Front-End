@@ -108,6 +108,7 @@ export class IconModalComponent implements OnInit {
           header: 'HTTP 500: Server Error',
           message:
             'There was an error processing your request on our servers. Please try again later.',
+          cssClass: 'alert',
           buttons: [
             {
               text: 'Okay',
@@ -149,6 +150,7 @@ export class IconModalComponent implements OnInit {
               message: `The icon has been entered in our database${
                 credentials.isAdmin ? '' : ' and is pending approval'
               }.`,
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',
@@ -176,6 +178,7 @@ export class IconModalComponent implements OnInit {
               message: `The icon has been modified in our database${
                 credentials.isAdmin ? '' : ' and is pending approval'
               }.`,
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',

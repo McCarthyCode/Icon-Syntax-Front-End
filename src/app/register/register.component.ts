@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
               .create({
                 header: 'Email Confirmation Required',
                 message: response.success,
+                cssClass: 'alert',
                 buttons: ['Okay'],
               })
               .then((alert) => {

@@ -68,6 +68,7 @@ export class UpdateCategoryComponent implements OnInit {
               .create({
                 header: 'Category Not Found',
                 message: 'The category could not be found in our database.',
+                cssClass: 'alert',
                 buttons: ['Okay'],
               })
               .then((alert) =>

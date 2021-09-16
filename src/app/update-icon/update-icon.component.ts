@@ -81,6 +81,7 @@ export class UpdateIconComponent implements OnInit {
         .create({
           header: 'Icon Not Found',
           message: 'The icon could not be found in our database.',
+          cssClass: 'alert',
           buttons: ['Okay'],
         })
         .then((alert) =>

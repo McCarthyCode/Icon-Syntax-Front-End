@@ -40,6 +40,7 @@ export class ForgotComponent implements OnInit {
               .create({
                 header: 'Password Reset Link Sent to Email',
                 message: response.success,
+                cssClass: 'alert',
                 buttons: ['Okay'],
               })
               .then((alert) => {

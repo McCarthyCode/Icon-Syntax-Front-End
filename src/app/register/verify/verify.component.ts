@@ -30,6 +30,7 @@ export class RegisterVerifyComponent implements OnInit {
               header: 'Registration Complete',
               message:
                 'You have successfully completed the registration process.',
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',

@@ -253,6 +253,7 @@ export class CategoriesPage implements OnInit {
             .create({
               header: 'Category Deleted',
               message: 'The category has been removed successfully.',
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',
@@ -291,6 +292,7 @@ export class CategoriesPage implements OnInit {
                 header: 'Error Deleting Category',
                 message:
                   'A server error has prevented the category from being removed. Please try again later.',
+                cssClass: 'alert',
                 buttons: ['Okay'],
               })
               .then((alert: HTMLIonAlertElement) => alert.present());

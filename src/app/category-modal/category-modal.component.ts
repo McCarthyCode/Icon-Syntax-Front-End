@@ -86,6 +86,7 @@ export class CategoryModalComponent implements OnInit {
             .create({
               header: 'Category Added',
               message: 'The category has been created successfully.',
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',
@@ -107,6 +108,7 @@ export class CategoryModalComponent implements OnInit {
             .create({
               header: 'Category Updated',
               message: 'The category has been edited successfully.',
+              cssClass: 'alert',
               buttons: [
                 {
                   text: 'Okay',

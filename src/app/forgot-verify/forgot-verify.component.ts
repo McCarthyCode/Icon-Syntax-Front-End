@@ -56,6 +56,7 @@ export class ForgotVerifyComponent implements OnInit {
               .create({
                 header: 'Password Reset Successfully',
                 message: response.success,
+                cssClass: 'alert',
                 buttons: [
                   {
                     text: 'Okay',
@@ -77,6 +78,7 @@ export class ForgotVerifyComponent implements OnInit {
                 message: response.error.errors
                   ? response.error.errors.join('\n')
                   : 'An unspecified error occurred.',
+                cssClass: 'alert',
                 buttons: ['Okay'],
               })
               .then((alert) => {

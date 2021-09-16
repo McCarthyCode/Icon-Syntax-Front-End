@@ -119,6 +119,7 @@ export class IconDetailComponent implements OnInit {
         header: 'Confirm Icon Deletion',
         message:
           'Are you sure you want to delete the icon "' + this.icon.word + '"?',
+        cssClass: 'alert',
         buttons: [
           { text: 'Cancel', role: 'dismiss' },
           { text: 'Okay', handler: () => this._deleteIcon(id) },
@@ -132,6 +133,7 @@ export class IconDetailComponent implements OnInit {
       this._alertCtrl
         .create({
           header: 'Icon Successfully Deleted',
+          cssClass: 'alert',
           buttons: ['Okay'],
         })
         .then((alert) => {
