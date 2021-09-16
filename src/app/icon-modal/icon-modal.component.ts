@@ -58,7 +58,9 @@ export class IconModalComponent implements OnInit {
     this._modalCtrl.dismiss();
   }
 
-  onFileChange(files: File[]): void {
+  onFileChange($event: any): void {
+    const files: File[] = $event.target.files;
+
     if (files.length === 0) {
       this.form.patchValue({ icon: null });
     } else if (files.length === 1) {
@@ -66,12 +68,12 @@ export class IconModalComponent implements OnInit {
     }
   }
 
-  onWordChange(word: string): void {
-    this.form.patchValue({ word: word });
+  onWordChange($event: any): void {
+    this.form.patchValue({ word: $event.detail.value });
   }
 
-  onDescriptorChange(descriptor: string): void {
-    this.form.patchValue({ descriptor: descriptor });
+  onDescriptorChange($event: any): void {
+    this.form.patchValue({ descriptor: $event.detail.value });
   }
 
   onSubmit(): void {

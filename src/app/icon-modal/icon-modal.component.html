@@ -30,7 +30,7 @@
               <ion-input
                 type="file"
                 formControlName="icon"
-                (change)="onFileChange($event.target.files)"
+                (change)="onFileChange($event)"
               ></ion-input>
               <ion-text
                 *ngIf="
@@ -50,7 +50,7 @@
                 name="word"
                 type="text"
                 formControlName="word"
-                (ionChange)="onWordChange($event.target.value)"
+                (ionChange)="onWordChange($event)"
               ></ion-input>
               <ion-text
                 *ngIf="
@@ -82,7 +82,7 @@
                 name="descriptor"
                 type="text"
                 formControlName="descriptor"
-                (ionChange)="onDescriptorChange($event.target.value)"
+                (ionChange)="onDescriptorChange($event)"
               ></ion-input>
               <ion-text
                 *ngIf="form.get('descriptor').errors?.maxlength"

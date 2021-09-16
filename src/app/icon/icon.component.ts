@@ -7,7 +7,7 @@ import { Icon } from '../models/icon.model';
   styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent implements OnInit {
-  @Input() icon: Icon.IClientData;
+  @Input() icon: Icon.IIcon;
 
   constructor() {}
 

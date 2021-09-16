@@ -54,8 +54,8 @@ export class CategoryModalComponent implements OnInit {
     });
   }
 
-  onInputChange(value: string) {
-    this.form.patchValue({ name: value });
+  onInputChange($event: any) {
+    this.form.patchValue({ name: $event.detail.value });
   }
 
   onSubmit() {

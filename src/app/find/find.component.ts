@@ -1,6 +1,5 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
   OnInit,
   Output,
@@ -131,11 +130,11 @@ export class FindComponent implements OnInit {
     }
   }
 
-  onSearchbar(query: string): void {
+  onSearchbar($event: any): void {
     this.resetCategories();
     this.resetIcons();
 
-    this.query = query;
+    this.query = $event.detail.value;
 
     this.categoriesSub = this.category$.subscribe((category) => {
       this.loadingCategories = false;
