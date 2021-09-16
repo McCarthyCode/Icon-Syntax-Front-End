@@ -1,3 +1,13 @@
+ion-img {
+  display: inline-block;
+  max-width: 190px;
+  max-height: 112px;
+}
+
+h1 {
+  font-family: "Libre Baskerville", serif;
+}
+
 ion-searchbar {
   // Normally we would use .ion-padding-vertical here, but defining it this way
   // removes horizontal padding.
@@ -15,7 +25,7 @@ ion-grid {
   cursor: pointer;
   gap: 1rem;
 
-  h1 {
+  h2 {
     display: flex;
     align-items: center;
     gap: 0.5rem;
