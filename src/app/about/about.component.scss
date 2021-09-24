@@ -40,6 +40,11 @@ ion-slides {
     border: 4px solid #7f7f7f;
   }
 
+  #title img {
+    width: 190px !important;
+    height: 112px !important;
+  }
+
   @media screen and (min-width: 768px) {
     p,
     li,
@@ -51,11 +56,6 @@ ion-slides {
   #title {
     h2 {
       margin-top: 0;
-    }
-
-    img {
-      width: 300px !important;
-      height: 146px !important;
     }
   }
 
