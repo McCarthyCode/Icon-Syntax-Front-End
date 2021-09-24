@@ -20,6 +20,10 @@ export class AppComponent {
     return this._authSrv.credentials$.value !== null;
   }
 
+  get findPage(): boolean {
+    return this._router.url === '/find';
+  }
+
   onMenuClick(): void {
     this._menuCtrl.close();
   }

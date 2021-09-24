@@ -19,8 +19,27 @@
             <ion-text> Home </ion-text>
           </ion-item>
           <ion-item button routerLink="/find">
-            <ion-icon name="search" slot="start"></ion-icon>
+            <ion-icon name="compass" slot="start"></ion-icon>
             <ion-text> Find Icons </ion-text>
+          </ion-item>
+          <ion-item
+            class="searchbar"
+            color="medium"
+            lines="none"
+            *ngIf="findPage"
+          >
+            <ion-icon name="search" slot="start"></ion-icon>
+            <ion-input
+              #searchbar
+              placeholder="Search"
+              (ionChange)="onSearchbar($event)"
+            >
+            </ion-input>
+            <ion-icon name="close" slot="end" (click)="onClear()"></ion-icon>
+          </ion-item>
+          <ion-item color="medium" button *ngIf="findPage">
+            <ion-icon name="list" slot="start"></ion-icon>
+            <ion-text> Browse </ion-text>
           </ion-item>
           <ion-item *ngIf="!isAuthenticated" button routerLink="/login">
             <ion-icon name="log-in" slot="start"></ion-icon>
