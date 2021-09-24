@@ -6,6 +6,7 @@ import { CreateIconComponent } from './create-icon/create-icon.component';
 import { FindComponent } from './find/find.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegisterComponent } from './register/register.component';
@@ -16,8 +17,7 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'find',
-    pathMatch: 'full',
+    component: HomeComponent,
   },
   {
     path: 'find',

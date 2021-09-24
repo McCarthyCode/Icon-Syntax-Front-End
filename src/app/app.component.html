@@ -14,9 +14,13 @@
 
       <ion-content>
         <ion-list (click)="onMenuClick()">
-          <ion-item button routerLink="/find">
+          <ion-item button routerLink="/">
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-text> Home </ion-text>
+          </ion-item>
+          <ion-item button routerLink="/find">
+            <ion-icon name="search" slot="start"></ion-icon>
+            <ion-text> Find Icons </ion-text>
           </ion-item>
           <ion-item *ngIf="!isAuthenticated" button routerLink="/login">
             <ion-icon name="log-in" slot="start"></ion-icon>
