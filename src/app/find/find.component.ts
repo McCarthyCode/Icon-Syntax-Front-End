@@ -14,6 +14,7 @@ import { CategoriesService } from '../categories.service';
 import { AuthService } from '../auth.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { DOMAnimations } from '../dom-animations';
+import { Router } from '@angular/router';
 
 const emptyCategories: Category.IClientDataList = {
   results: [],
@@ -84,6 +85,7 @@ export class FindComponent implements OnInit {
     private _categoriesSrv: CategoriesService,
     private _alertCtrl: AlertController,
     private _toastCtrl: ToastController,
+    private _router: Router,
     public authSrv: AuthService
   ) {}
 
@@ -184,6 +186,10 @@ export class FindComponent implements OnInit {
   }
 
   clickBack(): void {
+    if (this.breadcrumbs.length === 0) {
+      this._router.navigateByUrl('/');
+    }
+
     this.resetCategories();
     this.resetIcons();
 
