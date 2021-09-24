@@ -28,6 +28,10 @@
 /* Font family imports */
 @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
 
+#main ion-content {
+  --background: #222a35;
+}
+
 .spinner-wrapper {
   display: flex;
   justify-content: center;
@@ -37,10 +41,6 @@
 
 ion-item {
   line-height: 1.6;
-}
-
-.gradient {
-  --ion-background-color: radial-gradient(circle, #10434d, #111a4b, #3a0a61);
 }
 
 ion-card.content {
