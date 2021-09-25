@@ -15,6 +15,7 @@ import { AuthService } from '../auth.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { DOMAnimations } from '../dom-animations';
 import { Router } from '@angular/router';
+import { FindService } from '../find.service';
 
 const emptyCategories: Category.IClientDataList = {
   results: [],
@@ -64,7 +65,6 @@ export class FindComponent implements OnInit {
 
   // DOM Elements
   @ViewChild('library') library: any;
-  @ViewChild('searchbar') searchbar: any;
 
   // Getters
   get path(): string {
@@ -86,6 +86,7 @@ export class FindComponent implements OnInit {
     private _alertCtrl: AlertController,
     private _toastCtrl: ToastController,
     private _router: Router,
+    private _findSrv: FindService,
     public authSrv: AuthService
   ) {}
 
@@ -94,6 +95,10 @@ export class FindComponent implements OnInit {
       if (icon === null) {
         this.ionViewWillEnter();
       }
+    });
+
+    this._findSrv.query$.subscribe({
+      next: (query) => this.onSearchbar(query),
     });
   }
 
@@ -132,11 +137,11 @@ export class FindComponent implements OnInit {
     }
   }
 
-  onSearchbar($event: any): void {
+  onSearchbar(query: string): void {
     this.resetCategories();
     this.resetIcons();
 
-    this.query = $event.detail.value;
+    this.query = query;
 
     this.categoriesSub = this.category$.subscribe((category) => {
       this.loadingCategories = false;
@@ -179,10 +184,6 @@ export class FindComponent implements OnInit {
           this.loadingIcons = false;
         });
     });
-  }
-
-  onClear(): void {
-    this.searchbar.value = '';
   }
 
   clickBack(): void {

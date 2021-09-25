@@ -2,8 +2,8 @@
 
 ## High Priorities
 
-- Add logo to Home page
-- Deploy
+- Menu Library
+- Slide nav buttons
 
 ## Medium Priorities
 

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ToastController } from '@ionic/angular';
 import { AuthService } from './auth.service';
+import { FindService } from './find.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,14 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
   constructor(
+    private _router: Router,
     private _menuCtrl: MenuController,
-    private _authSrv: AuthService,
     private _toastCtrl: ToastController,
-    private _router: Router
+    private _authSrv: AuthService,
+    private _findSrv: FindService
   ) {}
 
+  // Getters
   get isAuthenticated(): boolean {
     return this._authSrv.credentials$.value !== null;
   }
@@ -24,6 +27,10 @@ export class AppComponent {
     return this._router.url === '/find';
   }
 
+  // DOM Elements
+  @ViewChild('searchbar') searchbar: any;
+
+  // Methods
   onMenuClick(): void {
     this._menuCtrl.close();
   }
@@ -37,7 +44,7 @@ export class AppComponent {
           duration: 5000,
           cssClass: 'toast',
           position: 'top',
-          color: 'success'
+          color: 'success',
         })
         .then((toast) => {
           toast.present();
@@ -45,5 +52,14 @@ export class AppComponent {
           this._router.navigateByUrl('/');
         });
     });
+  }
+
+  onSearchbar($event: any): void {
+    this._findSrv.query$.next($event.detail.value);
+  }
+
+  onClear(): void {
+    this._findSrv.query$.next('');
+    this.searchbar.value = '';
   }
 }
