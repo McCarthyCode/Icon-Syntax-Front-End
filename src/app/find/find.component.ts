@@ -48,6 +48,13 @@ export class FindComponent implements OnInit {
     return this._findSrv.icons$;
   }
 
+  get loadingCategories(): boolean {
+    return this._findSrv.loadingCategories;
+  }
+  set loadingCategories(value) {
+    this._findSrv.loadingCategories = value;
+  }
+
   get loadingIcons(): boolean {
     return this._findSrv.loadingIcons;
   }
