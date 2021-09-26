@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { CategoriesService } from './categories.service';
 import { IconsService } from './icons.service';
 import { Category } from './models/category.model';
@@ -28,7 +29,6 @@ const emptyIcons: Icon.IClientDataList = {
 })
 export class FindService {
   // Behavior Subjects
-  query$ = new BehaviorSubject<string>('');
   category$ = new BehaviorSubject<Category.IClientData>(null);
   categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
   icons$ = new BehaviorSubject<Icon.IClientDataList>(emptyIcons);
@@ -47,6 +47,7 @@ export class FindService {
   breadcrumbs: Category.IClientData[] = [];
 
   // Back-end parameters
+  query = '';
   page = 1;
 
   constructor(
@@ -73,13 +74,14 @@ export class FindService {
     this.resetCategories();
     this.resetIcons();
 
-    this.query$.next(query);
+    this.query = query;
 
     this.categoriesSub = this.category$.subscribe((category) => {
       this.loadingCategories = false;
+      this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
         .list(
-          query ? query : undefined,
+          this.query ? this.query : undefined,
           category ? category.id : undefined,
           this.page
         )
@@ -105,13 +107,15 @@ export class FindService {
       this.categories$.next(categories);
       this.loadingCategories = false;
 
-      this._iconsSrv
+      this.iconsSub.unsubscribe();
+      this.iconsSub = this._iconsSrv
         .list(
-          this.query$.value ? this.query$.value : undefined,
+          this.query ? this.query : undefined,
           category ? category.id : undefined,
           this.page
         )
         .subscribe((icons) => {
+          console.log('got here');
           this.icons$.next(icons);
           this.loadingIcons = false;
         });
@@ -134,9 +138,10 @@ export class FindService {
         this.categories$.next(categories);
         this.loadingCategories = false;
 
-        this._iconsSrv
+        this.iconsSub.unsubscribe();
+        this.iconsSub = this._iconsSrv
           .list(
-            this.query$.value ? this.query$.value : undefined,
+            this.query ? this.query : undefined,
             category ? category.id : undefined,
             this.page
           )
@@ -155,9 +160,10 @@ export class FindService {
         });
         this.loadingCategories = false;
 
-        this._iconsSrv
+        this.iconsSub.unsubscribe();
+        this.iconsSub = this._iconsSrv
           .list(
-            this.query$.value ? this.query$.value : undefined,
+            this.query ? this.query : undefined,
             category ? category.id : undefined,
             this.page
           )

@@ -70,7 +70,7 @@ export class FindComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._iconsSrv.list().subscribe({
+    this._findSrv.iconsSub = this._iconsSrv.list().subscribe({
       next: (icons) => {
         this.icons$.next(icons);
         this.loadingIcons = false;
@@ -94,7 +94,8 @@ export class FindComponent implements OnInit {
       const page = this.icons$.value.pagination.thisPageNumber;
       const category = this.category$.value;
 
-      this._iconsSrv
+      this._findSrv.iconsSub.unsubscribe();
+      this._findSrv.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
           category ? category.id : undefined,

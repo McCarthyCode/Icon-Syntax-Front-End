@@ -79,6 +79,10 @@ export class CategoriesPage implements OnInit {
       this.categories$.next(categories);
       this.loadingCategories = false;
 
+      if (this.iconsSub) {
+        this.iconsSub.unsubscribe();
+      }
+
       this.iconsSub = this._iconsSrv.list().subscribe((icons) => {
         this.icons$.next(icons);
         this.loadingIcons = false;
@@ -109,6 +113,8 @@ export class CategoriesPage implements OnInit {
 
     this.categoriesSub = this.category$.subscribe((category) => {
       this.loadingCategories = false;
+
+      this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
@@ -137,7 +143,8 @@ export class CategoriesPage implements OnInit {
       this.categories$.next(categories);
       this.loadingCategories = false;
 
-      this._iconsSrv
+      this.iconsSub.unsubscribe();
+      this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
           category ? category.id : undefined,
@@ -166,7 +173,8 @@ export class CategoriesPage implements OnInit {
         this.categories$.next(categories);
         this.loadingCategories = false;
 
-        this._iconsSrv
+        this.iconsSub.unsubscribe();
+        this.iconsSub = this._iconsSrv
           .list(
             this.query ? this.query : undefined,
             category ? category.id : undefined,
@@ -186,7 +194,8 @@ export class CategoriesPage implements OnInit {
         });
         this.loadingCategories = false;
 
-        this._iconsSrv
+        this.iconsSub.unsubscribe();
+        this.iconsSub = this._iconsSrv
           .list(
             this.query ? this.query : undefined,
             category ? category.id : undefined,
@@ -216,6 +225,7 @@ export class CategoriesPage implements OnInit {
       const page = this.icons$.value.pagination.thisPageNumber;
       const category = this.category$.value;
 
+      this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,

@@ -114,7 +114,7 @@ export class AppComponent implements OnInit {
   }
 
   onClear(): void {
-    this._findSrv.query$.next('');
+    this._findSrv.query = '';
     this.searchbar.value = '';
   }
 
