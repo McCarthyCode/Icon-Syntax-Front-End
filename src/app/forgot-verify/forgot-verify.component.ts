@@ -70,7 +70,7 @@ export class ForgotVerifyComponent implements OnInit {
               });
           },
           error: (response: any) => {
-            console.log(response);
+            console.error(response);
             this._alertCtrl
               .create({
                 header: 'Error Resetting Password',

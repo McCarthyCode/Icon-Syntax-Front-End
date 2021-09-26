@@ -23,6 +23,15 @@ ion-menu {
   user-select: none;
 }
 
+.find {
+  --background: #d5dce4;
+  --color: var(--ion-color-light);
+
+  ion-icon {
+    color: var(--ion-color-light);
+  }
+}
+
 ion-icon[name="close"] {
   cursor: pointer;
 }

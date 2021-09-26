@@ -62,9 +62,6 @@ export class CategoriesPage implements OnInit {
     return path;
   }
 
-  // Event emitters
-  @Output() iconClick = new EventEmitter<Icon.IIcon>();
-
   constructor(
     private _iconsSrv: IconsService,
     private _iconsDetailSrv: IconDetailService,

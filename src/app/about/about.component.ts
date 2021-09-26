@@ -44,12 +44,10 @@ export class AboutComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    // window.addEventListener('keyup', () => console.log(this.slides));
     window.addEventListener('keyup', this.keyListener);
   }
 
   ionViewDidLeave() {
-    // window.removeEventListener('keyup', () => console.log(this.slides));
     window.removeEventListener('keyup', this.keyListener);
   }
 
