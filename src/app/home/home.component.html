@@ -7,7 +7,10 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-img src="/assets/logo_black.png" (click)="onClick()"></ion-img>
+  <div routerLink="/find">
+    <ion-img src="/assets/logo_black_animated.gif"></ion-img>
+    <p>
+      <ion-text color="light">{{ text ? text : '&nbsp;' }}</ion-text>
+    </p>
   </div>
 </ion-content>

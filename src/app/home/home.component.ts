@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +6,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private _router: Router) {}
+  text = '';
 
-  ngOnInit(): void {}
+  constructor() {}
 
-  onClick(): void {
-    this._router.navigateByUrl('/find');
+  ngOnInit(): void {
+    this.cycleBrand();
+  }
+
+  cycleBrand() {
+    const brand = 'iconSyntax';
+
+    setTimeout(() => {
+      this.text =
+        this.text === brand ? '' : brand.slice(0, this.text.length + 1);
+      this.cycleBrand();
+    }, this.text === brand ? 2000 : 200);
   }
 }

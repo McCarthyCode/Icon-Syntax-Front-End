@@ -31,6 +31,10 @@ export class AppComponent implements OnInit {
     return this._authSrv.credentials$.value !== null;
   }
 
+  get homePage(): boolean {
+    return this._router.url === '/';
+  }
+
   get findPage(): boolean {
     return this._router.url === '/find';
   }

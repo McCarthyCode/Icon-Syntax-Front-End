@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { CategoriesService } from './categories.service';
 import { IconsService } from './icons.service';
 import { Category } from './models/category.model';
@@ -115,7 +114,6 @@ export class FindService {
           this.page
         )
         .subscribe((icons) => {
-          console.log('got here');
           this.icons$.next(icons);
           this.loadingIcons = false;
         });
