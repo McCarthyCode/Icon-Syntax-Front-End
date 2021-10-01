@@ -1,5 +1,5 @@
 ion-header {
-  --ion-toolbar-background: #d5dce4 !important;
+  --ion-toolbar-background: var(--ice-blue) !important;
 }
 
 .header-md::after {
@@ -9,7 +9,7 @@ ion-header {
 ion-content {
   &,
   ion-header ion-toolbar {
-    --background: #d5dce4 !important;
+    --background: var(--ice-blue) !important;
   }
 
   & > div {

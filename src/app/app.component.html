@@ -20,13 +20,13 @@
           </ion-item>
           <ion-item button routerLink="/find" (click)="onMenuClick()">
             <ion-icon name="compass" slot="start"></ion-icon>
-            <ion-text> Find Icons </ion-text>
+            <ion-text> Icons Page </ion-text>
           </ion-item>
           <ion-item class="searchbar find" lines="none" *ngIf="findPage">
             <ion-icon name="search" slot="start"></ion-icon>
             <ion-input
               #searchbar
-              placeholder="Search"
+              placeholder="Search Icons"
               (ionChange)="onSearchbar($event)"
             >
             </ion-input>
@@ -40,7 +40,7 @@
             (click)="libraryToggle()"
           >
             <ion-icon name="list" slot="start"></ion-icon>
-            <ion-text> Browse </ion-text>
+            <ion-text> Browse Library </ion-text>
             <ion-icon
               name="arrow-undo-outline"
               slot="end"
@@ -64,7 +64,7 @@
             >
               <ion-item
                 detail="true"
-                color="medium"
+                class="find"
                 button
                 (click)="onClickCategory(category.id)"
               >
