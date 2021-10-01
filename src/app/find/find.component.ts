@@ -99,13 +99,14 @@ export class FindComponent implements OnInit {
         .list(
           this.query ? this.query : undefined,
           category ? category.id : undefined,
-          this.page
+          page + 1
         )
         .subscribe((icons) => {
           const updated = this.icons$.value;
 
           if (updated) {
             updated.results.push(...icons.results);
+            updated.pagination = icons.pagination;
             this.icons$.next(updated);
           } else {
             this.icons$.next(icons);

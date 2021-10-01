@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="categories">
+<ion-content>
   <ion-grid>
     <ion-row [style.display]="page === 1 && loadingIcons ? 'flex' : 'none'">
       <ion-col class="spinner-wrapper">
@@ -19,7 +19,6 @@
     </ion-row>
     <ion-row
       class="ion-justify-content-center"
-      [style.display]="page === 1 && loadingIcons ? 'none' : 'flex'"
     >
       <ion-col *ngIf="(icons$ | async).results.length > 0">
         <ul class="icons ion-no-margin ion-no-padding">
