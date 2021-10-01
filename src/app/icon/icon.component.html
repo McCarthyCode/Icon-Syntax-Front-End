@@ -1,9 +1,9 @@
 <ion-card>
   <img src="data:image/gif;base64,{{ icon.icon }}" />
   <ion-text class="ion-text-center ion-no-padding">
-    <h2>{{ icon.word }}</h2>
+    <p class="word">{{ icon.word }}</p>
   </ion-text>
   <ion-text class="ion-text-center ion-no-padding" *ngIf="icon.descriptor">
-    <h3>{{ icon.descriptor }}</h3>
+    <p class="descriptor">{{ icon.descriptor }}</p>
   </ion-text>
 </ion-card>
