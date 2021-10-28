@@ -17,9 +17,7 @@
         <ion-spinner></ion-spinner>
       </ion-col>
     </ion-row>
-    <ion-row
-      class="ion-justify-content-center"
-    >
+    <ion-row class="ion-justify-content-center">
       <ion-col *ngIf="(icons$ | async).results.length > 0">
         <ul class="icons ion-no-margin ion-no-padding">
           <li *ngFor="let icon of (icons$ | async).results">

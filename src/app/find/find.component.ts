@@ -1,8 +1,6 @@
 import {
   Component,
-  EventEmitter,
   OnInit,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
