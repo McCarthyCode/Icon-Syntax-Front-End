@@ -34,9 +34,10 @@ ion-menu {
   }
 }
 
-ion-content ion-list ion-list {
+.library {
   padding: 0;
   margin-top: 1px;
+  margin-bottom: -1px;
   border-left: 0.5rem solid var(--dark-blue);
 
   ion-item:last-child .item-inner {
