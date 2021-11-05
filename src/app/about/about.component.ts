@@ -33,6 +33,9 @@ export class AboutComponent implements OnInit {
   ];
   contents: IContent[];
 
+  idle = true;
+  idleTimeout = 1000;
+
   @ViewChild('slides', { static: true }) slides: IonSlides;
 
   constructor() {}
@@ -45,10 +48,12 @@ export class AboutComponent implements OnInit {
 
   ionViewWillEnter() {
     window.addEventListener('keyup', this.keyListener);
+    window.addEventListener('mousemove', this.mousemoveListener);
   }
 
   ionViewDidLeave() {
     window.removeEventListener('keyup', this.keyListener);
+    window.removeEventListener('mousemove', this.mousemoveListener);
   }
 
   keyListener = ($event) => {
@@ -62,6 +67,10 @@ export class AboutComponent implements OnInit {
     }
   };
 
+  mousemoveListener = () => {
+    this.idle = false;
+  };
+
   updatePage() {
     this.slides.getActiveIndex().then((index) => {
       this.index = index;
@@ -70,6 +79,20 @@ export class AboutComponent implements OnInit {
 
   onNavigate(index: number) {
     this.slides.slideTo(index);
+  }
+
+  onPrevClick() {
+    this.slides.slidePrev();
+  }
+
+  onNextClick() {
+    this.slides.slideNext();
+  }
+
+  onArrowMouseleave() {
+    setTimeout(() => {
+      this.idle = true;
+    }, this.idleTimeout);
   }
 
   onMouseEnter($event: Event) {

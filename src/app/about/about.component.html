@@ -12,6 +12,22 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size-xl="8">
+        <div
+          class="arrow arrow-prev"
+          (click)="onPrevClick()"
+          (mouseleave)="onArrowMouseleave()"
+          [style.display]="idle ? 'none' : 'flex'"
+        >
+          <ion-icon name="arrow-back"></ion-icon>
+        </div>
+        <div
+          class="arrow arrow-next"
+          (click)="onNextClick()"
+          (mouseleave)="onArrowMouseleave()"
+          [style.display]="idle ? 'none' : 'flex'"
+        >
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
         <ion-slides
           #slides
           (ionSlideNextEnd)="updatePage()"
@@ -27,9 +43,16 @@
                 <small>
                   <em>
                     <ion-text color="medium">
-                      Swipe left<span class="ion-hide-xl-down">
-                        or use the contents pane</span
-                      >
+                      Swipe left or right<span class="ion-hide-xl-down">,</span>
+                      <span class="ion-hide-md-down">
+                        <span class="ion-hide-xl-up"> or</span>
+                        use the arrow buttons<span class="ion-hide-xl-down"
+                          >,</span
+                        >
+                      </span>
+                      <span class="ion-hide-xl-down">
+                        or use the contents pane
+                      </span>
                       to navigate.
                     </ion-text>
                   </em>
