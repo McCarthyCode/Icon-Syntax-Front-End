@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FindComponent } from './find.component';
+import { IconsComponent } from './icons.component';
 
-describe('FindComponent', () => {
-  let component: FindComponent;
-  let fixture: ComponentFixture<FindComponent>;
+describe('IconsComponent', () => {
+  let component: IconsComponent;
+  let fixture: ComponentFixture<IconsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FindComponent ],
+      declarations: [ IconsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FindComponent);
+    fixture = TestBed.createComponent(IconsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

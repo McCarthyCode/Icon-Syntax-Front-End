@@ -16,8 +16,8 @@ import { UpdateCategoryComponent } from './update-category/update-category.compo
 import { CreateIconComponent } from './create-icon/create-icon.component';
 import { IconModalComponent } from './icon-modal/icon-modal.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
-import { FindComponent } from './find/find.component';
-import { IconDetailComponent } from './find/icon-detail/icon-detail.component';
+import { IconsComponent } from './icons/icons.component';
+import { IconDetailComponent } from './icons/icon-detail/icon-detail.component';
 import { IconComponent } from './icon/icon.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
@@ -35,7 +35,7 @@ import { HomeComponent } from './home/home.component';
     RegisterVerifyComponent,
     ForgotComponent,
     ForgotVerifyComponent,
-    FindComponent,
+    IconsComponent,
     IconDetailComponent,
     UpdateCategoryComponent,
     CategoryModalComponent,

@@ -18,11 +18,11 @@
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-text> Home </ion-text>
           </ion-item>
-          <ion-item button routerLink="/find" (click)="onMenuClick()">
+          <ion-item button routerLink="/icons" (click)="onMenuClick()">
             <ion-icon name="image" slot="start"></ion-icon>
             <ion-text> Icons </ion-text>
           </ion-item>
-          <ion-item class="searchbar find" lines="none" *ngIf="findPage">
+          <ion-item class="searchbar icons" lines="none" *ngIf="iconsPage">
             <ion-icon name="search" slot="start"></ion-icon>
             <ion-input
               #searchbar
@@ -33,10 +33,10 @@
             <ion-icon name="close" slot="end" (click)="onClear()"></ion-icon>
           </ion-item>
           <ion-item
-            class="find"
+            class="icons"
             lines="none"
             button
-            *ngIf="findPage"
+            *ngIf="iconsPage"
             (click)="libraryToggle()"
           >
             <ion-icon name="list" slot="start"></ion-icon>
@@ -57,14 +57,14 @@
                 ? 'block'
                 : 'none'
             "
-            *ngIf="findPage"
+            *ngIf="iconsPage"
           >
             <ion-item-sliding
               *ngFor="let category of (categories$ | async).results"
             >
               <ion-item
                 detail="true"
-                class="find"
+                class="icons"
                 button
                 (click)="onClickCategory(category.id)"
               >

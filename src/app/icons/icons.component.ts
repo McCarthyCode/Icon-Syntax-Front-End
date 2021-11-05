@@ -12,11 +12,11 @@ import { AuthService } from '../auth.service';
 import { FindService } from '../find.service';
 
 @Component({
-  selector: 'app-find',
-  templateUrl: './find.component.html',
-  styleUrls: ['./find.component.scss'],
+  selector: 'app-icons',
+  templateUrl: './icons.component.html',
+  styleUrls: ['./icons.component.scss'],
 })
-export class FindComponent implements OnInit {
+export class IconsComponent implements OnInit {
   // Back-end parameters
   query = '';
   page = 1;

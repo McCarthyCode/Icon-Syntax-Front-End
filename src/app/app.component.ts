@@ -35,8 +35,8 @@ export class AppComponent implements OnInit {
     return this._router.url === '/';
   }
 
-  get findPage(): boolean {
-    return this._router.url === '/find';
+  get iconsPage(): boolean {
+    return this._router.url === '/icons';
   }
 
   get categories$(): BehaviorSubject<Category.IClientDataList> {

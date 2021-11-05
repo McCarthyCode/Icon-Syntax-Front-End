@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './auth.guard';
 import { CreateIconComponent } from './create-icon/create-icon.component';
-import { FindComponent } from './find/find.component';
+import { IconsComponent } from './icons/icons.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { HomeComponent } from './home/home.component';
@@ -20,8 +20,8 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'find',
-    component: FindComponent,
+    path: 'icons',
+    component: IconsComponent,
   },
   {
     path: 'about',
