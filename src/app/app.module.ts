@@ -24,6 +24,7 @@ import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
+import { IconsPage } from './icons-page/icons-page.page';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { HomeComponent } from './home/home.component';
     UpdateIconComponent,
     IconModalComponent,
     IconComponent,
+    IconsPage,
     NotFoundComponent
   ],
   entryComponents: [],

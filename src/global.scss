@@ -40,6 +40,13 @@
   min-height: 10rem;
 }
 
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 ion-item {
   line-height: 1.6;
 }

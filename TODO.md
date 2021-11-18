@@ -3,11 +3,9 @@
 ## High Priorities
 
 - Tabbed Icons page
-  - Page routing
-  - Parent tabs page
-    - Browse Library tab
-    - Search Icons tab
-  - Icons page service
+  - Browse Library tab
+  - Search Icons tab
+- Update Icons service (if applicable)
 
 ## Medium Priorities
 
