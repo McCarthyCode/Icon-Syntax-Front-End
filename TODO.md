@@ -2,13 +2,27 @@
 
 ## High Priorities
 
-- Menu Library
-- Slide nav buttons
+- Tabbed Icons page
+  - Page routing
+  - Parent tabs page
+    - Browse Library tab
+    - Search Icons tab
+  - Icons page service
 
 ## Medium Priorities
 
-_None at this time._
+- Content management
+  - Menu Items
+  - Icons
+  - Categories
+    - Requested categories
+    - Tree editor
+  - Blog
+    - Posts
+    - Comments
+  - PDF Slideshows
+  - Gallery
 
 ## Low Priorities
 
-_None at this time._
+- Sentence builder
