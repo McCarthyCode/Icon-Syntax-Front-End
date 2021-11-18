@@ -6,11 +6,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { IconsPageRoutingModule } from './icons-page-routing.module';
 
-import { BrowseComponent } from './browse/browse.component';
+import { BrowseComponent, CategoryNodeComponent } from './browse/browse.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, IconsPageRoutingModule],
-  declarations: [BrowseComponent, SearchResultsComponent],
+  declarations: [BrowseComponent, SearchResultsComponent, CategoryNodeComponent],
 })
 export class IconsPageModule {}

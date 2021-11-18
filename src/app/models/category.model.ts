@@ -1,4 +1,5 @@
 import { Model } from './model';
+import { TreeNode } from './data-structures/tree'
 
 export namespace Category {
   export interface ICategory {
@@ -32,4 +33,9 @@ export namespace Category {
     results: [],
     retrieved: new Date(),
   };
+  export type ITreeNode = TreeNode<{
+    id: number;
+    name: string;
+    children: ITreeNode[];
+  }>;
 }
