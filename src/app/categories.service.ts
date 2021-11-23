@@ -38,9 +38,18 @@ export class CategoriesService {
       );
   }
 
-  list(): Observable<Category.IClientDataList> {
+  list(parentId: number = undefined): Observable<Category.IClientDataList> {
+    let params;
+    if (parentId) {
+      params = { parent: parentId };
+    } else {
+      params = {};
+    }
+
     return this._http
-      .get<Category.IResponseBodyList>(environment.apiBase + '/categories')
+      .get<Category.IResponseBodyList>(environment.apiBase + '/categories', {
+        params: params,
+      })
       .pipe(
         debounceTime(250),
         map((body) => {
