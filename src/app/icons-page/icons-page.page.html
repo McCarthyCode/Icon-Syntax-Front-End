@@ -1,14 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Browse Library</ion-title>
+    <ion-title>
+      {{ browseVisible ? "Browse Library" : searchResultsVisible ? "View Icons"
+      : "" }}
+    </ion-title>
     <ion-menu-button slot="end"></ion-menu-button>
   </ion-toolbar>
 
   <ion-toolbar class="searchbar">
     <ion-searchbar
       class="ion-no-padding"
-      placeholder="Type here to search icons."
+      placeholder="Search icons here."
     ></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-toggle></ion-toggle>
+      <ion-label>All Icons</ion-label>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
