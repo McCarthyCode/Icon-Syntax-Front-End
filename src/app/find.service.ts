@@ -48,6 +48,7 @@ export class FindService {
   // Back-end parameters
   query = '';
   page = 1;
+  category: number;
 
   constructor(
     private _iconsSrv: IconsService,

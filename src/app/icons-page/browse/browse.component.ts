@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/categories.service';
+import { FindService } from 'src/app/find.service';
 import { Category } from 'src/app/models/category.model';
 
 type CategoryNode = Category.ITreeNode;
@@ -13,9 +14,17 @@ export class CategoryNodeComponent implements OnInit {
   @Input() category: CategoryNode;
   @Input() expand = false;
 
-  constructor(private _categoriesSrv: CategoriesService) {}
+  private _active = false;
+  get active(): boolean {
+    return this.category.id === this._findSrv.category ? this._active : false;
+  }
 
-  ngOnInit() {
+  constructor(
+    private _categoriesSrv: CategoriesService,
+    private _findSrv: FindService
+  ) {}
+
+  ngOnInit(): void {
     this._categoriesSrv.list(this.category.id).subscribe((categories) => {
       this.category.children = categories.results.map((category) => {
         return { id: category.id, name: category.name, children: [] };
@@ -23,12 +32,23 @@ export class CategoryNodeComponent implements OnInit {
     });
   }
 
-  toggleChildren() {
-    this.expand = !this.expand;
-  }
+  onClick($event): void {
+    $event.stopPropagation();
 
-  viewResults(id: number) {
-    console.log(id);
+    if (this._active) {
+      this.expand = false;
+
+      this._active = false;
+      this._findSrv.category = undefined;
+    } else if (this.expand) {
+      this._active = true;
+      this._findSrv.category = this.category.id;
+    } else if (this.category.children.length > 0) {
+      this.expand = true;
+    } else {
+      this._active = true;
+      this._findSrv.category = this.category.id;
+    }
   }
 }
 
@@ -62,42 +82,5 @@ export class BrowseComponent implements OnInit {
         this.categoriesTree.children.push(child as CategoryNode);
       }
     });
-  }
-
-  populateTree(parent: CategoryNode) {
-    // while (this.categoriesList.length > 0) {
-    let children = this.categoriesList.filter(
-      (category) => category.parent === null
-    );
-    console.log(children);
-    // }
-  }
-
-  _populateTree(
-    parent: CategoryNode,
-    child: CategoryNode = { id: 0, name: 'All Icons', children: [] }
-  ) {
-    let branches = this.categoriesList.filter((category) => {
-      // debugger;
-      return category.parent === parent.id;
-    });
-    // this.categoriesList = this.categoriesList.filter(
-    let children: CategoryNode[] = branches.map((x) => {
-      return { id: x.id, name: x.name, children: [] };
-    });
-
-    console.log(branches);
-    console.log(this.categoriesList);
-    console.log(children);
-
-    // activeNode.children = children;
-    console.log(parent);
-    debugger;
-
-    for (let node of children) {
-      console.log('got here');
-      parent.children.push(node);
-      this.populateTree(node);
-    }
   }
 }

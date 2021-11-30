@@ -1,19 +1,23 @@
-<ion-icon
-  [name]="expand ? 'caret-down-outline' : 'caret-forward-outline'"
-  [style.visibility]="category.children.length > 0 ? 'visible' : 'hidden'"
-  (click)="toggleChildren()"
+<div
+  (click)="onClick($event)"
+  [class]="active ? 'container active' : 'container'"
 >
-</ion-icon>
-<span (click)="viewResults(category.id)">
-  {{ category.name }}
-</span>
-<ul *ngIf="category.children && expand">
-  <li *ngFor="let subcategory of category.children">
-    <app-category-node
-      *ngIf="subcategory"
-      [category]="subcategory"
-      [expand]="false"
-    >
-    </app-category-node>
-  </li>
-</ul>
+  <ion-icon
+    [name]="expand ? 'caret-down-outline' : 'caret-forward-outline'"
+    [style.visibility]="category.children.length > 0 ? 'visible' : 'hidden'"
+  >
+  </ion-icon>
+  <span>
+    {{ category.name }}
+  </span>
+  <ul *ngIf="expand && category.children.length > 0">
+    <li *ngFor="let subcategory of category.children">
+      <app-category-node
+        *ngIf="subcategory"
+        [category]="subcategory"
+        [expand]="false"
+      >
+      </app-category-node>
+    </li>
+  </ul>
+</div>
