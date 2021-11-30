@@ -3,7 +3,16 @@
   <ion-toolbar> </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <app-category-node [category]="categoriesTree" [expand]="true">
-  </app-category-node>
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-no-padding" size-md="9" size-lg="7" size-xl="6">
+        <ul class="top">
+          <li *ngFor="let category of categoriesTree.children">
+            <app-category-node [category]="category"> </app-category-node>
+          </li>
+        </ul>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
