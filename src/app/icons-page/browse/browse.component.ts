@@ -14,9 +14,10 @@ export class CategoryNodeComponent implements OnInit {
   @Input() category: CategoryNode;
   @Input() expand = false;
 
-  private _active = false;
   get active(): boolean {
-    return this.category.id === this._findSrv.category ? this._active : false;
+    return this.category.id === this._findSrv.category
+      ? !this._findSrv.allIcons
+      : false;
   }
 
   constructor(
@@ -32,21 +33,24 @@ export class CategoryNodeComponent implements OnInit {
     });
   }
 
-  onClick($event): void {
+  onClick($event: Event): void {
     $event.stopPropagation();
 
-    if (this._active) {
+    if (this.active) {
+      if (this._findSrv.allIcons) {
+        this._findSrv.allIcons = false;
+
+        return;
+      }
       this.expand = false;
 
-      this._active = false;
       this._findSrv.category = undefined;
     } else if (this.expand) {
-      this._active = true;
       this._findSrv.category = this.category.id;
     } else if (this.category.children.length > 0) {
       this.expand = true;
     } else {
-      this._active = true;
+      this._findSrv.allIcons = false;
       this._findSrv.category = this.category.id;
     }
   }

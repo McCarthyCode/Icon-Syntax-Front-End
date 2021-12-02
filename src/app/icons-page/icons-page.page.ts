@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FindService } from '../find.service';
 
 @Component({
   selector: 'app-icons-page',
@@ -10,11 +11,23 @@ export class IconsPage implements OnInit {
   get browseVisible(): boolean {
     return this._router.url === '/icons/browse';
   }
+
   get searchResultsVisible(): boolean {
     return this._router.url === '/icons/search-results';
   }
 
-  constructor(private _router: Router) {}
+  get allIcons(): boolean {
+    return this._findSrv.allIcons;
+  }
+  set allIcons(checked: boolean) {
+    this._findSrv.allIcons = checked;
+  }
 
-  ngOnInit() {}
+  constructor(private _router: Router, private _findSrv: FindService) {}
+
+  ngOnInit(): void {}
+
+  onAllIconsChange($event: Event): void {
+    this.allIcons = $event['detail']['checked'];
+  }
 }

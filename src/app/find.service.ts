@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { CategoriesService } from './categories.service';
 import { IconsService } from './icons.service';
@@ -26,7 +26,7 @@ const emptyIcons: Icon.IClientDataList = {
 @Injectable({
   providedIn: 'root',
 })
-export class FindService {
+export class FindService implements OnInit {
   // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
   categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
@@ -49,11 +49,20 @@ export class FindService {
   query = '';
   page = 1;
   category: number;
+  allIcons: boolean;
 
   constructor(
     private _iconsSrv: IconsService,
     private _categoriesSrv: CategoriesService
   ) {}
+
+  ngOnInit(): void {
+    this.allIcons = false;
+  }
+
+  toggleAllIcons(): void {
+    this.allIcons = !this.allIcons;
+  }
 
   resetCategories(): void {
     this.loadingCategories = true;

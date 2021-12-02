@@ -13,7 +13,10 @@
       placeholder="Search icons here."
     ></ion-searchbar>
     <ion-buttons slot="end">
-      <ion-toggle></ion-toggle>
+      <ion-toggle
+        (ionChange)="onAllIconsChange($event)"
+        [(checked)]="allIcons"
+      ></ion-toggle>
       <ion-label>All Icons</ion-label>
     </ion-buttons>
   </ion-toolbar>
