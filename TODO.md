@@ -2,10 +2,15 @@
 
 ## High Priorities
 
-- Tabbed Icons page
-  - Browse Library tab
-  - Search Icons tab
-- Update Icons service (if applicable)
+- IconsPage
+  - Breadcrumbs
+  - Detail pane
+  - Spinners
+  - Subscriptions
+  - Text
+  - Icons badge
+- AppComponent
+  - IconsPage link
 
 ## Medium Priorities
 

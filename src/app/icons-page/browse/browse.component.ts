@@ -1,6 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/categories.service';
 import { FindService } from 'src/app/find.service';
+import { IconsService } from 'src/app/icons.service';
 import { Category } from 'src/app/models/category.model';
 
 type CategoryNode = Category.ITreeNode;
@@ -22,7 +23,8 @@ export class CategoryNodeComponent implements OnInit {
 
   constructor(
     private _categoriesSrv: CategoriesService,
-    private _findSrv: FindService
+    private _findSrv: FindService,
+    private _iconsSrv: IconsService
   ) {}
 
   ngOnInit(): void {
@@ -37,21 +39,21 @@ export class CategoryNodeComponent implements OnInit {
     $event.stopPropagation();
 
     if (this.active) {
-      if (this._findSrv.allIcons) {
-        this._findSrv.allIcons = false;
-
-        return;
-      }
       this.expand = false;
-
       this._findSrv.category = undefined;
+
+      this._findSrv.onClickCategory();
     } else if (this.expand) {
       this._findSrv.category = this.category.id;
+
+      this._findSrv.onClickCategory();
     } else if (this.category.children.length > 0) {
       this.expand = true;
     } else {
       this._findSrv.allIcons = false;
       this._findSrv.category = this.category.id;
+
+      this._findSrv.onClickCategory();
     }
   }
 }

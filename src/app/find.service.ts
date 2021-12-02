@@ -60,10 +60,6 @@ export class FindService implements OnInit {
     this.allIcons = false;
   }
 
-  toggleAllIcons(): void {
-    this.allIcons = !this.allIcons;
-  }
-
   resetCategories(): void {
     this.loadingCategories = true;
   }
@@ -79,19 +75,21 @@ export class FindService implements OnInit {
     }
   }
 
-  onSearchbar(query: string): void {
+  onAllIconsChange(checked: boolean): void {
     this.resetCategories();
     this.resetIcons();
 
-    this.query = query;
+    this.allIcons = checked;
 
+    if (this.categoriesSub) this.categoriesSub.unsubscribe();
     this.categoriesSub = this.category$.subscribe((category) => {
-      this.loadingCategories = false;
-      this.iconsSub.unsubscribe();
+      // this.loadingCategories = false;
+
+      if (this.iconsSub) this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
-          category ? category.id : undefined,
+          this.allIcons ? undefined : this.category,
           this.page
         )
         .subscribe((icons) => {
@@ -101,12 +99,40 @@ export class FindService implements OnInit {
     });
   }
 
-  onClickCategory(id: number): void {
+  onSearchbar(query: string): void {
     this.resetCategories();
     this.resetIcons();
 
-    this._categoriesSrv.retrieve(id).subscribe((category) => {
-      this.breadcrumbs.push(category);
+    this.query = query;
+
+    if (this.categoriesSub) this.categoriesSub.unsubscribe();
+    this.categoriesSub = this.category$.subscribe((category) => {
+      // this.loadingCategories = false;
+
+      if (this.iconsSub) this.iconsSub.unsubscribe();
+      this.iconsSub = this._iconsSrv
+        .list(
+          this.query ? this.query : undefined,
+          this.allIcons ? undefined : this.category,
+          this.page
+        )
+        .subscribe((icons) => {
+          this.icons$.next(icons);
+          this.loadingIcons = false;
+        });
+    });
+  }
+
+  onClickCategory(): void {
+    this.resetCategories();
+    this.resetIcons();
+
+    if (this.category === undefined) {
+      return;
+    }
+
+    this._categoriesSrv.retrieve(this.category).subscribe((category) => {
+      // this.breadcrumbs.push(category);
       this.category$.next(category);
 
       const categories: Category.IClientDataList = {
@@ -116,11 +142,11 @@ export class FindService implements OnInit {
       this.categories$.next(categories);
       this.loadingCategories = false;
 
-      this.iconsSub.unsubscribe();
+      if (this.iconsSub) this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
-          category ? category.id : undefined,
+          this.allIcons ? undefined : this.category,
           this.page
         )
         .subscribe((icons) => {
@@ -128,59 +154,5 @@ export class FindService implements OnInit {
           this.loadingIcons = false;
         });
     });
-  }
-
-  onClickBack(): void {
-    this.resetCategories();
-    this.resetIcons();
-
-    this.breadcrumbs.pop();
-    const category =
-      this.breadcrumbs.length > 0
-        ? this.breadcrumbs[this.breadcrumbs.length - 1]
-        : null;
-    this.category$.next(category);
-
-    if (category === null) {
-      this._categoriesSrv.list().subscribe((categories) => {
-        this.categories$.next(categories);
-        this.loadingCategories = false;
-
-        this.iconsSub.unsubscribe();
-        this.iconsSub = this._iconsSrv
-          .list(
-            this.query ? this.query : undefined,
-            category ? category.id : undefined,
-            this.page
-          )
-          .subscribe((icons) => {
-            this.icons$.next(icons);
-            this.loadingIcons = false;
-            this.libraryVisible = true;
-          });
-      });
-    } else {
-      this._categoriesSrv.retrieve(category.id).subscribe((category) => {
-        this.category$.next(category);
-        this.categories$.next({
-          results: category.children,
-          retrieved: new Date(),
-        });
-        this.loadingCategories = false;
-
-        this.iconsSub.unsubscribe();
-        this.iconsSub = this._iconsSrv
-          .list(
-            this.query ? this.query : undefined,
-            category ? category.id : undefined,
-            this.page
-          )
-          .subscribe((icons) => {
-            this.icons$.next(icons);
-            this.loadingIcons = false;
-            this.libraryVisible = true;
-          });
-      });
-    }
   }
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from 'src/app/auth.service';
 import { FindService } from 'src/app/find.service';
 import { IconDetailService } from 'src/app/icon-detail.service';
 import { IconsService } from 'src/app/icons.service';
@@ -12,11 +11,7 @@ import { Icon } from 'src/app/models/icon.model';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
 })
-export class SearchResultsComponent implements OnInit {
-  // Back-end parameters
-  query = '';
-  page = 1;
-
+export class SearchResultsComponent  {
   // Getters/Setters
   get path(): string {
     const path: string = this._findSrv.breadcrumbs
@@ -59,15 +54,6 @@ export class SearchResultsComponent implements OnInit {
     private _findSrv: FindService
   ) {}
 
-  ngOnInit(): void {
-    this._findSrv.iconsSub = this._iconsSrv.list().subscribe({
-      next: (icons) => {
-        this.icons$.next(icons);
-        this.loadingIcons = false;
-      },
-    });
-  }
-
   clickIcon(icon: Icon.IIcon): void {
     this._iconsDetailSrv.click(icon);
   }
@@ -87,9 +73,9 @@ export class SearchResultsComponent implements OnInit {
       this._findSrv.iconsSub.unsubscribe();
       this._findSrv.iconsSub = this._iconsSrv
         .list(
-          this.query ? this.query : undefined,
-          category ? category.id : undefined,
-          page + 1
+          this._findSrv.query,
+          this._findSrv.category,
+          this._findSrv.page + 1
         )
         .subscribe((icons) => {
           const updated = this.icons$.value;

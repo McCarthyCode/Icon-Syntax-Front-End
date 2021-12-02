@@ -28,6 +28,10 @@ export class IconsPage implements OnInit {
   ngOnInit(): void {}
 
   onAllIconsChange($event: Event): void {
-    this.allIcons = $event['detail']['checked'];
+    this._findSrv.onAllIconsChange($event['detail']['checked']);
+  }
+
+  onSearchbarChange($event: Event): void {
+    this._findSrv.onSearchbar($event['detail']['value']);
   }
 }

@@ -11,6 +11,7 @@
     <ion-searchbar
       class="ion-no-padding"
       placeholder="Search icons here."
+      (ionChange)="onSearchbarChange($event)"
     ></ion-searchbar>
     <ion-buttons slot="end">
       <ion-toggle

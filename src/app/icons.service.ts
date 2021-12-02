@@ -29,7 +29,7 @@ export class IconsService {
     page: number = 1
   ): Observable<Icon.IClientDataList> {
     let params = {};
-    if (categoryId) {
+    if (categoryId !== undefined) {
       params = { category: categoryId };
     }
     if (query) {
@@ -185,24 +185,22 @@ export class IconsService {
           `Bearer ${credentials.tokens.access}`
         );
 
-        return this._http.delete<null>(
-          `${environment.apiBase}/icons/delete/${id}`,
-          {
+        return this._http
+          .delete<null>(`${environment.apiBase}/icons/delete/${id}`, {
             headers: headers,
             observe: 'response',
-          }
-        )
-        .pipe(
-          catchError((response: HttpErrorResponse) => {
-            if (refresh && response.status === 401) {
-              return this._authSrv
-                .refresh()
-                .pipe(switchMap(() => this.delete(id, false)));
-            } else {
-              return of(response);
-            }
           })
-        );
+          .pipe(
+            catchError((response: HttpErrorResponse) => {
+              if (refresh && response.status === 401) {
+                return this._authSrv
+                  .refresh()
+                  .pipe(switchMap(() => this.delete(id, false)));
+              } else {
+                return of(response);
+              }
+            })
+          );
       })
     );
   }
