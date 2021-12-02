@@ -2,15 +2,16 @@
 
 ## High Priorities
 
+- Fix prod. compilation errors
 - IconsPage
   - Breadcrumbs
   - Detail pane
   - Spinners
   - Subscriptions
-  - Text
-  - Icons badge
-- AppComponent
-  - IconsPage link
+  - Empty results messages
+    - No input
+    - Broaden search/use All Icons toggle
+    - No results given query
 
 ## Medium Priorities
 

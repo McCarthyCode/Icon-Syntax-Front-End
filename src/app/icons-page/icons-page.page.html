@@ -32,6 +32,7 @@
     <ion-tab-button tab="search-results">
       <ion-icon name="images"></ion-icon>
       <ion-label>View Icons</ion-label>
+      <ion-badge *ngIf="badgeVisible">{{ count }}</ion-badge>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
