@@ -52,6 +52,26 @@ export class SearchResultsComponent {
     return this._findSrv.page;
   }
 
+  get emptyQuery(): boolean {
+    return this._findSrv.emptyQuery;
+  }
+
+  get notFound(): boolean {
+    return this._findSrv.notFound;
+  }
+
+  get broadenSearch(): boolean {
+    return this._findSrv.broadenSearch;
+  }
+
+  get categoryId() : number {
+    return this._findSrv.categoryId;
+  }
+
+  get allIcons(): boolean {
+    return this._findSrv.allIcons;
+  }
+
   constructor(
     private _iconsSrv: IconsService,
     private _iconsDetailSrv: IconDetailService,

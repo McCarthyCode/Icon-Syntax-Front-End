@@ -54,7 +54,10 @@ export class IconsPage {
   }
 
   get badgeVisible(): boolean {
-    return this._findSrv.icons$.value.pagination.totalResults > 0;
+    return (
+      !this._findSrv.emptyQuery &&
+      this._findSrv.icons$.value.pagination.totalResults > 0
+    );
   }
 
   constructor(private _router: Router, private _findSrv: FindService) {}

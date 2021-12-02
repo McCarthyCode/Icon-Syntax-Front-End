@@ -3,31 +3,13 @@
   <ion-toolbar> </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content>
-  <div class="centered ion-padding">
-    <p class="ion-text-center">Either a blank input message or a grid of icons will go here.</p>
-  </div>
-</ion-content> -->
-
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-spinner *ngIf="loadingCategories"></ion-spinner>
-    <ion-title *ngIf="!loadingCategories">
-      {{ path ? path : "All Icons" }}
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button contentId="menu"> </ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
   <ion-grid>
-    <ion-row [style.display]="page === 1 && loadingIcons ? 'flex' : 'none'">
+    <!-- <ion-row [style.display]="page === 1 && loadingIcons ? 'flex' : 'none'">
       <ion-col class="spinner-wrapper">
         <ion-spinner></ion-spinner>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <ion-row class="ion-justify-content-center">
       <ion-col *ngIf="(icons$ | async).results.length > 0">
         <ul class="icons ion-no-margin ion-no-padding">
@@ -37,14 +19,34 @@
         </ul>
       </ion-col>
       <ion-col
-        *ngIf="(icons$ | async).results.length === 0"
+        class="centered"
         size-md="9"
         size-lg="7"
         size-xl="6"
+        *ngIf="(icons$ | async).results.length === 0"
       >
         <p class="ion-text-center">
           <ion-text color="medium">
-            <em>No icons to show. Please broaden your search.</em>
+            <em *ngIf="emptyQuery">
+              Input is blank. To begin, type in the searchbar above or click the
+              "Browse Library" tab below and select a category.
+            </em>
+            <em *ngIf="!emptyQuery">
+              No icons to show.
+              <span *ngIf="notFound">
+                Please submit a request for a new icon by contacting the owner
+                at
+                <a href="mailto:marybeth@iconsyntax.com"
+                  >marybeth@iconsyntax.com</a
+                >.
+              </span>
+              <span *ngIf="!notFound && broadenSearch">
+                Please broaden your search by selecting a higher category
+                <span *ngIf="!allIcons">
+                  or by clicking the All Icons toggle switch</span
+                >.
+              </span>
+            </em>
           </ion-text>
         </p>
       </ion-col>

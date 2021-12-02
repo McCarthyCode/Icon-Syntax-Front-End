@@ -1,7 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { CategoriesService } from './categories.service';
-import { IconsPage } from './icons-page/icons-page.page';
 import { IconsService } from './icons.service';
 import { Category } from './models/category.model';
 import { Icon } from './models/icon.model';
@@ -54,6 +53,23 @@ export class FindService {
   allIcons = false;
   path = '';
 
+  // Message Flags
+  get emptyQuery(): boolean {
+    return this.query.length === 0
+      ? this.allIcons || this.categoryId === undefined
+      : false;
+  }
+
+  get notFound(): boolean {
+    return (
+      (this.allIcons || this.categoryId === undefined) && this.query.length > 0
+    );
+  }
+
+  get broadenSearch(): boolean {
+    return this.categoryId !== undefined && this.query.length > 0;
+  }
+
   constructor(
     private _iconsSrv: IconsService,
     private _categoriesSrv: CategoriesService
@@ -80,6 +96,8 @@ export class FindService {
 
     this.allIcons = checked;
 
+    if (this.emptyQuery) return;
+
     if (this.categoriesSub) this.categoriesSub.unsubscribe();
     this.categoriesSub = this.category$.subscribe((category) => {
       // this.loadingCategories = false;
@@ -103,6 +121,8 @@ export class FindService {
     this.resetIcons();
 
     this.query = query;
+
+    if (this.emptyQuery) return;
 
     if (this.categoriesSub) this.categoriesSub.unsubscribe();
     this.categoriesSub = this.category$.subscribe((category) => {
@@ -128,7 +148,7 @@ export class FindService {
 
     this.allIcons = false;
 
-    if (this.categoryId === undefined) return;
+    if (this.emptyQuery) return;
 
     this._categoriesSrv.retrieve(this.categoryId).subscribe((category) => {
       this.path = [category.path, category.name].filter(Boolean).join(' » ');
