@@ -19,12 +19,8 @@
             <ion-text> Home </ion-text>
           </ion-item>
           <ion-item button routerLink="/icons/browse" (click)="onMenuClick()">
-            <ion-icon name="list" slot="start"></ion-icon>
-            <ion-text> Browse Library </ion-text>
-          </ion-item>
-          <ion-item button routerLink="/icons/search-results" (click)="onMenuClick()">
             <ion-icon name="search" slot="start"></ion-icon>
-            <ion-text> Search Icons </ion-text>
+            <ion-text> Find Icons </ion-text>
           </ion-item>
           <ion-item
             *ngIf="!isAuthenticated"
