@@ -78,7 +78,7 @@ export class SearchResultsComponent {
       this._findSrv.iconsSub = this._iconsSrv
         .list(
           this._findSrv.query,
-          this._findSrv.category,
+          this._findSrv.categoryId,
           this._findSrv.page + 1
         )
         .subscribe((icons) => {

@@ -48,7 +48,7 @@ export class FindService {
 
   // Attributes
   query = '';
-  category: number;
+  categoryId: number;
   page = 1;
 
   allIcons = false;
@@ -88,7 +88,7 @@ export class FindService {
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
-          this.allIcons ? undefined : this.category,
+          this.allIcons ? undefined : this.categoryId,
           this.page
         )
         .subscribe((icons) => {
@@ -112,7 +112,7 @@ export class FindService {
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
-          this.allIcons ? undefined : this.category,
+          this.allIcons ? undefined : this.categoryId,
           this.page
         )
         .subscribe((icons) => {
@@ -128,9 +128,9 @@ export class FindService {
 
     this.allIcons = false;
 
-    if (this.category === undefined) return;
+    if (this.categoryId === undefined) return;
 
-    this._categoriesSrv.retrieve(this.category).subscribe((category) => {
+    this._categoriesSrv.retrieve(this.categoryId).subscribe((category) => {
       this.path = [category.path, category.name].filter(Boolean).join(' » ');
       this.category$.next(category);
 
@@ -145,7 +145,7 @@ export class FindService {
       this.iconsSub = this._iconsSrv
         .list(
           this.query ? this.query : undefined,
-          this.allIcons ? undefined : this.category,
+          this.allIcons ? undefined : this.categoryId,
           this.page
         )
         .subscribe((icons) => {

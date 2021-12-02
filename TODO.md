@@ -2,8 +2,6 @@
 
 ## High Priorities
 
-- FindService
-  - Rename category to categoryId
 - IconsPage
   - Empty results messages
     - No input

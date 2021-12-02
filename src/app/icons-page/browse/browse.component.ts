@@ -23,7 +23,7 @@ export class CategoryNodeComponent implements OnInit {
   }
 
   get active(): boolean {
-    return this.category.id === this._findSrv.category ? !this.allIcons : false;
+    return this.category.id === this._findSrv.categoryId ? !this.allIcons : false;
   }
 
   constructor(
@@ -45,18 +45,18 @@ export class CategoryNodeComponent implements OnInit {
 
     if (this.active) {
       this.expand = false;
-      this._findSrv.category = undefined;
+      this._findSrv.categoryId = undefined;
 
       this._findSrv.onClickCategory();
     } else if (this.expand) {
-      this._findSrv.category = this.category.id;
+      this._findSrv.categoryId = this.category.id;
 
       this._findSrv.onClickCategory();
     } else if (this.category.children.length > 0) {
       this.expand = true;
     } else {
       this.allIcons = false;
-      this._findSrv.category = this.category.id;
+      this._findSrv.categoryId = this.category.id;
 
       this._findSrv.onClickCategory();
     }
