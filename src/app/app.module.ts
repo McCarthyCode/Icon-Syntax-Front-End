@@ -17,8 +17,6 @@ import { CreateIconComponent } from './create-icon/create-icon.component';
 import { IconModalComponent } from './icon-modal/icon-modal.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
 import { IconsComponent } from './icons/icons.component';
-import { IconDetailComponent } from './icons/icon-detail/icon-detail.component';
-import { IconComponent } from './icon/icon.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
@@ -37,13 +35,11 @@ import { IconsPage } from './icons-page/icons-page.page';
     ForgotComponent,
     ForgotVerifyComponent,
     IconsComponent,
-    IconDetailComponent,
     UpdateCategoryComponent,
     CategoryModalComponent,
     CreateIconComponent,
     UpdateIconComponent,
     IconModalComponent,
-    IconComponent,
     IconsPage,
     NotFoundComponent
   ],
