@@ -2,18 +2,17 @@
 
 ## High Priorities
 
+- FindService
+  - Rename category to categoryId
 - IconsPage
-  - Fix bug when selecting a category from Library with All Icons checked
-  - Remove breadcrumbs attribute
-  - Detail pane
-  - Spinners
-  - Subscriptions
   - Empty results messages
     - No input
     - Broaden search/use All Icons toggle
     - No results given query
-- FindService
-  - Rename category to categoryId
+  - Spinners
+  - Detail pane
+  - Remove breadcrumbs attribute
+  - Subscriptions
 
 ## Medium Priorities
 

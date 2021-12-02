@@ -15,10 +15,15 @@ export class CategoryNodeComponent implements OnInit {
   @Input() category: CategoryNode;
   @Input() expand = false;
 
+  get allIcons(): boolean {
+    return this._findSrv.allIcons;
+  }
+  set allIcons(checked: boolean) {
+    this._findSrv.allIcons = checked;
+  }
+
   get active(): boolean {
-    return this.category.id === this._findSrv.category
-      ? !this._findSrv.allIcons
-      : false;
+    return this.category.id === this._findSrv.category ? !this.allIcons : false;
   }
 
   constructor(
@@ -50,7 +55,7 @@ export class CategoryNodeComponent implements OnInit {
     } else if (this.category.children.length > 0) {
       this.expand = true;
     } else {
-      this._findSrv.allIcons = false;
+      this.allIcons = false;
       this._findSrv.category = this.category.id;
 
       this._findSrv.onClickCategory();

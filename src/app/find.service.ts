@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CategoriesService } from './categories.service';
+import { IconsPage } from './icons-page/icons-page.page';
 import { IconsService } from './icons.service';
 import { Category } from './models/category.model';
 import { Icon } from './models/icon.model';
@@ -26,7 +27,7 @@ const emptyIcons: Icon.IClientDataList = {
 @Injectable({
   providedIn: 'root',
 })
-export class FindService implements OnInit {
+export class FindService {
   // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
   categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
@@ -50,17 +51,13 @@ export class FindService implements OnInit {
   category: number;
   page = 1;
 
-  allIcons: boolean;
+  allIcons = false;
   path = '';
 
   constructor(
     private _iconsSrv: IconsService,
     private _categoriesSrv: CategoriesService
   ) {}
-
-  ngOnInit(): void {
-    this.allIcons = false;
-  }
 
   resetCategories(): void {
     this.loadingCategories = true;
@@ -129,9 +126,9 @@ export class FindService implements OnInit {
     this.resetCategories();
     this.resetIcons();
 
-    if (this.category === undefined) {
-      return;
-    }
+    this.allIcons = false;
+
+    if (this.category === undefined) return;
 
     this._categoriesSrv.retrieve(this.category).subscribe((category) => {
       this.path = [category.path, category.name].filter(Boolean).join(' » ');

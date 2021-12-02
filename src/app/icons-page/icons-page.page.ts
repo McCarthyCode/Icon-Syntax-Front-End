@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FindService } from '../find.service';
 
@@ -7,7 +7,7 @@ import { FindService } from '../find.service';
   templateUrl: './icons-page.page.html',
   styleUrls: ['./icons-page.page.scss'],
 })
-export class IconsPage implements OnInit {
+export class IconsPage {
   get browseVisible(): boolean {
     return this._router.url === '/icons/browse';
   }
@@ -58,8 +58,6 @@ export class IconsPage implements OnInit {
   }
 
   constructor(private _router: Router, private _findSrv: FindService) {}
-
-  ngOnInit(): void {}
 
   onAllIconsChange($event: Event): void {
     this._findSrv.onAllIconsChange($event['detail']['checked']);
