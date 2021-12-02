@@ -16,6 +16,24 @@ export class IconsPage implements OnInit {
     return this._router.url === '/icons/search-results';
   }
 
+  get path(): string {
+    return this._findSrv.path;
+  }
+
+  get title(): string {
+    let title = '';
+
+    if (!this.allIcons && this.path) {
+      title = this.path;
+    } else if (this.browseVisible) {
+      title = 'Browse Library';
+    } else if (this.searchResultsVisible) {
+      title = 'View Results';
+    }
+
+    return title;
+  }
+
   get allIcons(): boolean {
     return this._findSrv.allIcons;
   }

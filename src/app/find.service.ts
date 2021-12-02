@@ -45,11 +45,13 @@ export class FindService implements OnInit {
   // Navigation history
   breadcrumbs: Category.IClientData[] = [];
 
-  // Back-end parameters
+  // Attributes
   query = '';
-  page = 1;
   category: number;
+  page = 1;
+
   allIcons: boolean;
+  path = '';
 
   constructor(
     private _iconsSrv: IconsService,
@@ -132,7 +134,7 @@ export class FindService implements OnInit {
     }
 
     this._categoriesSrv.retrieve(this.category).subscribe((category) => {
-      // this.breadcrumbs.push(category);
+      this.path = [category.path, category.name].filter(Boolean).join(' » ');
       this.category$.next(category);
 
       const categories: Category.IClientDataList = {

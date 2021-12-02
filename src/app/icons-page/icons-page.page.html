@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      {{ browseVisible ? "Browse Library" : searchResultsVisible ? "View Icons"
-      : "" }}
-    </ion-title>
+    <ion-title> {{ title }} </ion-title>
     <ion-menu-button slot="end"></ion-menu-button>
   </ion-toolbar>
 
@@ -14,9 +11,7 @@
       (ionChange)="onSearchbarChange($event)"
     ></ion-searchbar>
     <ion-buttons slot="end">
-      <ion-toggle
-        (ionChange)="onAllIconsChange($event)"
-      ></ion-toggle>
+      <ion-toggle (ionChange)="onAllIconsChange($event)"></ion-toggle>
       <ion-label>All Icons</ion-label>
     </ion-buttons>
   </ion-toolbar>

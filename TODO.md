@@ -3,7 +3,8 @@
 ## High Priorities
 
 - IconsPage
-  - Breadcrumbs
+  - Fix bug when selecting a category from Library with All Icons checked
+  - Remove breadcrumbs attribute
   - Detail pane
   - Spinners
   - Subscriptions
@@ -11,6 +12,8 @@
     - No input
     - Broaden search/use All Icons toggle
     - No results given query
+- FindService
+  - Rename category to categoryId
 
 ## Medium Priorities
 
