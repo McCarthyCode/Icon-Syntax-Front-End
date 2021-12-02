@@ -26,7 +26,6 @@ import { ComponentsModule } from './components.module';
     BrowseComponent,
     SearchResultsComponent,
     CategoryNodeComponent,
-    IconDetailComponent,
   ],
 })
 export class IconsPageModule {}

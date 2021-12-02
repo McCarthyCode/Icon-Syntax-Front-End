@@ -11,7 +11,7 @@ import { Icon } from 'src/app/models/icon.model';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
 })
-export class SearchResultsComponent  {
+export class SearchResultsComponent {
   // Getters/Setters
   get path(): string {
     const path: string = this._findSrv.breadcrumbs
@@ -46,6 +46,10 @@ export class SearchResultsComponent  {
   }
   set loadingIcons(value) {
     this._findSrv.loadingIcons = value;
+  }
+
+  get page(): number {
+    return this._findSrv.page;
   }
 
   constructor(

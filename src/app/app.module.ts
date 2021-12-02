@@ -23,6 +23,7 @@ import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { IconsPage } from './icons-page/icons-page.page';
+import { ComponentsModule } from './icons-page/components.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { IconsPage } from './icons-page/icons-page.page';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    ComponentsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

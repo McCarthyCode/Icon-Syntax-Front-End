@@ -2,7 +2,6 @@
 
 ## High Priorities
 
-- Fix prod. compilation errors
 - IconsPage
   - Breadcrumbs
   - Detail pane
