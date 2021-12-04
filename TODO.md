@@ -2,13 +2,11 @@
 
 ## High Priorities
 
+- Detail pane
 - IconsPage
-  - Empty results messages
-    - No input
-    - Broaden search/use All Icons toggle
-    - No results given query
+  - Collapse all on tab click w/ Library active
   - Spinners
-  - Detail pane
+  - Redesign top toolbar
   - Remove breadcrumbs attribute
   - Subscriptions
 
