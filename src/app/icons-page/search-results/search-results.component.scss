@@ -1,3 +1,24 @@
+:root {
+  --header-height: 92px;
+}
+
+#empty {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  ion-grid {
+    height: calc(100% - var(--header-height));
+  }
+}
+
+ion-grid {
+  margin-top: var(--header-height);
+}
+
 .icons {
   display: flex;
   justify-content: space-evenly;

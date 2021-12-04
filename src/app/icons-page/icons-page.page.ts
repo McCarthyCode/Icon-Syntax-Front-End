@@ -16,29 +16,32 @@ export class IconsPage {
     return this._router.url === '/icons/search-results';
   }
 
-  get path(): string {
-    return this._findSrv.path;
-  }
-
-  get title(): string {
-    let title = '';
-
-    if (!this.allIcons && this.path) {
-      title = this.path;
-    } else if (this.browseVisible) {
-      title = 'Browse Library';
-    } else if (this.searchResultsVisible) {
-      title = 'View Results';
-    }
-
-    return title;
-  }
-
   get allIcons(): boolean {
     return this._findSrv.allIcons;
   }
   set allIcons(checked: boolean) {
     this._findSrv.allIcons = checked;
+  }
+
+  get path(): string {
+    return this._findSrv.categoryId === undefined ? '' : this._findSrv.path;
+  }
+
+  get breadcrumbs(): string {
+    let breadcrumbs = [
+      'Find Icons',
+      this.browseVisible
+        ? 'Browse Library'
+        : this.searchResultsVisible
+        ? 'Search Results'
+        : '',
+    ].join(' » ');
+
+    if (!this.allIcons && this.path) {
+      breadcrumbs = [breadcrumbs, this.path].filter(Boolean).join('<br />');
+    }
+
+    return breadcrumbs;
   }
 
   get count(): string {

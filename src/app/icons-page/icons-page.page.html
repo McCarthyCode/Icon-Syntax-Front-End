@@ -1,9 +1,4 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title> {{ title }} </ion-title>
-    <ion-menu-button slot="end"></ion-menu-button>
-  </ion-toolbar>
-
   <ion-toolbar class="searchbar">
     <ion-searchbar
       class="ion-no-padding"
@@ -11,11 +6,15 @@
       (ionChange)="onSearchbarChange($event)"
     ></ion-searchbar>
     <ion-buttons slot="end">
+      <ion-label>All Icons</ion-label>
       <ion-toggle [checked]="allIcons" (ionChange)="onAllIconsChange($event)">
       </ion-toggle>
-      <ion-label>All Icons</ion-label>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
+  <p id="breadcrumbs">
+    <ion-text color="medium" [innerHTML]="breadcrumbs"></ion-text>
+  </p>
 </ion-header>
 
 <ion-tabs>
@@ -26,7 +25,7 @@
     </ion-tab-button>
     <ion-tab-button tab="search-results">
       <ion-icon name="images"></ion-icon>
-      <ion-label>View Icons</ion-label>
+      <ion-label>Search Results</ion-label>
       <ion-badge *ngIf="badgeVisible">{{ count }}</ion-badge>
     </ion-tab-button>
   </ion-tab-bar>
