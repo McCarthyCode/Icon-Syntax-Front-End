@@ -23,13 +23,14 @@ export class CategoryNodeComponent implements OnInit {
   }
 
   get active(): boolean {
-    return this.category.id === this._findSrv.categoryId ? !this.allIcons : false;
+    return this.category.id === this._findSrv.categoryId
+      ? !this.allIcons
+      : false;
   }
 
   constructor(
     private _categoriesSrv: CategoriesService,
-    private _findSrv: FindService,
-    private _iconsSrv: IconsService
+    private _findSrv: FindService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +39,8 @@ export class CategoryNodeComponent implements OnInit {
         return { id: category.id, name: category.name, children: [] };
       });
     });
+
+    this._findSrv.collapseAll$.subscribe(() => (this.expand = false));
   }
 
   onClick($event: Event): void {

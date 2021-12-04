@@ -69,4 +69,8 @@ export class IconsPage {
   onSearchbarChange($event: Event): void {
     this._findSrv.onSearchbar($event['detail']['value']);
   }
+
+  onBrowseClick() {
+    if (this.browseVisible) this._findSrv.onCollapseAll();
+  }
 }

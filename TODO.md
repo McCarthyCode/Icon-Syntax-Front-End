@@ -2,11 +2,9 @@
 
 ## High Priorities
 
-- Detail pane
 - IconsPage
-  - Collapse all on tab click w/ Library active
-  - Spinners
   - Redesign top toolbar
+  - Spinners
   - Remove breadcrumbs attribute
   - Subscriptions
 

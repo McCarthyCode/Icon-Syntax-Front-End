@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { CategoriesService } from './categories.service';
 import { IconsService } from './icons.service';
 import { Category } from './models/category.model';
@@ -31,6 +31,9 @@ export class FindService {
   category$ = new BehaviorSubject<Category.IClientData>(null);
   categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
   icons$ = new BehaviorSubject<Icon.IClientDataList>(emptyIcons);
+
+  // Replay Subjects
+  collapseAll$ = new ReplaySubject<void>();
 
   // Subscriptions
   iconsSub: Subscription;
@@ -173,5 +176,9 @@ export class FindService {
           this.loadingIcons = false;
         });
     });
+  }
+
+  onCollapseAll(): void {
+    this.collapseAll$.next();
   }
 }
