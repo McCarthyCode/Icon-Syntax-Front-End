@@ -7,8 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { CategoriesPageRoutingModule } from './categories-routing.module';
 
 import { CategoriesPage } from './categories.page';
-import { IconComponent } from '../icon/icon.component';
-import { IconDetailComponent } from './icon-detail/icon-detail.component';
 
 @NgModule({
   imports: [
@@ -17,6 +15,6 @@ import { IconDetailComponent } from './icon-detail/icon-detail.component';
     IonicModule,
     CategoriesPageRoutingModule
   ],
-  declarations: [CategoriesPage, IconComponent, IconDetailComponent],
+  declarations: [CategoriesPage],
 })
 export class CategoriesPageModule {}

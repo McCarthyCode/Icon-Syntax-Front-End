@@ -39,7 +39,7 @@ export class CategoryNodeComponent implements OnInit {
       });
     });
 
-    this._findSrv.collapseAll$.subscribe(() => (this.expand = false));
+    this._findSrv.reset$.subscribe(() => (this.expand = false));
   }
 
   onClick($event: Event): void {

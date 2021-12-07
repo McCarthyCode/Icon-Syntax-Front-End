@@ -15,6 +15,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { IconComponent } from './icon/icon.component';
 import { IconDetailComponent } from './icon-detail/icon-detail.component';
 import { IconModalComponent } from './icon-modal/icon-modal.component';
 import { IconsPage } from './icons-page/icons-page.page';
@@ -34,6 +35,7 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
     ForgotComponent,
     ForgotVerifyComponent,
     HomeComponent,
+    IconComponent,
     IconDetailComponent,
     IconModalComponent,
     IconsPage,

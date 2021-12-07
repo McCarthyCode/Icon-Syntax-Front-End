@@ -3,8 +3,6 @@
 ## High Priorities
 
 - IconsPage
-  - Fix bug where path does not get updated on toggle
-  - Fix bug where category does not get deselected on active Browse tab click
   - Spinners
   - Remove breadcrumbs attribute
   - Subscriptions

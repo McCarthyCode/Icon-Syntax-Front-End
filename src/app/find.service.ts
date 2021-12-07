@@ -34,7 +34,7 @@ export class FindService {
   icons$ = new BehaviorSubject<Icon.IClientDataList>(emptyIcons);
 
   // Replay Subjects
-  collapseAll$ = new ReplaySubject<void>();
+  reset$ = new ReplaySubject<void>();
 
   // Subscriptions
   iconsSub: Subscription;
@@ -51,7 +51,7 @@ export class FindService {
   categoryId: number;
   page = 1;
 
-  allIcons = false;
+  allIcons = true;
   breadcrumbs = 'All Icons';
 
   // Route Booleans
@@ -106,7 +106,6 @@ export class FindService {
     this.resetIcons();
 
     this.allIcons = checked;
-    this.breadcrumbs = '';
 
     if (this.emptyQuery) return;
 
@@ -159,7 +158,7 @@ export class FindService {
     this.resetIcons();
 
     this.allIcons = false;
-
+    if (!this.query) this.breadcrumbs = '';
     if (this.emptyQuery) return;
 
     this._categoriesSrv.retrieve(this.categoryId).subscribe((category) => {
@@ -189,7 +188,10 @@ export class FindService {
     });
   }
 
-  onCollapseAll(): void {
-    this.collapseAll$.next();
+  onReset(): void {
+    this.reset$.next();
+    this.categoryId = undefined;
+    this.breadcrumbs = '';
+    this.allIcons = true;
   }
 }
