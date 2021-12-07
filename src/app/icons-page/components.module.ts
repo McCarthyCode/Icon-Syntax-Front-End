@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 
+import { HeaderComponent } from './header/header.component';
 import { IconComponent } from '../icon/icon.component';
 import { IconDetailComponent } from '../icon-detail/icon-detail.component';
 
-const components = [IconComponent, IconDetailComponent]
+const components = [HeaderComponent, IconComponent, ];
 
 @NgModule({
   declarations: components,

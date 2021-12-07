@@ -1,6 +1,11 @@
+<app-header></app-header>
+
 <ion-content>
-  <ion-grid *ngIf="(icons$ | async).results.length > 0">
-    <ion-row class="ion-justify-content-center">
+  <ion-grid>
+    <ion-row
+      *ngIf="(icons$ | async).results.length > 0"
+      class="ion-justify-content-center"
+    >
       <ion-col>
         <ul class="icons ion-no-margin ion-no-padding">
           <li *ngFor="let icon of (icons$ | async).results">
@@ -12,38 +17,37 @@
         </ion-infinite-scroll>
       </ion-col>
     </ion-row>
-  </ion-grid>
 
-  <div id="empty" class="centered" *ngIf="(icons$ | async).results.length === 0">
-    <ion-grid>
-      <ion-row class="ion-justify-content-center">
-        <ion-col size-md="9" size-lg="7" size-xl="6">
-          <p class="ion-text-center">
-            <ion-text color="medium">
-              <em *ngIf="emptyQuery">
-                Input is blank. To begin, type in the searchbar above or click
-                the "Browse Library" tab below and select a category.
-              </em>
-              <em *ngIf="!emptyQuery">
-                No icons to show.
-                <span *ngIf="notFound">
-                  Please submit a request for a new icon by contacting the owner
-                  at
-                  <a href="mailto:marybeth@iconsyntax.com"
-                    >marybeth@iconsyntax.com</a
-                  >.
-                </span>
-                <span *ngIf="!notFound && broadenSearch">
-                  Please broaden your search by selecting a higher category
-                  <span *ngIf="!allIcons">
-                    or by clicking the All Icons toggle switch</span
-                  >.
-                </span>
-              </em>
-            </ion-text>
-          </p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+    <ion-row
+      class="ion-justify-content-center"
+      *ngIf="(icons$ | async).results.length === 0"
+    >
+      <ion-col size-md="9" size-lg="7" size-xl="6">
+        <p class="ion-text-center">
+          <ion-text color="medium">
+            <em *ngIf="emptyQuery">
+              Input is blank. To begin, type in the searchbar above or click the
+              "Browse Library" tab below and select a category.
+            </em>
+            <em *ngIf="!emptyQuery">
+              No icons to show.
+              <span *ngIf="notFound">
+                Please submit a request for a new icon by contacting the owner
+                at
+                <a href="mailto:marybeth@iconsyntax.com"
+                  >marybeth@iconsyntax.com</a
+                >.
+              </span>
+              <span *ngIf="!notFound && broadenSearch">
+                Please broaden your search by selecting a higher category
+                <span *ngIf="!allIcons">
+                  or by clicking the All Icons toggle switch</span
+                >.
+              </span>
+            </em>
+          </ion-text>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

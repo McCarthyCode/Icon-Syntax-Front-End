@@ -3,7 +3,8 @@
 ## High Priorities
 
 - IconsPage
-  - Redesign top toolbar
+  - Recolor browse tab tree node component background
+  - Fix bug where path does not get updated on toggle
   - Spinners
   - Remove breadcrumbs attribute
   - Subscriptions

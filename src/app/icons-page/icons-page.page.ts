@@ -8,42 +8,6 @@ import { FindService } from '../find.service';
   styleUrls: ['./icons-page.page.scss'],
 })
 export class IconsPage {
-  get browseVisible(): boolean {
-    return this._router.url === '/icons/browse';
-  }
-
-  get searchResultsVisible(): boolean {
-    return this._router.url === '/icons/search-results';
-  }
-
-  get allIcons(): boolean {
-    return this._findSrv.allIcons;
-  }
-  set allIcons(checked: boolean) {
-    this._findSrv.allIcons = checked;
-  }
-
-  get path(): string {
-    return this._findSrv.categoryId === undefined ? '' : this._findSrv.path;
-  }
-
-  get breadcrumbs(): string {
-    let breadcrumbs = [
-      'Find Icons',
-      this.browseVisible
-        ? 'Browse Library'
-        : this.searchResultsVisible
-        ? 'Search Results'
-        : '',
-    ].join(' » ');
-
-    if (!this.allIcons && this.path) {
-      breadcrumbs = [breadcrumbs, this.path].filter(Boolean).join('<br />');
-    }
-
-    return breadcrumbs;
-  }
-
   get count(): string {
     const formatCash = (n) => {
       if (n < 1e3) return n;
@@ -65,15 +29,7 @@ export class IconsPage {
 
   constructor(private _router: Router, private _findSrv: FindService) {}
 
-  onAllIconsChange($event: Event): void {
-    this._findSrv.onAllIconsChange($event['detail']['checked']);
-  }
-
-  onSearchbarChange($event: Event): void {
-    this._findSrv.onSearchbar($event['detail']['value']);
-  }
-
   onBrowseClick() {
-    if (this.browseVisible) this._findSrv.onCollapseAll();
+    if (this._findSrv.browseVisible) this._findSrv.onCollapseAll();
   }
 }

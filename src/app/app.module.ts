@@ -6,43 +6,43 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+
 import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
-import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { CreateIconComponent } from './create-icon/create-icon.component';
-import { IconModalComponent } from './icon-modal/icon-modal.component';
-import { UpdateIconComponent } from './update-icon/update-icon.component';
-import { IconsComponent } from './icons/icons.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
-import { RegisterVerifyComponent } from './register/verify/verify.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { IconDetailComponent } from './icon-detail/icon-detail.component';
+import { IconModalComponent } from './icon-modal/icon-modal.component';
 import { IconsPage } from './icons-page/icons-page.page';
-import { ComponentsModule } from './icons-page/components.module';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RegisterComponent } from './register/register.component';
+import { RegisterVerifyComponent } from './register/verify/verify.component';
+import { UpdateCategoryComponent } from './update-category/update-category.component';
+import { UpdateIconComponent } from './update-icon/update-icon.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
     AboutComponent,
-    LoginComponent,
-    RegisterComponent,
-    RegisterVerifyComponent,
-    ForgotComponent,
-    ForgotVerifyComponent,
-    IconsComponent,
-    UpdateCategoryComponent,
+    AppComponent,
     CategoryModalComponent,
     CreateIconComponent,
-    UpdateIconComponent,
+    ForgotComponent,
+    ForgotVerifyComponent,
+    HomeComponent,
+    IconDetailComponent,
     IconModalComponent,
     IconsPage,
-    NotFoundComponent
+    LoginComponent,
+    NotFoundComponent,
+    RegisterComponent,
+    RegisterVerifyComponent,
+    UpdateCategoryComponent,
+    UpdateIconComponent,
   ],
   entryComponents: [],
   imports: [
@@ -53,7 +53,6 @@ import { ComponentsModule } from './icons-page/components.module';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { CategoriesService } from './categories.service';
 import { IconsService } from './icons.service';
@@ -45,16 +46,22 @@ export class FindService {
   loadingIcons = true;
   libraryVisible = false;
 
-  // Navigation history
-  breadcrumbs: Category.IClientData[] = [];
-
   // Attributes
   query = '';
   categoryId: number;
   page = 1;
 
   allIcons = false;
-  path = '';
+  breadcrumbs = 'All Icons';
+
+  // Route Booleans
+  get browseVisible(): boolean {
+    return this._router.url === '/icons/browse';
+  }
+
+  get searchResultsVisible(): boolean {
+    return this._router.url === '/icons/search-results';
+  }
 
   // Message Flags
   get emptyQuery(): boolean {
@@ -75,7 +82,8 @@ export class FindService {
 
   constructor(
     private _iconsSrv: IconsService,
-    private _categoriesSrv: CategoriesService
+    private _categoriesSrv: CategoriesService,
+    private _router: Router
   ) {}
 
   resetCategories(): void {
@@ -98,6 +106,7 @@ export class FindService {
     this.resetIcons();
 
     this.allIcons = checked;
+    this.breadcrumbs = '';
 
     if (this.emptyQuery) return;
 
@@ -154,7 +163,9 @@ export class FindService {
     if (this.emptyQuery) return;
 
     this._categoriesSrv.retrieve(this.categoryId).subscribe((category) => {
-      this.path = [category.path, category.name].filter(Boolean).join(' » ');
+      this.breadcrumbs = [category.path, category.name]
+        .filter(Boolean)
+        .join(' » ');
       this.category$.next(category);
 
       const categories: Category.IClientDataList = {

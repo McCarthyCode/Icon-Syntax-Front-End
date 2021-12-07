@@ -13,19 +13,6 @@ import { Icon } from 'src/app/models/icon.model';
 })
 export class SearchResultsComponent {
   // Getters/Setters
-  get path(): string {
-    const path: string = this._findSrv.breadcrumbs
-      .filter((category) => Boolean(category))
-      .map((category) => category.name)
-      .join(' » ');
-
-    return path;
-  }
-
-  get category$(): BehaviorSubject<Category.IClientData> {
-    return this._findSrv.category$;
-  }
-
   get categories$(): BehaviorSubject<Category.IClientDataList> {
     return this._findSrv.categories$;
   }
@@ -92,7 +79,6 @@ export class SearchResultsComponent {
 
     this.categories$.subscribe(() => {
       const page = this.icons$.value.pagination.thisPageNumber;
-      const category = this.category$.value;
 
       this._findSrv.iconsSub.unsubscribe();
       this._findSrv.iconsSub = this._iconsSrv
