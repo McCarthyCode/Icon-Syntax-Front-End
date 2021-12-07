@@ -3,7 +3,7 @@
 ## High Priorities
 
 - IconsPage
-  - Recolor browse tab tree node component background
+  - Recolor CategoryNodeComponent background
   - Fix bug where path does not get updated on toggle
   - Spinners
   - Remove breadcrumbs attribute
