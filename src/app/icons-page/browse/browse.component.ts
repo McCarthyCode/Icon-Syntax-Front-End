@@ -1,7 +1,6 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/categories.service';
 import { FindService } from 'src/app/find.service';
-import { IconsService } from 'src/app/icons.service';
 import { Category } from 'src/app/models/category.model';
 
 type CategoryNode = Category.ITreeNode;

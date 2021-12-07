@@ -8,14 +8,23 @@ app-category-node {
   width: 100%;
 
   &.active {
-    background: var(--ion-color-primary);
+    background: var(--ice-blue);
+    color: var(--dark-blue);
+
+    ion-icon {
+      color: var(--dark-blue);
+    }
   }
+}
+
+ion-icon {
+  color: var(--ion-color-medium);
 }
 
 ul {
   margin: 1rem 0 0 0;
   padding: 0;
-  border-left: 0.5rem solid var(--ion-color-step-100);
+  border-left: 0.5rem solid var(--ion-color-medium);
   padding-left: 0px;
 
   &.top {
@@ -28,12 +37,7 @@ li {
   list-style: none;
   user-select: none;
   width: 100%;
-  background-color: var(--ion-item-background);
-  border-top: 1px solid var(--ion-border-color);
-
-  &:last-child {
-    border-bottom: 1px solid var(--ion-border-color);
-  }
+  --background: var(--dark-blue);
 
   span {
     padding: 4px;

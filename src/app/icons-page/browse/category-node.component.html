@@ -7,9 +7,7 @@
     [style.visibility]="category.children.length > 0 ? 'visible' : 'hidden'"
   >
   </ion-icon>
-  <span>
-    {{ category.name }}
-  </span>
+  <ion-text> {{ category.name }}</ion-text>
   <ul *ngIf="expand && category.children.length > 0">
     <li *ngFor="let subcategory of category.children">
       <app-category-node
