@@ -5,9 +5,8 @@ import { FormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header/header.component';
 import { IconComponent } from '../icon/icon.component';
-import { IconDetailComponent } from '../icon-detail/icon-detail.component';
 
-const components = [HeaderComponent, IconComponent, ];
+const components = [HeaderComponent, IconComponent];
 
 @NgModule({
   declarations: components,
