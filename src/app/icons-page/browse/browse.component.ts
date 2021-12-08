@@ -49,7 +49,7 @@ export class CategoryNodeComponent implements OnInit {
       this.expand = false;
       this._findSrv.categoryId = undefined;
 
-      this._findSrv.onClickCategory();
+      this._findSrv.onClickCategory(true);
     } else if (this.expand) {
       this._findSrv.categoryId = this.category.id;
 

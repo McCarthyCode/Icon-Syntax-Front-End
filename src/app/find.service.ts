@@ -153,11 +153,11 @@ export class FindService {
     });
   }
 
-  onClickCategory(): void {
+  onClickCategory(allIcons: boolean = false): void {
     this.resetCategories();
     this.resetIcons();
 
-    this.allIcons = false;
+    this.allIcons = allIcons;
     if (!this.query) this.breadcrumbs = '';
     if (this.emptyQuery) return;
 
