@@ -106,6 +106,11 @@ export class FindService {
     this.resetIcons();
 
     this.allIcons = checked;
+    if (!(checked || this.categoryId)) {
+      setTimeout(() => {
+        this.allIcons = true;
+      }, 100);
+    }
 
     if (this.emptyQuery) return;
 
