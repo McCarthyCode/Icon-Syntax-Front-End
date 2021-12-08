@@ -2,8 +2,8 @@
   <ion-toolbar class="searchbar">
     <ion-searchbar
       #searchbar
-      class="ion-no-padding"
       placeholder="Search icons here."
+      showClearButton="always"
       [value]="query"
       (ionChange)="onSearchbarChange($event)"
     ></ion-searchbar>

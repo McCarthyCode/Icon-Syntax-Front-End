@@ -3,6 +3,7 @@
 ## High Priorities
 
 - IconsPage
+  - Enlarge speaker
   - Spinners
   - Remove breadcrumbs attribute
   - Subscriptions
