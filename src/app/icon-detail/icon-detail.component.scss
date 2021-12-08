@@ -13,10 +13,8 @@ ion-button {
 ion-icon.speaker {
   padding: 0 8px;
   cursor: pointer;
-
-  &[name="volume-mute"] {
-    cursor: not-allowed;
-  }
+  font-size: 2rem;
+  transform: translateY(8px);
 }
 
 @media screen and (min-width: 768px) {
