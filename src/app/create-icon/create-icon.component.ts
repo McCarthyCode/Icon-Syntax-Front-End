@@ -82,7 +82,7 @@ export class CreateIconComponent {
     const category = this.breadcrumbs.pop();
 
     if (category === undefined) {
-      this._router.navigateByUrl('/find');
+      this._router.navigateByUrl('/icons/browse');
       return;
     }
 

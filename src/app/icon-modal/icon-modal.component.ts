@@ -79,7 +79,7 @@ export class IconModalComponent implements OnInit {
   onSubmit(): void {
     const redirectFind = () => {
       this._modalCtrl.dismiss();
-      this._router.navigateByUrl('/find');
+      this._router.navigateByUrl('/icons/browse');
     };
 
     const http400Handler = (response: { error: Icon.IErrorResponse }) => {

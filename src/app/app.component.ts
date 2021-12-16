@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
         .then((toast) => {
           toast.present();
           this._authSrv.credentials$.next(null);
-          this._router.navigateByUrl('/');
+          this._router.navigateByUrl('/icons/browse');
         });
     });
   }

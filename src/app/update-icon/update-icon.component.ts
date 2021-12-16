@@ -85,7 +85,7 @@ export class UpdateIconComponent implements OnInit {
           buttons: ['Okay'],
         })
         .then((alert) =>
-          alert.present().then(() => this._router.navigateByUrl('/find'))
+          alert.present().then(() => this._router.navigateByUrl('/icons/browse'))
         );
 
     this._activatedRoute.paramMap.subscribe({
@@ -138,7 +138,7 @@ export class UpdateIconComponent implements OnInit {
     const category = this.breadcrumbs.pop();
 
     if (category === undefined) {
-      this._router.navigateByUrl('/find');
+      this._router.navigateByUrl('/icons/browse');
       return;
     }
 

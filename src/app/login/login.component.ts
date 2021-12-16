@@ -97,7 +97,9 @@ export class LoginComponent implements OnInit {
         this.form.reset();
         this.errors$.next({ identifier: [], password: [] });
 
-        this._router.navigateByUrl(this.redirect ? this.redirect : '/');
+        this._router.navigateByUrl(
+          this.redirect ? this.redirect : '/icons/browse'
+        );
 
         loader.dismiss();
         toast.present();

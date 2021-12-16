@@ -60,7 +60,7 @@ export class ForgotVerifyComponent implements OnInit {
                 buttons: [
                   {
                     text: 'Okay',
-                    handler: () => this._router.navigateByUrl('/find'),
+                    handler: () => this._router.navigateByUrl('/icons/browse'),
                   },
                 ],
               })

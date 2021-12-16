@@ -72,7 +72,7 @@ export class UpdateCategoryComponent implements OnInit {
                 buttons: ['Okay'],
               })
               .then((alert) =>
-                alert.present().then(() => this._router.navigateByUrl('/find'))
+                alert.present().then(() => this._router.navigateByUrl('/icons/browse'))
               ),
         });
       },
@@ -125,7 +125,7 @@ export class UpdateCategoryComponent implements OnInit {
 
   clickBack(): void {
     if (this.breadcrumbs.length === 0) {
-      this._router.navigateByUrl('/find');
+      this._router.navigateByUrl('/icons/browse');
 
       return;
     }

@@ -92,7 +92,7 @@ export class CategoryModalComponent implements OnInit {
                   text: 'Okay',
                   handler: () => {
                     this._modalCtrl.dismiss();
-                    this._router.navigateByUrl('/find');
+                    this._router.navigateByUrl('/icons/browse');
                   },
                 },
               ],
@@ -114,7 +114,7 @@ export class CategoryModalComponent implements OnInit {
                   text: 'Okay',
                   handler: () => {
                     this._modalCtrl.dismiss();
-                    this._router.navigateByUrl('/find');
+                    this._router.navigateByUrl('/icons/browse');
                   },
                 },
               ],

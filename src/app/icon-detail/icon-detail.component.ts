@@ -140,7 +140,7 @@ export class IconDetailComponent implements OnInit {
           alert.present();
           this._iconDetailSrv.refresh();
           this._menuCtrl.close('end');
-          this._router.navigateByUrl('/find');
+          this._router.navigateByUrl('/icons/browse');
         });
     });
   }

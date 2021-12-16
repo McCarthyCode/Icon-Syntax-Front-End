@@ -34,7 +34,7 @@ export class RegisterVerifyComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: () => this._router.navigateByUrl('/'),
+                  handler: () => this._router.navigateByUrl('/icons/browse'),
                 },
               ],
             })
