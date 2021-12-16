@@ -39,7 +39,12 @@
             <ion-icon name="log-out" slot="start"></ion-icon>
             <ion-text> Logout </ion-text>
           </ion-item>
-          <ion-item button routerLink="/icon/create" (click)="onMenuClick()">
+          <ion-item
+            *ngIf="isAuthenticated"
+            routerLink="/icon/create"
+            (click)="onMenuClick()"
+            button
+          >
             <ion-icon name="add" slot="start"></ion-icon>
             <ion-text> Add an Icon </ion-text>
           </ion-item>
