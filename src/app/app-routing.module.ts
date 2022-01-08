@@ -8,6 +8,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PdfComponent } from './pdf/pdf.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'register/:access',
     component: RegisterVerifyComponent,
+  },
+  {
+    path: 'pdf',
+    component: PdfComponent,
   },
   {
     path: 'category/update/:id',

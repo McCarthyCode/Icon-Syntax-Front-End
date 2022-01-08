@@ -40,6 +40,24 @@
             <ion-text> Logout </ion-text>
           </ion-item>
           <ion-item
+            *ngIf="isAdmin"
+            routerLink="/pdf"
+            (click)="onMenuClick()"
+            button
+          >
+            <ion-icon name="settings" slot="start"></ion-icon>
+            <ion-text> PDF Manager </ion-text>
+          </ion-item>
+          <ion-item
+            *ngIf="!isAdmin"
+            routerLink="/pdf"
+            (click)="onMenuClick()"
+            button
+          >
+            <ion-icon name="list" slot="start"></ion-icon>
+            <ion-text> PDF Gallery </ion-text>
+          </ion-item>
+          <ion-item
             *ngIf="isAuthenticated"
             routerLink="/icon/create"
             (click)="onMenuClick()"

@@ -31,6 +31,13 @@ export class AppComponent implements OnInit {
     return this._authSrv.credentials$.value !== null;
   }
 
+  get isAdmin(): boolean {
+    return (
+      this._authSrv.credentials$.value !== null &&
+      this._authSrv.credentials$.value.isAdmin
+    );
+  }
+
   get homePage(): boolean {
     return this._router.url === '/';
   }
