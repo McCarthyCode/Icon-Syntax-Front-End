@@ -41,21 +41,21 @@
           </ion-item>
           <ion-item
             *ngIf="isAdmin"
-            routerLink="/pdf"
+            routerLink="/about"
             (click)="onMenuClick()"
             button
           >
             <ion-icon name="settings" slot="start"></ion-icon>
-            <ion-text> PDF Manager </ion-text>
+            <ion-text> About Manager </ion-text>
           </ion-item>
           <ion-item
             *ngIf="!isAdmin"
-            routerLink="/pdf"
+            routerLink="/about"
             (click)="onMenuClick()"
             button
           >
             <ion-icon name="document" slot="start"></ion-icon>
-            <ion-text> PDF Gallery </ion-text>
+            <ion-text> About IconSyntax </ion-text>
           </ion-item>
           <ion-item
             *ngIf="isAuthenticated"
