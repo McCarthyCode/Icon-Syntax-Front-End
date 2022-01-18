@@ -1,27 +1,26 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { GenericService } from './generic.service';
 import { Icon } from './models/icon.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class IconsService {
-  constructor(
-    private _http: HttpClient,
-    private _authSrv: AuthService,
-    private _router: Router
-  ) {}
+export class IconsService extends GenericService<
+  Icon.IIcon,
+  Icon.IRequestBody,
+  Icon.IResponseBody,
+  Icon.IResponseBodyList,
+  Icon.IClientData,
+  Icon.IClientDataList
+> {
+  constructor(http: HttpClient, authSrv: AuthService, router: Router) {
+    super('icons', http, authSrv, router);
+  }
 
+  /*
   list(
     query?: string,
     categoryId?: number,
@@ -203,4 +202,5 @@ export class IconsService {
       })
     );
   }
+  */
 }

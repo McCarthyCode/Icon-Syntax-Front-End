@@ -12,29 +12,18 @@ export namespace Model {
     retrieved: Date;
   }
 
-  export interface IParams {
-    id: number;
-  }
   export interface IModel {}
   export interface IRequestBody extends Partial<IModel> {}
-  export interface IResponseBody extends IDatum<IModel>, IClientDataCommon {}
+  export interface IResponseBody extends IDatum<IModel> {}
   export interface IResponseBodyList extends IData<IModel> {}
   export interface IClientData extends IDatum<IModel>, IClientDataCommon {}
   export interface IClientDataList extends IData<IModel>, IClientDataCommon {}
 
-  export function convert(
-    body: IResponseBody
-  ): IClientData {
-    throw new Error(
-      'Conversion method from IRequestBody to IClientData must be defined.'
-    );
+  export interface ISuccessResponse {
+    success: string;
   }
-
-  export function convertList(
-    body: IResponseBodyList
-  ): IClientDataList {
-    throw new Error(
-      'Conversion method from IRequestBodyList to IClientDataList must be defined.'
-    );
+  export interface IErrorResponse {
+    errors: string[];
   }
+  export type IResponse = ISuccessResponse | IErrorResponse;
 }

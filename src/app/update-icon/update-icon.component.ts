@@ -53,9 +53,10 @@ export class UpdateIconComponent implements OnInit {
     categories: Category.IClientDataList
   ): Category.IClientDataList {
     return {
-      results: categories.results.filter((category) => {
+      data: categories.data.filter((category) => {
         return this.icon ? category.id !== this.icon.category : true;
       }),
+      pagination: categories.pagination,
       retrieved: categories.retrieved,
     };
   }

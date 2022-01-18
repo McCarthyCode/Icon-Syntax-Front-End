@@ -14,6 +14,7 @@ import { Model } from './models/model';
 const path = require('path');
 
 export abstract class GenericService<
+  IModel extends Model.IModel,
   IRequestBody extends Model.IRequestBody,
   IResponseBody extends Model.IResponseBody,
   IResponseBodyList extends Model.IResponseBodyList,
@@ -21,13 +22,38 @@ export abstract class GenericService<
   IClientDataList extends Model.IClientDataList
 > {
   constructor(
-    private _convert: (body: IResponseBody) => IClientData,
-    private _convertList: (body: IResponseBodyList) => IClientDataList,
     private _path: string,
     private _http: HttpClient,
     private _authSrv: AuthService,
     private _router: Router
   ) {}
+
+  private _convert(result: IResponseBody): IClientData {
+    return {
+      data: result.data,
+      retrieved: new Date(),
+    } as unknown as IClientData;
+  }
+
+  private _convertList(results: IResponseBodyList): IClientDataList {
+    let data: IModel[] = [];
+
+    for (const datum in results.data) {
+      let obj: IModel;
+
+      for (const [key, value] of Object.entries(datum)) {
+        obj = { ...obj, key: value };
+      }
+
+      data = [...data, obj];
+    }
+
+    return {
+      data: data,
+      pagination: results.pagination,
+      retrieved: new Date(),
+    } as unknown as IClientDataList;
+  }
 
   retrieve(id: number): Observable<IClientData> {
     return this._http
