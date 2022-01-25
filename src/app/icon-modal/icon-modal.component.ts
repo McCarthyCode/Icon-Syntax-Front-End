@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 import { IconsService } from '../icons.service';
 import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
+import { Model } from '../models/model';
 
 @Component({
   selector: 'app-icon-modal',
@@ -39,15 +40,15 @@ export class IconModalComponent implements OnInit {
         updateOn: 'change',
         validators: this.mode === 'create' ? [Validators.required] : undefined,
       }),
-      word: new FormControl(this.icon ? this.icon.word : '', {
+      word: new FormControl(this.icon ? this.icon.data.word : '', {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(40)],
       }),
-      descriptor: new FormControl(this.icon ? this.icon.descriptor : '', {
+      descriptor: new FormControl(this.icon ? this.icon.data.descriptor : '', {
         updateOn: 'change',
         validators: [Validators.maxLength(80)],
       }),
-      category: new FormControl(this.category ? this.category.id : null, {
+      category: new FormControl(this.category ? this.category.data.id : null, {
         updateOn: 'change',
         validators: [Validators.required],
       }),
@@ -82,9 +83,9 @@ export class IconModalComponent implements OnInit {
       this._router.navigateByUrl('/icons/browse');
     };
 
-    const http400Handler = (response: { error: Icon.IErrorResponse }) => {
-      if (response.error.errors) {
-        for (let error of response.error.errors) {
+    const http400Handler = (response: Model.IErrorResponse) => {
+      if (response.errors) {
+        for (const error of response.errors) {
           this._toastCtrl
             .create({
               message: error,
@@ -104,7 +105,7 @@ export class IconModalComponent implements OnInit {
       }
     };
 
-    const http500Handler = (response: { error: Icon.IErrorResponse }) => {
+    const http500Handler = (response: Model.IErrorResponse) => {
       this._alertCtrl
         .create({
           header: 'HTTP 500: Server Error',
@@ -123,10 +124,11 @@ export class IconModalComponent implements OnInit {
         });
     };
 
-    const errorHandler = (response: {
-      status: number;
-      error: Icon.IErrorResponse;
-    }) => {
+    const errorHandler = (
+      response: {
+        status: number;
+      } & Model.IErrorResponse
+    ) => {
       switch (response.status) {
         case 400:
           http400Handler(response);
@@ -168,7 +170,7 @@ export class IconModalComponent implements OnInit {
       });
     } else if (this.mode === 'update') {
       const body: Icon.IRequestBody = {
-        id: this.icon.id,
+        id: this.icon.data.id,
         ...this.form.value,
       };
       this._iconsSrv.update(body).subscribe({

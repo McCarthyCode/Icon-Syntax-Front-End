@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   AlertController,
   MenuController,
   ToastController,
 } from '@ionic/angular';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 import { CategoriesService } from './categories.service';
 import { DOMAnimations } from './dom-animations';
@@ -13,7 +13,7 @@ import { FindService } from './find.service';
 import { Category } from './models/category.model';
 
 const emptyCategories: Category.IClientDataList = {
-  results: [],
+  data: [],
   retrieved: new Date(),
 };
 

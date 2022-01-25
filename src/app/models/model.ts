@@ -1,23 +1,25 @@
 import { IPagination } from '../interfaces/pagination.interface';
 
 export namespace Model {
+  export interface IModel {}
+
   export interface IDatum<IModel> {
     data: IModel;
   }
   export interface IData<IModel> {
     data: IModel[];
-    pagination: IPagination;
   }
   interface IClientDataCommon {
     retrieved: Date;
   }
 
-  export interface IModel {}
   export interface IRequestBody extends Partial<IModel> {}
-  export interface IResponseBody {}
-  export interface IResponseBodyList {}
-  export interface IClientData extends IDatum<IModel>, IClientDataCommon {}
-  export interface IClientDataList extends IData<IModel>, IClientDataCommon {}
+  export interface IResponseBody<T> extends IDatum<T> {}
+  export interface IResponseBodyList<T> extends IData<T> {
+    pagination: IPagination;
+  }
+  export interface IClientData<T> extends IDatum<T>, IClientDataCommon {}
+  export interface IClientDataList<T> extends IData<T>, IClientDataCommon {}
 
   export interface ISuccessResponse {
     success: string;

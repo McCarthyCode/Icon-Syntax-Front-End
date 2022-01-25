@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/categories.service';
 import { FindService } from 'src/app/find.service';
 import { Category } from 'src/app/models/category.model';
+import { ITreeNode } from 'src/app/models/data-structures/tree';
 
-type CategoryNode = Category.ITreeNode;
+type CategoryNode = ITreeNode<Category.ICategory>;
 
 @Component({
   selector: 'app-category-node',
@@ -34,8 +35,14 @@ export class CategoryNodeComponent implements OnInit {
 
   ngOnInit(): void {
     this._categoriesSrv.list(this.category.id).subscribe((categories) => {
-      this.category.children = categories.results.map((category) => {
-        return { id: category.id, name: category.name, children: [] };
+      this.category.children = categories.data.map((category) => {
+        return {
+          id: category.id,
+          name: category.name,
+          children: [],
+          parent: category.parent,
+          path: category.path,
+        };
       });
     });
 
@@ -83,9 +90,15 @@ export class BrowseComponent implements OnInit {
   ionViewWillEnter(): void {}
 
   initializeTree(): void {
-    this.categoriesTree = { id: 0, name: 'All Icons', children: [] };
+    this.categoriesTree = {
+      id: 0,
+      name: 'All Icons',
+      children: [],
+      parent: 0,
+      path: '',
+    };
     this._categoriesSrv.list().subscribe((categories) => {
-      this.categoriesList = categories.results;
+      this.categoriesList = categories.data;
 
       let children = this.categoriesList.filter(
         (category) => category.parent === null

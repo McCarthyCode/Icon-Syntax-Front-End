@@ -2,24 +2,24 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
   HttpResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { IPagination } from './interfaces/pagination.interface';
 import { Model } from './models/model';
-
-const path = require('path');
 
 export abstract class GenericService<
   IModel extends Model.IModel,
   IRequestBody extends Model.IRequestBody,
-  IResponseBody extends Model.IResponseBody,
-  IResponseBodyList extends Model.IResponseBodyList,
-  IClientData extends Model.IClientData,
-  IClientDataList extends Model.IClientDataList
+  IResponseBody extends Model.IResponseBody<IModel>,
+  IResponseBodyList extends Model.IResponseBodyList<IModel>,
+  IClientData extends Model.IClientData<IModel>,
+  IClientDataList extends Model.IClientDataList<IModel>
 > {
   constructor(
     private _path: string,
@@ -28,45 +28,40 @@ export abstract class GenericService<
     private _router: Router
   ) {}
 
-  private _convert(result: IResponseBody): IClientData {
+  private pagination$ = new BehaviorSubject<IPagination>(null);
+  get pagination(): IPagination {
+    return this.pagination$.value;
+  }
+  set pagination(value: IPagination) {
+    this.pagination$.next(value);
+  }
+
+  convert(result: IResponseBody): IClientData {
     return {
       data: result.data,
       retrieved: new Date(),
     } as unknown as IClientData;
   }
 
-  private _convertList(results: IResponseBodyList): IClientDataList {
-    let data: IModel[] = [];
-
-    for (const datum in results.data) {
-      let obj: IModel;
-
-      for (const [key, value] of Object.entries(datum)) {
-        obj = { ...obj, key: value };
-      }
-
-      data = [...data, obj];
-    }
-
+  convertList(results: IResponseBodyList): IClientDataList {
     return {
-      data: data,
-      pagination: results.pagination,
+      data: results.data,
       retrieved: new Date(),
     } as unknown as IClientDataList;
   }
 
   retrieve(id: number): Observable<IClientData> {
     return this._http
-      .get<IResponseBody>(path.join(environment.apiBase, this._path, id))
-      .pipe(debounceTime(250), map(this._convert));
+      .get<IResponseBody>([environment.apiBase, this._path, id].join('/'))
+      .pipe(debounceTime(250), map(this.convert));
   }
 
-  list(params: IRequestBody): Observable<IClientDataList> {
+  list(params: HttpParams | {} = {}): Observable<IClientDataList> {
     return this._http
-      .get<IResponseBodyList>(path.join(environment.apiBase, this._path), {
+      .get<IResponseBodyList>([environment.apiBase, this._path].join('/'), {
         params: params,
       })
-      .pipe(debounceTime(250), map(this._convertList));
+      .pipe(debounceTime(250), map(this.convertList));
   }
 
   private _authWrapperId(
@@ -136,10 +131,10 @@ export abstract class GenericService<
     headers: HttpHeaders = undefined
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
-      .post<IResponseBody>(path.join(environment.apiBase, this._path), body, {
+      .post<IResponseBody>([environment.apiBase, this._path].join('/'), body, {
         headers: headers,
       })
-      .pipe(debounceTime(250), map(this._convert));
+      .pipe(debounceTime(250), map(this.convert));
   }
 
   update(body: IRequestBody, auth = false) {
@@ -152,11 +147,11 @@ export abstract class GenericService<
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .put<IResponseBody>(
-        path.join(environment.apiBase, this._path, body['id']),
+        [environment.apiBase, this._path, body['id']].join('/'),
         body,
         { headers: headers }
       )
-      .pipe(debounceTime(250), map(this._convert));
+      .pipe(debounceTime(250), map(this.convert));
   }
 
   partialUpdate(body: IRequestBody, auth = false) {
@@ -169,11 +164,11 @@ export abstract class GenericService<
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .patch<IResponseBody>(
-        path.join(environment.apiBase, this._path, body['id']),
+        [environment.apiBase, this._path, body['id']].join('/'),
         body,
         { headers: headers }
       )
-      .pipe(debounceTime(250), map(this._convert));
+      .pipe(debounceTime(250), map(this.convert));
   }
 
   delete(id: number, auth = false): Observable<HttpResponse<null>> {
@@ -182,7 +177,7 @@ export abstract class GenericService<
 
   _delete(id: number, headers: HttpHeaders) {
     return this._http
-      .delete<null>(path.join(environment.apiBase, this._path, id), {
+      .delete<null>([environment.apiBase, this._path, id].join('/'), {
         headers: headers,
       })
       .pipe(debounceTime(250));

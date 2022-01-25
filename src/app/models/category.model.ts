@@ -1,41 +1,28 @@
 import { Model } from './model';
-import { TreeNode } from './data-structures/tree'
 
 export namespace Category {
-  export interface ICategory {
+  export interface ICategory extends Model.IModel {
     id: number;
     name: string;
     parent: number;
     path: string;
     children?: ICategory[];
   }
-  export interface IResponseBody extends Model.IResponseBody, ICategory {}
+
+  // interface IDatum extends Model.IDatum<ICategory> {}
+  // interface IData extends Model.IData<ICategory> {}
+
+  export interface IRequestBody
+    extends Model.IRequestBody,
+      Partial<ICategory> {}
+  export interface IResponseBody
+    extends Model.IResponseBody<ICategory>,
+      Partial<Model.ISuccessResponse>,
+      Partial<Model.IErrorResponse> {}
   export interface IResponseBodyList
-    extends Model.IResponseBodyList<ICategory> {}
-  export interface IClientData extends Model.IClientData, ICategory {}
-  export interface IClientDataList
-    extends Model.IClientDataList,
-      IResponseBodyList {}
-  export interface IRequestBody extends Model.IRequestBody {
-    id?: number;
-    name: string;
-    parent?: number;
-    path?: string;
-  }
-  export interface ISuccessResponse {
-    success: string;
-  }
-  export interface IErrorResponse {
-    errors?: string[];
-  }
-  export type IResponse = ISuccessResponse | IErrorResponse;
-  export const emptyList: Category.IClientDataList = {
-    results: [],
-    retrieved: new Date(),
-  };
-  export type ITreeNode = TreeNode<{
-    id: number;
-    name: string;
-    children: ITreeNode[];
-  }>;
+    extends Model.IResponseBodyList<ICategory>,
+      Partial<Model.ISuccessResponse>,
+      Partial<Model.IErrorResponse> {}
+  export interface IClientData extends Model.IClientData<ICategory> {}
+  export interface IClientDataList extends Model.IClientDataList<ICategory> {}
 }

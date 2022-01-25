@@ -3,12 +3,12 @@
 <ion-content>
   <ion-grid>
     <ion-row
-      *ngIf="(icons$ | async).results.length > 0"
+      *ngIf="(icons$ | async).data.length > 0"
       class="ion-justify-content-center"
     >
       <ion-col>
         <ul class="icons ion-no-margin ion-no-padding">
-          <li *ngFor="let icon of (icons$ | async).results">
+          <li *ngFor="let icon of (icons$ | async).data">
             <app-icon (click)="clickIcon(icon)" [icon]="icon"></app-icon>
           </li>
         </ul>
@@ -20,7 +20,7 @@
 
     <ion-row
       class="ion-justify-content-center"
-      *ngIf="(icons$ | async).results.length === 0"
+      *ngIf="(icons$ | async).data.length === 0"
     >
       <ion-col size-md="9" size-lg="7" size-xl="6">
         <p class="ion-text-center">

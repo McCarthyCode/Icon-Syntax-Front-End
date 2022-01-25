@@ -51,7 +51,7 @@ export class SearchResultsComponent {
     return this._findSrv.broadenSearch;
   }
 
-  get categoryId() : number {
+  get categoryId(): number {
     return this._findSrv.categoryId;
   }
 
@@ -70,7 +70,7 @@ export class SearchResultsComponent {
   }
 
   nextPage($event): void {
-    if (!this.icons$.value.pagination.nextPageExists) {
+    if (!this._iconsSrv.pagination.nextPageExists) {
       $event.target.complete();
       return;
     }
@@ -78,21 +78,20 @@ export class SearchResultsComponent {
     this._findSrv.resetIcons(false);
 
     this.categories$.subscribe(() => {
-      const page = this.icons$.value.pagination.thisPageNumber;
+      const page = this._iconsSrv.pagination.thisPageNumber;
 
       this._findSrv.iconsSub.unsubscribe();
       this._findSrv.iconsSub = this._iconsSrv
-        .list(
-          this._findSrv.query,
-          this._findSrv.categoryId,
-          this._findSrv.page + 1
-        )
+        .list({
+          search: this._findSrv.query,
+          category: this._findSrv.categoryId || 0,
+          page: this._findSrv.page + 1,
+        })
         .subscribe((icons) => {
           const updated = this.icons$.value;
 
           if (updated) {
-            updated.results.push(...icons.results);
-            updated.pagination = icons.pagination;
+            updated.data.push(...icons.data);
             this.icons$.next(updated);
           } else {
             this.icons$.next(icons);

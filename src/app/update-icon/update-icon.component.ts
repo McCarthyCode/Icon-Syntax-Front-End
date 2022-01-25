@@ -18,9 +18,7 @@ import { Icon } from '../models/icon.model';
   styleUrls: ['./update-icon.component.scss'],
 })
 export class UpdateIconComponent implements OnInit {
-  categories$ = new BehaviorSubject<Category.IClientDataList>(
-    Category.emptyList
-  );
+  categories$ = new BehaviorSubject<Category.IClientDataList>(null);
   icon: Icon.IClientData;
 
   loading = false;
@@ -29,7 +27,7 @@ export class UpdateIconComponent implements OnInit {
   get path(): string {
     const path: string = this.breadcrumbs
       .filter((category) => Boolean(category))
-      .map((category) => category.name)
+      .map((category) => category.data.name)
       .join(' » ');
 
     return path;
@@ -46,17 +44,16 @@ export class UpdateIconComponent implements OnInit {
   get showEditButton(): boolean {
     const breadcrumbsLength = this.breadcrumbs.length;
     const category = this.breadcrumbs[breadcrumbsLength - 1];
-    return breadcrumbsLength > 0 && category.children.length === 0;
+    return breadcrumbsLength > 0 && category.data.children.length === 0;
   }
 
   removeCategory(
     categories: Category.IClientDataList
   ): Category.IClientDataList {
     return {
-      data: categories.data.filter((category) => {
-        return this.icon ? category.id !== this.icon.category : true;
+      data: (categories.data as Category.ICategory[]).filter((category) => {
+        return this.icon ? category.id !== this.icon.data.category : true;
       }),
-      pagination: categories.pagination,
       retrieved: categories.retrieved,
     };
   }
@@ -86,7 +83,9 @@ export class UpdateIconComponent implements OnInit {
           buttons: ['Okay'],
         })
         .then((alert) =>
-          alert.present().then(() => this._router.navigateByUrl('/icons/browse'))
+          alert
+            .present()
+            .then(() => this._router.navigateByUrl('/icons/browse'))
         );
 
     this._activatedRoute.paramMap.subscribe({
@@ -103,7 +102,7 @@ export class UpdateIconComponent implements OnInit {
               this.categories$.next(this.removeCategory(categories));
 
               this._categoriesSrv
-                .retrieve(icon.category)
+                .retrieve(icon.data.category)
                 .subscribe((category) => {
                   this.loading = false;
                 });
@@ -124,10 +123,11 @@ export class UpdateIconComponent implements OnInit {
 
     this._categoriesSrv.retrieve(id).subscribe((category) => {
       this.breadcrumbs.push(category);
+      const count = category.data.children.length;
 
       const categories: Category.IClientDataList = {
+        data: category.data.children,
         retrieved: category.retrieved,
-        results: category.children,
       };
       this.categories$.next(categories);
       this.loading = false;
@@ -143,19 +143,22 @@ export class UpdateIconComponent implements OnInit {
       return;
     }
 
-    if (category.parent === null) {
+    if (category.data.parent === null) {
       this._categoriesSrv.list().subscribe((categories) => {
         this.categories$.next(categories);
         this.loading = false;
       });
     } else {
-      this._categoriesSrv.retrieve(category.parent).subscribe((category) => {
-        this.categories$.next({
-          results: category.children,
-          retrieved: new Date(),
+      this._categoriesSrv
+        .retrieve(category.data.parent)
+        .subscribe((parent) => {
+          const count = parent.data.children.length;
+          this.categories$.next({
+            data: parent.data.children,
+            retrieved: new Date(),
+          });
+          this.loading = false;
         });
-        this.loading = false;
-      });
     }
   }
 
@@ -170,7 +173,7 @@ export class UpdateIconComponent implements OnInit {
             path: changePath
               ? this.path
               : this.category
-              ? this.category.path
+              ? this.category.data.path
               : '',
             mode: 'update',
             breadcrumbs: this.breadcrumbs,
@@ -178,20 +181,20 @@ export class UpdateIconComponent implements OnInit {
         })
         .then((modal) => modal.present());
     } else {
-      this._categoriesSrv.retrieve(this.icon.category).subscribe((category)=>{
+      this._categoriesSrv.retrieve(this.icon.data.category).subscribe((category) => {
         this._modalCtrl
-        .create({
-          component: IconModalComponent,
-          componentProps: {
-            icon: this.icon,
-            category: category,
-            path: category ? category.path : '',
-            mode: 'update',
-            breadcrumbs: this.breadcrumbs,
-          },
-        })
-        .then((modal) => modal.present());
-      })
+          .create({
+            component: IconModalComponent,
+            componentProps: {
+              icon: this.icon,
+              category: category,
+              path: category ? category.data.path : '',
+              mode: 'update',
+              breadcrumbs: this.breadcrumbs,
+            },
+          })
+          .then((modal) => modal.present());
+      });
     }
   }
 }

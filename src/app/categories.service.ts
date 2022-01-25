@@ -1,27 +1,27 @@
 import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpResponse,
+  HttpClient
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { GenericService } from './generic.service';
 import { Category } from './models/category.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesService {
-  constructor(
-    private _http: HttpClient,
-    private _authSrv: AuthService,
-    private _router: Router
-  ) {}
-
+export class CategoriesService extends GenericService<
+  Category.ICategory,
+  Category.IRequestBody,
+  Category.IResponseBody,
+  Category.IResponseBodyList,
+  Category.IClientData,
+  Category.IClientDataList
+> {
+  constructor(http: HttpClient, authSrv: AuthService, router: Router) {
+    super('categories', http, authSrv, router);
+  }
+  /*
   retrieve(id: number): Observable<Category.IClientData> {
     return this._http
       .get<Category.IResponseBody>(environment.apiBase + '/categories/' + id)
@@ -178,4 +178,5 @@ export class CategoriesService {
       })
     );
   }
+  */
 }

@@ -13,16 +13,14 @@ import { Category } from '../models/category.model';
 })
 export class UpdateCategoryComponent implements OnInit {
   category: Category.IClientData = null;
-  categories$ = new BehaviorSubject<Category.IClientDataList>(
-    Category.emptyList
-  );
+  categories$ = new BehaviorSubject<Category.IClientDataList>(null);
 
   loading = false;
   breadcrumbs: Category.IClientData[] = [];
   get path(): string {
     const path: string = this.breadcrumbs
       .filter((category) => Boolean(category))
-      .map((category) => category.name)
+      .map((category) => category.data.name)
       .join(' » ');
 
     return path;
@@ -42,9 +40,9 @@ export class UpdateCategoryComponent implements OnInit {
     categories: Category.IClientDataList
   ): Category.IClientDataList {
     return {
-      results: categories.results.filter((cat) => {
-        return cat.id !== this.category.id;
-      }),
+      data: categories.data.filter(
+        (category) => category.id !== this.category.data.id
+      ),
       retrieved: categories.retrieved,
     };
   }
@@ -72,7 +70,9 @@ export class UpdateCategoryComponent implements OnInit {
                 buttons: ['Okay'],
               })
               .then((alert) =>
-                alert.present().then(() => this._router.navigateByUrl('/icons/browse'))
+                alert
+                  .present()
+                  .then(() => this._router.navigateByUrl('/icons/browse'))
               ),
         });
       },
@@ -90,13 +90,13 @@ export class UpdateCategoryComponent implements OnInit {
       this.breadcrumbs.push(category);
 
       const categories: Category.IClientDataList = {
+        data: category.data.children.filter(
+          (category) => category.id !== this.category.data.id
+        ),
         retrieved: category.retrieved,
-        results: category.children.filter((cat) => {
-          return cat.id !== this.category.id;
-        }),
       };
-      this.categories$.next(categories);
 
+      this.categories$.next(categories);
       this.loading = false;
     });
   }
@@ -109,18 +109,18 @@ export class UpdateCategoryComponent implements OnInit {
           componentProps: {
             parent: parent,
             category: this.category,
-            path: changePath ? this.path : this.category.path,
+            path: changePath ? this.path : this.category.data.path,
             mode: 'update',
           },
         })
         .then((modal) => modal.present());
     };
 
-    if (this.breadcrumbs.length > 0) {
-      presentModal(this.breadcrumbs[this.breadcrumbs.length - 1]);
-    } else {
-      presentModal(null);
-    }
+    const lastClientData: Category.IClientData =
+      this.breadcrumbs[this.breadcrumbs.length - 1];
+    const requestBody: Category.IRequestBody = lastClientData.data;
+
+    presentModal(this.breadcrumbs.length > 0 ? requestBody : null);
   }
 
   clickBack(): void {
@@ -139,16 +139,18 @@ export class UpdateCategoryComponent implements OnInit {
         this.loading = false;
       });
     } else {
-      this._categoriesSrv.retrieve(category.parent).subscribe((category) => {
-        this.categories$.next(
-          this.removeCategory({
-            results: category.children,
-            retrieved: new Date(),
-          })
-        );
+      this._categoriesSrv
+        .retrieve(category.data.parent)
+        .subscribe((category) => {
+          this.categories$.next(
+            this.removeCategory({
+              data: category.data.children,
+              retrieved: new Date(),
+            })
+          );
 
-        this.loading = false;
-      });
+          this.loading = false;
+        });
     }
   }
 }
