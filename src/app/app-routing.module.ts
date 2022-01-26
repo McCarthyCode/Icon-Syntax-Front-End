@@ -8,11 +8,13 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { PdfComponent } from './pdf/pdf.component';
+import { BookshelfComponent } from './bookshelf/bookshelf.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
+import { DiaryComponent } from './diary/diary.component';
+import { CreatePdfComponent } from './create-pdf/create-pdf.component';
 
 const routes: Routes = [
   {
@@ -43,8 +45,16 @@ const routes: Routes = [
     component: RegisterVerifyComponent,
   },
   {
-    path: 'pdf',
-    component: PdfComponent,
+    path: 'bookshelf',
+    component: BookshelfComponent,
+  },
+  {
+    path: 'diary',
+    component: DiaryComponent,
+  },
+  {
+    path: 'pdf/create',
+    component: CreatePdfComponent,
   },
   {
     path: 'category/update/:id',

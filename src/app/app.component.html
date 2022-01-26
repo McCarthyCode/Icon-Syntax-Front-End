@@ -39,23 +39,13 @@
             <ion-icon name="log-out" slot="start"></ion-icon>
             <ion-text> Logout </ion-text>
           </ion-item>
-          <ion-item
-            *ngIf="isAdmin"
-            routerLink="/pdf"
-            (click)="onMenuClick()"
-            button
-          >
-            <ion-icon name="settings" slot="start"></ion-icon>
-            <ion-text> PDF Manager </ion-text>
+          <ion-item routerLink="/bookshelf" (click)="onMenuClick()" button>
+            <ion-icon name="book" slot="start"></ion-icon>
+            <ion-text> Icon Bookshelf </ion-text>
           </ion-item>
-          <ion-item
-            *ngIf="!isAdmin"
-            routerLink="/pdf"
-            (click)="onMenuClick()"
-            button
-          >
-            <ion-icon name="document" slot="start"></ion-icon>
-            <ion-text> PDF Gallery </ion-text>
+          <ion-item routerLink="/diary" (click)="onMenuClick()" button>
+            <ion-icon name="journal" slot="start"></ion-icon>
+            <ion-text> Icon Diary </ion-text>
           </ion-item>
           <ion-item
             *ngIf="isAuthenticated"
