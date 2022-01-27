@@ -17,13 +17,13 @@ export class IconsPage {
       if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
     };
 
-    return formatCash(this._findSrv.icons$.value.pagination.totalResults);
+    return formatCash(this._findSrv.iconsPagination$.value.totalResults);
   }
 
   get badgeVisible(): boolean {
     return (
       !this._findSrv.emptyQuery &&
-      this._findSrv.icons$.value.pagination.totalResults > 0
+      this._findSrv.iconsPagination$.value?.totalResults > 0
     );
   }
 

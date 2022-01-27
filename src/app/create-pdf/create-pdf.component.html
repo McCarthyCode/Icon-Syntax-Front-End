@@ -2,7 +2,9 @@
   <ion-toolbar>
     <ion-title> Upload a PDF </ion-title>
     <ion-buttons slot="end">
-      <ion-menu-button contentId="menu"> </ion-menu-button>
+      <ion-button shape="round" (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,6 +13,8 @@
   <ion-grid>
     <ion-row>
       <ion-col>
+        <ion-input type="file" accept="application/pdf"></ion-input>
+        <ion-button color="primary" (click)="submit()">Upload</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

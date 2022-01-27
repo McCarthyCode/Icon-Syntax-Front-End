@@ -1,38 +1,23 @@
 import { Model } from './model';
-import { TreeNode } from './data-structures/tree'
+import { TreeNode } from './data-structures/tree';
 
 export namespace Category {
-  export interface ICategory {
-    id: number;
+  interface IData {
     name: string;
     parent: number;
     path: string;
-    children?: ICategory[];
+    children?: IModel[];
   }
-  export interface IResponseBody extends Model.IResponseBody, ICategory {}
-  export interface IResponseBodyList
-    extends Model.IResponseBodyList<ICategory> {}
-  export interface IClientData extends Model.IClientData, ICategory {}
-  export interface IClientDataList
-    extends Model.IClientDataList,
-      IResponseBodyList {}
-  export interface IRequestBody extends Model.IRequestBody {
-    id?: number;
-    name: string;
-    parent?: number;
-    path?: string;
-  }
-  export interface ISuccessResponse {
-    success: string;
-  }
-  export interface IErrorResponse {
-    errors?: string[];
-  }
-  export type IResponse = ISuccessResponse | IErrorResponse;
-  export const emptyList: Category.IClientDataList = {
-    results: [],
-    retrieved: new Date(),
-  };
+  export interface IModel extends Model.IModel, IData {}
+  export interface IRequestBody
+    extends Model.IRequestBody,
+      Model.IModel,
+      Partial<IData> {}
+  export interface IResponseBody extends Model.IResponseBody<IModel> {}
+  export interface IResponseBodyList extends Model.IResponseBodyList<IModel> {}
+  export interface IClientData extends Model.IClientData<IModel> {}
+  export interface IClientDataList extends Model.IClientDataList<IModel> {}
+
   export type ITreeNode = TreeNode<{
     id: number;
     name: string;

@@ -34,7 +34,7 @@ export class CategoryNodeComponent implements OnInit {
 
   ngOnInit(): void {
     this._categoriesSrv.list(this.category.id).subscribe((categories) => {
-      this.category.children = categories.results.map((category) => {
+      this.category.children = categories.data.map((category) => {
         return { id: category.id, name: category.name, children: [] };
       });
     });
@@ -72,7 +72,7 @@ export class CategoryNodeComponent implements OnInit {
 })
 export class BrowseComponent implements OnInit {
   categoriesTree: CategoryNode;
-  categoriesList: Category.ICategory[];
+  categoriesList: Category.IModel[];
 
   constructor(private _categoriesSrv: CategoriesService) {}
 
@@ -85,7 +85,7 @@ export class BrowseComponent implements OnInit {
   initializeTree(): void {
     this.categoriesTree = { id: 0, name: 'All Icons', children: [] };
     this._categoriesSrv.list().subscribe((categories) => {
-      this.categoriesList = categories.results;
+      this.categoriesList = categories.data;
 
       let children = this.categoriesList.filter(
         (category) => category.parent === null

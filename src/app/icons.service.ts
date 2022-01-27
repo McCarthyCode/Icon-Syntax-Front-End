@@ -6,10 +6,11 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { IPagination } from './interfaces/pagination.interface';
 import { Icon } from './models/icon.model';
 
 @Injectable({
@@ -21,6 +22,7 @@ export class IconsService {
     private _authSrv: AuthService,
     private _router: Router
   ) {}
+  pagination$ = new BehaviorSubject<IPagination>(null);
 
   list(
     query?: string,
@@ -45,12 +47,12 @@ export class IconsService {
       .pipe(
         debounceTime(250),
         map((body) => {
-          const clientData = {
-            ...body,
+          this.pagination$.next(body.pagination);
+
+          return {
+            data: body.data,
             retrieved: new Date(),
           };
-
-          return clientData;
         })
       );
   }
@@ -60,14 +62,10 @@ export class IconsService {
       .get<Icon.IResponseBody>(`${environment.apiBase}/icons/${pk}`)
       .pipe(
         debounceTime(250),
-        map((body) => {
-          const clientData = {
-            ...body,
-            retrieved: new Date(),
-          };
-
-          return clientData;
-        })
+        map((body) => ({
+          data: body.data,
+          retrieved: new Date(),
+        }))
       );
   }
 

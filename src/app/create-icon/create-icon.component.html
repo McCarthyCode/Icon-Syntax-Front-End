@@ -79,7 +79,7 @@
             detail="true"
             button
             (click)="clickCategory(category.id)"
-            *ngFor="let category of (categories$ | async).results"
+            *ngFor="let category of (categories$ | async).data"
           >
             <ion-text>{{ category.name }}</ion-text>
           </ion-item>
@@ -87,7 +87,7 @@
         <p
           class="ion-text-center"
           [style.display]="
-            !loading && (categories$ | async).results.length === 0
+            !loading && (categories$ | async).data.length === 0
               ? 'block'
               : 'none'
           "

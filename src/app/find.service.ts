@@ -3,26 +3,9 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { CategoriesService } from './categories.service';
 import { IconsService } from './icons.service';
+import { IPagination } from './interfaces/pagination.interface';
 import { Category } from './models/category.model';
 import { Icon } from './models/icon.model';
-
-const emptyCategories: Category.IClientDataList = {
-  results: [],
-  retrieved: new Date(),
-};
-const emptyIcons: Icon.IClientDataList = {
-  results: [],
-  pagination: {
-    totalResults: 0,
-    maxResultsPerPage: 100,
-    numResultsThisPage: 0,
-    thisPageNumber: 0,
-    totalPages: 0,
-    prevPageExists: false,
-    nextPageExists: false,
-  },
-  retrieved: new Date(),
-};
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +13,16 @@ const emptyIcons: Icon.IClientDataList = {
 export class FindService {
   // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
-  categories$ = new BehaviorSubject<Category.IClientDataList>(emptyCategories);
-  icons$ = new BehaviorSubject<Icon.IClientDataList>(emptyIcons);
+
+  categories$ = new BehaviorSubject<Category.IClientDataList>(null);
+  get categoriesPagination$(): BehaviorSubject<IPagination> {
+    return this._categoriesSrv.pagination$;
+  }
+
+  icons$ = new BehaviorSubject<Icon.IClientDataList>(null);
+  get iconsPagination$(): BehaviorSubject<IPagination> {
+    return this._iconsSrv.pagination$;
+  }
 
   // Replay Subjects
   reset$ = new ReplaySubject<void>();
@@ -95,7 +86,7 @@ export class FindService {
 
     if (empty) {
       this.page = 1;
-      this.icons$.next(emptyIcons);
+      this.icons$.next(null);
     } else {
       this.page++;
     }
@@ -167,14 +158,14 @@ export class FindService {
     if (this.emptyQuery) return;
 
     this._categoriesSrv.retrieve(this.categoryId).subscribe((category) => {
-      this.breadcrumbs = [category.path, category.name]
+      this.breadcrumbs = [category.data.path, category.data.name]
         .filter(Boolean)
         .join(' » ');
       this.category$.next(category);
 
       const categories: Category.IClientDataList = {
         retrieved: category.retrieved,
-        results: category.children,
+        data: category.data.children,
       };
       this.categories$.next(categories);
       this.loadingCategories = false;

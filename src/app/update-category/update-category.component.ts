@@ -13,16 +13,14 @@ import { Category } from '../models/category.model';
 })
 export class UpdateCategoryComponent implements OnInit {
   category: Category.IClientData = null;
-  categories$ = new BehaviorSubject<Category.IClientDataList>(
-    Category.emptyList
-  );
+  categories$ = new BehaviorSubject<Category.IClientDataList>(null);
 
   loading = false;
   breadcrumbs: Category.IClientData[] = [];
   get path(): string {
     const path: string = this.breadcrumbs
       .filter((category) => Boolean(category))
-      .map((category) => category.name)
+      .map((category) => category.data.name)
       .join(' » ');
 
     return path;
@@ -42,8 +40,8 @@ export class UpdateCategoryComponent implements OnInit {
     categories: Category.IClientDataList
   ): Category.IClientDataList {
     return {
-      results: categories.results.filter((cat) => {
-        return cat.id !== this.category.id;
+      data: categories.data.filter((category) => {
+        return category.id !== this.category.data.id;
       }),
       retrieved: categories.retrieved,
     };
@@ -72,7 +70,9 @@ export class UpdateCategoryComponent implements OnInit {
                 buttons: ['Okay'],
               })
               .then((alert) =>
-                alert.present().then(() => this._router.navigateByUrl('/icons/browse'))
+                alert
+                  .present()
+                  .then(() => this._router.navigateByUrl('/icons/browse'))
               ),
         });
       },
@@ -91,8 +91,8 @@ export class UpdateCategoryComponent implements OnInit {
 
       const categories: Category.IClientDataList = {
         retrieved: category.retrieved,
-        results: category.children.filter((cat) => {
-          return cat.id !== this.category.id;
+        data: category.data.children.filter((cat) => {
+          return cat.id !== this.category.data.id;
         }),
       };
       this.categories$.next(categories);
@@ -102,14 +102,14 @@ export class UpdateCategoryComponent implements OnInit {
   }
 
   clickEditCategory(changePath: boolean): void {
-    const presentModal = (parent: Category.IRequestBody) => {
+    const presentModal = (parent: Category.IClientData) => {
       this._modalCtrl
         .create({
           component: CategoryModalComponent,
           componentProps: {
             parent: parent,
             category: this.category,
-            path: changePath ? this.path : this.category.path,
+            path: changePath ? this.path : this.category.data.path,
             mode: 'update',
           },
         })
@@ -117,7 +117,8 @@ export class UpdateCategoryComponent implements OnInit {
     };
 
     if (this.breadcrumbs.length > 0) {
-      presentModal(this.breadcrumbs[this.breadcrumbs.length - 1]);
+      const clientData = this.breadcrumbs[this.breadcrumbs.length - 1]
+      presentModal(clientData);
     } else {
       presentModal(null);
     }
@@ -139,10 +140,10 @@ export class UpdateCategoryComponent implements OnInit {
         this.loading = false;
       });
     } else {
-      this._categoriesSrv.retrieve(category.parent).subscribe((category) => {
+      this._categoriesSrv.retrieve(category.data.parent).subscribe((category) => {
         this.categories$.next(
           this.removeCategory({
-            results: category.children,
+            data: category.data.children,
             retrieved: new Date(),
           })
         );

@@ -13,9 +13,7 @@ import { Category } from '../models/category.model';
   styleUrls: ['./create-icon.component.scss'],
 })
 export class CreateIconComponent {
-  categories$ = new BehaviorSubject<Category.IClientDataList>(
-    Category.emptyList
-  );
+  categories$ = new BehaviorSubject<Category.IClientDataList>(null);
 
   loading = false;
   breadcrumbs: Category.IClientData[] = [];
@@ -24,7 +22,7 @@ export class CreateIconComponent {
     const breadcrumbsLength = this.breadcrumbs.length;
     const childrenLength =
       breadcrumbsLength > 0
-        ? this.breadcrumbs[breadcrumbsLength - 1].children.length
+        ? this.breadcrumbs[breadcrumbsLength - 1].data.children.length
         : 0;
 
     return breadcrumbsLength > 0 && childrenLength === 0;
@@ -33,7 +31,7 @@ export class CreateIconComponent {
   get path(): string {
     const path: string = this.breadcrumbs
       .filter((category) => Boolean(category))
-      .map((category) => category.name)
+      .map((category) => category.data.name)
       .join(' » ');
 
     return path;
@@ -69,8 +67,8 @@ export class CreateIconComponent {
       this.breadcrumbs.push(category);
 
       const categories: Category.IClientDataList = {
+        data: category.data.children,
         retrieved: category.retrieved,
-        results: category.children,
       };
       this.categories$.next(categories);
       this.loading = false;
@@ -86,19 +84,21 @@ export class CreateIconComponent {
       return;
     }
 
-    if (category.parent === null) {
+    if (category.data.parent === null) {
       this._categoriesSrv.list().subscribe((categories) => {
         this.categories$.next(categories);
         this.loading = false;
       });
     } else {
-      this._categoriesSrv.retrieve(category.parent).subscribe((category) => {
-        this.categories$.next({
-          results: category.children,
-          retrieved: new Date(),
+      this._categoriesSrv
+        .retrieve(category.data.parent)
+        .subscribe((category) => {
+          this.categories$.next({
+            data: category.data.children,
+            retrieved: new Date(),
+          });
+          this.loading = false;
         });
-        this.loading = false;
-      });
     }
   }
 

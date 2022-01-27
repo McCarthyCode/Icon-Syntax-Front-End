@@ -44,17 +44,17 @@
         </div>
         <p
           class="ion-text-center"
-          [style.display]="!loadingCategories && (categories$ | async).results.length === 0 ? 'block' : 'none'"
+          [style.display]="!loadingCategories && (categories$ | async).data.length === 0 ? 'block' : 'none'"
         >
           <ion-text color="medium">
             <em>No more groups to show.</em>
           </ion-text>
         </p>
         <ion-list
-          [style.display]="!loadingCategories && (categories$ | async).results.length > 0 ? 'block' : 'none'"
+          [style.display]="!loadingCategories && (categories$ | async).data.length > 0 ? 'block' : 'none'"
         >
           <ion-item-sliding
-            *ngFor="let category of (categories$ | async).results"
+            *ngFor="let category of (categories$ | async).data"
           >
             <ion-item detail="true" button (click)="clickCategory(category.id)">
               <ion-text>{{ category.name }}</ion-text>
@@ -98,15 +98,15 @@
       class="ion-justify-content-center"
       [style.display]="page === 1 && loadingIcons ? 'none' : 'flex'"
     >
-      <ion-col *ngIf="(icons$ | async).results.length > 0">
+      <ion-col *ngIf="(icons$ | async).data.length > 0">
         <ul class="icons ion-no-margin ion-no-padding">
-          <li *ngFor="let icon of (icons$ | async).results">
+          <li *ngFor="let icon of (icons$ | async).data">
             <app-icon (click)="clickIcon(icon)" [icon]="icon"></app-icon>
           </li>
         </ul>
       </ion-col>
       <ion-col
-        *ngIf="(icons$ | async).results.length === 0"
+        *ngIf="(icons$ | async).data.length === 0"
         size-md="9"
         size-lg="7"
         size-xl="6"

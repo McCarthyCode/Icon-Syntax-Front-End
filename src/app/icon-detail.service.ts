@@ -6,11 +6,11 @@ import { Icon } from './models/icon.model';
   providedIn: 'root',
 })
 export class IconDetailService {
-  icon$ = new BehaviorSubject<Icon.IIcon>(null);
+  icon$ = new BehaviorSubject<Icon.IModel>(null);
 
   constructor() {}
 
-  click(icon: Icon.IIcon): void {
+  click(icon: Icon.IModel): void {
     this.icon$.next(icon);
   }
 

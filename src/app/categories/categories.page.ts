@@ -236,7 +236,7 @@ export class CategoriesPage implements OnInit {
           const updated = this.icons$.value;
 
           if (updated) {
-            updated.results.push(...icons.results);
+            updated.data.push(...icons.data);
             this.icons$.next(updated);
           } else {
             this.icons$.next(icons);

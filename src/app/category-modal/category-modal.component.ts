@@ -8,6 +8,7 @@ import {
 } from '@ionic/angular';
 import { CategoriesService } from '../categories.service';
 import { Category } from '../models/category.model';
+import { Model } from '../models/model';
 
 @Component({
   selector: 'app-category-modal',
@@ -48,7 +49,7 @@ export class CategoryModalComponent implements OnInit {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(40)],
       }),
-      parent: new FormControl(this.parent ? this.parent.id : null, {
+      parent: new FormControl(this.parent ? this.parent.data.id : null, {
         updateOn: 'change',
       }),
     });
@@ -59,7 +60,7 @@ export class CategoryModalComponent implements OnInit {
   }
 
   onSubmit() {
-    const errorHandler = (response: { error: Category.IErrorResponse }) => {
+    const errorHandler = (response: { error: Model.IErrorResponse }) => {
       for (let error of response.error.errors) {
         this._toastCtrl
           .create({
