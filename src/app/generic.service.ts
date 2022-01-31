@@ -6,6 +6,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -25,7 +26,8 @@ export abstract class GenericService<
     private _path: string,
     private _http: HttpClient,
     private _authSrv: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _modalCtrl: ModalController
   ) {}
 
   private pagination$ = new BehaviorSubject<IPagination>(null);
@@ -38,6 +40,7 @@ export abstract class GenericService<
 
   convert(result: IResponseBody): IClientData {
     return {
+      success: result.success,
       data: result.data,
       retrieved: new Date(),
     } as unknown as IClientData;
@@ -64,81 +67,58 @@ export abstract class GenericService<
       .pipe(debounceTime(250), map(this.convertList));
   }
 
-  private _authWrapperId(
-    id: number,
-    privateMethod: (
-      id: number,
-      headers?: HttpHeaders
-    ) => Observable<IClientData | HttpErrorResponse>,
+  create(
+    formData: FormData,
     auth = false
-  ) {
+  ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
-      return this._authSrv.credentials$.pipe(
-        switchMap((credentials) => {
-          if (!credentials) {
-            this._router.navigateByUrl('/login');
+      return this._authSrv.authHeader$.pipe(
+        switchMap((headers: HttpHeaders) => {
+          if (headers === null) {
+            this._modalCtrl.dismiss();
             return of(null);
           }
 
-          const headers = new HttpHeaders().set(
-            'Authorization',
-            `Bearer ${credentials.tokens.access}`
-          );
-
-          return privateMethod(id, headers);
+          return this._create(formData, headers);
         })
       );
     }
 
-    return privateMethod(id);
-  }
-
-  private _authWrapperBody(
-    body: IRequestBody,
-    privateMethod: (
-      body: IRequestBody,
-      headers?: HttpHeaders
-    ) => Observable<IClientData | IClientDataList | HttpErrorResponse>,
-    auth = false
-  ) {
-    if (auth) {
-      return this._authSrv.credentials$.pipe(
-        switchMap((credentials) => {
-          if (!credentials) {
-            this._router.navigateByUrl('/login');
-            return of(null);
-          }
-
-          const headers = new HttpHeaders().set(
-            'Authorization',
-            `Bearer ${credentials.tokens.access}`
-          );
-
-          return privateMethod(body, headers);
-        })
-      );
-    }
-
-    return privateMethod(body);
-  }
-
-  create(body: IRequestBody, auth = false) {
-    return this._authWrapperBody(body, this._create, auth);
+    return this._create(formData);
   }
 
   private _create(
-    body: IRequestBody,
+    formData: FormData,
     headers: HttpHeaders = undefined
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
-      .post<IResponseBody>([environment.apiBase, this._path].join('/'), body, {
-        headers: headers,
-      })
+      .post<IResponseBody>(
+        [environment.apiBase, this._path].join('/'),
+        formData,
+        {
+          headers: headers,
+        }
+      )
       .pipe(debounceTime(250), map(this.convert));
   }
 
-  update(body: IRequestBody, auth = false) {
-    return this._authWrapperBody(body, this._update, auth);
+  update(
+    body: IRequestBody,
+    auth = false
+  ): Observable<IClientData | HttpErrorResponse> {
+    if (auth) {
+      return this._authSrv.authHeader$.pipe(
+        switchMap((headers: HttpHeaders) => {
+          if (headers === null) {
+            return of(null);
+          }
+
+          return this._update(body, headers);
+        })
+      );
+    }
+
+    return this._update(body);
   }
 
   private _update(
@@ -154,8 +134,23 @@ export abstract class GenericService<
       .pipe(debounceTime(250), map(this.convert));
   }
 
-  partialUpdate(body: IRequestBody, auth = false) {
-    return this._authWrapperBody(body, this._partialUpdate, auth);
+  partialUpdate(
+    body: IRequestBody,
+    auth = false
+  ): Observable<IClientData | HttpErrorResponse> {
+    if (auth) {
+      return this._authSrv.authHeader$.pipe(
+        switchMap((headers: HttpHeaders) => {
+          if (headers === null) {
+            return of(null);
+          }
+
+          return this._partialUpdate(body, headers);
+        })
+      );
+    }
+
+    return this._partialUpdate(body);
   }
 
   private _partialUpdate(
@@ -172,10 +167,22 @@ export abstract class GenericService<
   }
 
   delete(id: number, auth = false): Observable<HttpResponse<null>> {
-    return this._authWrapperId(id, this._delete, auth);
+    if (auth) {
+      return this._authSrv.authHeader$.pipe(
+        switchMap((headers: HttpHeaders) => {
+          if (headers === null) {
+            return of(null);
+          }
+
+          return this._delete(id, headers);
+        })
+      );
+    }
+
+    return this._delete(id);
   }
 
-  private _delete(id: number, headers: HttpHeaders) {
+  private _delete(id: number, headers: HttpHeaders = undefined) {
     return this._http
       .delete<null>([environment.apiBase, this._path, id].join('/'), {
         headers: headers,

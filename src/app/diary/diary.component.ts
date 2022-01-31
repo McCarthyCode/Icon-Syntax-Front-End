@@ -16,7 +16,7 @@ export class DiaryComponent implements OnInit {
     const modal = await this._modalController.create({
       component: CreatePdfComponent,
       componentProps: {
-        page: 1,
+        page: 2,
       },
     });
 

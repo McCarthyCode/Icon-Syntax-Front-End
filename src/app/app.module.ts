@@ -25,6 +25,8 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
+import { DiaryComponent } from './diary/diary.component';
+import { CreatePdfComponent } from './create-pdf/create-pdf.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
     AppComponent,
     CategoryModalComponent,
     CreateIconComponent,
+    CreatePdfComponent,
+    DiaryComponent,
     ForgotComponent,
     ForgotVerifyComponent,
     HomeComponent,

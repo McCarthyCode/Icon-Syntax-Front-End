@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
-import { Category } from './models/category.model';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +15,11 @@ export class AppComponent implements OnInit {
 
   // Getters/Setters
   get isAuthenticated(): boolean {
-    return this._authSrv.credentials$.value !== null;
+    return this._authSrv.isAuthenticated;
   }
 
   get isAdmin(): boolean {
-    return (
-      this._authSrv.credentials$.value !== null &&
-      this._authSrv.credentials$.value.isAdmin
-    );
+    return this._authSrv.isAdmin;
   }
 
   get homePage(): boolean {

@@ -5,14 +5,25 @@ export namespace Model {
     id: number;
   }
 
-  export interface IDatum<IModel> {
+  export interface ISuccessResponse {
+    success: string;
+  }
+  export interface IErrorResponse {
+    errors: string[];
+  }
+
+  interface IResponseMessage
+    extends Partial<ISuccessResponse>,
+      Partial<IErrorResponse> {}
+  interface IClientDataCommon extends IResponseMessage {
+    retrieved: Date;
+  }
+
+  export interface IDatum<IModel> extends IResponseMessage {
     data: IModel;
   }
-  export interface IData<IModel> {
+  export interface IData<IModel> extends IResponseMessage {
     data: IModel[];
-  }
-  interface IClientDataCommon {
-    retrieved: Date;
   }
 
   export interface IRequestBody {}
@@ -22,12 +33,4 @@ export namespace Model {
   }
   export interface IClientData<T> extends IDatum<T>, IClientDataCommon {}
   export interface IClientDataList<T> extends IData<T>, IClientDataCommon {}
-
-  export interface ISuccessResponse {
-    success: string;
-  }
-  export interface IErrorResponse {
-    errors: string[];
-  }
-  export type IResponse = ISuccessResponse | IErrorResponse;
 }

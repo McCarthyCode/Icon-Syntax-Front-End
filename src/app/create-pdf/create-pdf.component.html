@@ -13,9 +13,49 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-input type="file" accept="application/pdf"></ion-input>
-        <ion-button color="primary" (click)="submit()">Upload</ion-button>
+        <form [formGroup]="form" enctype="multipart/form-data">
+          <ion-item>
+            <ion-label position="floating"> Title </ion-label>
+            <ion-input type="text" name="title" formControlName="title">
+            </ion-input>
+            <ion-text
+              *ngIf="form.get('title').errors?.maxlength"
+              color="danger"
+            >
+              <small>
+                This field may not contain more than 80 characters.
+              </small>
+            </ion-text>
+            <ion-text
+              *ngIf="
+                form.get('title').touched && form.get('title').errors?.required
+              "
+              color="danger"
+            >
+              <small> This field is required. </small>
+            </ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed"> PDF File </ion-label>
+            <ion-input
+              type="file"
+              accept="application/pdf"
+              (change)="onFileChange($event)"
+            >
+            </ion-input>
+          </ion-item>
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="submit()" [disabled]="form.invalid">
+        Upload
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

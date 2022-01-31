@@ -2,12 +2,11 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, debounceTime, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Auth } from './interfaces/auth.interface';
 
@@ -20,7 +19,31 @@ const emailRegex =
 export class AuthService {
   credentials$ = new BehaviorSubject<Auth.ICredentials>(null);
 
-  constructor(private _http: HttpClient) {}
+  get authHeader$(): Observable<HttpHeaders> {
+    return this.credentials$.pipe(
+      map((credentials) => {
+        if (!credentials) {
+          this._router.navigateByUrl('/login');
+
+          return null;
+        }
+
+        return new HttpHeaders({
+          Authorization: `Bearer ${credentials.tokens.access}`,
+        });
+      })
+    );
+  }
+
+  get isAuthenticated(): boolean {
+    return Boolean(this.credentials$.value);
+  }
+
+  get isAdmin(): boolean {
+    return this.credentials$.value?.isAdmin;
+  }
+
+  constructor(private _http: HttpClient, private _router: Router) {}
 
   register(body: {
     username: string;
