@@ -11,7 +11,11 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button color="primary" (click)="presentModal()">
+        <ion-button
+          color="primary"
+          (click)="presentModal()"
+          *ngIf="isAuthenticated"
+        >
           Upload PDF
         </ion-button>
       </ion-col>
