@@ -9,4 +9,5 @@ export const environment = {
   ...secret,
   ...production,
   apiBase: production.urlRoot + '/api/v0-alpha',
+  mediaBase: production.urlRoot + '/media',
 };

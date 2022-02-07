@@ -2,8 +2,10 @@ import { Model } from './model';
 
 export namespace PDF {
   export interface IModel extends Model.IModel {
-    pdf;
-    page: number;
+    pdf: string;
+    title: string;
+    topic: number;
+    md5: string;
   }
 
   export interface IRequestBody extends Model.IRequestBody, Partial<IModel> {}

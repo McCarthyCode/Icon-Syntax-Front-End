@@ -96,8 +96,8 @@
             </ion-item>
             <ion-item class="ion-text-wrap">
               <ion-text>
-                <span *ngIf="category.path">{{ category.path }} » </span>
-                {{ category.name }} » {{ form.value.word }}
+                <span *ngIf="category?.data.path">{{ category.data.path }} » </span>
+                {{ category.data.name }} » {{ form.value.word }}
               </ion-text>
             </ion-item>
           </ion-list>

@@ -28,11 +28,14 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
 import { DiaryComponent } from './diary/diary.component';
 import { CreatePdfComponent } from './create-pdf/create-pdf.component';
 import { PdfCardComponent } from './pdf-card/pdf-card.component';
+import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { BookshelfComponent } from './bookshelf/bookshelf.component';
 
 @NgModule({
   declarations: [
     AboutComponent,
     AppComponent,
+    BookshelfComponent,
     CategoryModalComponent,
     CreateIconComponent,
     CreatePdfComponent,
@@ -46,6 +49,7 @@ import { PdfCardComponent } from './pdf-card/pdf-card.component';
     LoginComponent,
     NotFoundComponent,
     PdfCardComponent,
+    PdfViewComponent,
     RegisterComponent,
     RegisterVerifyComponent,
     UpdateCategoryComponent,

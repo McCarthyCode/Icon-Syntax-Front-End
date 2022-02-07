@@ -30,11 +30,13 @@
     </ion-row>
     <ion-row *ngIf="pdfs && pdfs.data.length !== 0">
       <ion-col>
-        <ul>
-          <li *ngFor="let pdf of pdfs.data">
-            <app-pdf-card [model]="pdf"></app-pdf-card>
-          </li>
-        </ul>
+        <ion-list>
+          <ion-item *ngFor="let pdf of pdfs.data">
+            <ion-title>
+              <a href="/pdf/{{ pdf.id }}">{{ pdf.title }}</a>
+            </ion-title>
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>

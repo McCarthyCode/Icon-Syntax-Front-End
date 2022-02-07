@@ -3,35 +3,17 @@
 ## High Priorities
 
 - Content management / Media manager
-  - New menu items
-    - Icon Diary
-    - About IconSyntax (reorder)
-    - Icon Bookshelf
   - Front end models
     - Media
-    - PDF
     - Video
-  - Generic service
-    - list
-    - create
-    - retrieve
-    - update
-    - partial update
-    - destroy
   - PDF service
-  - PDF Category service
   - CreatePdfComponent
-    - Category selector
-      - select
-      - add
-      - rename
-      - remove
-    - PDF uploader
+    - Refresh on success
   - PdfComponent
-    - List PDFs
+    - List PDF
     - Show Title
+    - Edit button
     - Delete button
-    - Upload button
 
 ## Medium Priorities
 

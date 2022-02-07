@@ -11,10 +11,10 @@ export namespace Model {
   export interface IErrorResponse {
     errors: string[];
   }
-
   interface IResponseMessage
     extends Partial<ISuccessResponse>,
       Partial<IErrorResponse> {}
+
   interface IClientDataCommon extends IResponseMessage {
     retrieved: Date;
   }
