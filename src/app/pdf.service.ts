@@ -35,20 +35,17 @@ export class PdfService extends GenericService<
     formData.append('title', group.get('title').value);
     formData.append('pdf', group.get('pdf').value, group.get('pdf').value.name);
 
-    const pageNum = group.get('page').value;
-    formData.append('page', pageNum);
+    const topicNum = group.get('topic').value;
+    formData.append('topic', topicNum);
 
     let url = '/login?redirect=%2F';
-    switch (pageNum) {
-      case '1':
+    switch (+topicNum) {
       case 1:
         url += 'about';
         break;
-      case '2':
       case 2:
         url += 'diary';
         break;
-      case '3':
       case 3:
         url += 'bookshelf';
         break;

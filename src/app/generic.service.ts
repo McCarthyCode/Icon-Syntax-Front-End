@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { IPagination } from './interfaces/pagination.interface';
@@ -41,6 +41,7 @@ export abstract class GenericService<
   convert(result: IResponseBody): IClientData {
     return {
       success: result.success,
+      errors: result.errors,
       data: result.data,
       retrieved: new Date(),
     } as unknown as IClientData;
@@ -48,6 +49,8 @@ export abstract class GenericService<
 
   convertList(results: IResponseBodyList): IClientDataList {
     return {
+      success: results.success,
+      errors: results.errors,
       data: results.data,
       retrieved: new Date(),
     } as unknown as IClientDataList;

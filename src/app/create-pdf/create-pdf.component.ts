@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import { AuthService } from '../auth.service';
 import { PDF } from '../models/pdf.model';
 import { PdfService } from '../pdf.service';
 
@@ -12,7 +13,7 @@ import { PdfService } from '../pdf.service';
   styleUrls: ['./create-pdf.component.scss'],
 })
 export class CreatePdfComponent implements OnInit {
-  @Input() page: number;
+  @Input() topic: number;
 
   form: FormGroup;
 
@@ -20,6 +21,7 @@ export class CreatePdfComponent implements OnInit {
     private _modalController: ModalController,
     private _pdfSrv: PdfService,
     private _alertCtrl: AlertController,
+    private _authSrv: AuthService
   ) {}
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class CreatePdfComponent implements OnInit {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(160)],
       }),
-      page: new FormControl(this.page, {
+      topic: new FormControl(this.topic, {
         validators: [Validators.required],
       }),
     });
@@ -52,7 +54,7 @@ export class CreatePdfComponent implements OnInit {
     }
   }
 
-  submit(): void {
+  submit(refresh = true): void {
     this._pdfSrv.upload(this.form).subscribe(
       (response: PDF.IClientData) => {
         if (response === null) {
@@ -90,6 +92,14 @@ export class CreatePdfComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
+        if (
+          refresh &&
+          error.status === 401 &&
+          error.error['errors'][0] ===
+            'Given token not valid for any token type.'
+        ) {
+          this._authSrv.refresh().subscribe(() => this.submit(false));
+        }
       }
     );
   }

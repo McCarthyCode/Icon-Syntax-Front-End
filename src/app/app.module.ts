@@ -27,6 +27,7 @@ import { UpdateCategoryComponent } from './update-category/update-category.compo
 import { UpdateIconComponent } from './update-icon/update-icon.component';
 import { DiaryComponent } from './diary/diary.component';
 import { CreatePdfComponent } from './create-pdf/create-pdf.component';
+import { PdfCardComponent } from './pdf-card/pdf-card.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CreatePdfComponent } from './create-pdf/create-pdf.component';
     IconsPage,
     LoginComponent,
     NotFoundComponent,
+    PdfCardComponent,
     RegisterComponent,
     RegisterVerifyComponent,
     UpdateCategoryComponent,
