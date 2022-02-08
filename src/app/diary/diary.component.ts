@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
@@ -11,15 +11,13 @@ import { PdfService } from '../pdf.service';
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.scss'],
 })
-export class DiaryComponent implements OnInit {
-  pdfs$ = new BehaviorSubject<PDF.IClientDataList>(null);
+export class DiaryComponent {
+  get pdfs$(): BehaviorSubject<PDF.IClientDataList> {
+    return this._pdfSrv.pdfs$;
+  }
 
   get isAuthenticated(): boolean {
     return this._authSrv.isAuthenticated;
-  }
-
-  get pdfs(): PDF.IClientDataList {
-    return this.pdfs$.value;
   }
 
   constructor(
@@ -28,8 +26,8 @@ export class DiaryComponent implements OnInit {
     private _authSrv: AuthService
   ) {}
 
-  ngOnInit() {
-    this._pdfSrv.list({ topic: 2, page: 1 }).subscribe((clientDataList) => {
+  ionViewWillEnter() {
+    this._pdfSrv.list({ topic: 2 }).subscribe((clientDataList) => {
       this.pdfs$.next(clientDataList);
     });
   }

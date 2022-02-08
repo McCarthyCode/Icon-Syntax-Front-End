@@ -43,7 +43,14 @@ export class AuthService {
     return this.credentials$.value?.isAdmin;
   }
 
-  constructor(private _http: HttpClient, private _router: Router) {}
+  constructor(private _http: HttpClient, private _router: Router) {
+    if (!environment.production) {
+      this.login(
+        environment.login.username,
+        environment.login.password
+      ).subscribe();
+    }
+  }
 
   register(body: {
     username: string;

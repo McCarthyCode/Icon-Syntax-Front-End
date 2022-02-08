@@ -62,7 +62,7 @@ export abstract class GenericService<
       .pipe(debounceTime(250), map(this.convert));
   }
 
-  list(params: HttpParams | {} = {}): Observable<IClientDataList> {
+  list(params: any = {}): Observable<IClientDataList> {
     return this._http
       .get<IResponseBodyList>([environment.apiBase, this._path].join('/'), {
         params: params,

@@ -2,11 +2,42 @@
   <ion-toolbar>
     <ion-title> Icon Bookshelf </ion-title>
     <ion-buttons slot="end">
-      <ion-menu-button contentId="menu"> </ion-menu-button>
+      <ion-button
+        shape="round"
+        (click)="presentModal()"
+        *ngIf="isAuthenticated"
+      >
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-menu-button contentId="menu"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>bookshelf works!</p>
+  <ion-grid>
+    <ion-row
+      class="ion-justify-content-center"
+      *ngIf="!pdfs || pdfs.data.length === 0"
+    >
+      <ion-col size-md="9" size-lg="7" size-xl="6">
+        <p class="ion-text-center">
+          <ion-text color="medium">
+            <em>No bookshelf entries available yet. Stay tuned!</em>
+          </ion-text>
+        </p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="pdfs && pdfs.data.length !== 0">
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let pdf of pdfs.data">
+            <ion-title>
+              <a href="/pdf/{{ pdf.id }}">{{ pdf.title }}</a>
+            </ion-title>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

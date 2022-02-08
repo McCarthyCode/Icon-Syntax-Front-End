@@ -25,9 +25,7 @@ const routes: Routes = [
   {
     path: 'icons',
     loadChildren: () =>
-      import('./icons-page/icons-page.module').then(
-        (m) => m.IconsPageModule
-      ),
+      import('./icons-page/icons-page.module').then((m) => m.IconsPageModule),
   },
   {
     path: 'about',

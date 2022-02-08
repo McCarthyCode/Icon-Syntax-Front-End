@@ -21,7 +21,8 @@ export class CreatePdfComponent implements OnInit {
     private _modalController: ModalController,
     private _pdfSrv: PdfService,
     private _alertCtrl: AlertController,
-    private _authSrv: AuthService
+    private _authSrv: AuthService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -72,7 +73,10 @@ export class CreatePdfComponent implements OnInit {
               message: response.success,
               buttons: ['Okay'],
             })
-            .then((alert) => alert.present());
+            .then((alert) => {
+              this._pdfSrv.refresh(this.topic).subscribe();
+              alert.present();
+            });
           this._modalController.dismiss();
         } else {
           if (response && response.errors) {
@@ -88,6 +92,20 @@ export class CreatePdfComponent implements OnInit {
               buttons: ['Okay'],
             })
             .then((alert) => alert.present());
+
+          let nav = '/';
+          switch (this.topic) {
+            case 1:
+              nav = '/about';
+              break;
+            case 2:
+              nav = '/diary';
+              break;
+            case 3:
+              nav = '/bookshelf';
+              break;
+          }
+          this._router.navigateByUrl(nav);
         }
       },
       (error: HttpErrorResponse) => {

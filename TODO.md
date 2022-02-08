@@ -2,22 +2,18 @@
 
 ## High Priorities
 
-- Content management / Media manager
-  - Front end models
-    - Media
-    - Video
-  - PDF service
-  - CreatePdfComponent
-    - Refresh on success
-  - PdfComponent
-    - List PDF
-    - Show Title
-    - Edit button
-    - Delete button
+- Content management / PDF management
+  - Edit functionality
+    - Button
+    - Modal
+  - Delete button
 
 ## Medium Priorities
 
 - Content management
+  - Front end models
+    - Media
+    - Video
   - Menu Items
   - Icons
   - Categories

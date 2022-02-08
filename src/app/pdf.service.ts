@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { GenericService } from './generic.service';
 import { PDF } from './models/pdf.model';
@@ -20,6 +20,9 @@ export class PdfService extends GenericService<
   PDF.IClientData,
   PDF.IClientDataList
 > {
+  // pdf$ = new BehaviorSubject<PDF.IClientData>(null);
+  pdfs$ = new BehaviorSubject<PDF.IClientDataList>(null);
+
   constructor(
     private http: HttpClient,
     private authSrv: AuthService,
@@ -27,6 +30,15 @@ export class PdfService extends GenericService<
     private modalCtrl: ModalController
   ) {
     super('pdf', http, authSrv, router, modalCtrl);
+  }
+
+  refresh(topic: number): Observable<PDF.IClientDataList | HttpErrorResponse> {
+    return this.list({ topic: topic }).pipe(
+      catchError(() => null),
+      tap((list: PDF.IClientDataList) => {
+        this.pdfs$.next(list);
+      })
+    );
   }
 
   upload(group: FormGroup): Observable<PDF.IClientData | HttpErrorResponse> {
