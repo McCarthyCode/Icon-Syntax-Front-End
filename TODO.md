@@ -2,11 +2,7 @@
 
 ## High Priorities
 
-- Content management / PDF management
-  - Edit functionality
-    - Button
-    - Modal
-  - Delete button
+- Content management / PDF Edit functionality
 
 ## Medium Priorities
 
