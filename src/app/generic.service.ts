@@ -72,7 +72,7 @@ export abstract class GenericService<
 
   create(
     formData: FormData,
-    auth = false
+    auth = true
   ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
@@ -106,8 +106,8 @@ export abstract class GenericService<
   }
 
   update(
-    body: IRequestBody,
-    auth = false
+    formData: FormData,
+    auth = true
   ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
@@ -116,30 +116,30 @@ export abstract class GenericService<
             return of(null);
           }
 
-          return this._update(body, headers);
+          return this._update(formData, headers);
         })
       );
     }
 
-    return this._update(body);
+    return this._update(formData);
   }
 
   private _update(
-    body: IRequestBody,
+    formData: FormData,
     headers: HttpHeaders = undefined
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .put<IResponseBody>(
-        [environment.apiBase, this._path, body['id']].join('/'),
-        body,
+        [environment.apiBase, this._path, formData['id']].join('/'),
+        formData,
         { headers: headers }
       )
       .pipe(debounceTime(250), map(this.convert));
   }
 
   partialUpdate(
-    body: IRequestBody,
-    auth = false
+    formData: FormData,
+    auth = true
   ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
@@ -148,28 +148,28 @@ export abstract class GenericService<
             return of(null);
           }
 
-          return this._partialUpdate(body, headers);
+          return this._partialUpdate(formData, headers);
         })
       );
     }
 
-    return this._partialUpdate(body);
+    return this._partialUpdate(formData);
   }
 
   private _partialUpdate(
-    body: IRequestBody,
+    formData: FormData,
     headers: HttpHeaders = undefined
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .patch<IResponseBody>(
-        [environment.apiBase, this._path, body['id']].join('/'),
-        body,
+        [environment.apiBase, this._path, formData['id']].join('/'),
+        formData,
         { headers: headers }
       )
       .pipe(debounceTime(250), map(this.convert));
   }
 
-  delete(id: number, auth = false): Observable<HttpResponse<null>> {
+  delete(id: number, auth = true): Observable<HttpResponse<null>> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
         switchMap((headers: HttpHeaders) => {

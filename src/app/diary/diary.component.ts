@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { CreatePdfComponent } from '../create-pdf/create-pdf.component';
 import { PDF } from '../models/pdf.model';
+import { PdfEditComponent } from '../pdf-edit/pdf-edit.component';
 import { PdfService } from '../pdf.service';
 
 @Component({
@@ -49,7 +50,16 @@ export class DiaryComponent {
     return await modal.present();
   }
 
-  edit(id: number): void {}
+  edit(id: number): void {
+    this._modalCtrl
+      .create({
+        component: PdfEditComponent,
+        componentProps: {
+          id: id,
+        },
+      })
+      .then((modal) => modal.present());
+  }
 
   delete(id: number): void {
     this._pdfSrv.retrieve(id).subscribe(async (clientData) => {

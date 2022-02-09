@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Edit a PDF </ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form
+          [formGroup]="form"
+          *ngIf="form"
+          (ionChange)="onTopicChange($event)"
+        >
+          <ion-item>
+            <ion-label position="floating"> Title </ion-label>
+            <ion-input type="text" name="title" formControlName="title">
+            </ion-input>
+            <ion-text
+              *ngIf="form.get('title').errors?.maxlength"
+              color="danger"
+            >
+              <small>
+                This field may not contain more than 80 characters.
+              </small>
+            </ion-text>
+            <ion-text
+              *ngIf="
+                form.get('title').touched && form.get('title').errors?.required
+              "
+              color="danger"
+            >
+              <small> This field is required. </small>
+            </ion-text>
+          </ion-item>
+          <ion-radio-group value="{{ topic }}" #topicRadioGroup>
+            <ion-list-header>
+              <ion-label>Topic</ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>About IconSyntax</ion-label>
+              <ion-radio slot="start" value="1"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Icon Diary</ion-label>
+              <ion-radio slot="start" value="2"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Icon Bookshelf</ion-label>
+              <ion-radio slot="start" value="3"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end" *ngIf="form">
+      <ion-button
+        color="primary"
+        (click)="onSubmit()"
+        [disabled]="form.invalid"
+      >
+        Edit
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

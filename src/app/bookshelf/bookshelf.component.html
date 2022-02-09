@@ -32,10 +32,8 @@
       <ion-col>
         <ion-list>
           <ion-item-sliding *ngFor="let pdf of (pdfs$ | async).data">
-            <ion-item>
-              <ion-title>
-                <a href="/pdf/{{ pdf.id }}">{{ pdf.title }}</a>
-              </ion-title>
+            <ion-item routerLink="/pdf/{{ pdf.id }}" button>
+              <ion-title>{{ pdf.title }}</ion-title>
             </ion-item>
             <ion-item-options side="end" *ngIf="isAdmin">
               <ion-item-option color="danger" (click)="delete(pdf.id)">
