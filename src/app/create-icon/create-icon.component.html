@@ -1,26 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button
-        *ngIf="breadcrumbs.length === 0"
-        routerDirection="back"
-        routerLink="/icons"
-        shape="round"
-      >
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-      <ion-button
-        *ngIf="breadcrumbs.length > 0"
-        (click)="clickBack()"
-        shape="round"
-      >
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-spinner *ngIf="loading"></ion-spinner>
-    <ion-title *ngIf="!loading">
-      {{ path ? path : "Create an Icon" }}
-    </ion-title>
+    <ion-title *ngIf="!loading">Submit an Icon</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button contentId="menu"> </ion-menu-button>
     </ion-buttons>
@@ -29,74 +10,62 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <ion-col>
-        <h1 class="ion-margin-vertical">
-          <ion-text color="secondary">Create an Icon</ion-text>
-        </h1>
-        <ion-card class="content">
-          <ion-card-content>
-            <p>
-              First, please tell us what kind of icon you are uploading. Do any
-              of the following groups (under <em>Library</em>) match your
-              icon? Some have more specific groups inside once you select them.
-            </p>
-            <p>
-              If you don't see a matching group, you may create one by
-              choosing "Add Group Here" once you find a good place for the
-              group to hold your icon.
-            </p>
-            <p>
-              If you do see a matching group, click it and choose "Add Icon
-              Here."
-            </p>
-          </ion-card-content>
-        </ion-card>
-        <h1 class="ion-margin-vertical">
-          <ion-text color="secondary">Library</ion-text>
-        </h1>
-        <div
-          class="spinner-wrapper"
-          [style.display]="loading ? 'flex' : 'none'"
-        >
-          <ion-spinner></ion-spinner>
-        </div>
-        <ion-list *ngIf="!loading">
-          <ion-item
-            *ngIf="showAddButton"
-            color="secondary"
-            (click)="clickCreateIcon()"
-            button
-          >
-            <ion-text color="light">Add Icon Here</ion-text>
-            <ion-icon color="light" slot="end" name="add"></ion-icon>
-          </ion-item>
-          <ion-item color="secondary" (click)="clickCreateCategory()" button>
-            <ion-text color="light">Add Group Here</ion-text>
-            <ion-icon color="light" slot="end" name="add"></ion-icon>
-          </ion-item>
-          <ion-item
-            detail="true"
-            button
-            (click)="clickCategory(category.id)"
-            *ngFor="let category of (categories$ | async).data"
-          >
-            <ion-text>{{ category.name }}</ion-text>
-          </ion-item>
-        </ion-list>
-        <p
-          class="ion-text-center"
-          [style.display]="
-            !loading && (categories$ | async).data.length === 0
-              ? 'block'
-              : 'none'
-          "
-        >
-          <ion-text color="medium">
-            <em>No more groups to show.</em>
-          </ion-text>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="9" size-lg="7" size-xl="6">
+        <h1>How to Submit an Icon</h1>
+        <p>
+          First, please tell us what kind of icon you are uploading. Do any of
+          the following groups (under <em>Library</em>) match your icon? Some
+          have more specific groups inside once you select them.
         </p>
+        <p>
+          If you don't see a matching group, you may create one by choosing "Add
+          Group Here" once you find a good place for the group to hold your
+          icon.
+        </p>
+        <p>
+          If you do see a matching group, click it and choose "Add Icon Here."
+        </p>
+        <p>Thank you for contributing to iconSyntax!</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-no-padding" size-md="9" size-lg="7" size-xl="6">
+        <h1>Library</h1>
+        <ul class="top">
+          <li *ngFor="let category of categoriesTree?.children">
+            <app-category-node [category]="category"> </app-category-node>
+          </li>
+        </ul>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button
+        color="medium"
+        [disabled]="activeCategoryId === null"
+        (click)="onReset()"
+      >
+        Reset Selection
+      </ion-button>
+      <ion-button
+        color="medium"
+        [disabled]="activeCategoryId === null"
+        (click)="onAddGroup()"
+      >
+        Add Group Here
+      </ion-button>
+      <ion-button
+        color="primary"
+        [disabled]="activeCategoryId === null"
+        (click)="onAddIcon()"
+      >
+        Add Icon Here
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -62,12 +62,12 @@ const routes: Routes = [
     data: { allowAdmin: true },
   },
   {
-    path: 'icon/create',
+    path: 'icons/create',
     component: CreateIconComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'icon/update/:id',
+    path: 'icons/update/:id',
     component: UpdateIconComponent,
     canActivate: [AuthGuard],
   },
@@ -80,7 +80,7 @@ const routes: Routes = [
     component: ForgotVerifyComponent,
   },
   {
-    path: 'pdf/:id',
+    path: 'pdfs/:id',
     component: PdfViewComponent,
   },
   {

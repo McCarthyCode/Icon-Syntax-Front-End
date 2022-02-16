@@ -30,7 +30,7 @@ export abstract class GenericService<
     private _modalCtrl: ModalController
   ) {}
 
-  private pagination$ = new BehaviorSubject<IPagination>(null);
+  pagination$ = new BehaviorSubject<IPagination>(null);
   get pagination(): IPagination {
     return this.pagination$.value;
   }
@@ -39,21 +39,27 @@ export abstract class GenericService<
   }
 
   convert(result: IResponseBody): IClientData {
-    return {
-      success: result.success,
-      errors: result.errors,
+    const clientData = {
       data: result.data,
       retrieved: new Date(),
-    } as unknown as IClientData;
+    } as unknown;
+
+    if (result.success) clientData['success'] = result.success;
+    if (result.errors) clientData['errors'] = result.errors;
+
+    return clientData as IClientData;
   }
 
   convertList(results: IResponseBodyList): IClientDataList {
-    return {
-      success: results.success,
-      errors: results.errors,
+    const clientDataList = {
       data: results.data,
       retrieved: new Date(),
-    } as unknown as IClientDataList;
+    } as unknown;
+
+    if (results.success) clientDataList['success'] = results.success;
+    if (results.errors) clientDataList['errors'] = results.errors;
+
+    return clientDataList as IClientDataList;
   }
 
   retrieve(id: number): Observable<IClientData> {
@@ -67,7 +73,13 @@ export abstract class GenericService<
       .get<IResponseBodyList>([environment.apiBase, this._path].join('/'), {
         params: params,
       })
-      .pipe(debounceTime(250), map(this.convertList));
+      .pipe(
+        debounceTime(250),
+        tap((responseBodyList) =>
+          this.pagination$.next(responseBodyList.pagination)
+        ),
+        map(this.convertList)
+      );
   }
 
   create(

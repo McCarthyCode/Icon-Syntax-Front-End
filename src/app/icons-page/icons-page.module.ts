@@ -8,10 +8,7 @@ import { IconsPageRoutingModule } from './icons-page-routing.module';
 
 import { ComponentsModule } from './components.module';
 
-import {
-  BrowseComponent,
-  CategoryNodeComponent,
-} from './browse/browse.component';
+import { BrowseComponent } from './browse/browse.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
@@ -25,7 +22,6 @@ import { SearchResultsComponent } from './search-results/search-results.componen
   declarations: [
     BrowseComponent,
     SearchResultsComponent,
-    CategoryNodeComponent,
   ],
 })
 export class IconsPageModule {}

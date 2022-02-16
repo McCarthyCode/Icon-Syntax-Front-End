@@ -109,13 +109,15 @@ export class FindService {
     this.categoriesSub = this.category$.subscribe((category) => {
       // this.loadingCategories = false;
 
+      const listParams = {
+        page: this.page,
+      };
+      if (this.query) listParams['search'] = this.query;
+      if (!this.allIcons) listParams['category'] = this.categoryId;
+
       if (this.iconsSub) this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
-        .list(
-          this.query ? this.query : undefined,
-          this.allIcons ? undefined : this.categoryId,
-          this.page
-        )
+        .list(listParams)
         .subscribe((icons) => {
           this.icons$.next(icons);
           this.loadingIcons = false;
@@ -135,17 +137,17 @@ export class FindService {
     this.categoriesSub = this.category$.subscribe((category) => {
       // this.loadingCategories = false;
 
+      const listParams = {
+        page: this.page,
+      };
+      if (this.query) listParams['search'] = this.query;
+      if (!this.allIcons) listParams['category'] = this.categoryId;
+
       if (this.iconsSub) this.iconsSub.unsubscribe();
-      this.iconsSub = this._iconsSrv
-        .list(
-          this.query ? this.query : undefined,
-          this.allIcons ? undefined : this.categoryId,
-          this.page
-        )
-        .subscribe((icons) => {
-          this.icons$.next(icons);
-          this.loadingIcons = false;
-        });
+      this.iconsSub = this._iconsSrv.list(listParams).subscribe((icons) => {
+        this.icons$.next(icons);
+        this.loadingIcons = false;
+      });
     });
   }
 
@@ -170,17 +172,17 @@ export class FindService {
       this.categories$.next(categories);
       this.loadingCategories = false;
 
+      const listParams = {
+        page: this.page,
+      };
+      if (this.query) listParams['search'] = this.query;
+      if (!this.allIcons) listParams['category'] = this.categoryId;
+
       if (this.iconsSub) this.iconsSub.unsubscribe();
-      this.iconsSub = this._iconsSrv
-        .list(
-          this.query ? this.query : undefined,
-          this.allIcons ? undefined : this.categoryId,
-          this.page
-        )
-        .subscribe((icons) => {
-          this.icons$.next(icons);
-          this.loadingIcons = false;
-        });
+      this.iconsSub = this._iconsSrv.list(listParams).subscribe((icons) => {
+        this.icons$.next(icons);
+        this.loadingIcons = false;
+      });
     });
   }
 

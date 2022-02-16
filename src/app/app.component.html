@@ -18,10 +18,6 @@
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-text> Home </ion-text>
           </ion-item>
-          <ion-item button routerLink="/icons/browse" (click)="onMenuClick()">
-            <ion-icon name="search" slot="start"></ion-icon>
-            <ion-text> Find Icons </ion-text>
-          </ion-item>
           <ion-item
             *ngIf="!isAuthenticated"
             button
@@ -39,26 +35,30 @@
             <ion-icon name="log-out" slot="start"></ion-icon>
             <ion-text> Logout </ion-text>
           </ion-item>
-          <ion-item routerLink="/bookshelf" (click)="onMenuClick()" button>
-            <ion-icon name="book" slot="start"></ion-icon>
-            <ion-text> Icon Bookshelf </ion-text>
-          </ion-item>
-          <ion-item routerLink="/diary" (click)="onMenuClick()" button>
-            <ion-icon name="journal" slot="start"></ion-icon>
-            <ion-text> Icon Diary </ion-text>
+          <ion-item button routerLink="/icons/browse" (click)="onMenuClick()">
+            <ion-icon name="image" slot="start"></ion-icon>
+            <ion-text> Icon Library </ion-text>
           </ion-item>
           <ion-item
             *ngIf="isAuthenticated"
-            routerLink="/icon/create"
+            routerLink="/icons/create"
             (click)="onMenuClick()"
             button
           >
             <ion-icon name="add" slot="start"></ion-icon>
             <ion-text> Add an Icon </ion-text>
           </ion-item>
+          <ion-item routerLink="/bookshelf" (click)="onMenuClick()" button>
+            <ion-icon name="book" slot="start"></ion-icon>
+            <ion-text> Icon Bookshelf </ion-text>
+          </ion-item>
+          <ion-item routerLink="/diary" (click)="onMenuClick()" button>
+            <ion-icon name="chatbubble" slot="start"></ion-icon>
+            <ion-text> Icon Diary </ion-text>
+          </ion-item>
           <ion-item routerLink="/about" button (click)="onMenuClick()">
-            <ion-icon name="information-circle" slot="start"></ion-icon>
-            <ion-text> About Us </ion-text>
+            <ion-icon name="information" slot="start"></ion-icon>
+            <ion-text> About iconSyntax </ion-text>
           </ion-item>
         </ion-list>
       </ion-content>

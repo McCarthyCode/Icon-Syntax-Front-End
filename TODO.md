@@ -2,24 +2,26 @@
 
 ## High Priorities
 
-- Content management / PDF Edit functionality
+- Content management
+  - Icons
+    - Add Category
+    - Edit Icon
+  - About page
 
 ## Medium Priorities
+
+- Content management / Blog
+  - Posts
+  - Comments
+
+## Low Priorities
 
 - Content management
   - Front end models
     - Media
     - Video
-  - Menu Items
-  - Icons
   - Categories
     - Requested categories
     - Tree editor
-  - Blog
-    - Posts
-    - Comments
   - Gallery
-
-## Low Priorities
-
 - Sentence builder

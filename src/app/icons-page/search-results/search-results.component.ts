@@ -59,7 +59,7 @@ export class SearchResultsComponent {
     return this._findSrv.broadenSearch;
   }
 
-  get categoryId() : number {
+  get categoryId(): number {
     return this._findSrv.categoryId;
   }
 
@@ -90,11 +90,11 @@ export class SearchResultsComponent {
 
       this._findSrv.iconsSub.unsubscribe();
       this._findSrv.iconsSub = this._iconsSrv
-        .list(
-          this._findSrv.query,
-          this._findSrv.categoryId,
-          this._findSrv.page + 1
-        )
+        .list({
+          search: this._findSrv.query,
+          category: this._findSrv.categoryId,
+          page: this._findSrv.page + 1,
+        })
         .subscribe((icons) => {
           const updated = this.icons$.value;
 
