@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { CategoriesService } from '../categories.service';
+import { CategoryModalComponent } from '../category-modal/category-modal.component';
 import { FindService } from '../find.service';
 import { IconModalComponent } from '../icon-modal/icon-modal.component';
 import { Category } from '../models/category.model';
@@ -53,7 +54,25 @@ export class CreateIconComponent {
     this._findSrv.onReset();
   }
 
-  onAddGroup() {}
+  onAddGroup() {
+    if (!this.activeCategoryId) {
+      console.error('Category not selected.');
+
+      return;
+    }
+
+    this._categoriesSrv.retrieve(this.activeCategoryId).subscribe((parent) => {
+      this._modalCtrl
+        .create({
+          component: CategoryModalComponent,
+          componentProps: {
+            mode: 'create',
+            parent: parent,
+          },
+        })
+        .then((modal) => modal.present());
+    });
+  }
 
   onAddIcon() {
     this._categoriesSrv

@@ -2,17 +2,15 @@
 
 ## High Priorities
 
-- Content management
-  - Icons
-    - Add Category
-    - Edit Icon
-  - About page
+- Content management / About page
 
 ## Medium Priorities
 
-- Content management / Blog
-  - Posts
-  - Comments
+- Content management
+  - Icons / Edit Icon
+  - Diary
+    - Posts
+    - Comments
 
 ## Low Priorities
 

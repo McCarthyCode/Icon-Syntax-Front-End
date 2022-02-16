@@ -27,6 +27,8 @@ export class CategoryModalComponent implements OnInit {
   nonFieldErrors: string[] = [];
   nameErrors: string[] = [];
 
+
+
   constructor(
     private _router: Router,
     private _categoriesSrv: CategoriesService,
