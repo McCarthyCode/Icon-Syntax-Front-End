@@ -20,8 +20,12 @@ export class PdfService extends GenericService<
   PDF.IClientData,
   PDF.IClientDataList
 > {
-  // pdf$ = new BehaviorSubject<PDF.IClientData>(null);
   pdfs$ = new BehaviorSubject<PDF.IClientDataList>(null);
+  private categoriesSet = new Set<number>();
+
+  get categoriesString(): string {
+    return [...this.categoriesSet].join(',');
+  }
 
   constructor(
     private http: HttpClient,
@@ -29,11 +33,16 @@ export class PdfService extends GenericService<
     private router: Router,
     private modalCtrl: ModalController
   ) {
-    super('pdf', http, authSrv, router, modalCtrl);
+    super('pdfs', http, authSrv, router, modalCtrl);
   }
 
-  refresh(topic: number): Observable<PDF.IClientDataList | HttpErrorResponse> {
-    return this.list({ topic: topic }).pipe(
+  refresh(): Observable<PDF.IClientDataList | HttpErrorResponse> {
+    const obs$ =
+      this.categoriesSet.size > 0
+        ? this.list({ categories: this.categoriesString })
+        : this.list();
+
+    return obs$.pipe(
       catchError(() => null),
       tap((list: PDF.IClientDataList) => {
         this.pdfs$.next(list);
@@ -47,28 +56,6 @@ export class PdfService extends GenericService<
     formData.append('title', group.get('title').value);
     formData.append('pdf', group.get('pdf').value, group.get('pdf').value.name);
 
-    const topicNum = group.get('topic').value;
-    formData.append('topic', topicNum);
-
-    let url = '/login?redirect=%2F';
-    switch (+topicNum) {
-      case 1:
-        url += 'about';
-        break;
-      case 2:
-        url += 'diary';
-        break;
-      case 3:
-        url += 'bookshelf';
-        break;
-    }
-
-    return super.create(formData, true).pipe(
-      tap((res) => {
-        if (res === null) {
-          this.router.navigateByUrl(url);
-        }
-      })
-    );
+    return super.create(formData);
   }
 }

@@ -52,7 +52,7 @@ const routes: Routes = [
     component: DiaryComponent,
   },
   {
-    path: 'pdf/create',
+    path: 'pdfs/create',
     component: CreatePdfComponent,
   },
   {

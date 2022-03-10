@@ -2,15 +2,32 @@
 
 ## High Priorities
 
-- Content management / About page
+- GenericService / Refresh on 401
+- Plain (then rich) text + Comments + Categories
+  - about us
+    - profiles
+    - vision
+    - history
+    - board
+    - to-do list
+  - about syntax
+    - icon element
+    - word order
+    - phrases and idioms
+  - about literacy
+    - dyslexia
+    - language extinction
+    - symbol vs. speech
+    - linguistics
+  - notes
+    - updates
+    - links
+    - appeals
+    - contact
 
 ## Medium Priorities
 
-- Content management
-  - Icons / Edit Icon
-  - Diary
-    - Posts
-    - Comments
+- Content management / Icons / Edit Icon
 
 ## Low Priorities
 

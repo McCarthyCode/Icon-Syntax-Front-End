@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, IonInput, ModalController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { PDF } from '../models/pdf.model';
+import { PdfCategoriesService } from '../pdf-categories.service';
 import { PdfService } from '../pdf.service';
 
 @Component({
@@ -13,31 +14,54 @@ import { PdfService } from '../pdf.service';
   styleUrls: ['./create-pdf.component.scss'],
 })
 export class CreatePdfComponent implements OnInit {
-  @Input() topic: number;
+  form: FormGroup = new FormGroup({});
+  @ViewChild('addCategory') addCategoryInput: IonInput;
 
-  form: FormGroup;
+  private categoriesSet = new Set<string>([]);
+  get categoriesArr(): string[] {
+    return [...this.categoriesSet];
+  }
+  get categoriesStr(): string {
+    return this.categoriesArr.join(',');
+  }
+
+  private checkedCategoriesSet = new Set<string>([]);
+  get checkedCategoriesArr(): string[] {
+    return [...this.checkedCategoriesSet];
+  }
+  get checkedCategoriesStr(): string {
+    return this.checkedCategoriesArr.join(',');
+  }
 
   constructor(
     private _modalController: ModalController,
     private _pdfSrv: PdfService,
     private _alertCtrl: AlertController,
     private _authSrv: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _categoriesSrv: PdfCategoriesService
   ) {}
 
   ngOnInit() {
     this.form = new FormGroup({
-      pdf: new FormControl(null, {
-        updateOn: 'change',
-        validators: [Validators.required],
-      }),
       title: new FormControl('', {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(160)],
       }),
-      topic: new FormControl(this.topic, {
+      pdf: new FormControl(null, {
+        updateOn: 'change',
         validators: [Validators.required],
       }),
+      categories: new FormControl('', {
+        updateOn: 'change',
+        validators: [Validators.required, Validators.maxLength(160)],
+      }),
+    });
+
+    this._categoriesSrv.list().subscribe((categories) => {
+      this.categoriesSet = new Set<string>(
+        categories.data.map((category) => category.name)
+      );
     });
   }
 
@@ -55,8 +79,45 @@ export class CreatePdfComponent implements OnInit {
     }
   }
 
+  onCheckboxChange($event: any) {
+    const category: string = $event.target.name;
+
+    if ($event.detail.checked === undefined) {
+      console.error('There was an error changing the category state.');
+    } else if ($event.detail.checked) {
+      this.checkedCategoriesSet.add(category);
+    } else {
+      this.checkedCategoriesSet.delete(category);
+    }
+
+    this.form.patchValue({ categories: this.checkedCategoriesStr });
+  }
+
+  onAddCategory(): void {
+    const value = `${this.addCategoryInput.value}`;
+
+    if (value) {
+      this.createCategory(value);
+      this.addCategoryInput.value = '';
+    }
+  }
+
+  createCategory(name: string): void {
+    this.categoriesSet.add(name);
+  }
+
   submit(refresh = true): void {
-    this._pdfSrv.upload(this.form).subscribe(
+    const formData = new FormData();
+
+    formData.append('title', this.form.get('title').value);
+    formData.append(
+      'pdf',
+      this.form.get('pdf').value,
+      this.form.get('pdf').value.name
+    );
+    formData.append('categories', this.form.get('categories').value);
+
+    this._pdfSrv.create(formData).subscribe(
       (response: PDF.IClientData) => {
         if (response === null) {
           this._alertCtrl
@@ -74,7 +135,7 @@ export class CreatePdfComponent implements OnInit {
               buttons: ['Okay'],
             })
             .then((alert) => {
-              this._pdfSrv.refresh(this.topic).subscribe();
+              this._pdfSrv.refresh().subscribe();
               alert.present();
             });
           this._modalController.dismiss();
@@ -93,19 +154,7 @@ export class CreatePdfComponent implements OnInit {
             })
             .then((alert) => alert.present());
 
-          let nav = '/';
-          switch (this.topic) {
-            case 1:
-              nav = '/about';
-              break;
-            case 2:
-              nav = '/diary';
-              break;
-            case 3:
-              nav = '/bookshelf';
-              break;
-          }
-          this._router.navigateByUrl(nav);
+          this._router.navigateByUrl('/bookshelf');
         }
       },
       (error: HttpErrorResponse) => {

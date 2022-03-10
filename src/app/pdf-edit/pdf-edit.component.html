@@ -13,11 +13,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <form
-          [formGroup]="form"
-          *ngIf="form"
-          (ionChange)="onTopicChange($event)"
-        >
+        <form [formGroup]="form" *ngIf="form">
           <ion-item>
             <ion-label position="floating"> Title </ion-label>
             <ion-input type="text" name="title" formControlName="title">
@@ -39,23 +35,20 @@
               <small> This field is required. </small>
             </ion-text>
           </ion-item>
-          <ion-radio-group value="{{ topic }}" #topicRadioGroup>
-            <ion-list-header>
-              <ion-label>Topic</ion-label>
-            </ion-list-header>
-            <ion-item>
-              <ion-label>About IconSyntax</ion-label>
-              <ion-radio slot="start" value="1"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Icon Diary</ion-label>
-              <ion-radio slot="start" value="2"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Icon Bookshelf</ion-label>
-              <ion-radio slot="start" value="3"></ion-radio>
-            </ion-item>
-          </ion-radio-group>
+          <h1 class="ion-margin-top ion-padding-horizontal">
+            Categories
+            <br />
+            <ion-text color="medium">
+              <small>
+                <em>Choose at least one.</em>
+              </small>
+            </ion-text>
+          </h1>
+          <ion-item *ngFor="let category of categories">
+            <ion-checkbox name="category-{{ category.id }}" slot="start">
+            </ion-checkbox>
+            <ion-label>{{ category.name }}</ion-label>
+          </ion-item>
         </form>
       </ion-col>
     </ion-row>

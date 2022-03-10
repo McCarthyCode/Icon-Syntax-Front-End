@@ -34,20 +34,15 @@ export class DiaryComponent {
   ) {}
 
   ionViewWillEnter() {
-    this._pdfSrv.list({ topic: 2 }).subscribe((clientDataList) => {
+    this._pdfSrv.list().subscribe((clientDataList) => {
       this.pdfs$.next(clientDataList);
     });
   }
 
-  async presentModal() {
-    const modal = await this._modalCtrl.create({
-      component: CreatePdfComponent,
-      componentProps: {
-        topic: 2,
-      },
-    });
-
-    return await modal.present();
+  presentModal() {
+    this._modalCtrl
+      .create({ component: CreatePdfComponent })
+      .then((modal) => modal.present());
   }
 
   edit(id: number): void {
@@ -76,7 +71,7 @@ export class DiaryComponent {
                 .delete(id, true)
                 .pipe(
                   tap(() => {
-                    this._pdfSrv.refresh(2).subscribe();
+                    this._pdfSrv.refresh().subscribe();
                   })
                 )
                 .subscribe(async () => {

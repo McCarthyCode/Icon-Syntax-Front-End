@@ -16,17 +16,11 @@ import { PdfService } from '../pdf.service';
 })
 export class PdfEditComponent {
   @Input() id: number;
-  @ViewChild('topicRadioGroup') topicRadioGroup: IonRadioGroup;
 
   form: FormGroup;
   existingModel: PDF.IModel;
 
-  get topic(): number {
-    return this.form?.get('topic').value;
-  }
-  set topic(value: number) {
-    this.form.patchValue({ topic: value });
-  }
+  categories: string[] = ['Stories', 'Poems', 'Songs', 'Lessons'];
 
   constructor(
     private _pdfSrv: PdfService,
@@ -44,23 +38,12 @@ export class PdfEditComponent {
           updateOn: 'change',
           validators: [Validators.required, Validators.maxLength(160)],
         }),
-        topic: new FormControl(this.existingModel.topic, {
-          validators: [Validators.required],
-        }),
       });
     });
   }
 
-  ionViewDidEnter() {
-    this.topicRadioGroup.value = `${this.topic}`;
-  }
-
   closeModal() {
     this._modalCtrl.dismiss();
-  }
-
-  onTopicChange($event) {
-    this.topic = +$event.detail.value;
   }
 
   onSubmit() {
@@ -79,7 +62,7 @@ export class PdfEditComponent {
           })
           .then((alert) => {
             this._modalCtrl.dismiss();
-            this._pdfSrv.refresh(this.existingModel.topic).subscribe();
+            this._pdfSrv.refresh().subscribe();
             alert.present();
           });
       },
