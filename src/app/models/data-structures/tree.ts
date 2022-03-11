@@ -1,3 +1,3 @@
-export type ITreeNode<T> = T & {
+export type TreeNode<T> = T & {
   children?: T[];
 };

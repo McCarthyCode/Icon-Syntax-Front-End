@@ -2,13 +2,10 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row
-      *ngIf="(icons$ | async).data.length > 0"
-      class="ion-justify-content-center"
-    >
+    <ion-row *ngIf="icons && icons.data.length > 0" class="ion-justify-content-center">
       <ion-col>
         <ul class="icons ion-no-margin ion-no-padding">
-          <li *ngFor="let icon of (icons$ | async).data">
+          <li *ngFor="let icon of icons.data">
             <app-icon (click)="clickIcon(icon)" [icon]="icon"></app-icon>
           </li>
         </ul>
@@ -17,10 +14,9 @@
         </ion-infinite-scroll>
       </ion-col>
     </ion-row>
-
     <ion-row
       class="ion-justify-content-center"
-      *ngIf="(icons$ | async).data.length === 0"
+      *ngIf="!icons || icons.data.length === 0"
     >
       <ion-col size-md="9" size-lg="7" size-xl="6">
         <p class="ion-text-center">

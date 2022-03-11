@@ -25,13 +25,23 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
+import { DiaryComponent } from './diary/diary.component';
+import { CreatePdfComponent } from './create-pdf/create-pdf.component';
+import { PdfCardComponent } from './pdf-card/pdf-card.component';
+import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { BookshelfComponent } from './bookshelf/bookshelf.component';
+import { PdfEditComponent } from './pdf-edit/pdf-edit.component';
+import { CategoryNodeComponent } from './category-node/category-node.component';
 
 @NgModule({
   declarations: [
     AboutComponent,
     AppComponent,
+    BookshelfComponent,
     CategoryModalComponent,
     CreateIconComponent,
+    CreatePdfComponent,
+    DiaryComponent,
     ForgotComponent,
     ForgotVerifyComponent,
     HomeComponent,
@@ -40,6 +50,9 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
     IconsPage,
     LoginComponent,
     NotFoundComponent,
+    PdfCardComponent,
+    PdfEditComponent,
+    PdfViewComponent,
     RegisterComponent,
     RegisterVerifyComponent,
     UpdateCategoryComponent,

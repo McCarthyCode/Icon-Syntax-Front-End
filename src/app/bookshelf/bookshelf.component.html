@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Icon Bookshelf </ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        shape="round"
+        (click)="presentModal()"
+        *ngIf="isAuthenticated"
+      >
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+      <ion-menu-button contentId="menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="!pdfs || pdfs.length === 0">
+    <ion-row>
+      <ion-col>
+        <h1>PDFs</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="9" size-lg="7" size-xl="6">
+        <p class="ion-text-center">
+          <ion-text color="medium">
+            <em>No bookshelf entries available yet. Stay tuned!</em>
+          </ion-text>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="pdfs && pdfs.length !== 0">
+    <ion-row class="ion-padding-horizontal">
+      <ion-col>
+        <h1>PDFs</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-bottom">
+      <ion-col class="ion-text-center">
+        <ion-chip
+          *ngFor="let category of (categories$ | async).data"
+          [color]="category.selected ? 'primary' : undefined"
+          (click)="toggleCategory(category.name)"
+        >
+          <ion-label>{{ category.name }}</ion-label>
+        </ion-chip>
+        <br />
+        <ion-chip color="primary" (click)="selectAll()">
+          <ion-label>Select All</ion-label>
+        </ion-chip>
+        <ion-chip (click)="selectNone()">
+          <ion-label>Select None</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item-sliding *ngFor="let pdf of (pdfs$ | async).data">
+            <ion-item routerLink="/pdfs/{{ pdf.id }}" button>
+              <ion-title>{{ pdf.title }}</ion-title>
+            </ion-item>
+            <ion-item-options side="end" *ngIf="isAdmin">
+              <ion-item-option color="danger" (click)="delete(pdf.id)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+              <ion-item-option color="secondary" (click)="edit(pdf.id)">
+                <ion-icon slot="icon-only" name="pencil"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

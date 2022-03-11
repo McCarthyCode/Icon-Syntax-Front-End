@@ -7,7 +7,7 @@ import { Icon } from '../models/icon.model';
   styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent {
-  @Input() icon: Icon.IIcon;
+  @Input() icon: Icon.IModel;
 
   constructor() {}
 }

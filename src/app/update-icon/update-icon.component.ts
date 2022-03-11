@@ -51,7 +51,7 @@ export class UpdateIconComponent implements OnInit {
     categories: Category.IClientDataList
   ): Category.IClientDataList {
     return {
-      data: (categories.data as Category.ICategory[]).filter((category) => {
+      data: categories.data.filter((category) => {
         return this.icon ? category.id !== this.icon.data.category : true;
       }),
       retrieved: categories.retrieved,
@@ -123,11 +123,10 @@ export class UpdateIconComponent implements OnInit {
 
     this._categoriesSrv.retrieve(id).subscribe((category) => {
       this.breadcrumbs.push(category);
-      const count = category.data.children.length;
 
       const categories: Category.IClientDataList = {
-        data: category.data.children,
         retrieved: category.retrieved,
+        data: category.data.children,
       };
       this.categories$.next(categories);
       this.loading = false;
@@ -151,10 +150,9 @@ export class UpdateIconComponent implements OnInit {
     } else {
       this._categoriesSrv
         .retrieve(category.data.parent)
-        .subscribe((parent) => {
-          const count = parent.data.children.length;
+        .subscribe((category) => {
           this.categories$.next({
-            data: parent.data.children,
+            data: category.data.children,
             retrieved: new Date(),
           });
           this.loading = false;
@@ -181,20 +179,22 @@ export class UpdateIconComponent implements OnInit {
         })
         .then((modal) => modal.present());
     } else {
-      this._categoriesSrv.retrieve(this.icon.data.category).subscribe((category) => {
-        this._modalCtrl
-          .create({
-            component: IconModalComponent,
-            componentProps: {
-              icon: this.icon,
-              category: category,
-              path: category ? category.data.path : '',
-              mode: 'update',
-              breadcrumbs: this.breadcrumbs,
-            },
-          })
-          .then((modal) => modal.present());
-      });
+      this._categoriesSrv
+        .retrieve(this.icon.data.category)
+        .subscribe((category) => {
+          this._modalCtrl
+            .create({
+              component: IconModalComponent,
+              componentProps: {
+                icon: this.icon,
+                category: category,
+                path: category ? category.data.path : '',
+                mode: 'update',
+                breadcrumbs: this.breadcrumbs,
+              },
+            })
+            .then((modal) => modal.present());
+        });
     }
   }
 }

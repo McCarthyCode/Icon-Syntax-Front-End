@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FindService } from 'src/app/find.service';
 import { IconDetailService } from 'src/app/icon-detail.service';
 import { IconsService } from 'src/app/icons.service';
+import { IPagination } from 'src/app/interfaces/pagination.interface';
 import { Category } from 'src/app/models/category.model';
 import { Icon } from 'src/app/models/icon.model';
 
@@ -19,6 +20,13 @@ export class SearchResultsComponent {
 
   get icons$(): BehaviorSubject<Icon.IClientDataList> {
     return this._findSrv.icons$;
+  }
+  get icons(): Icon.IClientDataList {
+    return this._findSrv.icons$.value;
+  }
+
+  get pagination$(): BehaviorSubject<IPagination> {
+    return this._findSrv.iconsPagination$;
   }
 
   get loadingCategories(): boolean {
@@ -65,12 +73,12 @@ export class SearchResultsComponent {
     private _findSrv: FindService
   ) {}
 
-  clickIcon(icon: Icon.IIcon): void {
+  clickIcon(icon: Icon.IModel): void {
     this._iconsDetailSrv.click(icon);
   }
 
   nextPage($event): void {
-    if (!this._iconsSrv.pagination.nextPageExists) {
+    if (!this.pagination$.value.nextPageExists) {
       $event.target.complete();
       return;
     }
@@ -78,13 +86,13 @@ export class SearchResultsComponent {
     this._findSrv.resetIcons(false);
 
     this.categories$.subscribe(() => {
-      const page = this._iconsSrv.pagination.thisPageNumber;
+      const page = this.pagination$.value.thisPageNumber;
 
       this._findSrv.iconsSub.unsubscribe();
       this._findSrv.iconsSub = this._iconsSrv
         .list({
           search: this._findSrv.query,
-          category: this._findSrv.categoryId || 0,
+          category: this._findSrv.categoryId,
           page: this._findSrv.page + 1,
         })
         .subscribe((icons) => {

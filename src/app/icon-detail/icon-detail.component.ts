@@ -18,7 +18,7 @@ import { Icon } from 'src/app/models/icon.model';
   styleUrls: ['./icon-detail.component.scss'],
 })
 export class IconDetailComponent implements OnInit {
-  icon: Icon.IIcon;
+  icon: Icon.IModel;
   iconSub: Subscription;
   dictSub: Subscription;
   loading = true;

@@ -20,11 +20,14 @@
         <ion-row>
           <ion-col>
             <h1><ion-text color="secondary">Category</ion-text></h1>
-            <p class="ion-no-margin" *ngIf="category?.path">
-              {{ category.path }} » {{ category.name }}
+            <p class="ion-no-margin" *ngIf="category?.data.path">
+              {{ category.data.path }} » {{ category.data.name }}
             </p>
-            <p class="ion-no-margin" *ngIf="category && !category.path">
-              {{ category.name }}
+            <p
+              class="ion-no-margin"
+              *ngIf="category?.data && !category.data.path"
+            >
+              {{ category.data.name }}
             </p>
           </ion-col>
         </ion-row>

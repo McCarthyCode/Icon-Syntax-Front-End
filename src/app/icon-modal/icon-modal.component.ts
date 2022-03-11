@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +11,6 @@ import { AuthService } from '../auth.service';
 import { IconsService } from '../icons.service';
 import { Category } from '../models/category.model';
 import { Icon } from '../models/icon.model';
-import { Model } from '../models/model';
 
 @Component({
   selector: 'app-icon-modal',
@@ -77,18 +77,18 @@ export class IconModalComponent implements OnInit {
     this.form.patchValue({ descriptor: $event.detail.value });
   }
 
-  onSubmit(): void {
-    const redirectFind = () => {
+  onSubmit(refresh = true): void {
+    const redirectAddIcon = () => {
       this._modalCtrl.dismiss();
-      this._router.navigateByUrl('/icons/browse');
+      this._router.navigateByUrl('/icons/create');
     };
 
-    const http400Handler = (response: Model.IErrorResponse) => {
-      if (response.errors) {
-        for (const error of response.errors) {
+    const http400Handler = (response: HttpErrorResponse) => {
+      if (response.error) {
+        Object.entries(response.error).forEach(([key, value]) => {
           this._toastCtrl
             .create({
-              message: error,
+              message: value[0],
               position: 'top',
               color: 'danger',
               duration: 5000,
@@ -101,11 +101,11 @@ export class IconModalComponent implements OnInit {
               ],
             })
             .then((toast) => toast.present());
-        }
+        });
       }
     };
 
-    const http500Handler = (response: Model.IErrorResponse) => {
+    const http500Handler = (response: HttpErrorResponse) => {
       this._alertCtrl
         .create({
           header: 'HTTP 500: Server Error',
@@ -115,7 +115,7 @@ export class IconModalComponent implements OnInit {
           buttons: [
             {
               text: 'Okay',
-              handler: redirectFind,
+              handler: redirectAddIcon,
             },
           ],
         })
@@ -124,17 +124,17 @@ export class IconModalComponent implements OnInit {
         });
     };
 
-    const errorHandler = (
-      response: {
-        status: number;
-      } & Model.IErrorResponse
-    ) => {
+    const errorHandler = (response: HttpErrorResponse) => {
       switch (response.status) {
         case 400:
           http400Handler(response);
           break;
         case 401:
-          this._router.navigateByUrl('/login');
+          if (refresh) {
+            this._authSrv.refresh().subscribe(() => this.onSubmit(false));
+          } else {
+            this._router.navigateByUrl('/login');
+          }
           break;
         case 500:
           http500Handler(response);
@@ -145,7 +145,20 @@ export class IconModalComponent implements OnInit {
     };
 
     if (this.mode === 'create') {
-      this._iconsSrv.create(this.form.value).subscribe({
+      const formData = new FormData();
+
+      formData.append(
+        'icon',
+        this.form.get('icon').value,
+        this.form.get('icon').value.name
+      );
+
+      for (let key of ['word', 'descriptor', 'category']) {
+        const value = this.form.get(key).value;
+        if (value) formData.append(key, value);
+      }
+
+      this._iconsSrv.create(formData).subscribe({
         next: () => {
           const credentials = this._authSrv.credentials$.value;
           this._alertCtrl
@@ -158,7 +171,7 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: redirectFind,
+                  handler: redirectAddIcon,
                 },
               ],
             })
@@ -173,7 +186,7 @@ export class IconModalComponent implements OnInit {
         id: this.icon.data.id,
         ...this.form.value,
       };
-      this._iconsSrv.update(body).subscribe({
+      this._iconsSrv.partialUpdate(this.form.value).subscribe({
         next: () => {
           const credentials = this._authSrv.credentials$.value;
           this._alertCtrl
@@ -186,7 +199,7 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: redirectFind,
+                  handler: redirectAddIcon,
                 },
               ],
             })

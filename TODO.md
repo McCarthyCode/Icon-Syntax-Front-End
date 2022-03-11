@@ -2,50 +2,41 @@
 
 ## High Priorities
 
-- Content management / Media manager
-  - New menu items
-    - Icon Diary
-    - About IconSyntax (reorder)
-    - Icon Bookshelf
-  - Front end models
-    - Media
-    - PDF
-    - Video
-  - Generic service
-    - list
-    - create
-    - retrieve
-    - update
-    - partial update
-    - destroy
-  - PDF service
-  - PDF Category service
-  - CreatePdfComponent
-    - Category selector
-      - select
-      - add
-      - rename
-      - remove
-    - PDF uploader
-  - PdfComponent
-    - List PDFs
-    - Show Title
-    - Delete button
-    - Upload button
+- GenericService / Refresh on 401
+- Plain (then rich) text + Comments + Categories
+  - about us
+    - profiles
+    - vision
+    - history
+    - board
+    - to-do list
+  - about syntax
+    - icon element
+    - word order
+    - phrases and idioms
+  - about literacy
+    - dyslexia
+    - language extinction
+    - symbol vs. speech
+    - linguistics
+  - notes
+    - updates
+    - links
+    - appeals
+    - contact
 
 ## Medium Priorities
 
-- Content management
-  - Menu Items
-  - Icons
-  - Categories
-    - Requested categories
-    - Tree editor
-  - Blog
-    - Posts
-    - Comments
-  - Gallery
+- Content management / Icons / Edit Icon
 
 ## Low Priorities
 
+- Content management
+  - Front end models
+    - Media
+    - Video
+  - Categories
+    - Requested categories
+    - Tree editor
+  - Gallery
 - Sentence builder

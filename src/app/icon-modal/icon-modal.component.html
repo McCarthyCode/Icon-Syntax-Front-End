@@ -3,40 +3,51 @@
     <ion-title> {{ mode === "create" ? "Add" : "Update" }} an Icon </ion-title>
     <ion-buttons slot="end">
       <ion-button shape="round" (click)="onClose()">
-        <ion-icon name="close"></ion-icon>
+        <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <p id="breadcrumbs" class="ion-padding-horizontal">
+    <ion-text color="medium">
+      <span *ngIf="category?.data.path"> {{ category.data.path }} » </span>
+      {{ category.data.name }} » {{ form.value.word }}
+      <span *ngIf="!form.value.word">
+        <em>[choose a word]</em>
+      </span>
+    </ion-text>
+  </p>
 </ion-header>
 
 <ion-content>
   <ion-grid>
+    <ion-row class="ion-justify-content-center ion-padding-horizontal">
+      <ion-col>
+        <p>
+          Please click <em>Browse</em> to select an icon from your computer,
+          then enter the <em>Word</em> the image describes.
+        </p>
+        <p>
+          If your word has multiple meanings, please enter a related word or
+          phrase under <em>Descriptor</em>.
+        </p>
+      </ion-col>
+    </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col>
         <form [formGroup]="form" enctype="multipart/form-data">
           <ion-list>
-            <ion-card class="content">
-              <ion-card-content>
-                <p>
-                  Please click <em>Browse</em> to select an icon from your
-                  computer, then enter the <em>Word</em> the image describes.
-                </p>
-                <p>
-                  If your word has multiple meanings, please enter a related word or phrase under <em>Descriptor</em>.
-                </p>
-              </ion-card-content>
-            </ion-card>
             <ion-item *ngIf="mode === 'create'">
               <ion-input
                 type="file"
+                name="icon"
+                accept="image/*"
                 formControlName="icon"
                 (change)="onFileChange($event)"
-              ></ion-input>
+              >
+              </ion-input>
               <ion-text
                 *ngIf="
-                  mode === 'create' &&
-                  form.get('icon').touched &&
-                  form.get('icon').errors?.required
+                  form.get('icon').touched && form.get('icon').errors?.required
                 "
                 class="file-error"
                 color="danger"
@@ -92,12 +103,6 @@
                 <small>
                   This field may not contain more than 80 characters.
                 </small>
-              </ion-text>
-            </ion-item>
-            <ion-item class="ion-text-wrap">
-              <ion-text>
-                <span *ngIf="category.path">{{ category.path }} » </span>
-                {{ category.name }} » {{ form.value.word }}
               </ion-text>
             </ion-item>
           </ion-list>

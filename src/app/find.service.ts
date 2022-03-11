@@ -13,8 +13,16 @@ import { Icon } from './models/icon.model';
 export class FindService {
   // Behavior Subjects
   category$ = new BehaviorSubject<Category.IClientData>(null);
+
   categories$ = new BehaviorSubject<Category.IClientDataList>(null);
+  get categoriesPagination$(): BehaviorSubject<IPagination> {
+    return this._categoriesSrv.pagination$;
+  }
+
   icons$ = new BehaviorSubject<Icon.IClientDataList>(null);
+  get iconsPagination$(): BehaviorSubject<IPagination> {
+    return this._iconsSrv.pagination$;
+  }
 
   // Replay Subjects
   reset$ = new ReplaySubject<void>();
@@ -36,14 +44,6 @@ export class FindService {
 
   allIcons = true;
   breadcrumbs = 'All Icons';
-
-  get categoriesPagination(): IPagination {
-    return this._categoriesSrv.pagination;
-  }
-
-  get iconsPagination(): IPagination {
-    return this._iconsSrv.pagination;
-  }
 
   // Route Booleans
   get browseVisible(): boolean {
@@ -109,13 +109,15 @@ export class FindService {
     this.categoriesSub = this.category$.subscribe((category) => {
       // this.loadingCategories = false;
 
+      const listParams = {
+        page: this.page,
+      };
+      if (this.query) listParams['search'] = this.query;
+      if (!this.allIcons) listParams['category'] = this.categoryId;
+
       if (this.iconsSub) this.iconsSub.unsubscribe();
       this.iconsSub = this._iconsSrv
-        .list({
-          search: this.query ? this.query : undefined,
-          category: this.allIcons ? undefined : this.categoryId,
-          page: this.page,
-        })
+        .list(listParams)
         .subscribe((icons) => {
           this.icons$.next(icons);
           this.loadingIcons = false;
@@ -135,17 +137,17 @@ export class FindService {
     this.categoriesSub = this.category$.subscribe((category) => {
       // this.loadingCategories = false;
 
+      const listParams = {
+        page: this.page,
+      };
+      if (this.query) listParams['search'] = this.query;
+      if (!this.allIcons) listParams['category'] = this.categoryId;
+
       if (this.iconsSub) this.iconsSub.unsubscribe();
-      this.iconsSub = this._iconsSrv
-        .list({
-          search: this.query ? this.query : undefined,
-          category: this.allIcons ? undefined : this.categoryId,
-          page: this.page,
-        })
-        .subscribe((icons) => {
-          this.icons$.next(icons);
-          this.loadingIcons = false;
-        });
+      this.iconsSub = this._iconsSrv.list(listParams).subscribe((icons) => {
+        this.icons$.next(icons);
+        this.loadingIcons = false;
+      });
     });
   }
 
@@ -164,23 +166,23 @@ export class FindService {
       this.category$.next(category);
 
       const categories: Category.IClientDataList = {
-        data: category.data.children,
         retrieved: category.retrieved,
+        data: category.data.children,
       };
       this.categories$.next(categories);
       this.loadingCategories = false;
 
+      const listParams = {
+        page: this.page,
+      };
+      if (this.query) listParams['search'] = this.query;
+      if (!this.allIcons) listParams['category'] = this.categoryId;
+
       if (this.iconsSub) this.iconsSub.unsubscribe();
-      this.iconsSub = this._iconsSrv
-        .list({
-          search: this.query ? this.query : undefined,
-          category: this.allIcons ? undefined : this.categoryId,
-          page: this.page,
-        })
-        .subscribe((icons) => {
-          this.icons$.next(icons);
-          this.loadingIcons = false;
-        });
+      this.iconsSub = this._iconsSrv.list(listParams).subscribe((icons) => {
+        this.icons$.next(icons);
+        this.loadingIcons = false;
+      });
     });
   }
 

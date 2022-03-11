@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      {{ mode === "create" ? "Add" : "Update" }} a Category
+      {{ mode === "create" ? "Add" : "Update" }} a Group
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onClose()" shape="round">
@@ -9,19 +9,30 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <p id="breadcrumbs">
+    <ion-text color="secondary">
+      <span *ngIf="parent?.data.path"> {{ parent.data.path }} » </span>
+      {{ parent.data.name }}
+    </ion-text>
+    <ion-text color="medium">
+      »
+      <em *ngIf="!form.value.name">[choose a group name]</em>
+      {{ form.value.name }}
+    </ion-text>
+  </p>
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
+        <p>Please name your group and hit <em>Submit</em>.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
         <form [formGroup]="form" (submit)="onSubmit()">
           <ion-list>
-            <ion-card class="content">
-              <ion-card-content>
-                <p>Please name your group and hit <em>Submit</em>.</p>
-              </ion-card-content>
-            </ion-card>
             <ion-item>
               <ion-label position="floating"> Name </ion-label>
               <ion-input
@@ -47,17 +58,6 @@
                   This field may not contain more than 40 characters.
                 </small>
               </ion-text>
-            </ion-item>
-            <ion-item class="ion-text-wrap">
-              <p class="ion-no-margin">
-                <ion-text *ngIf="!path" color="medium">
-                  <em>root</em>
-                </ion-text>
-                <ion-text *ngIf="path">
-                  {{ path }}
-                </ion-text>
-                » {{ form.value.name }}
-              </p>
             </ion-item>
           </ion-list>
         </form>

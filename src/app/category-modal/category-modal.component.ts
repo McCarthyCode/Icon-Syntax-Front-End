@@ -27,6 +27,8 @@ export class CategoryModalComponent implements OnInit {
   nonFieldErrors: string[] = [];
   nameErrors: string[] = [];
 
+
+
   constructor(
     private _router: Router,
     private _categoriesSrv: CategoriesService,
@@ -38,7 +40,7 @@ export class CategoryModalComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       id: new FormControl(
-        this.mode === 'update' ? this.category['id'] : undefined,
+        this.mode === 'update' ? this.category?.id : undefined,
         {
           updateOn: 'change',
           validators:

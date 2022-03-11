@@ -9,7 +9,7 @@ import { FindService } from '../find.service';
 })
 export class IconsPage {
   get count(): string {
-    const format = (n): string => {
+    const formatCash = (n) => {
       if (n < 1e3) return n;
       if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + 'K';
       if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + 'M';
@@ -17,15 +17,13 @@ export class IconsPage {
       if (n >= 1e12) return +(n / 1e12).toFixed(1) + 'T';
     };
 
-    return format(this._findSrv.iconsPagination.totalResults);
+    return formatCash(this._findSrv.iconsPagination$.value.totalResults);
   }
 
   get badgeVisible(): boolean {
-    console.log('emptyQuery', this._findSrv.emptyQuery);
-    console.log('this._findSrv.pagination', this._findSrv.iconsPagination);
     return (
       !this._findSrv.emptyQuery &&
-      this._findSrv.iconsPagination?.totalResults > 0
+      this._findSrv.iconsPagination$.value?.totalResults > 0
     );
   }
 

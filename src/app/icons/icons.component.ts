@@ -103,7 +103,7 @@ export class IconsComponent implements OnInit {
           const updated = this.icons$.value;
 
           if (updated) {
-            updated.results.push(...icons.results);
+            updated.data.push(...icons.data);
             updated.pagination = icons.pagination;
             this.icons$.next(updated);
           } else {

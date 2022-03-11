@@ -1,28 +1,26 @@
 import { Model } from './model';
+import { TreeNode } from './data-structures/tree';
 
 export namespace Category {
-  export interface ICategory extends Model.IModel {
-    id: number;
+  interface IData {
     name: string;
     parent: number;
     path: string;
-    children?: ICategory[];
+    children?: IModel[];
   }
-
-  // interface IDatum extends Model.IDatum<ICategory> {}
-  // interface IData extends Model.IData<ICategory> {}
-
+  export interface IModel extends Model.IModel, IData {}
   export interface IRequestBody
     extends Model.IRequestBody,
-      Partial<ICategory> {}
-  export interface IResponseBody
-    extends Model.IResponseBody<ICategory>,
-      Partial<Model.ISuccessResponse>,
-      Partial<Model.IErrorResponse> {}
-  export interface IResponseBodyList
-    extends Model.IResponseBodyList<ICategory>,
-      Partial<Model.ISuccessResponse>,
-      Partial<Model.IErrorResponse> {}
-  export interface IClientData extends Model.IClientData<ICategory> {}
-  export interface IClientDataList extends Model.IClientDataList<ICategory> {}
+      Model.IModel,
+      Partial<IData> {}
+  export interface IResponseBody extends Model.IResponseBody<IModel> {}
+  export interface IResponseBodyList extends Model.IResponseBodyList<IModel> {}
+  export interface IClientData extends Model.IClientData<IModel> {}
+  export interface IClientDataList extends Model.IClientDataList<IModel> {}
+
+  export type ITreeNode = TreeNode<{
+    id: number;
+    name: string;
+    children: ITreeNode[];
+  }>;
 }
