@@ -1,28 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PDF } from '../models/pdf.model';
 import { PdfService } from '../pdf.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth.service';
+import { AlertController, ModalController } from '@ionic/angular';
+import { PdfEditComponent } from '../pdf-edit/pdf-edit.component';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pdf-view',
   templateUrl: './pdf-view.component.html',
   styleUrls: ['./pdf-view.component.scss'],
 })
-export class PdfViewComponent implements OnInit {
+export class PdfViewComponent {
   pdf: PDF.IModel;
   url: SafeResourceUrl;
   title = 'Loading...';
 
+  get isAdmin(): boolean {
+    return this._authSrv.isAdmin;
+  }
+
   constructor(
     private _route: ActivatedRoute,
     private _pdfSrv: PdfService,
+    private _authSrv: AuthService,
     private _router: Router,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private _modalCtrl: ModalController,
+    private _alertCtrl: AlertController
   ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this._route.paramMap.subscribe((paramMap) => {
       const id = +paramMap['params']['id'];
 
@@ -36,7 +47,7 @@ export class PdfViewComponent implements OnInit {
             );
           },
           (errorResponse) => {
-            this.title = 'There was an error.'
+            this.title = 'There was an error.';
             console.error(errorResponse);
             this._router.navigateByUrl('/404');
           }
@@ -47,5 +58,50 @@ export class PdfViewComponent implements OnInit {
         this._router.navigateByUrl('/404');
       }
     });
+  }
+
+  edit(): void {
+    this._modalCtrl
+      .create({
+        component: PdfEditComponent,
+        componentProps: {
+          id: this.pdf.id,
+        },
+      })
+      .then((modal) => {
+        this._pdfSrv.refresh().subscribe();
+        modal.present();
+      });
+  }
+
+  delete(): void {
+    const title = this.pdf.title;
+
+    this._alertCtrl
+      .create({
+        message: `Are you sure you want to delete the PDF titled "${title}"?`,
+        buttons: [
+          { text: 'Cancel', role: 'cancel' },
+          {
+            text: 'Delete',
+            handler: () => {
+              this._pdfSrv
+                .delete(this.pdf.id, true)
+                .pipe(switchMap(() => this._pdfSrv.refresh()))
+                .subscribe(() => {
+                  this._alertCtrl
+                    .create({
+                      message:
+                        'You have successfully deleted the PDF titled ' +
+                        `"${title}".`,
+                      buttons: ['Okay'],
+                    })
+                    .then((successAlert) => successAlert.present());
+                });
+            },
+          },
+        ],
+      })
+      .then((confirmAlert) => confirmAlert.present());
   }
 }
