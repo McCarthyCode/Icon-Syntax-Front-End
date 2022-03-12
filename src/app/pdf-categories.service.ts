@@ -18,7 +18,10 @@ export class PdfCategoriesService extends GenericService<
   PDF.Category.IClientData,
   PDF.Category.IClientDataList
 > {
-  categories$ = new BehaviorSubject<PDF.Category.IClientDataList>(null);
+  categories$ = new BehaviorSubject<PDF.Category.IClientDataList>({
+    retrieved: new Date(),
+    data: [],
+  });
 
   constructor(
     private http: HttpClient,
