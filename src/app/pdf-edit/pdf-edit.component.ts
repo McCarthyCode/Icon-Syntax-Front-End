@@ -1,12 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  AlertController,
-  IonRadioGroup,
-  ModalController,
-} from '@ionic/angular';
+import { AlertController, IonInput, ModalController } from '@ionic/angular';
 import { PDF } from '../models/pdf.model';
+import { PdfCategoriesService } from '../pdf-categories.service';
 import { PdfService } from '../pdf.service';
 
 @Component({
@@ -20,26 +17,76 @@ export class PdfEditComponent {
   form: FormGroup;
   existingModel: PDF.IModel;
 
-  categories: string[] = ['Stories', 'Poems', 'Songs', 'Lessons'];
+  @ViewChild('addCategory') addCategoryInput: IonInput;
+
+  private categoriesSet = new Set<string>([]);
+  get categoriesArr(): string[] {
+    return [...this.categoriesSet];
+  }
+  get categoriesCSV(): string {
+    return this.categoriesArr.join(',');
+  }
+
+  private checkedCategoriesSet = new Set<string>([]);
+  get checkedCategoriesArr(): string[] {
+    return [...this.checkedCategoriesSet];
+  }
+  get checkedCategoriesCSV(): string {
+    return this.checkedCategoriesArr.join(',');
+  }
 
   constructor(
     private _pdfSrv: PdfService,
+    private _categoriesSrv: PdfCategoriesService,
     private _alertCtrl: AlertController,
     private _modalCtrl: ModalController
   ) {}
 
   ionViewWillEnter() {
-    this._pdfSrv.retrieve(this.id).subscribe((clientData) => {
-      this.existingModel = clientData.data;
+    this._categoriesSrv.list({ pdf: this.id }).subscribe((categories) => {
+      this.checkedCategoriesSet = this.categoriesSet = new Set(
+        categories.data.map((category) => category.name)
+      );
 
-      this.form = new FormGroup({
-        id: new FormControl(this.existingModel.id),
-        title: new FormControl(this.existingModel.title, {
-          updateOn: 'change',
-          validators: [Validators.required, Validators.maxLength(160)],
-        }),
+      this._pdfSrv.retrieve(this.id).subscribe((pdfs) => {
+        this.existingModel = pdfs.data;
+
+        this.form = new FormGroup({
+          id: new FormControl(this.existingModel.id),
+          title: new FormControl(this.existingModel.title, {
+            updateOn: 'change',
+            validators: [Validators.required, Validators.maxLength(160)],
+          }),
+          categories: new FormControl(this.categoriesCSV, {
+            updateOn: 'change',
+            validators: [Validators.required],
+          }),
+        });
       });
     });
+  }
+
+  onCheckboxChange($event: any) {
+    const category: string = $event.target.name;
+
+    if ($event.detail.checked === undefined) {
+      console.error('There was an error changing the category state.');
+    } else if ($event.detail.checked) {
+      this.checkedCategoriesSet.add(category);
+    } else {
+      this.checkedCategoriesSet.delete(category);
+    }
+
+    this.form.patchValue({ categories: this.checkedCategoriesCSV });
+  }
+
+  onAddCategory(): void {
+    const value = `${this.addCategoryInput.value}`;
+
+    if (value) this.categoriesSet.add(value);
+    this.addCategoryInput.value = '';
+
+    this.form.patchValue({ categories: this.checkedCategoriesCSV });
   }
 
   closeModal() {

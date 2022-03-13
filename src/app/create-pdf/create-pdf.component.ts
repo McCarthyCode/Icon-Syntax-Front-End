@@ -21,7 +21,7 @@ export class CreatePdfComponent implements OnInit {
   get categoriesArr(): string[] {
     return [...this.categoriesSet];
   }
-  get categoriesStr(): string {
+  get categoriesCSV(): string {
     return this.categoriesArr.join(',');
   }
 
@@ -29,7 +29,7 @@ export class CreatePdfComponent implements OnInit {
   get checkedCategoriesArr(): string[] {
     return [...this.checkedCategoriesSet];
   }
-  get checkedCategoriesStr(): string {
+  get checkedCategoriesCSV(): string {
     return this.checkedCategoriesArr.join(',');
   }
 
@@ -90,21 +90,17 @@ export class CreatePdfComponent implements OnInit {
       this.checkedCategoriesSet.delete(category);
     }
 
-    this.form.patchValue({ categories: this.checkedCategoriesStr });
+    this.form.patchValue({ categories: this.checkedCategoriesCSV });
   }
 
   onAddCategory(): void {
     const value = `${this.addCategoryInput.value}`;
 
-    if (value) {
-      this.createCategory(value);
-      this.addCategoryInput.value = '';
-    }
+    if (value) this.categoriesSet.add(value);
+    this.addCategoryInput.value = '';
   }
 
-  createCategory(name: string): void {
-    this.categoriesSet.add(name);
-  }
+  createCategory(name: string): void {}
 
   submit(refresh = true): void {
     const formData = new FormData();

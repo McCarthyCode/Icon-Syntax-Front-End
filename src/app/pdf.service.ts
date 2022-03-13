@@ -23,7 +23,7 @@ export class PdfService extends GenericService<
   pdfs$ = new BehaviorSubject<PDF.IClientDataList>(null);
   private categoriesSet = new Set<number>();
 
-  get categoriesString(): string {
+  get categoriesCSV(): string {
     return [...this.categoriesSet].join(',');
   }
 
@@ -39,7 +39,7 @@ export class PdfService extends GenericService<
   refresh(): Observable<PDF.IClientDataList | HttpErrorResponse> {
     const obs$ =
       this.categoriesSet.size > 0
-        ? this.list({ categories: this.categoriesString })
+        ? this.list({ categories: this.categoriesCSV })
         : this.list();
 
     return obs$.pipe(
