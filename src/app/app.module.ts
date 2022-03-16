@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ComponentsModule } from './icons-page/components.module';
+import { ComponentsModule as IconsModule} from './icons-page/components.module';
+import { ComponentsModule as AdobeViewerModule } from './adobe-viewer/components.module';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
@@ -64,7 +65,8 @@ import { PdfEditComponent } from './pdf-edit/pdf-edit.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
+    IconsModule,
+    AdobeViewerModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

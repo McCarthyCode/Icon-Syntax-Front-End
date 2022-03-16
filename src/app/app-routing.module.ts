@@ -77,6 +77,10 @@ const routes: Routes = [
   {
     path: 'pdfs/:id',
     component: PdfViewComponent,
+    loadChildren: () =>
+      import('./adobe-viewer/components.module').then(
+        (m) => m.ComponentsModule
+      ),
   },
   {
     path: '404',
