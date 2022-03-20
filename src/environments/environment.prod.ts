@@ -1,4 +1,4 @@
-import { secret } from './secret';
+import { prod as secret } from './secret';
 
 const production = {
   production: true,

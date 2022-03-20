@@ -19,7 +19,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ViewSDKClient {
-
   readyPromise: Promise<void> = new Promise((resolve) => {
     if (window.AdobeDC) {
       resolve();
@@ -36,7 +35,12 @@ export class ViewSDKClient {
     return this.readyPromise;
   }
 
-  previewFile(pdf: PDF.IModel, viewerConfig: any, divId: string = 'pdf-div') {
+  previewFile(
+    pdf: PDF.IModel,
+    viewerConfig: any,
+    divId: string = 'pdf-div',
+    parentDivId: string = 'pdf-parent-div'
+  ) {
     const config: any = {
       /* Pass your registered client id */
       clientId: environment.apiKeys.adobe,
@@ -45,6 +49,11 @@ export class ViewSDKClient {
       /* Optional only for Light Box embed mode */
       /* Pass the div id in which PDF should be rendered */
       config.divId = divId;
+    }
+    if (parentDivId) {
+      /* Optional only for Light Box embed mode */
+      /* Pass the parent id of the PDF container div */
+      config.parentDivId = parentDivId;
     }
     /* Initialize the AdobeDC View object */
     this.adobeDCView = new window.AdobeDC.View(config);
@@ -71,7 +80,7 @@ export class ViewSDKClient {
         /* Pass meta data of file */
         metaData: {
           /* file name */
-          fileName: `${ pdf.title }.pdf`,
+          fileName: `${pdf.title}.pdf`,
           /* file ID */
           id: pdf.md5,
         },

@@ -2,6 +2,7 @@
 
 ## High Priorities
 
+- Fix PDF view bug
 - Plain (then rich) text + Comments + Categories
   - about us
     - profiles
