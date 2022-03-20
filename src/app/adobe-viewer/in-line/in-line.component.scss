@@ -10,9 +10,10 @@ written permission of Adobe.
 
 .pdf-view {
   display: inline-block;
-  margin: 10% 0 10% 0;
-  width: 800px;
-  box-shadow: 1px 1px 10px 1px #dadada;
+  margin: 0;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 1px 1px 10px 1px #dadada7f;
 }
 
 .container {
