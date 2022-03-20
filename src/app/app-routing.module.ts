@@ -12,9 +12,9 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
-import { DiaryComponent } from './diary/diary.component';
 import { CreatePdfComponent } from './create-pdf/create-pdf.component';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { NotesComponent } from './notes/notes.component';
 
 const routes: Routes = [
   {
@@ -47,8 +47,8 @@ const routes: Routes = [
     component: BookshelfComponent,
   },
   {
-    path: 'diary',
-    component: DiaryComponent,
+    path: 'notes',
+    component: NotesComponent,
   },
   {
     path: 'pdfs/create',

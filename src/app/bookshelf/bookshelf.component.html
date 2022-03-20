@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Icon Bookshelf </ion-title>
+    <ion-title> Bookshelf </ion-title>
     <ion-buttons slot="end">
       <ion-button
         shape="round"
@@ -16,11 +16,6 @@
 
 <ion-content>
   <ion-grid *ngIf="!pdfs || pdfs.length === 0">
-    <ion-row>
-      <ion-col>
-        <h1>PDFs</h1>
-      </ion-col>
-    </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size-md="9" size-lg="7" size-xl="6">
         <p class="ion-text-center">
@@ -32,11 +27,6 @@
     </ion-row>
   </ion-grid>
   <ion-grid *ngIf="pdfs && pdfs.length !== 0">
-    <ion-row class="ion-padding-horizontal">
-      <ion-col>
-        <h1>PDFs</h1>
-      </ion-col>
-    </ion-row>
     <ion-row class="ion-margin-bottom">
       <ion-col class="ion-text-center">
         <ion-chip
