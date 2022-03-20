@@ -22,6 +22,10 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+  {
     path: 'icons',
     loadChildren: () =>
       import('./icons-page/icons-page.module').then((m) => m.IconsPageModule),

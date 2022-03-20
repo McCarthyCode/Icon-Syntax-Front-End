@@ -2,7 +2,6 @@
 
 ## High Priorities
 
-- GenericService / Refresh on 401
 - Plain (then rich) text + Comments + Categories
   - about us
     - profiles
