@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { IPagination } from './interfaces/pagination.interface';
@@ -104,7 +104,8 @@ export abstract class GenericService<
 
   private _create(
     formData: FormData,
-    headers: HttpHeaders = undefined
+    headers: HttpHeaders = undefined,
+    refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .post<IResponseBody>(
@@ -114,7 +115,19 @@ export abstract class GenericService<
           headers: headers,
         }
       )
-      .pipe(debounceTime(250), map(this.convert));
+      .pipe(
+        debounceTime(250),
+        catchError((response: HttpErrorResponse) => {
+          if (refresh && response.status === 401) {
+            return this._authSrv
+              .refresh()
+              .pipe(switchMap(() => this._create(formData, headers, false)));
+          }
+
+          return of(null);
+        }),
+        map(this.convert)
+      );
   }
 
   update(
@@ -138,7 +151,8 @@ export abstract class GenericService<
 
   private _update(
     formData: FormData,
-    headers: HttpHeaders = undefined
+    headers: HttpHeaders = undefined,
+    refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .put<IResponseBody>(
@@ -146,7 +160,19 @@ export abstract class GenericService<
         formData,
         { headers: headers }
       )
-      .pipe(debounceTime(250), map(this.convert));
+      .pipe(
+        debounceTime(250),
+        catchError((response: HttpErrorResponse) => {
+          if (refresh && response.status === 401) {
+            return this._authSrv
+              .refresh()
+              .pipe(switchMap(() => this._update(formData, headers, false)));
+          }
+
+          return of(null);
+        }),
+        map(this.convert)
+      );
   }
 
   partialUpdate(
@@ -170,7 +196,8 @@ export abstract class GenericService<
 
   private _partialUpdate(
     formData: FormData,
-    headers: HttpHeaders = undefined
+    headers: HttpHeaders = undefined,
+    refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .patch<IResponseBody>(
@@ -178,7 +205,21 @@ export abstract class GenericService<
         formData,
         { headers: headers }
       )
-      .pipe(debounceTime(250), map(this.convert));
+      .pipe(
+        debounceTime(250),
+        catchError((response: HttpErrorResponse) => {
+          if (refresh && response.status === 401) {
+            return this._authSrv
+              .refresh()
+              .pipe(
+                switchMap(() => this._partialUpdate(formData, headers, false))
+              );
+          }
+
+          return of(null);
+        }),
+        map(this.convert)
+      );
   }
 
   delete(id: number, auth = true): Observable<HttpResponse<null>> {
@@ -197,11 +238,26 @@ export abstract class GenericService<
     return this._delete(id);
   }
 
-  private _delete(id: number, headers: HttpHeaders = undefined) {
+  private _delete(
+    id: number,
+    headers: HttpHeaders = undefined,
+    refresh = true
+  ): Observable<HttpResponse<null>> {
     return this._http
       .delete<null>([environment.apiBase, this._path, id].join('/'), {
         headers: headers,
       })
-      .pipe(debounceTime(250));
+      .pipe(
+        debounceTime(250),
+        catchError((response: HttpErrorResponse) => {
+          if (refresh && response.status === 401) {
+            return this._authSrv
+              .refresh()
+              .pipe(switchMap(() => this._delete(id, headers, false)));
+          }
+
+          return of(null);
+        })
+      );
   }
 }

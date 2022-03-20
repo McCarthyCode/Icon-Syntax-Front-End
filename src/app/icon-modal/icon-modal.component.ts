@@ -129,13 +129,6 @@ export class IconModalComponent implements OnInit {
         case 400:
           http400Handler(response);
           break;
-        case 401:
-          if (refresh) {
-            this._authSrv.refresh().subscribe(() => this.onSubmit(false));
-          } else {
-            this._router.navigateByUrl('/login');
-          }
-          break;
         case 500:
           http500Handler(response);
           break;

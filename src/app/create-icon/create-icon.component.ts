@@ -1,8 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { tap } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
 import { CategoriesService } from '../categories.service';
 import { CategoryModalComponent } from '../category-modal/category-modal.component';
 import { FindService } from '../find.service';
@@ -23,7 +20,6 @@ export class CreateIconComponent {
   constructor(
     private _findSrv: FindService,
     private _categoriesSrv: CategoriesService,
-    private _authSrv: AuthService,
     private _modalCtrl: ModalController
   ) {}
 
@@ -77,16 +73,6 @@ export class CreateIconComponent {
   onAddIcon() {
     this._categoriesSrv
       .retrieve(this.activeCategoryId)
-      .pipe(
-        tap(
-          (clientData) => {},
-          (errorResponse: HttpErrorResponse) => {
-            if (errorResponse.status === 401) {
-              this._authSrv.refresh();
-            }
-          }
-        )
-      )
       .subscribe((clientData) => {
         this._modalCtrl
           .create({

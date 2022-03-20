@@ -81,15 +81,6 @@ export class CategoriesService {
           .pipe(
             map((data) => {
               return { ...data, retrieved: new Date() };
-            }),
-            catchError((response: HttpErrorResponse) => {
-              if (refresh && response.status === 401) {
-                return this._authSrv
-                  .refresh()
-                  .pipe(switchMap(() => this.create(category, false)));
-              } else {
-                return of(response);
-              }
             })
           );
       })
@@ -121,15 +112,6 @@ export class CategoriesService {
           .pipe(
             map((data) => {
               return { ...data, retrieved: new Date() };
-            }),
-            catchError((response: HttpErrorResponse) => {
-              if (refresh && response.status === 401) {
-                return this._authSrv
-                  .refresh()
-                  .pipe(switchMap(() => this.update(category, false)));
-              } else {
-                return of(response);
-              }
             })
           );
       })
@@ -157,15 +139,6 @@ export class CategoriesService {
           .pipe(
             map((data) => {
               return { ...data, retrieved: new Date() };
-            }),
-            catchError((response: HttpErrorResponse) => {
-              if (refresh && response.status === 401) {
-                return this._authSrv
-                  .refresh()
-                  .pipe(switchMap(() => this.delete(id, false)));
-              } else {
-                return of(response);
-              }
             })
           );
       })

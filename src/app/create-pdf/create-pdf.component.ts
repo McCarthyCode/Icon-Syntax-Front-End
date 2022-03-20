@@ -113,57 +113,44 @@ export class CreatePdfComponent implements OnInit {
     );
     formData.append('categories', this.form.get('categories').value);
 
-    this._pdfSrv.create(formData).subscribe(
-      (response: PDF.IClientData) => {
-        if (response === null) {
-          this._alertCtrl
-            .create({
-              message: 'Please login to continue.',
-              buttons: ['Okay'],
-            })
-            .then((alert) => alert.present());
+    this._pdfSrv.create(formData).subscribe((response: PDF.IClientData) => {
+      if (response === null) {
+        this._alertCtrl
+          .create({
+            message: 'Please login to continue.',
+            buttons: ['Okay'],
+          })
+          .then((alert) => alert.present());
 
-          return;
-        } else if (response?.success) {
-          this._alertCtrl
-            .create({
-              message: response.success,
-              buttons: ['Okay'],
-            })
-            .then((alert) => {
-              this._pdfSrv.refresh().subscribe();
-              alert.present();
-            });
-          this._modalController.dismiss();
+        return;
+      } else if (response?.success) {
+        this._alertCtrl
+          .create({
+            message: response.success,
+            buttons: ['Okay'],
+          })
+          .then((alert) => {
+            this._pdfSrv.refresh().subscribe();
+            alert.present();
+          });
+        this._modalController.dismiss();
+      } else {
+        if (response && response.errors) {
+          for (let error of response.errors) console.error(error);
         } else {
-          if (response && response.errors) {
-            for (let error of response.errors) console.error(error);
-          } else {
-            console.error(response);
-          }
-
-          this._alertCtrl
-            .create({
-              message:
-                'There was an error processing your request. Please try again later.',
-              buttons: ['Okay'],
-            })
-            .then((alert) => alert.present());
-
-          this._router.navigateByUrl('/bookshelf');
+          console.error(response);
         }
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-        if (
-          refresh &&
-          error.status === 401 &&
-          error.error['errors'][0] ===
-            'Given token not valid for any token type.'
-        ) {
-          this._authSrv.refresh().subscribe(() => this.submit(false));
-        }
+
+        this._alertCtrl
+          .create({
+            message:
+              'There was an error processing your request. Please try again later.',
+            buttons: ['Okay'],
+          })
+          .then((alert) => alert.present());
+
+        this._router.navigateByUrl('/bookshelf');
       }
-    );
+    });
   }
 }
