@@ -149,7 +149,7 @@ export class CreatePdfComponent implements OnInit {
           })
           .then((alert) => alert.present());
 
-        this._router.navigateByUrl('/bookshelf');
+        this._router.navigateByUrl('/icon-lit');
       }
     });
   }
