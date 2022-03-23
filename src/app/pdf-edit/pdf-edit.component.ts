@@ -5,6 +5,19 @@ import { AlertController, IonInput, ModalController } from '@ionic/angular';
 import { PDF } from '../models/pdf.model';
 import { PdfCategoriesService } from '../pdf-categories.service';
 import { PdfService } from '../pdf.service';
+import { SetOps } from '../set-ops';
+
+interface ICategory {
+  name: string;
+  checked: boolean;
+}
+
+// const convertCategoryToInterface: ICategory = (name: string, checked: boolean) => {
+//   return {
+//     name: name,
+//     checked: checked,
+//   } as ICategory;
+// };
 
 @Component({
   selector: 'app-pdf-edit',
@@ -19,20 +32,46 @@ export class PdfEditComponent {
 
   @ViewChild('addCategory') addCategoryInput: IonInput;
 
-  private categoriesSet = new Set<string>([]);
-  get categoriesArr(): string[] {
-    return [...this.categoriesSet];
-  }
-  get categoriesCSV(): string {
-    return this.categoriesArr.join(',');
-  }
-
-  private checkedCategoriesSet = new Set<string>([]);
+  checkedCategoriesSet = new Set<string>([]);
   get checkedCategoriesArr(): string[] {
     return [...this.checkedCategoriesSet];
   }
   get checkedCategoriesCSV(): string {
     return this.checkedCategoriesArr.join(',');
+  }
+
+  uncheckedCategoriesSet = new Set<string>([]);
+  get uncheckedCategoriesArr(): string[] {
+    return [...this.uncheckedCategoriesSet];
+  }
+  get uncheckedCategoriesCSV(): string {
+    return this.uncheckedCategoriesArr.join(',');
+  }
+
+  categoriesSet = new Set<ICategory>([]);
+
+  checked(name: string): ICategory {
+    return { name: name, checked: true };
+  }
+
+  unchecked(name: string): ICategory {
+    return { name: name, checked: false };
+  }
+
+  updateCategoriesSet() {
+    this.categoriesSet = new Set<ICategory>([
+      ...this.checkedCategoriesArr.map(this.checked),
+      ...this.uncheckedCategoriesArr.map(this.unchecked),
+    ]);
+  }
+
+  get categoriesArr(): ICategory[] {
+    return [...this.categoriesSet].sort((a, b) =>
+      a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+    );
+  }
+  get categoriesCSV(): string {
+    return this.categoriesArr.join(',');
   }
 
   constructor(
@@ -43,27 +82,37 @@ export class PdfEditComponent {
   ) {}
 
   ionViewWillEnter() {
-    this._categoriesSrv.list({ pdf: this.id }).subscribe((categories) => {
-      this.checkedCategoriesSet = this.categoriesSet = new Set(
-        categories.data.map((category) => category.name)
-      );
+    this._categoriesSrv
+      .list({ pdf: this.id })
+      .subscribe((checkedCategories) => {
+        this.checkedCategoriesSet = new Set(
+          checkedCategories.data.map((category) => category.name)
+        );
+        this._categoriesSrv.list().subscribe((allCategories) => {
+          this.uncheckedCategoriesSet = SetOps.difference(
+            new Set(allCategories.data.map((category) => category.name)),
+            this.checkedCategoriesSet
+          );
 
-      this._pdfSrv.retrieve(this.id).subscribe((pdfs) => {
-        this.existingModel = pdfs.data;
+          this.updateCategoriesSet();
 
-        this.form = new FormGroup({
-          id: new FormControl(this.existingModel.id),
-          title: new FormControl(this.existingModel.title, {
-            updateOn: 'change',
-            validators: [Validators.required, Validators.maxLength(160)],
-          }),
-          categories: new FormControl(this.categoriesCSV, {
-            updateOn: 'change',
-            validators: [Validators.required],
-          }),
+          this._pdfSrv.retrieve(this.id).subscribe((pdfs) => {
+            this.existingModel = pdfs.data;
+
+            this.form = new FormGroup({
+              id: new FormControl(this.existingModel.id),
+              title: new FormControl(this.existingModel.title, {
+                updateOn: 'change',
+                validators: [Validators.required, Validators.maxLength(160)],
+              }),
+              categories: new FormControl(this.checkedCategoriesCSV, {
+                updateOn: 'change',
+                validators: [Validators.required],
+              }),
+            });
+          });
         });
       });
-    });
   }
 
   onCheckboxChange($event: any) {
@@ -73,20 +122,26 @@ export class PdfEditComponent {
       console.error('There was an error changing the category state.');
     } else if ($event.detail.checked) {
       this.checkedCategoriesSet.add(category);
+      this.uncheckedCategoriesSet.delete(category);
     } else {
       this.checkedCategoriesSet.delete(category);
+      this.uncheckedCategoriesSet.add(category);
     }
 
+    this.updateCategoriesSet();
     this.form.patchValue({ categories: this.checkedCategoriesCSV });
   }
 
   onAddCategory(): void {
-    const value = `${this.addCategoryInput.value}`;
+    const name = `${this.addCategoryInput.value}`;
 
-    if (value) this.categoriesSet.add(value);
+    if (name) {
+      this.checkedCategoriesSet.add(name);
+      this.updateCategoriesSet();
+      this.form.patchValue({ categories: this.checkedCategoriesCSV });
+    }
+
     this.addCategoryInput.value = '';
-
-    this.form.patchValue({ categories: this.checkedCategoriesCSV });
   }
 
   closeModal() {
