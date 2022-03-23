@@ -10,11 +10,11 @@ import { PdfEditComponent } from '../pdf-edit/pdf-edit.component';
 import { PdfService } from '../pdf.service';
 
 @Component({
-  selector: 'app-bookshelf',
-  templateUrl: './bookshelf.component.html',
-  styleUrls: ['./bookshelf.component.scss'],
+  selector: 'app-icon-lit',
+  templateUrl: './icon-lit.component.html',
+  styleUrls: ['./icon-lit.component.scss'],
 })
-export class BookshelfComponent {
+export class IconLitComponent {
   get pdfs$(): BehaviorSubject<PDF.IClientDataList> {
     return this._pdfSrv.pdfs$;
   }

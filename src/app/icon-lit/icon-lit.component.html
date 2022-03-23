@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Bookshelf </ion-title>
+    <ion-title> Icon Literature </ion-title>
     <ion-buttons slot="end">
       <ion-button
         shape="round"
@@ -26,8 +26,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="pdfs && pdfs.length !== 0">
-    <ion-row class="ion-margin-bottom">
+  <ion-grid *ngIf="pdfs && pdfs.length > 0">
+    <ion-row>
       <ion-col class="ion-text-center">
         <ion-chip
           *ngFor="let category of (categories$ | async).data"
@@ -36,11 +36,17 @@
         >
           <ion-label>{{ category.name }}</ion-label>
         </ion-chip>
-        <br />
-        <ion-chip color="primary" (click)="selectAll()">
+        <ion-chip
+          *ngIf="(categories$ | async).data.length > 2"
+          color="primary"
+          (click)="selectAll()"
+        >
           <ion-label>Select All</ion-label>
         </ion-chip>
-        <ion-chip (click)="selectNone()">
+        <ion-chip
+          *ngIf="(categories$ | async).data.length > 2"
+          (click)="selectNone()"
+        >
           <ion-label>Select None</ion-label>
         </ion-chip>
       </ion-col>

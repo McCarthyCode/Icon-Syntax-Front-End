@@ -7,7 +7,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { BookshelfComponent } from './bookshelf/bookshelf.component';
+import { IconLitComponent } from './icon-lit/icon-lit.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
@@ -43,8 +43,8 @@ const routes: Routes = [
     component: RegisterVerifyComponent,
   },
   {
-    path: 'bookshelf',
-    component: BookshelfComponent,
+    path: 'icon-lit',
+    component: IconLitComponent,
   },
   {
     path: 'notes',

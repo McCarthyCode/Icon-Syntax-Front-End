@@ -4,7 +4,7 @@ app-category-node {
 }
 
 .container {
-  padding: 1rem 0 1rem 0.5rem;
+  padding: 0.5rem 0 0.5rem 0.5rem;
   width: 100%;
 
   &.active {
@@ -22,7 +22,7 @@ ion-icon {
 }
 
 ul {
-  margin: 1rem 0 0 0;
+  margin: 0.5rem 0 0 0;
   padding: 0;
   border-left: 0.5rem solid var(--ion-color-medium);
   padding-left: 0px;

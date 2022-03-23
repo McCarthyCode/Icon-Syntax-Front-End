@@ -9,7 +9,7 @@ import { FindService } from 'src/app/find.service';
 export class HeaderComponent {
   get path(): string {
     return [
-      'Find Icons',
+      'Library',
       this._findSrv.browseVisible
         ? 'Browse Library'
         : this._findSrv.searchResultsVisible

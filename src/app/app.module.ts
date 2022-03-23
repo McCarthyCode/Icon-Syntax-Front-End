@@ -28,14 +28,13 @@ import { UpdateIconComponent } from './update-icon/update-icon.component';
 import { CreatePdfComponent } from './create-pdf/create-pdf.component';
 import { PdfCardComponent } from './pdf-card/pdf-card.component';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
-import { BookshelfComponent } from './bookshelf/bookshelf.component';
+import { IconLitComponent } from './icon-lit/icon-lit.component';
 import { PdfEditComponent } from './pdf-edit/pdf-edit.component';
 import { NotesComponent } from './notes/notes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookshelfComponent,
     CategoryModalComponent,
     CreateIconComponent,
     CreatePdfComponent,
@@ -43,6 +42,7 @@ import { NotesComponent } from './notes/notes.component';
     ForgotVerifyComponent,
     HomeComponent,
     IconDetailComponent,
+    IconLitComponent,
     IconModalComponent,
     IconsPage,
     LoginComponent,

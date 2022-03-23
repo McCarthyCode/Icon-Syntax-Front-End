@@ -2,3 +2,11 @@ h1 {
   font-size: 16px;
   margin: 16px 0 10px 0;
 }
+
+ion-content {
+  --background: var(--dark-blue);
+}
+
+ion-footer ion-toolbar {
+  padding: 0 0.5rem;
+}

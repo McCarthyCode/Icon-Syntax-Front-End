@@ -27,17 +27,10 @@
 
 /* Font family imports */
 @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 
 #main ion-content {
   --background: var(--dark-blue);
-}
-
-.spinner-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 10rem;
 }
 
 .centered {
@@ -47,10 +40,22 @@
   height: 100%;
 }
 
+.error {
+  margin-bottom: 8px;
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10rem;
+}
+
 ion-item {
   line-height: 1.6;
 }
 
-ion-chip {
+ion-chip,
+ion-footer {
   user-select: none;
 }

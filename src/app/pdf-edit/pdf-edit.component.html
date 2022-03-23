@@ -74,10 +74,11 @@
     <ion-buttons slot="end" *ngIf="form">
       <ion-button
         color="primary"
+        fill="solid"
         (click)="onSubmit()"
         [disabled]="form.invalid"
       >
-        Edit
+        Submit
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

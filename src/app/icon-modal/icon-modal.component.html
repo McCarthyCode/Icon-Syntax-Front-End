@@ -20,18 +20,6 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row class="ion-justify-content-center ion-padding-horizontal">
-      <ion-col>
-        <p>
-          Please click <em>Browse</em> to select an icon from your computer,
-          then enter the <em>Word</em> the image describes.
-        </p>
-        <p>
-          If your word has multiple meanings, please enter a related word or
-          phrase under <em>Descriptor</em>.
-        </p>
-      </ion-col>
-    </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col>
         <form [formGroup]="form" enctype="multipart/form-data">
@@ -56,7 +44,7 @@
               </ion-text>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Word</ion-label>
+              <ion-label position="floating">Spelling and Capitalization</ion-label>
               <ion-input
                 name="word"
                 type="text"
@@ -82,7 +70,7 @@
                 </small>
               </ion-text>
             </ion-item>
-            <ion-item>
+            <!-- <ion-item>
               <ion-label position="floating">
                 Descriptor
                 <ion-text color="medium">
@@ -104,7 +92,7 @@
                   This field may not contain more than 80 characters.
                 </small>
               </ion-text>
-            </ion-item>
+            </ion-item> -->
           </ion-list>
         </form>
       </ion-col>

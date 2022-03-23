@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      {{ mode === "create" ? "Add" : "Update" }} a Group
+      {{ mode === "create" ? "Add" : "Update" }} a Subcategory
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="onClose()" shape="round">
@@ -16,7 +16,7 @@
     </ion-text>
     <ion-text color="medium">
       »
-      <em *ngIf="!form.value.name">[choose a group name]</em>
+      <em *ngIf="!form.value.name">[choose a subcategory name]</em>
       {{ form.value.name }}
     </ion-text>
   </p>
@@ -26,7 +26,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <p>Please name your group and hit <em>Submit</em>.</p>
+        <p>Please name your subcategory and hit <em>Submit</em>.</p>
       </ion-col>
     </ion-row>
     <ion-row>
