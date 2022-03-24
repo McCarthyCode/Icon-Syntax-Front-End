@@ -59,3 +59,7 @@ ion-chip,
 ion-footer {
   user-select: none;
 }
+
+ion-badge[color="danger"] {
+  color: #121212;
+}
