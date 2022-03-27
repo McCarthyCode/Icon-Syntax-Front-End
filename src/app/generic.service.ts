@@ -176,6 +176,7 @@ export abstract class GenericService<
   }
 
   partialUpdate(
+    id: number,
     formData: FormData,
     auth = true
   ): Observable<IClientData | HttpErrorResponse> {
@@ -186,22 +187,23 @@ export abstract class GenericService<
             return of(null);
           }
 
-          return this._partialUpdate(formData, headers);
+          return this._partialUpdate(id, formData, headers);
         })
       );
     }
 
-    return this._partialUpdate(formData);
+    return this._partialUpdate(id, formData);
   }
 
   private _partialUpdate(
+    id: number,
     formData: FormData,
     headers: HttpHeaders = undefined,
     refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .patch<IResponseBody>(
-        [environment.apiBase, this._path, formData['id']].join('/'),
+        [environment.apiBase, this._path, id].join('/'),
         formData,
         { headers: headers }
       )
@@ -212,7 +214,9 @@ export abstract class GenericService<
             return this._authSrv
               .refresh()
               .pipe(
-                switchMap(() => this._partialUpdate(formData, headers, false))
+                switchMap(() =>
+                  this._partialUpdate(id, formData, headers, false)
+                )
               );
           }
 

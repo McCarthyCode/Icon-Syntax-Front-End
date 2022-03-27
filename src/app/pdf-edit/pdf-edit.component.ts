@@ -100,7 +100,6 @@ export class PdfEditComponent {
             this.existingModel = pdfs.data;
 
             this.form = new FormGroup({
-              id: new FormControl(this.existingModel.id),
               title: new FormControl(this.existingModel.title, {
                 updateOn: 'change',
                 validators: [Validators.required, Validators.maxLength(160)],
@@ -155,7 +154,7 @@ export class PdfEditComponent {
       if (!value) formData.delete(key);
     }
 
-    this._pdfSrv.partialUpdate(formData).subscribe(
+    this._pdfSrv.partialUpdate(this.existingModel.id, formData).subscribe(
       (clientData: PDF.IClientData) => {
         this._alertCtrl
           .create({

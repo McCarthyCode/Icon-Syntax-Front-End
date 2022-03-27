@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, MenuController } from '@ionic/angular';
+import {
+  AlertController,
+  MenuController,
+  ModalController,
+} from '@ionic/angular';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AudioPlaybackService } from 'src/app/audio-playback.service';
 import { AuthService } from 'src/app/auth.service';
@@ -11,6 +15,7 @@ import { IWordEntry } from 'src/app/interfaces/word-entry.interface';
 import { MerriamWebsterService } from 'src/app/merriam-webster.service';
 import { Category } from 'src/app/models/category.model';
 import { Icon } from 'src/app/models/icon.model';
+import { IconModalComponent } from '../icon-modal/icon-modal.component';
 
 @Component({
   selector: 'app-icon-detail',
@@ -22,20 +27,21 @@ export class IconDetailComponent implements OnInit {
   iconSub: Subscription;
   dictSub: Subscription;
   loading = true;
-  category: Category.IClientData;
+  category: Category.IModel;
 
   dictEntries$ = new BehaviorSubject<IWordEntry[]>([]);
   suggestions$ = new BehaviorSubject<string[]>([]);
 
   constructor(
+    private _alertCtrl: AlertController,
     private _menuCtrl: MenuController,
+    private _modalCtrl: ModalController,
+    private _authSrv: AuthService,
+    private _categoriesSrv: CategoriesService,
     private _iconDetailSrv: IconDetailService,
+    private _iconsSrv: IconsService,
     private _mwSrv: MerriamWebsterService,
     private _playbackSrv: AudioPlaybackService,
-    private _categoriesSrv: CategoriesService,
-    private _authSrv: AuthService,
-    private _alertCtrl: AlertController,
-    private _iconsSrv: IconsService,
     private _router: Router
   ) {}
 
@@ -50,7 +56,7 @@ export class IconDetailComponent implements OnInit {
         this._menuCtrl.open('end');
 
         this._categoriesSrv.retrieve(icon.category).subscribe((category) => {
-          this.category = category;
+          this.category = category.data;
 
           this.dictSub = this._mwSrv
             .retrieveDict(
@@ -113,7 +119,20 @@ export class IconDetailComponent implements OnInit {
     this._menuCtrl.close('end');
   }
 
-  deleteIcon(id: number): void {
+  updateIcon(): void {
+    this._modalCtrl
+      .create({
+        component: IconModalComponent,
+        componentProps: {
+          mode: 'update',
+          icon: this.icon,
+          category: this.category,
+        },
+      })
+      .then((alert) => alert.present());
+  }
+
+  deleteIcon(): void {
     this._alertCtrl
       .create({
         header: 'Confirm Icon Deletion',
@@ -122,14 +141,14 @@ export class IconDetailComponent implements OnInit {
         cssClass: 'alert',
         buttons: [
           { text: 'Cancel', role: 'dismiss' },
-          { text: 'Okay', handler: () => this._deleteIcon(id) },
+          { text: 'Okay', handler: () => this._deleteIcon() },
         ],
       })
       .then((alert) => alert.present());
   }
 
-  private _deleteIcon(id: number): void {
-    this._iconsSrv.delete(id).subscribe(() => {
+  private _deleteIcon(): void {
+    this._iconsSrv.delete(this.icon.id).subscribe(() => {
       this._alertCtrl
         .create({
           header: 'Icon Successfully Deleted',

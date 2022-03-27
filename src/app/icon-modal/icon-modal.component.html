@@ -9,8 +9,8 @@
   </ion-toolbar>
   <p id="breadcrumbs" class="ion-padding-horizontal">
     <ion-text color="medium">
-      <span *ngIf="category?.data.path"> {{ category.data.path }} » </span>
-      {{ category.data.name }} » {{ form.value.word }}
+      <span *ngIf="category?.path"> {{ category.path }} » </span>
+      {{ category.name }} » {{ form.value.word }}
       <span *ngIf="!form.value.word">
         <em>[choose a word]</em>
       </span>
@@ -44,13 +44,16 @@
               </ion-text>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Spelling and Capitalization</ion-label>
+              <ion-label position="floating">
+                Spelling and Capitalization
+              </ion-label>
               <ion-input
                 name="word"
                 type="text"
                 formControlName="word"
                 (ionChange)="onWordChange($event)"
-              ></ion-input>
+              >
+              </ion-input>
               <ion-text
                 *ngIf="
                   form.get('word').touched && form.get('word').errors?.required

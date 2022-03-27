@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   AlertController,
+  MenuController,
   ModalController,
   ToastController,
 } from '@ionic/angular';
@@ -19,17 +20,17 @@ import { Icon } from '../models/icon.model';
 })
 export class IconModalComponent implements OnInit {
   form: FormGroup;
-  icon: Icon.IClientData;
+  icon: Icon.IModel;
 
   mode: 'create' | 'update';
-  breadcrumbs: Category.IClientData[] = [];
-  category: Category.IClientData;
+  category: Category.IModel;
 
   constructor(
     private _authSrv: AuthService,
     private _iconsSrv: IconsService,
     private _alertCtrl: AlertController,
     private _toastCtrl: ToastController,
+    private _menuCtrl: MenuController,
     private _modalCtrl: ModalController,
     private _router: Router
   ) {}
@@ -40,15 +41,15 @@ export class IconModalComponent implements OnInit {
         updateOn: 'change',
         validators: this.mode === 'create' ? [Validators.required] : undefined,
       }),
-      word: new FormControl(this.icon ? this.icon.data.word : '', {
+      word: new FormControl(this.icon ? this.icon.word : '', {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(40)],
       }),
-      descriptor: new FormControl(this.icon ? this.icon.data.descriptor : '', {
+      descriptor: new FormControl(this.icon ? this.icon.descriptor : '', {
         updateOn: 'change',
         validators: [Validators.maxLength(80)],
       }),
-      category: new FormControl(this.category ? this.category.data.id : null, {
+      category: new FormControl(this.category ? this.category.id : null, {
         updateOn: 'change',
         validators: [Validators.required],
       }),
@@ -78,9 +79,10 @@ export class IconModalComponent implements OnInit {
   }
 
   onSubmit(refresh = true): void {
-    const redirectAddIcon = () => {
+    const redirectLibrary = () => {
       this._modalCtrl.dismiss();
-      this._router.navigateByUrl('/icons/create');
+      this._menuCtrl.close('end');
+      this._router.navigateByUrl('/icons/browse');
     };
 
     const http400Handler = (response: HttpErrorResponse) => {
@@ -115,7 +117,7 @@ export class IconModalComponent implements OnInit {
           buttons: [
             {
               text: 'Okay',
-              handler: redirectAddIcon,
+              handler: redirectLibrary,
             },
           ],
         })
@@ -164,7 +166,7 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: redirectAddIcon,
+                  handler: redirectLibrary,
                 },
               ],
             })
@@ -175,11 +177,20 @@ export class IconModalComponent implements OnInit {
         error: errorHandler,
       });
     } else if (this.mode === 'update') {
-      const body: Icon.IRequestBody = {
-        id: this.icon.data.id,
-        ...this.form.value,
-      };
-      this._iconsSrv.partialUpdate(this.form.value).subscribe({
+      const formData = new FormData();
+      for (let key of ['word', 'descriptor']) {
+        if (this.form.get(key) !== null) {
+          const value = this.form.get(key).value;
+
+          if (value) {
+            formData.append(key, value);
+          }
+        } else {
+          console.error(`Key "${key}" not added to request. Ignoring.`);
+        }
+      }
+
+      this._iconsSrv.partialUpdate(this.icon.id, formData).subscribe({
         next: () => {
           const credentials = this._authSrv.credentials$.value;
           this._alertCtrl
@@ -192,12 +203,12 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: redirectAddIcon,
+                  role: 'cancel',
                 },
               ],
             })
             .then((alert) => {
-              alert.present();
+              alert.present().then(redirectLibrary);
             });
         },
         error: errorHandler,
