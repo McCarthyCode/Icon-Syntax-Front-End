@@ -13,7 +13,6 @@ export const environment = {
   ...secret,
   ...development,
   apiBase: development.urlRoot + '/api/v0-alpha/',
-  mediaBase: development.urlRoot + '/media/',
 };
 
 /*
