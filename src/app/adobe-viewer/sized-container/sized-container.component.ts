@@ -17,11 +17,11 @@ import { PDF } from 'src/app/models/pdf.model';
 import { ViewSDKClient } from '../view-sdk.service';
 
 @Component({
-  selector: 'pdf-in-line',
-  templateUrl: './in-line.component.html',
-  styleUrls: ['./in-line.component.scss'],
+  selector: 'pdf-sized-container',
+  templateUrl: './sized-container.component.html',
+  styleUrls: ['./sized-container.component.scss'],
 })
-export class InLineComponent implements AfterViewInit {
+export class SizedContainerComponent implements AfterViewInit {
   @Input() pdf: PDF.IModel;
 
   constructor(private viewSDKClient: ViewSDKClient) {}
@@ -31,7 +31,7 @@ export class InLineComponent implements AfterViewInit {
       /* Invoke file preview */
       this.viewSDKClient.previewFile(this.pdf, {
         /* Pass the embed mode option here */
-        embedMode: 'IN_LINE',
+        embedMode: 'SIZED_CONTAINER',
       });
     });
   }
