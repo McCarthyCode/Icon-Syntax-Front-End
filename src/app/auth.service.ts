@@ -58,7 +58,7 @@ export class AuthService {
     password: string;
   }): Observable<Auth.IResponse> {
     return this._http
-      .post<Auth.ISuccessResponse>(environment.apiBase + '/auth/register', body)
+      .post<Auth.ISuccessResponse>(environment.apiBase + 'auth/register', body)
       .pipe(debounceTime(250));
   }
 
@@ -68,7 +68,7 @@ export class AuthService {
     });
 
     return this._http.post<Auth.ISuccessResponse>(
-      environment.apiBase + '/auth/register/verify',
+      environment.apiBase + 'auth/register/verify',
       {},
       { headers: headers }
     );
@@ -77,7 +77,7 @@ export class AuthService {
   login(username: string, password: string): Observable<Auth.IResponse> {
     return this._http
       .post<Auth.ISuccessResponse>(
-        environment.apiBase + '/auth/login',
+        environment.apiBase + 'auth/login',
         emailRegex.test(username)
           ? { email: username, password: password }
           : { username: username, password: password }
@@ -91,7 +91,7 @@ export class AuthService {
 
   refresh(): Observable<Auth.IResponse> {
     return this._http
-      .post<Auth.IResponse>(environment.apiBase + '/auth/refresh', {
+      .post<Auth.IResponse>(environment.apiBase + 'auth/refresh', {
         refresh: this.credentials$.value.tokens.refresh,
       })
       .pipe(
@@ -108,7 +108,7 @@ export class AuthService {
 
     return this._http
       .post<Auth.ISuccessResponse>(
-        environment.apiBase + '/auth/logout',
+        environment.apiBase + 'auth/logout',
         {},
         { headers: headers }
       )
@@ -125,7 +125,7 @@ export class AuthService {
 
   forgot(body: { email: string }): Observable<Auth.IResponse> {
     return this._http.post<Auth.ISuccessResponse>(
-      environment.apiBase + '/auth/password/forgot',
+      environment.apiBase + 'auth/password/forgot',
       body
     );
   }
@@ -139,7 +139,7 @@ export class AuthService {
     });
 
     return this._http.post(
-      environment.apiBase + '/auth/password/forgot/verify',
+      environment.apiBase + 'auth/password/forgot/verify',
       body,
       { headers: headers }
     );

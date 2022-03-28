@@ -10,7 +10,7 @@ export class AudioPlaybackService {
 
   play(id: string, $event): Promise<void> {
     return this._http
-      .get(environment.apiBase + `/audio/${id}.mp3`)
+      .get(environment.apiBase + `audio/${id}.mp3`)
       .toPromise()
       .then((data: { id: string; mp3: string }) => {
         const sound = new Audio(`data:audio/mp3;base64,${data.mp3}`);

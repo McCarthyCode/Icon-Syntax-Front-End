@@ -64,13 +64,13 @@ export abstract class GenericService<
 
   retrieve(id: number): Observable<IClientData> {
     return this._http
-      .get<IResponseBody>([environment.apiBase, this._path, id].join('/'))
+      .get<IResponseBody>(environment.apiBase + [this._path, id].join('/'))
       .pipe(debounceTime(250), map(this.convert));
   }
 
   list(params: any = {}): Observable<IClientDataList> {
     return this._http
-      .get<IResponseBodyList>([environment.apiBase, this._path].join('/'), {
+      .get<IResponseBodyList>(environment.apiBase + this._path, {
         params: params,
       })
       .pipe(
@@ -108,13 +108,9 @@ export abstract class GenericService<
     refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
-      .post<IResponseBody>(
-        [environment.apiBase, this._path].join('/'),
-        formData,
-        {
-          headers: headers,
-        }
-      )
+      .post<IResponseBody>(environment.apiBase + this._path, formData, {
+        headers: headers,
+      })
       .pipe(
         debounceTime(250),
         catchError((response: HttpErrorResponse) => {
@@ -156,7 +152,7 @@ export abstract class GenericService<
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .put<IResponseBody>(
-        [environment.apiBase, this._path, formData['id']].join('/'),
+        environment.apiBase + [this._path, formData['id']].join('/'),
         formData,
         { headers: headers }
       )
@@ -203,7 +199,7 @@ export abstract class GenericService<
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .patch<IResponseBody>(
-        [environment.apiBase, this._path, id].join('/'),
+        environment.apiBase + [this._path, id].join('/'),
         formData,
         { headers: headers }
       )
@@ -248,7 +244,7 @@ export abstract class GenericService<
     refresh = true
   ): Observable<HttpResponse<null>> {
     return this._http
-      .delete<null>([environment.apiBase, this._path, id].join('/'), {
+      .delete<null>(environment.apiBase + [this._path, id].join('/'), {
         headers: headers,
       })
       .pipe(

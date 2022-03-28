@@ -43,7 +43,7 @@ export class PdfViewComponent {
             this.pdf = clientData.data;
             this.title = this.pdf.title;
             this.url = this._sanitizer.bypassSecurityTrustResourceUrl(
-              environment.mediaBase + '/' + clientData.data.pdf
+              environment.mediaBase + clientData.data.pdf
             );
           },
           (errorResponse) => {

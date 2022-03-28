@@ -27,7 +27,7 @@ export class CategoriesService {
 
   retrieve(id: number): Observable<Category.IClientData> {
     return this._http
-      .get<Category.IResponseBody>(environment.apiBase + '/categories/' + id)
+      .get<Category.IResponseBody>(environment.apiBase + 'categories/' + id)
       .pipe(
         debounceTime(250),
         map((body) => ({ data: body.data, retrieved: new Date() }))
@@ -43,7 +43,7 @@ export class CategoriesService {
     }
 
     return this._http
-      .get<Category.IResponseBodyList>(environment.apiBase + '/categories', {
+      .get<Category.IResponseBodyList>(environment.apiBase + 'categories', {
         params: params,
       })
       .pipe(
@@ -74,7 +74,7 @@ export class CategoriesService {
 
         return this._http
           .post<Category.IResponseBody>(
-            environment.apiBase + '/categories',
+            environment.apiBase + 'categories',
             category,
             { headers: headers }
           )
@@ -105,7 +105,7 @@ export class CategoriesService {
 
         return this._http
           .put<Category.IResponseBody>(
-            `${environment.apiBase}/categories/${category.id}`,
+            `${environment.apiBase}categories/${category.id}`,
             category,
             { headers: headers }
           )
@@ -132,7 +132,7 @@ export class CategoriesService {
         );
 
         return this._http
-          .delete<null>(`${environment.apiBase}/categories/${id}`, {
+          .delete<null>(`${environment.apiBase}categories/${id}`, {
             headers: headers,
             observe: 'response',
           })
