@@ -12,7 +12,6 @@ import { PDF } from './models/pdf.model';
 })
 export class PdfCategoriesService extends GenericService<
   PDF.Category.IModel,
-  PDF.Category.IRequestBody,
   PDF.Category.IResponseBody,
   PDF.Category.IResponseBodyList,
   PDF.Category.IClientData,
@@ -29,6 +28,6 @@ export class PdfCategoriesService extends GenericService<
     private router: Router,
     private modalCtrl: ModalController
   ) {
-    super('pdfs/categories', http, authSrv, router, modalCtrl);
+    super('pdfs/categories', http, authSrv, modalCtrl);
   }
 }

@@ -10,10 +10,6 @@ export namespace Icon {
     md5: string;
   }
   export interface IModel extends Model.IModel, IData {}
-  export interface IRequestBody
-    extends Model.IRequestBody,
-      Model.IModel,
-      Partial<IData> {}
   export interface IResponseBody extends Model.IResponseBody<IModel> {}
   export interface IResponseBodyList extends Model.IResponseBodyList<IModel> {
     pagination: IPagination;

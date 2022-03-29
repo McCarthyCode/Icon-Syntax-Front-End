@@ -17,7 +17,7 @@ import { Model } from '../models/model';
 })
 export class CategoryModalComponent implements OnInit {
   parent: Category.IClientData;
-  category: Category.IRequestBody;
+  category: Partial<Category.IModel>;
   path: string;
   mode: 'create' | 'update';
 
@@ -26,8 +26,6 @@ export class CategoryModalComponent implements OnInit {
 
   nonFieldErrors: string[] = [];
   nameErrors: string[] = [];
-
-
 
   constructor(
     private _router: Router,

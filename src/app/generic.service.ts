@@ -2,10 +2,8 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-  HttpParams,
   HttpResponse,
 } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap, tap } from 'rxjs/operators';
@@ -16,7 +14,6 @@ import { Model } from './models/model';
 
 export abstract class GenericService<
   IModel extends Model.IModel,
-  IRequestBody extends Model.IRequestBody,
   IResponseBody extends Model.IResponseBody<IModel>,
   IResponseBodyList extends Model.IResponseBodyList<IModel>,
   IClientData extends Model.IClientData<IModel>,
@@ -26,7 +23,6 @@ export abstract class GenericService<
     private _path: string,
     private _http: HttpClient,
     private _authSrv: AuthService,
-    private _router: Router,
     private _modalCtrl: ModalController
   ) {}
 

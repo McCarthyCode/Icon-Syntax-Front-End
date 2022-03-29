@@ -26,7 +26,6 @@ export namespace Model {
     data: IModel[];
   }
 
-  export interface IRequestBody {}
   export interface IResponseBody<T> extends IDatum<T> {}
   export interface IResponseBodyList<T> extends IData<T> {
     pagination: IPagination;

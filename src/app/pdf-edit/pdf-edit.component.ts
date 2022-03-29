@@ -29,6 +29,7 @@ export class PdfEditComponent {
 
   form: FormGroup;
   existingModel: PDF.IModel;
+  topic: number;
 
   @ViewChild('addCategory') addCategoryInput: IonInput;
 
@@ -88,7 +89,7 @@ export class PdfEditComponent {
         this.checkedCategoriesSet = new Set(
           checkedCategories.data.map((category) => category.name)
         );
-        this._categoriesSrv.list().subscribe((allCategories) => {
+        this._categoriesSrv.list({topic:this.topic}).subscribe((allCategories) => {
           this.uncheckedCategoriesSet = SetOps.difference(
             new Set(allCategories.data.map((category) => category.name)),
             this.checkedCategoriesSet
@@ -163,7 +164,7 @@ export class PdfEditComponent {
           })
           .then((alert) => {
             this._modalCtrl.dismiss();
-            this._pdfSrv.refresh().subscribe();
+            this._pdfSrv.refresh(this.topic).subscribe();
             alert.present();
           });
       },

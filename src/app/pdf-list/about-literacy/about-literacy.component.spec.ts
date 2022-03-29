@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SyntaxComponent } from './syntax.component';
+import { AboutLiteracyComponent } from './about-literacy.component';
 
-describe('SyntaxComponent', () => {
-  let component: SyntaxComponent;
-  let fixture: ComponentFixture<SyntaxComponent>;
+describe('AboutLiteracyComponent', () => {
+  let component: AboutLiteracyComponent;
+  let fixture: ComponentFixture<AboutLiteracyComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SyntaxComponent ],
+      declarations: [ AboutLiteracyComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SyntaxComponent);
+    fixture = TestBed.createComponent(AboutLiteracyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

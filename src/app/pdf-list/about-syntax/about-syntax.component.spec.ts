@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { UsComponent } from './us.component';
+import { AboutSyntaxComponent } from './about-syntax.component';
 
-describe('UsComponent', () => {
-  let component: UsComponent;
-  let fixture: ComponentFixture<UsComponent>;
+describe('AboutSyntaxComponent', () => {
+  let component: AboutSyntaxComponent;
+  let fixture: ComponentFixture<AboutSyntaxComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsComponent ],
+      declarations: [ AboutSyntaxComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UsComponent);
+    fixture = TestBed.createComponent(AboutSyntaxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -8,7 +8,6 @@ export namespace PDF {
       selected?: boolean;
     }
 
-    export interface IRequestBody extends Model.IRequestBody, Partial<IModel> {}
     export interface IResponseBody extends Model.IResponseBody<IModel> {}
     export interface IResponseBodyList
       extends Model.IResponseBodyList<IModel> {}
@@ -21,9 +20,9 @@ export namespace PDF {
     title: string;
     categories: string | Set<string>;
     md5: string;
+    topic: number;
   }
 
-  export interface IRequestBody extends Model.IRequestBody, Partial<IModel> {}
   export interface IResponseBody extends Model.IResponseBody<IModel> {}
   export interface IResponseBodyList extends Model.IResponseBodyList<IModel> {}
   export interface IClientData extends Model.IClientData<IModel> {}

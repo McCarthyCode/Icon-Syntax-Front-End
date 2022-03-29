@@ -1,9 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, IonInput, ModalController } from '@ionic/angular';
-import { AuthService } from '../auth.service';
 import { PDF } from '../models/pdf.model';
 import { PdfCategoriesService } from '../pdf-categories.service';
 import { PdfService } from '../pdf.service';
@@ -15,6 +13,8 @@ import { PdfService } from '../pdf.service';
 })
 export class CreatePdfComponent implements OnInit {
   form: FormGroup = new FormGroup({});
+  topic: number;
+
   @ViewChild('addCategory') addCategoryInput: IonInput;
 
   private categoriesSet = new Set<string>([]);
@@ -37,7 +37,6 @@ export class CreatePdfComponent implements OnInit {
     private _modalController: ModalController,
     private _pdfSrv: PdfService,
     private _alertCtrl: AlertController,
-    private _authSrv: AuthService,
     private _router: Router,
     private _categoriesSrv: PdfCategoriesService
   ) {}
@@ -58,7 +57,7 @@ export class CreatePdfComponent implements OnInit {
       }),
     });
 
-    this._categoriesSrv.list().subscribe((categories) => {
+    this._categoriesSrv.list({ topic: this.topic }).subscribe((categories) => {
       this.categoriesSet = new Set<string>(
         categories.data.map((category) => category.name)
       );
@@ -100,8 +99,6 @@ export class CreatePdfComponent implements OnInit {
     this.addCategoryInput.value = '';
   }
 
-  createCategory(name: string): void {}
-
   submit(refresh = true): void {
     const formData = new FormData();
 
@@ -112,6 +109,7 @@ export class CreatePdfComponent implements OnInit {
       this.form.get('pdf').value.name
     );
     formData.append('categories', this.form.get('categories').value);
+    formData.append('topic', `${this.topic}`);
 
     this._pdfSrv.create(formData).subscribe((response: PDF.IClientData) => {
       if (response === null) {
@@ -130,7 +128,7 @@ export class CreatePdfComponent implements OnInit {
             buttons: ['Okay'],
           })
           .then((alert) => {
-            this._pdfSrv.refresh().subscribe();
+            this._pdfSrv.refresh(this.topic).subscribe();
             alert.present();
           });
         this._modalController.dismiss();

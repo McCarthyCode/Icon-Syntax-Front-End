@@ -1,20 +1,14 @@
-import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
-import { CreatePdfComponent } from '../create-pdf/create-pdf.component';
-import { PDF } from '../models/pdf.model';
-import { PdfCategoriesService } from '../pdf-categories.service';
-import { PdfEditComponent } from '../pdf-edit/pdf-edit.component';
-import { PdfService } from '../pdf.service';
+import { AuthService } from '../../auth.service';
+import { CreatePdfComponent } from '../../create-pdf/create-pdf.component';
+import { PDF } from '../../models/pdf.model';
+import { PdfCategoriesService } from '../../pdf-categories.service';
+import { PdfEditComponent } from '../../pdf-edit/pdf-edit.component';
+import { PdfService } from '../../pdf.service';
 
-@Component({
-  selector: 'app-icon-lit',
-  templateUrl: './icon-lit.component.html',
-  styleUrls: ['./icon-lit.component.scss'],
-})
-export class IconLitComponent {
+export abstract class PdfListComponent {
   get pdfs$(): BehaviorSubject<PDF.IClientDataList> {
     return this._pdfSrv.pdfs$;
   }
@@ -51,6 +45,9 @@ export class IconLitComponent {
       .join(',');
   }
 
+  topic: number;
+  title: string;
+
   constructor(
     private _pdfSrv: PdfService,
     private _modalCtrl: ModalController,
@@ -64,17 +61,20 @@ export class IconLitComponent {
   }
 
   updateCategories() {
-    this._categoriesSrv.list().subscribe((clientDataList) => {
-      for (let i = 0; i < clientDataList.data.length; i++) {
-        clientDataList.data[i]['selected'] = false;
-      }
+    this._categoriesSrv
+      .list({ topic: this.topic })
+      .subscribe((clientDataList) => {
+        for (let i = 0; i < clientDataList.data.length; i++) {
+          clientDataList.data[i]['selected'] = false;
+        }
 
-      this.categories$.next(clientDataList);
-      this.updatePdfs();
-    });
+        this.categories$.next(clientDataList);
+        this.updatePdfs();
+      });
   }
 
   updatePdfs(params: any = {}) {
+    params = { ...params, topic: this.topic };
     this._pdfSrv.list(params).subscribe((clientDataList) => {
       for (let i = 0; i < clientDataList.data.length; i++) {
         const categoriesCSV = clientDataList.data[i].categories as string;
@@ -111,13 +111,18 @@ export class IconLitComponent {
     });
 
     this.updatePdfs(
-      this.categoriesCSV ? { categories: this.categoriesCSV } : {}
+      this.categoriesCSV
+        ? { categories: this.categoriesCSV, topic: this.topic }
+        : { topic: this.topic }
     );
   }
 
   presentModal() {
     this._modalCtrl
-      .create({ component: CreatePdfComponent })
+      .create({
+        component: CreatePdfComponent,
+        componentProps: { topic: this.topic },
+      })
       .then((modal) => modal.present());
   }
 
@@ -127,10 +132,11 @@ export class IconLitComponent {
         component: PdfEditComponent,
         componentProps: {
           id: id,
+          topic: this.topic,
         },
       })
       .then((modal) => {
-        this._pdfSrv.refresh().subscribe();
+        this._pdfSrv.refresh(this.topic).subscribe();
         modal.present();
       });
   }
@@ -149,7 +155,7 @@ export class IconLitComponent {
               handler: () => {
                 this._pdfSrv
                   .delete(id, true)
-                  .pipe(switchMap(() => this._pdfSrv.refresh()))
+                  .pipe(switchMap(() => this._pdfSrv.refresh(this.topic)))
                   .subscribe(() => {
                     this._alertCtrl
                       .create({

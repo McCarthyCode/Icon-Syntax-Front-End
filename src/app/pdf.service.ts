@@ -14,7 +14,6 @@ import { PDF } from './models/pdf.model';
 })
 export class PdfService extends GenericService<
   PDF.IModel,
-  PDF.IRequestBody,
   PDF.IResponseBody,
   PDF.IResponseBodyList,
   PDF.IClientData,
@@ -33,14 +32,14 @@ export class PdfService extends GenericService<
     private router: Router,
     private modalCtrl: ModalController
   ) {
-    super('pdfs', http, authSrv, router, modalCtrl);
+    super('pdfs', http, authSrv, modalCtrl);
   }
 
-  refresh(): Observable<PDF.IClientDataList | HttpErrorResponse> {
+  refresh(topic: number): Observable<PDF.IClientDataList | HttpErrorResponse> {
     const obs$ =
       this.categoriesSet.size > 0
-        ? this.list({ categories: this.categoriesCSV })
-        : this.list();
+        ? this.list({ categories: this.categoriesCSV, topic: topic })
+        : this.list({ topic: topic });
 
     return obs$.pipe(
       catchError(() => null),

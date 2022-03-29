@@ -8,9 +8,9 @@ import { AboutPageRoutingModule } from './about-routing.module';
 
 import { AboutPage } from './about.page';
 import { ComponentsModule } from '../icons-page/components.module';
-import { UsComponent } from './us/us.component';
-import { LiteracyComponent } from './literacy/literacy.component';
-import { SyntaxComponent } from './syntax/syntax.component';
+import { AboutUsComponent } from '../pdf-list/about-us/about-us.component';
+import { AboutLiteracyComponent } from '../pdf-list/about-literacy/about-literacy.component';
+import { AboutSyntaxComponent } from '../pdf-list/about-syntax/about-syntax.component';
 
 @NgModule({
   imports: [
@@ -20,6 +20,11 @@ import { SyntaxComponent } from './syntax/syntax.component';
     ComponentsModule,
     AboutPageRoutingModule,
   ],
-  declarations: [AboutPage, UsComponent, LiteracyComponent, SyntaxComponent],
+  declarations: [
+    AboutPage,
+    AboutUsComponent,
+    AboutLiteracyComponent,
+    AboutSyntaxComponent,
+  ],
 })
 export class AboutPageModule {}

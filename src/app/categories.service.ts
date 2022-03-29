@@ -57,7 +57,7 @@ export class CategoriesService {
   }
 
   create(
-    category: Category.IRequestBody,
+    category: Partial<Category.IModel>,
     refresh = true
   ): Observable<Category.IClientData> {
     return this._authSrv.credentials$.pipe(
@@ -88,7 +88,7 @@ export class CategoriesService {
   }
 
   update(
-    category: Category.IRequestBody,
+    category: Partial<Category.IModel>,
     refresh = true
   ): Observable<Category.IClientData> {
     return this._authSrv.credentials$.pipe(

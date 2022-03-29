@@ -50,9 +50,9 @@ export class CreateIconComponent {
     this._findSrv.onReset();
   }
 
-  onAddGroup() {
+  onAddSubcategory() {
     if (!this.activeCategoryId) {
-      console.error('Category not selected.');
+      console.error('Subcategory not selected.');
 
       return;
     }

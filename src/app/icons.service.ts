@@ -11,7 +11,6 @@ import { Icon } from './models/icon.model';
 })
 export class IconsService extends GenericService<
   Icon.IModel,
-  Icon.IRequestBody,
   Icon.IResponseBody,
   Icon.IResponseBodyList,
   Icon.IClientData,
@@ -23,6 +22,6 @@ export class IconsService extends GenericService<
     private router: Router,
     private modalCtrl: ModalController
   ) {
-    super('icons', http, authSrv, router, modalCtrl);
+    super('icons', http, authSrv, modalCtrl);
   }
 }

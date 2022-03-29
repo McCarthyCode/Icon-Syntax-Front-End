@@ -66,10 +66,11 @@ export class PdfViewComponent {
         component: PdfEditComponent,
         componentProps: {
           id: this.pdf.id,
+          topic: this.pdf.topic,
         },
       })
       .then((modal) => {
-        this._pdfSrv.refresh().subscribe();
+        this._pdfSrv.refresh(this.pdf.topic).subscribe();
         modal.present();
       });
   }
@@ -87,7 +88,7 @@ export class PdfViewComponent {
             handler: () => {
               this._pdfSrv
                 .delete(this.pdf.id, true)
-                .pipe(switchMap(() => this._pdfSrv.refresh()))
+                .pipe(switchMap(() => this._pdfSrv.refresh(this.pdf.topic)))
                 .subscribe(() => {
                   this._alertCtrl
                     .create({

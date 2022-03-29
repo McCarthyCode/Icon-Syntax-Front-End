@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutLiteracyComponent } from '../pdf-list/about-literacy/about-literacy.component';
+import { AboutSyntaxComponent } from '../pdf-list/about-syntax/about-syntax.component';
+import { AboutUsComponent } from '../pdf-list/about-us/about-us.component';
 
 import { AboutPage } from './about.page';
-import { LiteracyComponent } from './literacy/literacy.component';
-import { SyntaxComponent } from './syntax/syntax.component';
-import { UsComponent } from './us/us.component';
 
 const routes: Routes = [
   {
@@ -13,22 +13,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'us'
+        redirectTo: 'us',
       },
       {
         path: 'us',
-        component: UsComponent
+        component: AboutUsComponent,
       },
       {
         path: 'syntax',
-        component: SyntaxComponent
+        component: AboutSyntaxComponent,
       },
       {
         path: 'literacy',
-        component: LiteracyComponent
+        component: AboutLiteracyComponent,
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
