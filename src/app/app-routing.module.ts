@@ -34,14 +34,14 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'register/:access',
-    component: RegisterVerifyComponent,
-  },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent,
+  // },
+  // {
+  //   path: 'register/:access',
+  //   component: RegisterVerifyComponent,
+  // },
   {
     path: 'icon-lit',
     component: IconLitComponent,
@@ -70,14 +70,14 @@ const routes: Routes = [
     component: UpdateIconComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'forgot-password',
-    component: ForgotComponent,
-  },
-  {
-    path: 'forgot-password/:access',
-    component: ForgotVerifyComponent,
-  },
+  // {
+  //   path: 'forgot-password',
+  //   component: ForgotComponent,
+  // },
+  // {
+  //   path: 'forgot-password/:access',
+  //   component: ForgotVerifyComponent,
+  // },
   {
     path: 'pdfs/:id',
     component: PdfViewComponent,
