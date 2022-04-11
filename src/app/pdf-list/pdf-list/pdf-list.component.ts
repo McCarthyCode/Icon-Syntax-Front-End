@@ -85,20 +85,20 @@ export abstract class PdfListComponent {
     });
   }
 
-  selectAll(): void {
+  private _select(value: boolean): void {
     for (let category of this.categories) {
-      category.selected = true;
+      category.selected = value;
     }
 
     this.updatePdfs();
   }
 
-  selectNone(): void {
-    for (let category of this.categories) {
-      category.selected = false;
-    }
+  selectAll(): void {
+    this._select(true);
+  }
 
-    this.updatePdfs();
+  selectNone(): void {
+    this._select(false);
   }
 
   toggleCategory(name: string): void {
