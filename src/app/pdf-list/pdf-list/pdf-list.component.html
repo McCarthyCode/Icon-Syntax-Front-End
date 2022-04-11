@@ -35,6 +35,13 @@
           (click)="toggleCategory(category.name)"
         >
           <ion-label>{{ category.name }}</ion-label>
+          <ion-icon
+            name="close"
+            color="medium"
+            *ngIf="isAdmin"
+            (click)="deleteCategory($event, category.id)"
+          >
+          </ion-icon>
         </ion-chip>
         <ion-chip
           *ngIf="(categories$ | async).data.length > 2"

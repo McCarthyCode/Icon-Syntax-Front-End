@@ -176,4 +176,20 @@ export abstract class PdfListComponent {
         .then((confirmAlert) => confirmAlert.present());
     });
   }
+
+  deleteCategory($event: any, id: number): void {
+    $event.stopPropagation();
+
+    this._categoriesSrv.delete(id).subscribe(() =>
+      this._alertCtrl
+        .create({
+          message: 'Category deleted successfully.',
+          buttons: ['Okay'],
+        })
+        .then((alert) => {
+          this.updateCategories();
+          alert.present();
+        })
+    );
+  }
 }
