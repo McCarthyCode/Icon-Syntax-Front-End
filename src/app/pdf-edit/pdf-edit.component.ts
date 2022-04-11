@@ -59,7 +59,7 @@ export class PdfEditComponent {
     return { name: name, checked: false };
   }
 
-  updateCategoriesSet() {
+  updateCategoriesSet(): void {
     this.categoriesSet = new Set<ICategory>([
       ...this.checkedCategoriesArr.map(this.checked),
       ...this.uncheckedCategoriesArr.map(this.unchecked),
@@ -82,7 +82,7 @@ export class PdfEditComponent {
     private _modalCtrl: ModalController
   ) {}
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this._categoriesSrv
       .list({ pdf: this.id })
       .subscribe((checkedCategories) => {
@@ -115,7 +115,7 @@ export class PdfEditComponent {
       });
   }
 
-  onCheckboxChange($event: any) {
+  onCheckboxChange($event: any): void {
     const category: string = $event.target.name;
 
     if ($event.detail.checked === undefined) {
@@ -144,11 +144,11 @@ export class PdfEditComponent {
     this.addCategoryInput.value = '';
   }
 
-  closeModal() {
+  closeModal(): void {
     this._modalCtrl.dismiss();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const formData: FormData = this.form.value;
 
     for (let [key, value] of Object.entries(formData)) {

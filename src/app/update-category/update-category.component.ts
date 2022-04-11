@@ -79,7 +79,7 @@ export class UpdateCategoryComponent implements OnInit {
     });
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.breadcrumbs = [];
   }
 

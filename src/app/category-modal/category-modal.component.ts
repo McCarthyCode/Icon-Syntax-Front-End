@@ -35,7 +35,7 @@ export class CategoryModalComponent implements OnInit {
     private _toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(
         this.mode === 'update' ? this.category?.id : undefined,
@@ -55,11 +55,11 @@ export class CategoryModalComponent implements OnInit {
     });
   }
 
-  onInputChange($event: any) {
+  onInputChange($event: any): void {
     this.form.patchValue({ name: $event.detail.value });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const errorHandler = (response: { error: Model.IErrorResponse }) => {
       for (let error of response.error.errors) {
         this._toastCtrl
@@ -127,7 +127,7 @@ export class CategoryModalComponent implements OnInit {
     }
   }
 
-  onClose() {
+  onClose(): void {
     this._modalCtrl.dismiss();
   }
 }

@@ -41,7 +41,7 @@ export class CreatePdfComponent implements OnInit {
     private _categoriesSrv: PdfCategoriesService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = new FormGroup({
       title: new FormControl('', {
         updateOn: 'change',
@@ -64,7 +64,7 @@ export class CreatePdfComponent implements OnInit {
     });
   }
 
-  closeModal() {
+  closeModal(): void {
     this._modalController.dismiss();
   }
 
@@ -78,7 +78,7 @@ export class CreatePdfComponent implements OnInit {
     }
   }
 
-  onCheckboxChange($event: any) {
+  onCheckboxChange($event: any): void {
     const category: string = $event.target.name;
 
     if ($event.detail.checked === undefined) {

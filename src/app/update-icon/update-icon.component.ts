@@ -114,7 +114,7 @@ export class UpdateIconComponent implements OnInit {
     });
   }
 
-  ionViewDidLeave() {
+  ionViewDidLeave(): void {
     this.breadcrumbs = [];
   }
 

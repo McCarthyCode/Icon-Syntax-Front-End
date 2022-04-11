@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PDF } from '../models/pdf.model';
 
 @Component({
@@ -6,10 +6,6 @@ import { PDF } from '../models/pdf.model';
   templateUrl: './pdf-card.component.html',
   styleUrls: ['./pdf-card.component.scss'],
 })
-export class PdfCardComponent implements OnInit {
+export class PdfCardComponent {
   @Input() model: PDF.IModel;
-
-  constructor() {}
-
-  ngOnInit() {}
 }

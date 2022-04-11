@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     private _loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = new FormGroup({
       username: new FormControl('', {
         updateOn: 'change',

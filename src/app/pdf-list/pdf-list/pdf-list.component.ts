@@ -56,11 +56,11 @@ export abstract class PdfListComponent {
     private _categoriesSrv: PdfCategoriesService
   ) {}
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this.updateCategories();
   }
 
-  updateCategories() {
+  updateCategories(): void {
     this._categoriesSrv
       .list({ topic: this.topic })
       .subscribe((clientDataList) => {
@@ -73,7 +73,7 @@ export abstract class PdfListComponent {
       });
   }
 
-  updatePdfs(params: any = {}) {
+  updatePdfs(params: any = {}): void {
     params = { ...params, topic: this.topic };
     this._pdfSrv.list(params).subscribe((clientDataList) => {
       for (let i = 0; i < clientDataList.data.length; i++) {
@@ -85,7 +85,7 @@ export abstract class PdfListComponent {
     });
   }
 
-  selectAll() {
+  selectAll(): void {
     for (let category of this.categories) {
       category.selected = true;
     }
@@ -93,7 +93,7 @@ export abstract class PdfListComponent {
     this.updatePdfs();
   }
 
-  selectNone() {
+  selectNone(): void {
     for (let category of this.categories) {
       category.selected = false;
     }
@@ -101,7 +101,7 @@ export abstract class PdfListComponent {
     this.updatePdfs();
   }
 
-  toggleCategory(name: string) {
+  toggleCategory(name: string): void {
     this.categories = this.categories.map((category) => {
       if (category.name === name) {
         category.selected = !category.selected;
@@ -117,7 +117,7 @@ export abstract class PdfListComponent {
     );
   }
 
-  presentModal() {
+  presentModal(): void {
     this._modalCtrl
       .create({
         component: CreatePdfComponent,
@@ -142,7 +142,7 @@ export abstract class PdfListComponent {
   }
 
   delete(id: number): void {
-    this._pdfSrv.retrieve(id).subscribe(async (clientData) => {
+    this._pdfSrv.retrieve(id).subscribe((clientData) => {
       const title = clientData.data.title;
 
       this._alertCtrl

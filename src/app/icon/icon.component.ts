@@ -8,6 +8,4 @@ import { Icon } from '../models/icon.model';
 })
 export class IconComponent {
   @Input() icon: Icon.IModel;
-
-  constructor() {}
 }

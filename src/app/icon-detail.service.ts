@@ -8,8 +8,6 @@ import { Icon } from './models/icon.model';
 export class IconDetailService {
   icon$ = new BehaviorSubject<Icon.IModel>(null);
 
-  constructor() {}
-
   click(icon: Icon.IModel): void {
     this.icon$.next(icon);
   }

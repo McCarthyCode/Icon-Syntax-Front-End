@@ -23,11 +23,11 @@ export class ForgotVerifyComponent implements OnInit {
     private _router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._activatedRoute.paramMap.subscribe((paramMap) => {
       this.access = paramMap.get('access');
       this.form = new FormGroup({
-        password: new FormControl('Easypass123!', {
+        password: new FormControl('', {
           updateOn: 'blur',
           validators: [
             Validators.required,

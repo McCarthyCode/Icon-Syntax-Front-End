@@ -49,7 +49,7 @@ export class IconDetailComponent implements OnInit {
     return Boolean(this._authSrv.credentials$.value);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.iconSub = this._iconDetailSrv.icon$.subscribe((icon) => {
       if (icon) {
         this.icon = icon;
@@ -115,7 +115,7 @@ export class IconDetailComponent implements OnInit {
     }
   }
 
-  onClose() {
+  onClose(): void {
     this._menuCtrl.close('end');
   }
 

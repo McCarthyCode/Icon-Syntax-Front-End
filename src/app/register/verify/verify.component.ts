@@ -19,7 +19,7 @@ export class RegisterVerifyComponent implements OnInit {
     private _router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._activatedRoute.paramMap.subscribe((paramMap) => {
       this._authSrv.registerVerify(paramMap.get('access')).subscribe({
         next: (response: Auth.ISuccessResponse) => {

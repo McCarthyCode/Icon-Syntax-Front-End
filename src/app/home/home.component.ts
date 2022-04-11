@@ -8,13 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   text = '';
 
-  constructor() {}
-
   ngOnInit(): void {
     this.cycleBrand();
   }
 
-  cycleBrand() {
+  cycleBrand(): void {
     const brand = 'iconSyntax';
 
     setTimeout(() => {

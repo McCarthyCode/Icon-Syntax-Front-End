@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private _activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._activatedRoute.queryParams.subscribe((params) => {
       this.redirect = params.redirect;
     });
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (!this.form) {
       console.error('Form must be initialized before submitting.');
 
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
   loginSuccessHandler(
     response: Auth.ISuccessResponse,
     loader: HTMLIonLoadingElement
-  ) {
+  ): void {
     this._toastCtrl
       .create({
         message: response.success,

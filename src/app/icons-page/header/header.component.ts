@@ -39,7 +39,7 @@ export class HeaderComponent {
     this._findSrv.onSearchbar($event['detail']['value']);
   }
 
-  onAllIconsChange($event: Event) {
+  onAllIconsChange($event: Event): void {
     this._findSrv.onAllIconsChange($event['detail']['checked']);
   }
 }

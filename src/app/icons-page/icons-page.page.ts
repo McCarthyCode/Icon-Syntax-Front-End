@@ -29,7 +29,7 @@ export class IconsPage {
 
   constructor(private _router: Router, private _findSrv: FindService) {}
 
-  onBrowseClick() {
+  onBrowseClick(): void {
     if (this._findSrv.browseVisible) this._findSrv.onReset();
   }
 }

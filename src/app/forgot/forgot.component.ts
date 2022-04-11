@@ -18,7 +18,7 @@ export class ForgotComponent implements OnInit {
     private _loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl('', {
         updateOn: 'change',

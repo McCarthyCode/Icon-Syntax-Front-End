@@ -23,7 +23,7 @@ export class CreateIconComponent {
     private _modalCtrl: ModalController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeTree();
     this._findSrv.category$.subscribe((clientData) => {
       if (clientData) this.activeCategoryId = clientData.data.id;
@@ -45,12 +45,12 @@ export class CreateIconComponent {
     });
   }
 
-  onReset() {
+  onReset(): void {
     this.activeCategoryId = null;
     this._findSrv.onReset();
   }
 
-  onAddSubcategory() {
+  onAddSubcategory(): void {
     if (!this.activeCategoryId) {
       console.error('Subcategory not selected.');
 
@@ -70,7 +70,7 @@ export class CreateIconComponent {
     });
   }
 
-  onAddIcon() {
+  onAddIcon(): void {
     this._categoriesSrv
       .retrieve(this.activeCategoryId)
       .subscribe((clientData) => {

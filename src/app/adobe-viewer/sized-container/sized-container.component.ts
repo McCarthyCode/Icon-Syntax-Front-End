@@ -26,7 +26,7 @@ export class SizedContainerComponent implements AfterViewInit {
 
   constructor(private viewSDKClient: ViewSDKClient) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.viewSDKClient.ready().then(() => {
       /* Invoke file preview */
       this.viewSDKClient.previewFile(this.pdf, {

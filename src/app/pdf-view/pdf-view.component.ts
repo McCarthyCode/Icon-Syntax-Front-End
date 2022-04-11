@@ -33,7 +33,7 @@ export class PdfViewComponent {
     private _alertCtrl: AlertController
   ) {}
 
-  ionViewWillEnter() {
+  ionViewWillEnter(): void {
     this._route.paramMap.subscribe((paramMap) => {
       const id = +paramMap['params']['id'];
 

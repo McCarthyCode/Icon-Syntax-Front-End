@@ -35,7 +35,7 @@ export class IconModalComponent implements OnInit {
     private _router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = new FormGroup({
       icon: new FormControl(null, {
         updateOn: 'change',

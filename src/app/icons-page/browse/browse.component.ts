@@ -13,7 +13,7 @@ export class BrowseComponent implements OnInit {
 
   constructor(private _categoriesSrv: CategoriesService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeTree();
   }
 
