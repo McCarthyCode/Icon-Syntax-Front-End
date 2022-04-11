@@ -177,19 +177,35 @@ export abstract class PdfListComponent {
     });
   }
 
-  deleteCategory($event: any, id: number): void {
+  deleteCategory($event: any, id: number, name: string): void {
     $event.stopPropagation();
 
-    this._categoriesSrv.delete(id).subscribe(() =>
-      this._alertCtrl
-        .create({
-          message: 'Category deleted successfully.',
-          buttons: ['Okay'],
-        })
-        .then((alert) => {
-          this.updateCategories();
-          alert.present();
-        })
-    );
+    this._alertCtrl
+      .create({
+        message:
+          'Are you sure you want to delete the category titled "' + name + '"?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'dismiss',
+          },
+          {
+            text: 'Okay',
+            handler: () =>
+              this._categoriesSrv.delete(id).subscribe(() =>
+                this._alertCtrl
+                  .create({
+                    message: 'Category deleted successfully.',
+                    buttons: ['Okay'],
+                  })
+                  .then((alert) => {
+                    this.updateCategories();
+                    alert.present();
+                  })
+              ),
+          },
+        ],
+      })
+      .then((alert) => alert.present());
   }
 }

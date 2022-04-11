@@ -39,7 +39,7 @@
             name="close"
             color="medium"
             *ngIf="isAdmin"
-            (click)="deleteCategory($event, category.id)"
+            (click)="deleteCategory($event, category.id, category.name)"
           >
           </ion-icon>
         </ion-chip>
