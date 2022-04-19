@@ -1,6 +1,7 @@
 import { AlertController, ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { EditPdfCategoriesComponent } from 'src/app/edit-pdf-categories/edit-pdf-categories.component';
 import { AuthService } from '../../auth.service';
 import { CreatePdfComponent } from '../../create-pdf/create-pdf.component';
 import { PDF } from '../../models/pdf.model';
@@ -177,35 +178,15 @@ export abstract class PdfListComponent {
     });
   }
 
-  deleteCategory($event: any, id: number, name: string): void {
-    $event.stopPropagation();
-
-    this._alertCtrl
+  editCategories(): void {
+    this._modalCtrl
       .create({
-        message:
-          'Are you sure you want to delete the category titled "' + name + '"?',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'dismiss',
-          },
-          {
-            text: 'Okay',
-            handler: () =>
-              this._categoriesSrv.delete(id).subscribe(() =>
-                this._alertCtrl
-                  .create({
-                    message: 'Category deleted successfully.',
-                    buttons: ['Okay'],
-                  })
-                  .then((alert) => {
-                    this.updateCategories();
-                    alert.present();
-                  })
-              ),
-          },
-        ],
+        component: EditPdfCategoriesComponent,
+        componentProps: {
+          categories: this.categories,
+          topic: this.topic,
+        },
       })
-      .then((alert) => alert.present());
+      .then((modal) => modal.present());
   }
 }

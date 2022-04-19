@@ -31,6 +31,7 @@ import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { IconLitComponent } from './pdf-list/icon-lit/icon-lit.component';
 import { PdfEditComponent } from './pdf-edit/pdf-edit.component';
 import { NotesComponent } from './notes/notes.component';
+import { EditPdfCategoriesComponent } from './edit-pdf-categories/edit-pdf-categories.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { NotesComponent } from './notes/notes.component';
     CategoryModalComponent,
     CreateIconComponent,
     CreatePdfComponent,
+    EditPdfCategoriesComponent,
     ForgotComponent,
     ForgotVerifyComponent,
     HomeComponent,

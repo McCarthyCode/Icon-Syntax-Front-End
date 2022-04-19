@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ title }} <ion-text color="medium">»</ion-text> Edit PDF Categories
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h1 class="ion-margin-top ion-padding-horizontal">
+          Categories
+          <br />
+          <ion-text color="medium">
+            <small>
+              <em>Choose at least one.</em>
+            </small>
+          </ion-text>
+        </h1>
+        <ion-item *ngFor="let category of categories">
+          <!-- <ion-checkbox
+            name="{{ category.name }}"
+            slot="start"
+            [checked]="category.checked"
+            (ionChange)="onCheckboxChange($event)"
+          >
+          </ion-checkbox> -->
+          <ion-icon name="pencil" slot="start"></ion-icon>
+          <ion-input
+            value="{{ category.name }}"
+            (ionBlur)="onBlurRenameCategory($event, category.id)"
+            (keyup.enter)="onEnterRenameCategory($event, category.id)"
+          >
+          </ion-input>
+          <ion-icon
+            name="close"
+            slot="end"
+            (click)="deleteCategory(category.id, category.name)"
+          ></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="add" slot="start"></ion-icon>
+          <ion-input
+            (ionBlur)="addCategory($event)"
+            (keyup.enter)="addCategory($event)"
+            #addCategoryInput
+          >
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
