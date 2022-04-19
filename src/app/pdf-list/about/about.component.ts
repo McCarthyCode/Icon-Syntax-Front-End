@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from '../../auth.service';
 import { PdfCategoriesService } from '../../pdf-categories.service';
-import { PdfService } from '../../pdf.service';
 import { PdfListComponent } from '../pdf-list/pdf-list.component';
+import { PdfService } from '../../pdf.service';
 
 @Component({
-  selector: 'app-about-us',
+  selector: 'app-about',
   templateUrl: '../pdf-list/pdf-list.component.html',
   styleUrls: ['../pdf-list/pdf-list.component.scss'],
 })
-export class AboutLiteracyComponent extends PdfListComponent {
+export class AboutComponent extends PdfListComponent {
   constructor(
     pdfSrv: PdfService,
     modalCtrl: ModalController,
@@ -20,7 +20,7 @@ export class AboutLiteracyComponent extends PdfListComponent {
   ) {
     super(pdfSrv, modalCtrl, alertCtrl, authSrv, categoriesSrv);
 
-    this.title = 'About Literacy';
-    this.topic = 4;
+    this.title = 'About';
+    this.topic = 1;
   }
 }

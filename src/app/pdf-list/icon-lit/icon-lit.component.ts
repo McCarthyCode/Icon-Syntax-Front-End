@@ -21,6 +21,6 @@ export class IconLitComponent extends PdfListComponent {
     super(pdfSrv, modalCtrl, alertCtrl, authSrv, categoriesSrv);
 
     this.title = 'Icon Literature';
-    this.topic = 1;
+    this.topic = 2;
   }
 }

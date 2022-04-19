@@ -2,19 +2,21 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { CreateIconComponent } from './create-icon/create-icon.component';
-import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
-import { ForgotComponent } from './forgot/forgot.component';
+// import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
+// import { ForgotComponent } from './forgot/forgot.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { IconLitComponent } from './pdf-list/icon-lit/icon-lit.component';
-import { RegisterComponent } from './register/register.component';
-import { RegisterVerifyComponent } from './register/verify/verify.component';
+// import { RegisterComponent } from './register/register.component';
+// import { RegisterVerifyComponent } from './register/verify/verify.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
 import { UpdateIconComponent } from './update-icon/update-icon.component';
 import { CreatePdfComponent } from './create-pdf/create-pdf.component';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { NotesComponent } from './notes/notes.component';
+import { AboutComponent } from './pdf-list/about/about.component';
+import { PersonalComponent } from './pdf-list/personal/personal.component';
 
 const routes: Routes = [
   {
@@ -23,7 +25,11 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+    component: AboutComponent,
+  },
+  {
+    path: 'personal',
+    component: PersonalComponent,
   },
   {
     path: 'icons',

@@ -1,10 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { PDF } from '../models/pdf.model';
 import { PdfCategoriesService } from '../pdf-categories.service';
 
 const topics = {
-  1: 'Icon Literature',
+  1: 'About',
+  2: 'Icon Literature',
+  3: 'Personal',
 };
 
 @Component({

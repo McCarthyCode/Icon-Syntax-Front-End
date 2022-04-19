@@ -6,11 +6,11 @@ import { PdfService } from '../../pdf.service';
 import { PdfListComponent } from '../pdf-list/pdf-list.component';
 
 @Component({
-  selector: 'app-about-us',
+  selector: 'app-icon-lit',
   templateUrl: '../pdf-list/pdf-list.component.html',
   styleUrls: ['../pdf-list/pdf-list.component.scss'],
 })
-export class AboutSyntaxComponent extends PdfListComponent {
+export class PersonalComponent extends PdfListComponent {
   constructor(
     pdfSrv: PdfService,
     modalCtrl: ModalController,
@@ -20,7 +20,7 @@ export class AboutSyntaxComponent extends PdfListComponent {
   ) {
     super(pdfSrv, modalCtrl, alertCtrl, authSrv, categoriesSrv);
 
-    this.title = 'About Syntax';
+    this.title = 'Personal';
     this.topic = 3;
   }
 }

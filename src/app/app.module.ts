@@ -32,9 +32,12 @@ import { IconLitComponent } from './pdf-list/icon-lit/icon-lit.component';
 import { PdfEditComponent } from './pdf-edit/pdf-edit.component';
 import { NotesComponent } from './notes/notes.component';
 import { EditPdfCategoriesComponent } from './edit-pdf-categories/edit-pdf-categories.component';
+import { PersonalComponent } from './pdf-list/personal/personal.component';
+import { AboutComponent } from './pdf-list/about/about.component';
 
 @NgModule({
   declarations: [
+    AboutComponent,
     AppComponent,
     CategoryModalComponent,
     CreateIconComponent,
@@ -50,6 +53,7 @@ import { EditPdfCategoriesComponent } from './edit-pdf-categories/edit-pdf-categ
     LoginComponent,
     NotesComponent,
     NotFoundComponent,
+    PersonalComponent,
     PdfCardComponent,
     PdfEditComponent,
     PdfViewComponent,

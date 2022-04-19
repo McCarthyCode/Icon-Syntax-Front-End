@@ -36,7 +36,7 @@
             <ion-text> Logout </ion-text>
           </ion-item>
           <ion-item button routerLink="/icons/browse" (click)="onMenuClick()">
-            <ion-icon name="image" slot="start"></ion-icon>
+            <ion-icon name="images" slot="start"></ion-icon>
             <ion-text> Library </ion-text>
           </ion-item>
           <ion-item
@@ -48,18 +48,22 @@
             <ion-icon name="add" slot="start"></ion-icon>
             <ion-text> Add an Icon </ion-text>
           </ion-item>
+          <ion-item routerLink="/about" button (click)="onMenuClick()">
+            <ion-icon name="information" slot="start"></ion-icon>
+            <ion-text> About </ion-text>
+          </ion-item>
           <ion-item routerLink="/icon-lit" (click)="onMenuClick()" button>
             <ion-icon name="library" slot="start"></ion-icon>
             <ion-text> Icon Literature </ion-text>
+          </ion-item>
+          <ion-item routerLink="/personal" (click)="onMenuClick()" button>
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-text> Personal </ion-text>
           </ion-item>
           <!-- <ion-item routerLink="/blog" (click)="onMenuClick()" button>
             <ion-icon name="chatbubbles" slot="start"></ion-icon>
             <ion-text> Blog </ion-text>
           </ion-item> -->
-          <ion-item routerLink="/about" button (click)="onMenuClick()">
-            <ion-icon name="information" slot="start"></ion-icon>
-            <ion-text> About </ion-text>
-          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
