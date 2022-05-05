@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Subscribe to Updates</ion-title>
+    <ion-menu-button slot="end"></ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="9" size-lg="7" size-xl="6">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating"> Email Address </ion-label>
+            <ion-input #email></ion-input>
+            <ion-text color="danger">
+              <small>{{ error }}</small>
+            </ion-text>
+          </ion-item>
+          <ion-button
+            class="ion-margin"
+            color="primary"
+            expand="block"
+            (click)="subscribe()"
+          >
+            Subscribe
+          </ion-button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

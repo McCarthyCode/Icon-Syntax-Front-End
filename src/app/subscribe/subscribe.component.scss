@@ -1,0 +1,17 @@
+ion-grid {
+  &,
+  & ion-row {
+    height: 100%;
+
+    ion-col {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      align-content: stretch;
+
+      ion-list {
+        width: 100%;
+      }
+    }
+  }
+}

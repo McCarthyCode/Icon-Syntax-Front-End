@@ -17,6 +17,7 @@ import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { NotesComponent } from './notes/notes.component';
 import { AboutComponent } from './pdf-list/about/about.component';
 import { PersonalComponent } from './pdf-list/personal/personal.component';
+import { SubscribeComponent } from './subscribe/subscribe.component';
 
 const routes: Routes = [
   {
@@ -91,6 +92,10 @@ const routes: Routes = [
       import('./adobe-viewer/components.module').then(
         (m) => m.ComponentsModule
       ),
+  },
+  {
+    path: 'subscribe',
+    component: SubscribeComponent,
   },
   {
     path: '404',
