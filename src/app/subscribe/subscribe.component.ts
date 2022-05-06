@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonInput } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth.service';
 import { SubscribeService } from './subscribe.service';
 
 @Component({
@@ -13,11 +15,18 @@ export class SubscribeComponent {
   get email(): string {
     return this.emailInput.nativeElement.value;
   }
+
+  get isAdmin(): boolean {
+    return this._authSrv.isAdmin;
+  }
+
   error: string;
+  downloadUrl = environment.apiBase + 'auth/subscriptions';
 
   constructor(
     private _subscribeSrv: SubscribeService,
-    private _alertCtrl: AlertController
+    private _alertCtrl: AlertController,
+    private _authSrv: AuthService
   ) {}
 
   private _errorHandler(response: HttpErrorResponse): void {

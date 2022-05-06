@@ -34,6 +34,7 @@ import { NotesComponent } from './notes/notes.component';
 import { EditPdfCategoriesComponent } from './edit-pdf-categories/edit-pdf-categories.component';
 import { PersonalComponent } from './pdf-list/personal/personal.component';
 import { AboutComponent } from './pdf-list/about/about.component';
+import { SubscribeComponent } from './subscribe/subscribe.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AboutComponent } from './pdf-list/about/about.component';
     PdfViewComponent,
     RegisterComponent,
     RegisterVerifyComponent,
+    SubscribeComponent,
     UpdateCategoryComponent,
     UpdateIconComponent,
   ],

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Subscribe to Updates</ion-title>
+    <ion-title>Subscribe to iconSyntax Updates</ion-title>
     <ion-menu-button slot="end"></ion-menu-button>
   </ion-toolbar>
 </ion-header>
@@ -10,6 +10,9 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-md="9" size-lg="7" size-xl="6">
         <ion-list>
+          <ion-item-divider *ngIf="isAdmin">
+            <ion-label> Subscribe to Email Updates </ion-label>
+          </ion-item-divider>
           <ion-item>
             <ion-label position="floating"> Email Address </ion-label>
             <ion-input #email></ion-input>
@@ -25,6 +28,26 @@
           >
             Subscribe
           </ion-button>
+          <ion-item-divider *ngIf="isAdmin">
+            <ion-label> Download Mailing List </ion-label>
+          </ion-item-divider>
+          <ion-item *ngIf="isAdmin">
+            <h1 class="icons">
+              <a href="{{ downloadUrl }}.json" download="subscriptions.json">
+                <ion-icon name="document"></ion-icon>
+                <ion-badge color="success">JSON</ion-badge>
+              </a>
+              <a href="{{ downloadUrl }}.txt" download="subscriptions.txt">
+                <ion-icon name="document"></ion-icon>
+                <ion-badge color="success">TXT</ion-badge>
+              </a>
+              <a href="{{ downloadUrl }}.csv" download="subscriptions.csv">
+                <ion-icon name="document"></ion-icon>
+                <ion-badge color="success">CSV</ion-badge>
+              </a>
+            </h1>
+            <br />
+          </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
