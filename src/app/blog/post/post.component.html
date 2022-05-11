@@ -1,3 +1,36 @@
-<p>
-  post works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/blog"></ion-back-button>
+    </ion-buttons>
+    <ion-title> Blog </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-no-padding" *ngIf="post">
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-no-padding" size-md="9" size-lg="7" size-xl="6">
+        <ion-card class="ion-margin-bottom">
+          <ion-card-header>
+            <ion-card-title color="secondary" class="ion-no-padding">
+              {{ post?.title }}
+            </ion-card-title>
+            <ion-card-subtitle color="tertiary">
+              <em>
+                Created: {{ post?.created | date: "MM/dd/YYYY" }}
+                <span *ngIf="updated">
+                  Updated: {{ post?.updated | date: "MM/dd/YYYY" }}
+                </span>
+              </em>
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p [innerHTML]="post?.content | linebreaks"></p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

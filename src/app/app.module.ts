@@ -39,6 +39,7 @@ import { BlogComponent } from './blog/blog.component';
 import { PostComponent } from './blog/post/post.component';
 import { PostModalComponent } from './blog/post/post-modal/post-modal.component';
 import { PostTileComponent } from './blog/post-tile/post-tile.component';
+import { LineBreaksPipe } from './pipes/linebreaks';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { PostTileComponent } from './blog/post-tile/post-tile.component';
     SubscribeComponent,
     UpdateCategoryComponent,
     UpdateIconComponent,
+    LineBreaksPipe,
   ],
   entryComponents: [],
   imports: [
