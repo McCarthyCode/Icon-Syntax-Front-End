@@ -18,6 +18,8 @@ import { NotesComponent } from './notes/notes.component';
 import { AboutComponent } from './pdf-list/about/about.component';
 import { PersonalComponent } from './pdf-list/personal/personal.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
+import { BlogComponent } from './blog/blog.component';
+import { PostComponent } from './blog/post/post.component';
 
 const routes: Routes = [
   {
@@ -96,6 +98,14 @@ const routes: Routes = [
   {
     path: 'subscribe',
     component: SubscribeComponent,
+  },
+  {
+    path: 'blog',
+    component: BlogComponent,
+  },
+  {
+    path: 'blog/:id',
+    component: PostComponent,
   },
   {
     path: '404',

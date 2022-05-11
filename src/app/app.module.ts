@@ -35,11 +35,16 @@ import { EditPdfCategoriesComponent } from './edit-pdf-categories/edit-pdf-categ
 import { PersonalComponent } from './pdf-list/personal/personal.component';
 import { AboutComponent } from './pdf-list/about/about.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
+import { BlogComponent } from './blog/blog.component';
+import { PostComponent } from './blog/post/post.component';
+import { PostModalComponent } from './blog/post/post-modal/post-modal.component';
+import { PostTileComponent } from './blog/post-tile/post-tile.component';
 
 @NgModule({
   declarations: [
     AboutComponent,
     AppComponent,
+    BlogComponent,
     CategoryModalComponent,
     CreateIconComponent,
     CreatePdfComponent,
@@ -58,6 +63,9 @@ import { SubscribeComponent } from './subscribe/subscribe.component';
     PdfCardComponent,
     PdfEditComponent,
     PdfViewComponent,
+    PostComponent,
+    PostModalComponent,
+    PostTileComponent,
     RegisterComponent,
     RegisterVerifyComponent,
     SubscribeComponent,

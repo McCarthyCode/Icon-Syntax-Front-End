@@ -35,22 +35,25 @@ export abstract class GenericService<
   }
 
   convert(result: IResponseBody): IClientData {
-    const clientData = {
+    const clientData: any = {
       data: result.data,
       retrieved: new Date(),
-    } as unknown;
+    };
 
     if (result.success) clientData['success'] = result.success;
     if (result.errors) clientData['errors'] = result.errors;
+
+    clientData.data.created = new Date(clientData.data.created);
+    clientData.data.updated = new Date(clientData.data.updated);
 
     return clientData as IClientData;
   }
 
   convertList(results: IResponseBodyList): IClientDataList {
-    const clientDataList = {
+    const clientDataList: any = {
       data: results.data,
       retrieved: new Date(),
-    } as unknown;
+    };
 
     if (results.success) clientDataList['success'] = results.success;
     if (results.errors) clientDataList['errors'] = results.errors;
