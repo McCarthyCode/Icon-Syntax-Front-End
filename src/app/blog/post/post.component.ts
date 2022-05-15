@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/auth.service';
 import { Post } from 'src/app/models/post.model';
 import { PostModalComponent } from './post-modal/post-modal.component';
 import { PostService } from './post.service';
@@ -20,12 +21,17 @@ export class PostComponent {
       return updated.getTime() - created.getTime() > 1000;
     }
   }
+  get isAdmin(): boolean {
+    return this._authSrv.isAdmin;
+  }
 
   constructor(
     private _route: ActivatedRoute,
     private _postSrv: PostService,
     private _modalCtrl: ModalController,
-    private _alertCtrl: AlertController
+    private _alertCtrl: AlertController,
+    private _router: Router,
+    private _authSrv: AuthService
   ) {}
 
   ionViewWillEnter() {
@@ -55,5 +61,33 @@ export class PostComponent {
         },
       })
       .then((modal) => modal.present());
+  }
+
+  delete(): void {
+    this._alertCtrl
+      .create({
+        message:
+          'Are you sure you want to delete the blog post titled "' +
+          this.post.title +
+          '"?',
+        buttons: [
+          { text: 'Cancel', role: 'cancel' },
+          {
+            text: 'Okay',
+            handler: () => {
+              this._postSrv.delete(this.post.id).subscribe(() => {
+                this._router.navigateByUrl('/blog');
+                this._alertCtrl
+                  .create({
+                    message: 'The blog post was deleted successfully.',
+                    buttons: ['Okay'],
+                  })
+                  .then((alert) => alert.present());
+              });
+            },
+          },
+        ],
+      })
+      .then((alert) => alert.present());
   }
 }

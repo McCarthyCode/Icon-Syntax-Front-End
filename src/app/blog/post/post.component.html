@@ -4,11 +4,11 @@
       <ion-back-button defaultHref="/blog"></ion-back-button>
     </ion-buttons>
     <ion-title> Blog </ion-title>
-    <ion-buttons slot="end" *ngIf="true || isAdmin">
+    <ion-buttons slot="end" *ngIf="isAdmin">
       <ion-button (click)="update()">
         <ion-icon name="pencil" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button (click)="delete()">
         <ion-icon name="trash" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
