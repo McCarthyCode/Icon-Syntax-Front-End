@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Post } from 'src/app/models/post.model';
@@ -12,25 +12,33 @@ import { PostService } from '../post.service';
 export class PostModalComponent implements OnInit {
   mode: 'create' | 'update';
 
+  @Output() refresh: EventEmitter<Post.IModel> = new EventEmitter();
+  @Input() onRefresh: (post: Post.IModel) => void;
+
+  post: Post.IModel;
   form: FormGroup;
 
   constructor(
     private _modalCtrl: ModalController,
-    private _postSrv: PostService,
-    private _alertCtrl: AlertController
+    private _postSrv: PostService
   ) {}
 
   ngOnInit() {
     this.form = new FormGroup({
-      title: new FormControl(null, {
+      title: new FormControl(this.mode === 'create' ? null : this.post?.title, {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(80)],
       }),
-      content: new FormControl(null, {
-        updateOn: 'change',
-        validators: [Validators.required],
-      }),
+      content: new FormControl(
+        this.mode === 'create' ? null : this.post?.content,
+        {
+          updateOn: 'change',
+          validators: [Validators.required],
+        }
+      ),
     });
+
+    this.refresh.subscribe(this.onRefresh);
   }
 
   close(): void {
@@ -38,20 +46,29 @@ export class PostModalComponent implements OnInit {
   }
 
   submit(): void {
+    this._modalCtrl.dismiss();
+
     const formData = new FormData();
     const formValues = this.form.value;
 
     formData.append('title', formValues.title);
     formData.append('content', formValues.content);
 
-    this._postSrv.create(formData).subscribe(() => {
-      this._modalCtrl.dismiss();
-      this._alertCtrl
-        .create({
-          message: 'Blog post submitted successfully.',
-          buttons: ['Okay'],
-        })
-        .then((alert) => alert.present());
+    if (this.mode === 'create') this.create(formData);
+    else if (this.mode === 'update') this.update(formData);
+  }
+
+  create(formData: FormData): void {
+    this._postSrv.create(formData).subscribe((clientData: Post.IClientData) => {
+      this.refresh.emit(clientData.data);
     });
+  }
+
+  update(formData: FormData): void {
+    this._postSrv
+      .update(this.post.id, formData)
+      .subscribe((clientData: Post.IClientData) => {
+        this.refresh.emit(clientData.data);
+      });
   }
 }

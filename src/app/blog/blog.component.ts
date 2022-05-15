@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { Post } from '../models/post.model';
 import { PostModalComponent } from './post/post-modal/post-modal.component';
@@ -20,21 +20,38 @@ export class BlogComponent {
   constructor(
     private _authSrv: AuthService,
     private _modalCtrl: ModalController,
-    private _postSrv: PostService
+    private _postSrv: PostService,
+    private _alertCtrl: AlertController
   ) {}
 
   ionViewWillEnter(): void {
+    this.refresh();
+  }
+
+  refresh() {
     this._postSrv.list().subscribe((clientDataList: Post.IClientDataList) => {
       this.posts = clientDataList.data;
     });
   }
 
-  addPost(): void {
+  create(): void {
     this._modalCtrl
       .create({
         component: PostModalComponent,
         componentProps: {
           mode: 'create',
+          onRefresh: () => {
+            this._modalCtrl.dismiss();
+            this._alertCtrl
+              .create({
+                message: 'Blog post submitted successfully.',
+                buttons: ['Okay'],
+              })
+              .then((alert) => {
+                alert.present();
+                this.refresh();
+              });
+          },
         },
       })
       .then((modal) => modal.present());

@@ -14,7 +14,7 @@ export class PostTileComponent {
       const created = new Date(this.post.created);
       const updated = new Date(this.post.updated);
 
-      return updated.getTime() - created.getTime() > 1000000;
+      return updated.getTime() - created.getTime() > 1000;
     }
 
     return false;

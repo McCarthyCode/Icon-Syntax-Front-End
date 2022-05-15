@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Blog</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="addPost()" *ngIf="isAdmin">
+      <ion-button (click)="create()" *ngIf="isAdmin">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
       <ion-menu-button contentId="menu"> </ion-menu-button>

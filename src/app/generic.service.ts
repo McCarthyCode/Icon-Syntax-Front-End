@@ -126,6 +126,7 @@ export abstract class GenericService<
   }
 
   update(
+    id: number,
     formData: FormData,
     auth = true
   ): Observable<IClientData | HttpErrorResponse> {
@@ -136,22 +137,23 @@ export abstract class GenericService<
             return of(null);
           }
 
-          return this._update(formData, headers);
+          return this._update(id, formData, headers);
         })
       );
     }
 
-    return this._update(formData);
+    return this._update(id, formData);
   }
 
   private _update(
+    id: number,
     formData: FormData,
     headers: HttpHeaders = undefined,
     refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .put<IResponseBody>(
-        environment.apiBase + [this._path, formData['id']].join('/'),
+        environment.apiBase + [this._path, id].join('/'),
         formData,
         { headers: headers }
       )
@@ -161,7 +163,9 @@ export abstract class GenericService<
           if (refresh && response.status === 401) {
             return this._authSrv
               .refresh()
-              .pipe(switchMap(() => this._update(formData, headers, false)));
+              .pipe(
+                switchMap(() => this._update(id, formData, headers, false))
+              );
           }
 
           return of(null);
