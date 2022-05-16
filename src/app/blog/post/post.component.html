@@ -40,5 +40,23 @@
         </ion-card>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <h1 class="ion-margin-horizontal">Comments</h1>
+        <ion-card>
+          <ion-card-content>
+            <ion-textarea
+              (ionChange)="onCommentChange($event)"
+              rows="5"
+              placeholder="Add a comment here."
+            >
+            </ion-textarea>
+            <ion-button color="primary" (click)="comment()">Comment</ion-button>
+          </ion-card-content>
+        </ion-card>
+        <app-comment *ngFor="let comment of post.comments" [comment]="comment">
+        </app-comment>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

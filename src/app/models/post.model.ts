@@ -4,8 +4,7 @@ export namespace Post {
   export interface IModel extends Model.IModel {
     title: string;
     content: string;
-    created: Date;
-    updated: Date;
+    comments: Comment.IModel[];
   }
 
   export interface IResponseBody extends Model.IResponseBody<IModel> {}

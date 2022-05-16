@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
@@ -24,6 +24,7 @@ export class PostComponent {
   get isAdmin(): boolean {
     return this._authSrv.isAdmin;
   }
+  commentInput: string;
 
   constructor(
     private _route: ActivatedRoute,
@@ -89,5 +90,23 @@ export class PostComponent {
         ],
       })
       .then((alert) => alert.present());
+  }
+
+  onCommentChange($event: any): void {
+    this.commentInput = $event.detail.value;
+  }
+
+  comment(): void {
+    this._postSrv
+      .comment(this.post.id, this.commentInput)
+      .subscribe((comment: Post.Comment.IModel) => {
+        this.post.comments = [comment, ...this.post.comments];
+        this._alertCtrl
+          .create({
+            message: 'Comment posted successfully.',
+            buttons: ['Okay'],
+          })
+          .then((alert) => alert.present());
+      });
   }
 }

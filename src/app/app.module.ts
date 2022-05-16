@@ -40,6 +40,7 @@ import { PostComponent } from './blog/post/post.component';
 import { PostModalComponent } from './blog/post/post-modal/post-modal.component';
 import { PostTileComponent } from './blog/post-tile/post-tile.component';
 import { LineBreaksPipe } from './pipes/linebreaks';
+import { CommentComponent } from './blog/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { LineBreaksPipe } from './pipes/linebreaks';
     AppComponent,
     BlogComponent,
     CategoryModalComponent,
+    CommentComponent,
     CreateIconComponent,
     CreatePdfComponent,
     EditPdfCategoriesComponent,

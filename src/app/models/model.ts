@@ -3,6 +3,8 @@ import { IPagination } from '../interfaces/pagination.interface';
 export namespace Model {
   export interface IModel {
     id: number;
+    created: Date;
+    updated: Date;
   }
 
   export interface ISuccessResponse {

@@ -1,0 +1,14 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title color="secondary"> Anonymous </ion-card-title>
+    <ion-card-subtitle color="tertiary">
+      <em>
+        Created: {{ comment.created | date: "MM/dd/YYYY" }}
+        <span *ngIf="updated">
+          Updated: {{ comment.updated | date: "MM/dd/YYYY" }}
+        </span>
+      </em>
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content> {{ comment.content }} </ion-card-content>
+</ion-card>
