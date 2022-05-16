@@ -51,7 +51,13 @@
               placeholder="Add a comment here."
             >
             </ion-textarea>
-            <ion-button color="primary" (click)="comment()">Comment</ion-button>
+            <ion-button
+              color="primary"
+              fill="{{ commentInput ? 'solid' : 'outline' }}"
+              (click)="comment()"
+            >
+              Comment
+            </ion-button>
           </ion-card-content>
         </ion-card>
         <app-comment *ngFor="let comment of post.comments" [comment]="comment">

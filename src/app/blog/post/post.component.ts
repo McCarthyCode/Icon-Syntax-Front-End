@@ -97,6 +97,16 @@ export class PostComponent {
   }
 
   comment(): void {
+    if (!this.commentInput) {
+      this._alertCtrl
+        .create({
+          message: 'Please enter a comment before submitting.',
+          buttons: ['Okay'],
+        })
+        .then((alert) => alert.present());
+      return;
+    }
+
     this._postSrv
       .comment(this.post.id, this.commentInput)
       .subscribe((comment: Post.Comment.IModel) => {

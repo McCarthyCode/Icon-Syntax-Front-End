@@ -17,6 +17,7 @@ export namespace Post {
       post: number;
       content: string;
       parent?: number;
+      replies: IModel[];
     }
 
     export interface IResponseBody extends Model.IResponseBody<IModel> {}

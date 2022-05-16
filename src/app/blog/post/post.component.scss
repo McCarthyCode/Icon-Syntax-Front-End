@@ -13,6 +13,11 @@ ion-textarea {
   border-radius: 4px;
 }
 
-ion-button {
+ion-card ion-button {
   margin: 1rem 0 0 0;
+
+  &::part(native) {
+    border: 2px solid #428cff;
+    border-radius: 4px;
+  }
 }
