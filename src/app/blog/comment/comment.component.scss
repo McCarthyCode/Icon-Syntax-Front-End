@@ -1,7 +1,27 @@
+p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
 ion-card {
-  .flex {
-    display: flex;
-    justify-content: space-between;
+  ion-card-header {
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    ion-card-title {
+      max-width: calc(100vw - 188px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    ion-buttons {
+      margin: -10px -0.75rem 0 0;
+    }
   }
 
   ion-card-content ion-button {

@@ -2,31 +2,21 @@
 
 ## High Priorities
 
-- Fix PDF list view refresh bug
-- Plain (then rich) text + Comments + Categories
-  - about us
-    - profiles
-    - vision
-    - history
-    - board
-    - to-do list
-  - about syntax
-    - icon element
-    - word order
-    - phrases and idioms
-  - about literacy
-    - dyslexia
-    - language extinction
-    - symbol vs. speech
-    - linguistics
-  - notes
-    - updates
-    - links
-    - appeals
-    - contact
+- Edit comments
+- Define permissions for blog
+- Setup email subscribe/unsubscribe
+- Add error reporting to Subscribe page
+- Make title clickable
+- Favicon
+- Tests
 
 ## Medium Priorities
 
+- Infinite scrolling
+  - Blog
+  - Comments
+- Determine horizontal ellipsis appearance by truncated Boolean from backend
+- Fix bug where user is kicked on refresh
 - Content management / Icons / Edit Icon
 
 ## Low Priorities

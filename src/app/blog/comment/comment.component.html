@@ -1,18 +1,15 @@
 <ion-card *ngIf="visible">
   <ion-card-header>
     <div class="flex">
-      <div>
-        <ion-card-title color="secondary"> Anonymous </ion-card-title>
-        <ion-card-subtitle color="tertiary">
-          <em>
-            Created: {{ comment.created | date: "MM/dd/YYYY" }}
-            <span *ngIf="updated">
-              Updated: {{ comment.updated | date: "MM/dd/YYYY" }}
-            </span>
-          </em>
-        </ion-card-subtitle>
-      </div>
-      <ion-buttons slot="end">
+      <ion-card-title color="secondary"> Anonymous </ion-card-title>
+      <ion-buttons>
+        <ion-button (click)="toggleReply()">
+          <ion-icon
+            name="{{ replyState ? 'close' : 'chatbubbles' }}"
+            slot="icon-only"
+          >
+          </ion-icon>
+        </ion-button>
         <ion-button (click)="edit()">
           <ion-icon name="pencil" slot="icon-only"></ion-icon>
         </ion-button>
@@ -25,14 +22,14 @@
 
   <ion-card-content>
     <p [innerHtml]="comment.content | linebreaks"></p>
-    <ion-button
-      color="medium"
-      fill="outline"
-      (click)="toggleReply()"
-      *ngIf="!replyState"
-    >
-      Reply
-    </ion-button>
+    <ion-card-subtitle color="primary">
+      <em>
+        Created:&nbsp;{{ comment.created | date: "MM/dd/YYYY" }}
+        <span *ngIf="updated">
+          &bull; Updated:&nbsp;{{ comment.updated | date: "MM/dd/YYYY" }}
+        </span>
+      </em>
+    </ion-card-subtitle>
     <ion-textarea
       (ionChange)="onReplyChange($event)"
       rows="5"
