@@ -13,6 +13,8 @@ import { PostService } from './post.service';
 })
 export class PostComponent {
   post: Post.IModel;
+  commentInput: string;
+
   get updated(): boolean {
     if (this.post.created && this.post.updated) {
       const created = new Date(this.post.created);
@@ -24,7 +26,6 @@ export class PostComponent {
   get isAdmin(): boolean {
     return this._authSrv.isAdmin;
   }
-  commentInput: string;
 
   constructor(
     private _route: ActivatedRoute,
