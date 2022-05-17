@@ -8,7 +8,9 @@ import { Post } from 'src/app/models/post.model';
 })
 export class PostTileComponent {
   previewMax = 500;
+
   @Input() post: Post.IModel;
+
   get updated(): boolean {
     if (this.post.created && this.post.updated) {
       const created = new Date(this.post.created);
