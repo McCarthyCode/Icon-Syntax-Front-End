@@ -41,4 +41,10 @@ export class PostService extends GenericService<
       formData
     );
   }
+
+  deleteComment(comment: number): Observable<null> {
+    return this.http.delete<null>(
+      environment.apiBase + 'blog/comments/' + comment
+    );
+  }
 }

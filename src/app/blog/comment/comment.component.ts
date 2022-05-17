@@ -28,6 +28,7 @@ export class CommentComponent {
 
   replyInput: string;
   replyState = false;
+  visible = true;
 
   constructor(
     private _alertCtrl: AlertController,
@@ -75,6 +76,28 @@ export class CommentComponent {
   }
 
   delete(): void {
-    console.debug('DELETE');
+    this._alertCtrl
+      .create({
+        message:
+          'Are you sure you want to delete this comment? This will also remove any replies.',
+        buttons: [
+          { text: 'Cancel', role: 'cancel' },
+          {
+            text: 'Okay',
+            handler: () => {
+              this._postSrv.deleteComment(this.comment.id).subscribe(() => {
+                this.visible = false;
+                this._alertCtrl
+                  .create({
+                    message: 'You have successfully deleted this comment.',
+                    buttons: ['Okay'],
+                  })
+                  .then((alert) => alert.present());
+              });
+            },
+          },
+        ],
+      })
+      .then((alert) => alert.present());
   }
 }
