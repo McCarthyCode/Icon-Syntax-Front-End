@@ -1,13 +1,20 @@
-ion-card ion-button {
-  margin: 1rem 0 0 0;
-
-  &:not(:last-child) {
-    margin: 1rem 4px 0 0;
+ion-card {
+  .flex {
+    display: flex;
+    justify-content: space-between;
   }
 
-  &[color="primary"]::part(native) {
-    border: 2px solid var(--ion-color-primary);
-    border-radius: 4px;
+  ion-card-content ion-button {
+    margin: 1rem 0 0 0;
+
+    &:not(:last-child) {
+      margin: 1rem 4px 0 0;
+    }
+
+    &[color="primary"]::part(native) {
+      border: 2px solid var(--ion-color-primary);
+      border-radius: 4px;
+    }
   }
 }
 

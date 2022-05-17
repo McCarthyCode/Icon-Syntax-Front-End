@@ -69,4 +69,12 @@ export class CommentComponent {
           .then((alert) => alert.present());
       });
   }
+
+  edit(): void {
+    console.debug('EDIT');
+  }
+
+  delete(): void {
+    console.debug('DELETE');
+  }
 }
