@@ -51,6 +51,15 @@
   min-height: 10rem;
 }
 
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 ion-item {
   line-height: 1.6;
 }

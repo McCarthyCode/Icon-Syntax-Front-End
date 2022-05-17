@@ -6,7 +6,6 @@
 - Define permissions for blog
 - Setup email subscribe/unsubscribe
 - Add error reporting to Subscribe page
-- Make title clickable
 - Tests
 
 ## Medium Priorities

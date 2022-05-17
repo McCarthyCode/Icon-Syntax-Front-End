@@ -2,13 +2,13 @@
   <ion-split-pane [disabled]="homePage" when="md" contentId="main">
     <ion-menu contentId="main">
       <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
+        <ion-toolbar color="primary" routerLink="/">
+          <ion-buttons slot="start" (click)="$event.stopPropagation()">
             <ion-menu-button contentId="menu">
               <ion-icon name="close"></ion-icon>
             </ion-menu-button>
           </ion-buttons>
-          <ion-title>iconSyntax</ion-title>
+          <ion-title class="no-select">iconSyntax</ion-title>
         </ion-toolbar>
       </ion-header>
 
