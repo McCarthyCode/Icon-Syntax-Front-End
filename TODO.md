@@ -7,7 +7,6 @@
 - Setup email subscribe/unsubscribe
 - Add error reporting to Subscribe page
 - Make title clickable
-- Favicon
 - Tests
 
 ## Medium Priorities
