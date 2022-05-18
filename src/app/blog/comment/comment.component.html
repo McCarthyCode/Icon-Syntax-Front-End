@@ -46,7 +46,6 @@
         [fill]="
           editInput && editInput !== comment.content ? 'solid' : 'outline'
         "
-        [disabled]="!editInput || editInput === comment.content"
         (click)="edit()"
       >
         Edit
@@ -68,39 +67,38 @@
           Clear
         </ion-button>
       </ng-template>
+    </ng-template>
 
-      <ng-template [ngIf]="replyState">
-        <ion-textarea
-          rows="5"
-          placeholder="Add a reply here."
-          [value]="replyInput"
-          (ionChange)="onReplyChange($event)"
-        >
-        </ion-textarea>
-        <ion-button
-          color="primary"
-          [fill]="replyInput ? 'solid' : 'outline'"
-          [disabled]="!replyInput"
-          (click)="reply()"
-        >
-          Reply
+    <ng-template [ngIf]="replyState">
+      <ion-textarea
+        rows="5"
+        placeholder="Add a reply here."
+        [value]="replyInput"
+        (ionChange)="onReplyChange($event)"
+      >
+      </ion-textarea>
+      <ion-button
+        color="primary"
+        [fill]="replyInput ? 'solid' : 'outline'"
+        (click)="reply()"
+      >
+        Reply
+      </ion-button>
+      <ng-template
+        [ngIf]="replyInput"
+        [ngIfThen]="clearReply"
+        [ngIfElse]="cancelReply"
+      >
+      </ng-template>
+      <ng-template #cancelReply>
+        <ion-button color="medium" fill="outline" (click)="toggleReply()">
+          Cancel
         </ion-button>
-        <ng-template
-          [ngIf]="replyInput"
-          [ngIfThen]="clearReply"
-          [ngIfElse]="cancelReply"
-        >
-        </ng-template>
-        <ng-template #cancelReply>
-          <ion-button color="medium" fill="outline" (click)="toggleReply()">
-            Cancel
-          </ion-button>
-        </ng-template>
-        <ng-template #clearReply>
-          <ion-button color="medium" fill="outline" (click)="replyInput = ''">
-            Clear
-          </ion-button>
-        </ng-template>
+      </ng-template>
+      <ng-template #clearReply>
+        <ion-button color="medium" fill="outline" (click)="replyInput = ''">
+          Clear
+        </ion-button>
       </ng-template>
     </ng-template>
   </ion-card-content>
