@@ -26,21 +26,57 @@ export class CommentComponent {
     return this.indentLevel < maxIndent;
   }
 
-  replyInput: string;
-  replyState = false;
   visible = true;
+
+  replyInput: string;
+  editInput: string;
+
+  replyState = false;
+  editState = false;
 
   constructor(
     private _alertCtrl: AlertController,
     private _postSrv: PostService
   ) {}
 
+  resetEditState(): void {
+    if (this.editState) {
+      this.editInput = '';
+      this.editState = false;
+    }
+  }
+
+  resetReplyState(): void {
+    if (this.replyState) {
+      this.replyInput = '';
+      this.replyState = false;
+    }
+  }
+
+  toggleEdit(): void {
+    this.resetReplyState();
+    this.editState = !this.editState;
+
+    if (this.editState) this.editInput = this.comment.content;
+  }
+
   toggleReply(): void {
+    this.resetEditState();
     this.replyState = !this.replyState;
+
+    if (this.replyState) this.replyInput = '';
+  }
+
+  onEditChange($event: any): void {
+    this.editInput = $event.detail.value;
   }
 
   onReplyChange($event: any): void {
     this.replyInput = $event.detail.value;
+  }
+
+  edit(): void {
+    console.debug(this.editInput);
   }
 
   reply(): void {
@@ -58,8 +94,7 @@ export class CommentComponent {
     this._postSrv
       .comment(this.comment.post, this.replyInput, this.comment.id)
       .subscribe((reply: Post.Comment.IModel) => {
-        this.replyInput = '';
-        this.replyState = false;
+        this.resetReplyState();
         this.comment.replies = [reply, ...this.comment.replies];
 
         this._alertCtrl
@@ -69,10 +104,6 @@ export class CommentComponent {
           })
           .then((alert) => alert.present());
       });
-  }
-
-  edit(): void {
-    console.debug('EDIT');
   }
 
   delete(): void {

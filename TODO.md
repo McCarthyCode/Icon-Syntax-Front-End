@@ -10,6 +10,8 @@
 
 ## Medium Priorities
 
+- Go through project and change template bindings
+    attr="{{ value }}" to [attr]="value"
 - Infinite scrolling
   - Blog
   - Comments
