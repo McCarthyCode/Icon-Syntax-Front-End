@@ -76,7 +76,32 @@ export class CommentComponent {
   }
 
   edit(): void {
-    console.debug(this.editInput);
+    if (!this.editInput || this.editInput === this.comment.content) {
+      this._alertCtrl
+        .create({
+          message: this.editInput
+            ? 'Submitting a duplicate edit is not permitted. Please make changes to your comment before hitting "Edit."'
+            : 'Your comment cannot be blank. Please enter some text before submitting.',
+          buttons: ['Okay'],
+        })
+        .then((alert) => alert.present());
+
+      return;
+    }
+
+    this._postSrv
+      .updateComment(this.comment.id, this.editInput)
+      .subscribe((comment: Post.Comment.IModel) => {
+        this.resetEditState();
+        this.comment.content = comment.content;
+
+        this._alertCtrl
+          .create({
+            message: 'Comment updated successfully.',
+            buttons: ['Okay'],
+          })
+          .then((alert) => alert.present());
+      });
   }
 
   reply(): void {

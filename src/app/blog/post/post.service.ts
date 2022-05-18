@@ -42,6 +42,20 @@ export class PostService extends GenericService<
     );
   }
 
+  updateComment(
+    comment: number,
+    content: string
+  ): Observable<Post.Comment.IModel> {
+    const formData = new FormData();
+
+    formData.append('content', content);
+
+    return this.http.patch<Post.Comment.IModel>(
+      environment.apiBase + 'blog/comments/' + comment,
+      formData
+    );
+  }
+
   deleteComment(comment: number): Observable<null> {
     return this.http.delete<null>(
       environment.apiBase + 'blog/comments/' + comment
