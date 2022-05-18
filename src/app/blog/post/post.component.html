@@ -50,7 +50,7 @@
             </ion-textarea>
             <ion-button
               color="primary"
-              fill="{{ commentInput ? 'solid' : 'outline' }}"
+              [fill]="commentInput ? 'solid' : 'outline'"
               (click)="comment()"
             >
               Comment

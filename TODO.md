@@ -2,16 +2,22 @@
 
 ## High Priorities
 
-- Edit comments
-- Define permissions for blog
-- Setup email subscribe/unsubscribe
-- Add error reporting to Subscribe page
-- Tests
+1. Add validation
+   - Subscribe page validators
+     - email
+     - length
+   - Post length validators
+     - create
+     - update
+   - Comment length validators
+     - create
+     - update
+1. Define permissions for blog
+1. Setup email subscribe/unsubscribe
+1. Tests
 
 ## Medium Priorities
 
-- Go through project and change template bindings
-    attr="{{ value }}" to [attr]="value"
 - Infinite scrolling
   - Blog
   - Comments

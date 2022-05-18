@@ -46,8 +46,8 @@
           </h1>
           <ion-item *ngFor="let category of categoriesArr">
             <ion-checkbox
-              name="{{ category.name }}"
               slot="start"
+              [name]="category.name"
               [checked]="category.checked"
               (ionChange)="onCheckboxChange($event)"
             >

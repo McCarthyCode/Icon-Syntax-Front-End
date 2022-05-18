@@ -26,7 +26,7 @@
         </h1>
         <ion-item *ngFor="let category of categories">
           <!-- <ion-checkbox
-            name="{{ category.name }}"
+            [name]="category.name"
             slot="start"
             [checked]="category.checked"
             (ionChange)="onCheckboxChange($event)"
@@ -34,7 +34,7 @@
           </ion-checkbox> -->
           <ion-icon name="pencil" slot="start"></ion-icon>
           <ion-input
-            value="{{ category.name }}"
+            [value]="category.name"
             (ionBlur)="onBlurRenameCategory($event, category.id)"
             (keyup.enter)="onEnterRenameCategory($event, category.id)"
           >

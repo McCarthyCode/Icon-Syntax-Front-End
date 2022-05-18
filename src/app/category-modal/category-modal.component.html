@@ -36,7 +36,7 @@
             <ion-item>
               <ion-label position="floating"> Name </ion-label>
               <ion-input
-                value="{{ form.value.name }}"
+                [value]="form.value.name"
                 formControlName="name"
                 (ionChange)="onInputChange($event)"
               ></ion-input>
