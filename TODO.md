@@ -14,10 +14,11 @@
      - update
 1. Define permissions for blog
 1. Setup email subscribe/unsubscribe
-1. Tests
+1. Testing
 
 ## Medium Priorities
 
+- Disabled collapse button
 - Infinite scrolling
   - Blog
   - Comments

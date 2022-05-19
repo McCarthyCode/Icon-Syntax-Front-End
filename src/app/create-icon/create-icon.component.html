@@ -29,13 +29,13 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color="dark" (click)="onReset()"> Browse Again </ion-button>
+      <ion-button color="dark" (click)="onReset()"> Collapse </ion-button>
       <ion-button
         color="dark"
         [disabled]="activeCategoryId === null"
         (click)="onAddSubcategory()"
       >
-        Add New Subcategory
+        Add Subcategory
       </ion-button>
       <ion-button
         color="primary"
@@ -43,7 +43,7 @@
         [disabled]="activeCategoryId === null"
         (click)="onAddIcon()"
       >
-        Add New Icon
+        Add Icon
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
