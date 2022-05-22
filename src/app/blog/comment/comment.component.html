@@ -46,6 +46,7 @@
           {{ editInput.length }}/{{ characterLimit }}
         </ion-text>
       </div>
+
       <ion-button
         color="primary"
         [fill]="editLengthValid ? 'solid' : 'outline'"
@@ -54,23 +55,17 @@
       >
         Edit
       </ion-button>
-
-      <ng-template
-        [ngIf]="editInput"
-        [ngIfThen]="clearEdit"
-        [ngIfElse]="cancelEdit"
+      <ion-button
+        color="medium"
+        [fill]="editInput === '' ? 'outline' : 'solid'"
+        [disabled]="editInput === ''"
+        (click)="editInput = ''"
       >
-      </ng-template>
-      <ng-template #cancelEdit>
-        <ion-button color="medium" fill="outline" (click)="toggleEdit()">
-          Cancel
-        </ion-button>
-      </ng-template>
-      <ng-template #clearEdit>
-        <ion-button color="medium" fill="outline" (click)="editInput = ''">
-          Clear
-        </ion-button>
-      </ng-template>
+        Clear
+      </ion-button>
+      <ion-button color="medium" fill="solid" (click)="toggleEdit()">
+        Cancel
+      </ion-button>
     </ng-template>
 
     <ng-template [ngIf]="replyState">
@@ -94,22 +89,17 @@
       >
         Reply
       </ion-button>
-      <ng-template
-        [ngIf]="replyInput"
-        [ngIfThen]="clearReply"
-        [ngIfElse]="cancelReply"
+      <ion-button
+        color="medium"
+        [fill]="replyInput === '' ? 'outline' : 'solid'"
+        [disabled]="replyInput === ''"
+        (click)="replyInput = ''"
       >
-      </ng-template>
-      <ng-template #cancelReply>
-        <ion-button color="medium" fill="outline" (click)="toggleReply()">
-          Cancel
-        </ion-button>
-      </ng-template>
-      <ng-template #clearReply>
-        <ion-button color="medium" fill="outline" (click)="replyInput = ''">
-          Clear
-        </ion-button>
-      </ng-template>
+        Clear
+      </ion-button>
+      <ion-button color="medium" fill="solid" (click)="toggleReply()">
+        Cancel
+      </ion-button>
     </ng-template>
   </ion-card-content>
 </ion-card>
