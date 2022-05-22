@@ -33,6 +33,40 @@
       </em>
     </ion-card-subtitle>
 
+    <ng-template [ngIf]="replyState">
+      <ion-textarea
+        rows="5"
+        placeholder="Add a reply here."
+        [value]="replyInput"
+        (ionChange)="onReplyChange($event)"
+      >
+      </ion-textarea>
+      <div class="ion-text-right">
+        <ion-text [color]="replyLengthValid ? 'dark' : 'danger'">
+          {{ replyInput.length }}/{{ characterLimit }}
+        </ion-text>
+      </div>
+      <ion-button
+        color="primary"
+        [fill]="replyLengthValid ? 'solid' : 'outline'"
+        [disabled]="!replyLengthValid"
+        (click)="reply()"
+      >
+        Reply
+      </ion-button>
+      <ion-button
+        color="medium"
+        [fill]="replyInput === '' ? 'outline' : 'solid'"
+        [disabled]="replyInput === ''"
+        (click)="replyInput = ''"
+      >
+        Clear
+      </ion-button>
+      <ion-button color="medium" fill="solid" (click)="toggleReply()">
+        Cancel
+      </ion-button>
+    </ng-template>
+
     <ng-template [ngIf]="editState">
       <ion-textarea
         rows="5"
@@ -64,40 +98,6 @@
         Clear
       </ion-button>
       <ion-button color="medium" fill="solid" (click)="toggleEdit()">
-        Cancel
-      </ion-button>
-    </ng-template>
-
-    <ng-template [ngIf]="replyState">
-      <ion-textarea
-        rows="5"
-        placeholder="Add a reply here."
-        [value]="replyInput"
-        (ionChange)="onReplyChange($event)"
-      >
-      </ion-textarea>
-      <div class="ion-text-right">
-        <ion-text [color]="replyLengthValid ? 'dark' : 'danger'">
-          {{ replyInput.length }}/{{ characterLimit }}
-        </ion-text>
-      </div>
-      <ion-button
-        color="primary"
-        [fill]="replyLengthValid ? 'solid' : 'outline'"
-        [disabled]="!replyLengthValid"
-        (click)="reply()"
-      >
-        Reply
-      </ion-button>
-      <ion-button
-        color="medium"
-        [fill]="replyInput === '' ? 'outline' : 'solid'"
-        [disabled]="replyInput === ''"
-        (click)="replyInput = ''"
-      >
-        Clear
-      </ion-button>
-      <ion-button color="medium" fill="solid" (click)="toggleReply()">
         Cancel
       </ion-button>
     </ng-template>
