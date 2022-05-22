@@ -15,12 +15,14 @@ export class CommentComponent {
   @Input() indentLevel = 0;
 
   get updated(): boolean {
-    if (this.comment.created && this.comment.updated) {
+    if (this.comment?.created && this.comment?.updated) {
       const created = new Date(this.comment.created);
       const updated = new Date(this.comment.updated);
 
       return updated.getTime() - created.getTime() > 1000;
     }
+
+    return false;
   }
   get indent(): boolean {
     return this.indentLevel < maxIndent;
