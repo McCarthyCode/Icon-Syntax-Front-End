@@ -3,9 +3,6 @@
 ## High Priorities
 
 1. Add validation
-   - Subscribe page validators
-     - email
-     - length
    - Post length validators
      - create
      - update

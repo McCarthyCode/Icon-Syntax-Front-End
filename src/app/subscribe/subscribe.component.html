@@ -13,9 +13,9 @@
           <ion-item-divider *ngIf="isAdmin">
             <ion-label> Subscribe to Email Updates </ion-label>
           </ion-item-divider>
-          <ion-item>
+          <ion-item [formGroup]="form">
             <ion-label position="floating"> Email Address </ion-label>
-            <ion-input #email></ion-input>
+            <ion-input formControlName="email"></ion-input>
             <ion-text color="danger">
               <small>{{ error }}</small>
             </ion-text>
@@ -24,6 +24,7 @@
             class="ion-margin"
             color="primary"
             expand="block"
+            [disabled]="!form.valid"
             (click)="subscribe()"
           >
             Subscribe
@@ -46,7 +47,6 @@
                 <ion-badge color="success">CSV</ion-badge>
               </a>
             </h1>
-            <br />
           </ion-item>
         </ion-list>
       </ion-col>
