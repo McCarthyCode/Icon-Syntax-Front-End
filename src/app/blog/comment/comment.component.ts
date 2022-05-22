@@ -94,6 +94,7 @@ export class CommentComponent {
       .subscribe((comment: Post.Comment.IModel) => {
         this.resetEditState();
         this.comment.content = comment.content;
+        this.comment.updated = new Date();
 
         this._alertCtrl
           .create({
@@ -120,7 +121,9 @@ export class CommentComponent {
       .comment(this.comment.post, this.replyInput, this.comment.id)
       .subscribe((reply: Post.Comment.IModel) => {
         this.resetReplyState();
-        this.comment.replies = [reply, ...this.comment.replies];
+        this.comment.replies = this.comment.replies
+          ? [reply, ...this.comment.replies]
+          : [reply];
 
         this._alertCtrl
           .create({
