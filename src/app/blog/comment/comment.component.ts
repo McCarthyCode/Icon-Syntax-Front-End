@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Post } from 'src/app/models/post.model';
+import { environment } from 'src/environments/environment';
 import { PostService } from '../post/post.service';
 
 const maxIndent = 3;
@@ -28,7 +29,7 @@ export class CommentComponent {
     return this.indentLevel < maxIndent;
   }
 
-  characterLimit = 500;
+  characterLimit = environment.commentLimit;
 
   get replyLengthValid(): boolean {
     return this.replyInput && this.replyInput.length <= this.characterLimit;

@@ -6,9 +6,6 @@
    - Post length validators
      - create
      - update
-   - Comment length validators
-     - create
-     - update
 1. Define permissions for blog
 1. Setup email subscribe/unsubscribe
 1. Testing

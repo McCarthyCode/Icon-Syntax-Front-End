@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
 import { Post } from 'src/app/models/post.model';
+import { environment } from 'src/environments/environment';
 import { PostModalComponent } from './post-modal/post-modal.component';
 import { PostService } from './post.service';
 
@@ -13,7 +14,7 @@ import { PostService } from './post.service';
 })
 export class PostComponent {
   post: Post.IModel;
-  commentInput: string;
+  commentInput = '';
 
   get updated(): boolean {
     if (this.post.created && this.post.updated) {
@@ -25,6 +26,12 @@ export class PostComponent {
   }
   get isAdmin(): boolean {
     return this._authSrv.isAdmin;
+  }
+
+  characterLimit = environment.commentLimit;
+
+  get commentLengthValid(): boolean {
+    return this.commentInput && this.commentInput.length <= this.characterLimit;
   }
 
   constructor(

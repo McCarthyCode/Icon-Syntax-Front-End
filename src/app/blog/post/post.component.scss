@@ -8,16 +8,23 @@ p {
 }
 
 ion-textarea {
-  background-color: #7f7f7f !important;
-  color: black;
+  border: 1px solid var(--ion-color-medium);
   border-radius: 4px;
 }
 
-ion-card ion-button {
-  margin: 1rem 0 0 0;
+ion-card-content ion-button {
+  margin: 0;
+  border-radius: 4px;
 
-  &::part(native) {
-    border: 2px solid #428cff;
-    border-radius: 4px;
+  &:not(:last-child) {
+    margin-right: 4px;
+  }
+
+  &[color="primary"]::part(native) {
+    border: 2px solid var(--ion-color-primary);
+  }
+
+  &[color="medium"]::part(native) {
+    border: 2px solid var(--ion-color-medium);
   }
 }
