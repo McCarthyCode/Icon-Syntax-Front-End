@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Post } from 'src/app/models/post.model';
+import { environment } from 'src/environments/environment';
 import { PostService } from '../post.service';
 
 @Component({
@@ -18,6 +19,16 @@ export class PostModalComponent implements OnInit {
   post: Post.IModel;
   form: FormGroup;
 
+  get contentLength(): number {
+    return this.form.value.content.length;
+  }
+  get contentLimit(): number {
+    return environment.postLimit;
+  }
+  get contentValid(): boolean {
+    return this.contentLength > 0 && this.contentLength <= this.contentLimit;
+  }
+
   constructor(
     private _modalCtrl: ModalController,
     private _postSrv: PostService
@@ -33,7 +44,10 @@ export class PostModalComponent implements OnInit {
         this.mode === 'create' ? null : this.post?.content,
         {
           updateOn: 'change',
-          validators: [Validators.required],
+          validators: [
+            Validators.required,
+            Validators.maxLength(this.contentLimit),
+          ],
         }
       ),
     });

@@ -2,12 +2,9 @@
 
 ## High Priorities
 
-1. Add validation
-   - Post length validators
-     - create
-     - update
-1. Define permissions for blog
+1. Fix bug where user is kicked on refresh
 1. Setup email subscribe/unsubscribe
+1. Define permissions for blog
 1. Testing
 
 ## Medium Priorities
@@ -17,7 +14,6 @@
   - Blog
   - Comments
 - Determine horizontal ellipsis appearance by truncated Boolean from backend
-- Fix bug where user is kicked on refresh
 - Content management / Icons / Edit Icon
 
 ## Low Priorities
@@ -29,5 +25,4 @@
   - Categories
     - Requested categories
     - Tree editor
-  - Gallery
 - Sentence builder

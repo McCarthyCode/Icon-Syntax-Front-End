@@ -26,6 +26,11 @@
           placeholder="Write your blog post here."
         >
         </ion-textarea>
+        <div class="ion-text-right">
+          <ion-text [color]="contentValid ? 'dark' : 'danger'">
+            {{ contentLength }}/{{ contentLimit }}
+          </ion-text>
+        </div>
       </ion-item>
     </ion-list>
   </form>

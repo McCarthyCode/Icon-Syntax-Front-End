@@ -13,7 +13,7 @@ export const environment = {
   ...secret,
   ...development,
   commentLimit: 500,
-  postLimit: 5000,
+  postLimit: 10000,
   apiBase: development.urlRoot + '/api/v0-alpha/',
 };
 
