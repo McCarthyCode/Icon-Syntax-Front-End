@@ -41,11 +41,15 @@
         (ionChange)="onEditChange($event)"
       >
       </ion-textarea>
+      <div class="ion-text-right">
+        <ion-text [color]="editLengthValid ? 'dark' : 'danger'">
+          {{ editInput.length }}/{{ characterLimit }}
+        </ion-text>
+      </div>
       <ion-button
         color="primary"
-        [fill]="
-          editInput && editInput !== comment.content ? 'solid' : 'outline'
-        "
+        [fill]="editLengthValid ? 'solid' : 'outline'"
+        [disabled]="!editLengthValid"
         (click)="edit()"
       >
         Edit
@@ -77,9 +81,15 @@
         (ionChange)="onReplyChange($event)"
       >
       </ion-textarea>
+      <div class="ion-text-right">
+        <ion-text [color]="replyLengthValid ? 'dark' : 'danger'">
+          {{ replyInput.length }}/{{ characterLimit }}
+        </ion-text>
+      </div>
       <ion-button
         color="primary"
-        [fill]="replyInput ? 'solid' : 'outline'"
+        [fill]="replyLengthValid ? 'solid' : 'outline'"
+        [disabled]="!replyLengthValid"
         (click)="reply()"
       >
         Reply

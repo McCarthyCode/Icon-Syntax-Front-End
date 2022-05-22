@@ -28,6 +28,15 @@ export class CommentComponent {
     return this.indentLevel < maxIndent;
   }
 
+  characterLimit = 500;
+
+  get replyLengthValid(): boolean {
+    return this.replyInput && this.replyInput.length <= this.characterLimit;
+  }
+  get editLengthValid(): boolean {
+    return this.editInput && this.editInput.length <= this.characterLimit;
+  }
+
   visible = true;
 
   replyInput: string;
