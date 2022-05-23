@@ -2,9 +2,7 @@
 
 ## High Priorities
 
-1. Infinite scrolling
-   - Blog
-   - Comments
+1. Infinite scrolling / Blog
 1. Define permissions for blog
 1. Setup email subscribe/unsubscribe
 1. Testing

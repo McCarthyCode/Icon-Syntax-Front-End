@@ -33,5 +33,7 @@ export namespace Model {
     pagination: IPagination;
   }
   export interface IClientData<T> extends IDatum<T>, IClientDataCommon {}
-  export interface IClientDataList<T> extends IData<T>, IClientDataCommon {}
+  export interface IClientDataList<T> extends IData<T>, IClientDataCommon {
+    pagination?: IPagination;
+  }
 }

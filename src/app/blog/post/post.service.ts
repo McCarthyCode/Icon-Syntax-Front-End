@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth.service';
 import { GenericService } from 'src/app/generic.service';
 import { Post } from 'src/app/models/post.model';
@@ -40,6 +41,15 @@ export class PostService extends GenericService<
       environment.apiBase + 'blog/comments',
       formData
     );
+  }
+
+  comments(post: number, page = 1): Observable<Post.Comment.IClientDataList> {
+    return this.http
+      .get<Post.Comment.IClientDataList>(
+        environment.apiBase + 'blog/comments',
+        { params: { post: post, page: page } }
+      )
+      .pipe(debounceTime(250));
   }
 
   updateComment(

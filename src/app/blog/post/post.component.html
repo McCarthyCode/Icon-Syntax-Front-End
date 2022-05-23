@@ -72,9 +72,12 @@
             </ion-button>
           </ion-card-content>
         </ion-card>
-        <app-comment *ngFor="let comment of post.comments" [comment]="comment">
+        <app-comment *ngFor="let comment of comments" [comment]="comment">
         </app-comment>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-infinite-scroll threshold="200px" (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

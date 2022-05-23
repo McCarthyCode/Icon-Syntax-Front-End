@@ -4,7 +4,6 @@ export namespace Post {
   export interface IModel extends Model.IModel {
     title: string;
     content: string;
-    comments: Comment.IModel[];
   }
 
   export interface IResponseBody extends Model.IResponseBody<IModel> {}

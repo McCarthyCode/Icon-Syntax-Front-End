@@ -14,7 +14,11 @@ import { PostService } from './post.service';
 })
 export class PostComponent {
   post: Post.IModel;
+  comments: Post.Comment.IModel[] = [];
+  commentsLoaded = false;
+
   commentInput = '';
+  commentPage = 1;
 
   get updated(): boolean {
     if (this.post.created && this.post.updated) {
@@ -112,13 +116,14 @@ export class PostComponent {
           buttons: ['Okay'],
         })
         .then((alert) => alert.present());
+
       return;
     }
 
     this._postSrv
       .comment(this.post.id, this.commentInput)
       .subscribe((comment: Post.Comment.IModel) => {
-        this.post.comments = [comment, ...this.post.comments];
+        this.comments = [comment, ...this.comments];
         this._alertCtrl
           .create({
             message: 'Comment posted successfully.',
@@ -126,5 +131,23 @@ export class PostComponent {
           })
           .then((alert) => alert.present());
       });
+  }
+
+  nextPage($event: any): void {
+    if (!this.commentsLoaded) {
+      this._postSrv
+        .comments(this.post.id, this.commentPage)
+        .subscribe((clientData: Post.Comment.IClientDataList) => {
+          this.comments.push(...clientData.data);
+          this.commentPage++;
+
+          $event.target.complete();
+
+          if (!clientData.pagination.nextPageExists) {
+            this.commentsLoaded = true;
+            $event.target.disabled = true;
+          }
+        });
+    }
   }
 }
