@@ -36,12 +36,12 @@ export class PostModalComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      title: new FormControl(this.mode === 'create' ? null : this.post?.title, {
+      title: new FormControl(this.mode === 'create' ? '' : this.post?.title, {
         updateOn: 'change',
         validators: [Validators.required, Validators.maxLength(80)],
       }),
       content: new FormControl(
-        this.mode === 'create' ? null : this.post?.content,
+        this.mode === 'create' ? '' : this.post?.content,
         {
           updateOn: 'change',
           validators: [
