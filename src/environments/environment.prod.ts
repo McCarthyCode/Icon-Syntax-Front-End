@@ -1,4 +1,5 @@
-import { prod as secret } from './secret';
+import { production as secret } from './environment.secret';
+import { shared } from './environment.shared';
 
 const production = {
   production: true,
@@ -6,8 +7,8 @@ const production = {
 };
 
 export const environment = {
-  ...secret,
-  ...production,
   apiBase: production.urlRoot + '/api/v0-alpha/',
-  mediaBase: production.urlRoot + '',
+  ...production,
+  ...shared,
+  ...secret,
 };
