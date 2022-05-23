@@ -16,6 +16,8 @@ export class BlogComponent {
   }
 
   posts: Post.IModel[];
+  page = 1;
+  postsLoaded = false;
 
   constructor(
     private _authSrv: AuthService,
@@ -29,9 +31,17 @@ export class BlogComponent {
   }
 
   refresh() {
-    this._postSrv.list().subscribe((clientDataList: Post.IClientDataList) => {
-      this.posts = clientDataList.data;
-    });
+    this.page = 1;
+    this._postSrv
+      .list()
+      .subscribe((clientData: Post.IClientDataList) => {
+        this.posts = clientData.data;
+        this.page = 2;
+
+        if (!clientData.pagination.nextPageExists) {
+          this.postsLoaded = true;
+        }
+      });
   }
 
   create(): void {
@@ -55,5 +65,23 @@ export class BlogComponent {
         },
       })
       .then((modal) => modal.present());
+  }
+
+  nextPage($event: any): void {
+    if (!this.postsLoaded) {
+      this._postSrv
+        .list({ page: this.page })
+        .subscribe((clientData: Post.IClientDataList) => {
+          this.posts.push(...clientData.data);
+          this.page++;
+
+          $event.target.complete();
+
+          if (!clientData.pagination.nextPageExists) {
+            this.postsLoaded = true;
+            $event.target.disabled = true;
+          }
+        });
+    }
   }
 }

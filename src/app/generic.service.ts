@@ -51,12 +51,9 @@ export abstract class GenericService<
 
   convertList(results: IResponseBodyList): IClientDataList {
     const clientDataList: any = {
-      data: results.data,
       retrieved: new Date(),
+      ...results,
     };
-
-    if (results.success) clientDataList['success'] = results.success;
-    if (results.errors) clientDataList['errors'] = results.errors;
 
     return clientDataList as IClientDataList;
   }

@@ -18,4 +18,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-infinite-scroll
+    [hidden]="postsLoaded"
+    threshold="200px"
+    (ionInfinite)="nextPage($event)"
+  >
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
