@@ -1,5 +1,10 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="refresh()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Blog</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="create()" *ngIf="isAdmin">

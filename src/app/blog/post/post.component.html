@@ -2,6 +2,9 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/blog"></ion-back-button>
+      <ion-button (click)="refresh()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title> Blog </ion-title>
     <ion-buttons slot="end" *ngIf="isAdmin">
@@ -77,7 +80,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-infinite-scroll threshold="200px" (ionInfinite)="nextPage($event)">
+  <ion-infinite-scroll
+    [hidden]="commentsLoaded"
+    threshold="200px"
+    (ionInfinite)="nextPage($event)"
+  >
     <ion-infinite-scroll-content> </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

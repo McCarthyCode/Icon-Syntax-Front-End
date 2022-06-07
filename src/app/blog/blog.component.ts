@@ -32,16 +32,17 @@ export class BlogComponent {
 
   refresh() {
     this.page = 1;
-    this._postSrv
-      .list()
-      .subscribe((clientData: Post.IClientDataList) => {
-        this.posts = clientData.data;
-        this.page = 2;
+    this.postsLoaded = false;
+    this.posts = [];
 
-        if (!clientData.pagination.nextPageExists) {
-          this.postsLoaded = true;
-        }
-      });
+    this._postSrv.list().subscribe((clientData: Post.IClientDataList) => {
+      this.posts = clientData.data;
+      this.page = 2;
+
+      if (!clientData.pagination.nextPageExists) {
+        this.postsLoaded = true;
+      }
+    });
   }
 
   create(): void {
@@ -79,7 +80,6 @@ export class BlogComponent {
 
           if (!clientData.pagination.nextPageExists) {
             this.postsLoaded = true;
-            $event.target.disabled = true;
           }
         });
     }

@@ -48,10 +48,21 @@ export class PostComponent {
   ) {}
 
   ionViewWillEnter() {
+    this.refresh();
+  }
+
+  refresh() {
+    this.post = undefined;
+    this.comments = [];
+
+    this.commentsLoaded = false;
+    this.commentPage = 1;
+
     this._route.paramMap.subscribe((paramMap) => {
-      this._postSrv
-        .retrieve(+paramMap.get('id'))
-        .subscribe((clientData) => (this.post = clientData.data));
+      this._postSrv.retrieve(+paramMap.get('id')).subscribe((clientData) => {
+        this.post = clientData.data;
+        this.firstPage();
+      });
     });
   }
 
@@ -133,8 +144,23 @@ export class PostComponent {
       });
   }
 
+  firstPage(): void {
+    if (this.post && !this.commentsLoaded) {
+      this._postSrv
+        .comments(this.post.id)
+        .subscribe((clientData: Post.Comment.IClientDataList) => {
+          this.comments.push(...clientData.data);
+          this.commentPage = 2;
+
+          if (!clientData.pagination.nextPageExists) {
+            this.commentsLoaded = true;
+          }
+        });
+    }
+  }
+
   nextPage($event: any): void {
-    if (!this.commentsLoaded) {
+    if (this.post && !this.commentsLoaded) {
       this._postSrv
         .comments(this.post.id, this.commentPage)
         .subscribe((clientData: Post.Comment.IClientDataList) => {
@@ -145,7 +171,6 @@ export class PostComponent {
 
           if (!clientData.pagination.nextPageExists) {
             this.commentsLoaded = true;
-            $event.target.disabled = true;
           }
         });
     }
