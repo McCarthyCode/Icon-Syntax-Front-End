@@ -2,9 +2,6 @@
 
 ## High Priorities
 
-1. Change icons
-   - Comment reply -> 'undo'
-   - Blog menu -> 'chatbox'
 1. Add warning about refreshing the page
 1. Setup email subscribe/unsubscribe
 1. Define permissions for blog
