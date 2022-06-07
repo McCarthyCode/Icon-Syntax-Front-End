@@ -2,7 +2,6 @@
 
 ## High Priorities
 
-1. Add warning about refreshing the page
 1. Setup email subscribe/unsubscribe
 1. Define permissions for blog
 1. Change color of card background

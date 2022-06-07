@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
           },
         ],
       })
-      .then((toast) => {
+      .then((success) => {
         this.form.reset();
         this.errors$.next({ identifier: [], password: [] });
 
@@ -102,7 +102,25 @@ export class LoginComponent implements OnInit {
         );
 
         loader.dismiss();
-        toast.present();
+        this._toastCtrl
+          .create({
+            message:
+              "Please do not use the browser's refresh button, as this will log you out.",
+            position: 'top',
+            color: 'warning',
+            duration: 5000,
+            cssClass: 'toast',
+            buttons: [
+              {
+                text: 'Close',
+                role: 'cancel',
+              },
+            ],
+          })
+          .then((warning) => {
+            setTimeout(() => warning.present(), 5000);
+            success.present();
+          });
       });
   }
 
