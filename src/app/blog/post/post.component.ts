@@ -134,6 +134,7 @@ export class PostComponent {
     this._postSrv
       .comment(this.post.id, this.commentInput)
       .subscribe((comment: Post.Comment.IModel) => {
+        this.commentInput = '';
         this.comments = [comment, ...this.comments];
         this._alertCtrl
           .create({
