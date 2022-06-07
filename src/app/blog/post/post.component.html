@@ -20,24 +20,20 @@
 
 <ion-content>
   <ion-grid class="ion-no-padding" *ngIf="post">
-    <ion-row class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center ion-margin-bottom">
       <ion-col class="ion-no-padding" size-lg="9" size-xl="8">
         <h1 class="ion-text-center ion-padding-horizontal">
           {{ post?.title }}
         </h1>
-        <ion-card class="ion-margin-bottom">
-          <ion-card-content>
-            <p [innerHTML]="post?.content | linebreaks"></p>
-            <ion-text color="primary">
-              <em>
-                Created:&nbsp;{{ post?.created | date: "MM/dd/YYYY" }}
-                <span *ngIf="updated">
-                  &bull; Updated:&nbsp;{{ post?.updated | date: "MM/dd/YYYY" }}
-                </span>
-              </em>
-            </ion-text>
-          </ion-card-content>
-        </ion-card>
+        <p [innerHTML]="post?.content | linebreaks"></p>
+        <ion-text color="primary">
+          <em>
+            Created:&nbsp;{{ post?.created | date: "MM/dd/YYYY" }}
+            <span *ngIf="updated">
+              &bull; Updated:&nbsp;{{ post?.updated | date: "MM/dd/YYYY" }}
+            </span>
+          </em>
+        </ion-text>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">

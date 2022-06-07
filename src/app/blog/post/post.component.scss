@@ -5,6 +5,7 @@ h1 {
 p {
   font-size: 1rem;
   margin-bottom: 1rem;
+  color: hsl(0, 0%, 66.7%);
 }
 
 ion-textarea {
@@ -12,19 +13,23 @@ ion-textarea {
   border-radius: 4px;
 }
 
-ion-card-content ion-button {
-  margin: 0;
-  border-radius: 4px;
+ion-card {
+  background-color: rgba(30, 30, 30, 50%);
 
-  &:not(:last-child) {
-    margin-right: 4px;
-  }
+  ion-button {
+    margin: 0;
+    border-radius: 4px;
 
-  &[color="primary"]::part(native) {
-    border: 2px solid var(--ion-color-primary);
-  }
+    &:not(:last-child) {
+      margin-right: 4px;
+    }
 
-  &[color="medium"]::part(native) {
-    border: 2px solid var(--ion-color-medium);
+    &[color="primary"]::part(native) {
+      border: 2px solid var(--ion-color-primary);
+    }
+
+    &[color="medium"]::part(native) {
+      border: 2px solid var(--ion-color-medium);
+    }
   }
 }

@@ -5,6 +5,12 @@ p {
 
 ion-card {
   cursor: pointer;
+  background-color: rgba(30, 30, 30, 50%);
+  transition: background-color 150ms ease-in-out;
+
+  &:hover {
+    background-color: rgb(30, 30, 30);
+  }
 
   ion-card-title {
     font-size: 20px;
