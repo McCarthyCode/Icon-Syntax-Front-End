@@ -6,6 +6,7 @@
         <ion-button (click)="toggleReply()">
           <ion-icon
             [name]="replyState ? 'close' : 'arrow-undo'"
+            [class.rotate]="!replyState"
             slot="icon-only"
           >
           </ion-icon>

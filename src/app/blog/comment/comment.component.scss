@@ -23,6 +23,10 @@ ion-card {
 
     ion-buttons {
       margin: -10px -0.75rem 0 0;
+
+      ion-button ion-icon.rotate {
+        transform: rotate(180deg) translateY(-1px);
+      }
     }
   }
 
