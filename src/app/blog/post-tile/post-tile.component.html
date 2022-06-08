@@ -7,11 +7,17 @@
 
   <ion-card-content>
     <p
+      class="ion-text-justify"
+      *ngIf="post?.content.length > 0"
       [innerHtml]="
-        (post.content + (post.content.length >= previewMax ? '&hellip;' : ''))
-          | linebreaks
+        (post.content.length >= previewMax
+          ? post.content + '&hellip;'
+          : post.content
+        ) | linebreaks
       "
-    ></p>
+    >
+      &hellip;
+    </p>
     <ion-text color="primary">
       <em>
         Created:&nbsp;{{ post.created | date: "MM/dd/YYYY" }}

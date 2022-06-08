@@ -25,7 +25,9 @@
         <h1 class="ion-text-center ion-padding-horizontal">
           {{ post?.title }}
         </h1>
-        <p [innerHTML]="post?.content | linebreaks"></p>
+        <p class="ion-text-justify" [innerHTML]="post?.content | linebreaks">
+          &hellip;
+        </p>
         <ion-text color="primary">
           <em>
             Created:&nbsp;{{ post?.created | date: "MM/dd/YYYY" }}
