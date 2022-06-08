@@ -2,7 +2,6 @@
 
 ## High Priorities
 
-1. Change background colors to match blog tiles with comment cards
 1. Add padding to blog post body and timestamp
 1. Change 'undo' icon to 'redo' icon
 1. Setup email subscribe/unsubscribe
