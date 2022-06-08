@@ -19,9 +19,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="ion-no-padding" *ngIf="post">
+  <ion-grid *ngIf="post">
     <ion-row class="ion-justify-content-center ion-margin-bottom">
-      <ion-col class="ion-no-padding" size-lg="9" size-xl="8">
+      <ion-col size-lg="9" size-xl="8">
         <h1 class="ion-text-center ion-padding-horizontal">
           {{ post?.title }}
         </h1>
@@ -37,9 +37,9 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-      <ion-col class="ion-no-padding" size-lg="9" size-xl="8">
-        <h2 class="ion-margin-horizontal">Comments</h2>
-        <ion-card>
+      <ion-col size-lg="9" size-xl="8">
+        <h2>Comments</h2>
+        <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-textarea
               (ionChange)="onCommentChange($event)"
