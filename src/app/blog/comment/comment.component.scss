@@ -1,50 +1,41 @@
 p {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 ion-card {
   background-color: rgba(30, 30, 30, 50%);
+}
 
-  ion-card-header {
-    .flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 4px;
-    }
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 4px;
+}
 
-    ion-card-title {
-      max-width: calc(100vw - 188px);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+ion-buttons {
+  margin: 0 -0.75rem -10px 0;
 
-    ion-buttons {
-      margin: -10px -0.75rem 0 0;
+  ion-icon.rotate {
+    transform: rotate(180deg) translateY(-1px);
+  }
+}
 
-      ion-button ion-icon.rotate {
-        transform: rotate(180deg) translateY(-1px);
-      }
-    }
+ion-card-content > ion-button {
+  margin: 0;
+  border-radius: 4px;
+
+  &:not(:last-child) {
+    margin-right: 4px;
   }
 
-  ion-card-content ion-button {
-    margin: 0;
-    border-radius: 4px;
+  &[color='primary']::part(native) {
+    border: 2px solid var(--ion-color-primary);
+  }
 
-    &:not(:last-child) {
-      margin-right: 4px;
-    }
-
-    &[color="primary"]::part(native) {
-      border: 2px solid var(--ion-color-primary);
-    }
-
-    &[color="medium"]::part(native) {
-      border: 2px solid var(--ion-color-medium);
-    }
+  &[color='medium']::part(native) {
+    border: 2px solid var(--ion-color-medium);
   }
 }
 
