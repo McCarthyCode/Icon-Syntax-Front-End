@@ -27,10 +27,10 @@
 
     <ion-card-subtitle color="primary">
       <em>
-        Created:&nbsp;{{ comment.created | date: "MM/dd/YYYY" }}
-        <span *ngIf="updated">
-          &bull; Updated:&nbsp;{{ comment.updated | date: "MM/dd/YYYY" }}
-        </span>
+        Created:&nbsp;{{ comment.created | date: 'MM/dd/YYYY' }}
+        <ng-template [ngIf]="updated">
+          &bull; Updated:&nbsp;{{ comment.updated | date: 'MM/dd/YYYY' }}
+        </ng-template>
       </em>
     </ion-card-subtitle>
 
