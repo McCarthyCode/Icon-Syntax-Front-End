@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
   // Subscriptions
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
           duration: 5000,
           cssClass: 'toast',
           position: 'top',
-          color: 'success',
+          color: 'success'
         })
         .then((toast) => {
           toast.present();

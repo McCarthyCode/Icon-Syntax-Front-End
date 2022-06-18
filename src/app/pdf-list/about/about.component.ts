@@ -8,7 +8,7 @@ import { PdfService } from '../../pdf.service';
 @Component({
   selector: 'app-about',
   templateUrl: '../pdf-list/pdf-list.component.html',
-  styleUrls: ['../pdf-list/pdf-list.component.scss'],
+  styleUrls: ['../pdf-list/pdf-list.component.scss']
 })
 export class AboutComponent extends PdfListComponent {
   constructor(

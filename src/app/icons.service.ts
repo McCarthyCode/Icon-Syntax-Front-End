@@ -7,7 +7,7 @@ import { GenericService } from './generic.service';
 import { Icon } from './models/icon.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class IconsService extends GenericService<
   Icon.IModel,

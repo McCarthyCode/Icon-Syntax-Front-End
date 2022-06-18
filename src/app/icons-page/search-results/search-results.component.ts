@@ -10,7 +10,7 @@ import { Icon } from 'src/app/models/icon.model';
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.scss'],
+  styleUrls: ['./search-results.component.scss']
 })
 export class SearchResultsComponent {
   // Getters/Setters
@@ -93,7 +93,7 @@ export class SearchResultsComponent {
         .list({
           search: this._findSrv.query,
           category: this._findSrv.categoryId,
-          page: this._findSrv.page + 1,
+          page: this._findSrv.page + 1
         })
         .subscribe((icons) => {
           const updated = this.icons$.value;

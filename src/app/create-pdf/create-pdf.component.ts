@@ -9,7 +9,7 @@ import { PdfService } from '../pdf.service';
 @Component({
   selector: 'app-create-pdf',
   templateUrl: './create-pdf.component.html',
-  styleUrls: ['./create-pdf.component.scss'],
+  styleUrls: ['./create-pdf.component.scss']
 })
 export class CreatePdfComponent implements OnInit {
   form: FormGroup = new FormGroup({});
@@ -45,16 +45,16 @@ export class CreatePdfComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required, Validators.maxLength(160)],
+        validators: [Validators.required, Validators.maxLength(160)]
       }),
       pdf: new FormControl(null, {
         updateOn: 'change',
-        validators: [Validators.required],
+        validators: [Validators.required]
       }),
       categories: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required, Validators.maxLength(160)],
-      }),
+        validators: [Validators.required, Validators.maxLength(160)]
+      })
     });
 
     this._categoriesSrv.list({ topic: this.topic }).subscribe((categories) => {
@@ -116,7 +116,7 @@ export class CreatePdfComponent implements OnInit {
         this._alertCtrl
           .create({
             message: 'Please login to continue.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => alert.present());
 
@@ -125,7 +125,7 @@ export class CreatePdfComponent implements OnInit {
         this._alertCtrl
           .create({
             message: response.success,
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => {
             this._pdfSrv.refresh(this.topic).subscribe();
@@ -143,7 +143,7 @@ export class CreatePdfComponent implements OnInit {
           .create({
             message:
               'There was an error processing your request. Please try again later.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => alert.present());
 

@@ -7,7 +7,7 @@ import { Auth } from 'src/app/interfaces/auth.interface';
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
-  styleUrls: ['./verify.component.scss'],
+  styleUrls: ['./verify.component.scss']
 })
 export class RegisterVerifyComponent implements OnInit {
   loading = true;
@@ -34,16 +34,16 @@ export class RegisterVerifyComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: () => this._router.navigateByUrl('/icons/browse'),
-                },
-              ],
+                  handler: () => this._router.navigateByUrl('/icons/browse')
+                }
+              ]
             })
             .then((alert) => {
               this.loading = false;
               alert.present();
             });
         },
-        error: (response) => console.error(response),
+        error: (response) => console.error(response)
       });
     });
   }

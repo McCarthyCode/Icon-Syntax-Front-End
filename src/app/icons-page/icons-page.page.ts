@@ -5,7 +5,7 @@ import { FindService } from '../find.service';
 @Component({
   selector: 'app-icons-page',
   templateUrl: './icons-page.page.html',
-  styleUrls: ['./icons-page.page.scss'],
+  styleUrls: ['./icons-page.page.scss']
 })
 export class IconsPage {
   get count(): string {

@@ -8,7 +8,7 @@ import { PdfListComponent } from '../pdf-list/pdf-list.component';
 @Component({
   selector: 'app-icon-lit',
   templateUrl: '../pdf-list/pdf-list.component.html',
-  styleUrls: ['../pdf-list/pdf-list.component.scss'],
+  styleUrls: ['../pdf-list/pdf-list.component.scss']
 })
 export class PersonalComponent extends PdfListComponent {
   constructor(

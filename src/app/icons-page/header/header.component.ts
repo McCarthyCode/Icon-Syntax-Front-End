@@ -4,7 +4,7 @@ import { FindService } from 'src/app/find.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   get path(): string {
@@ -14,7 +14,7 @@ export class HeaderComponent {
         ? 'Browse Library'
         : this._findSrv.searchResultsVisible
         ? 'Search Results'
-        : '',
+        : ''
     ].join(' » ');
   }
   get breadcrumbs(): string {

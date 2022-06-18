@@ -19,7 +19,7 @@ import { ViewSDKClient } from '../view-sdk.service';
 @Component({
   selector: 'pdf-sized-container',
   templateUrl: './sized-container.component.html',
-  styleUrls: ['./sized-container.component.scss'],
+  styleUrls: ['./sized-container.component.scss']
 })
 export class SizedContainerComponent implements AfterViewInit {
   @Input() pdf: PDF.IModel;
@@ -31,7 +31,7 @@ export class SizedContainerComponent implements AfterViewInit {
       /* Invoke file preview */
       this.viewSDKClient.previewFile(this.pdf, {
         /* Pass the embed mode option here */
-        embedMode: 'SIZED_CONTAINER',
+        embedMode: 'SIZED_CONTAINER'
       });
     });
   }

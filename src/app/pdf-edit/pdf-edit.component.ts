@@ -12,17 +12,10 @@ interface ICategory {
   checked: boolean;
 }
 
-// const convertCategoryToInterface: ICategory = (name: string, checked: boolean) => {
-//   return {
-//     name: name,
-//     checked: checked,
-//   } as ICategory;
-// };
-
 @Component({
   selector: 'app-pdf-edit',
   templateUrl: './pdf-edit.component.html',
-  styleUrls: ['./pdf-edit.component.scss'],
+  styleUrls: ['./pdf-edit.component.scss']
 })
 export class PdfEditComponent {
   @Input() id: number;
@@ -62,7 +55,7 @@ export class PdfEditComponent {
   updateCategoriesSet(): void {
     this.categoriesSet = new Set<ICategory>([
       ...this.checkedCategoriesArr.map(this.checked),
-      ...this.uncheckedCategoriesArr.map(this.unchecked),
+      ...this.uncheckedCategoriesArr.map(this.unchecked)
     ]);
   }
 
@@ -89,29 +82,31 @@ export class PdfEditComponent {
         this.checkedCategoriesSet = new Set(
           checkedCategories.data.map((category) => category.name)
         );
-        this._categoriesSrv.list({topic:this.topic}).subscribe((allCategories) => {
-          this.uncheckedCategoriesSet = SetOps.difference(
-            new Set(allCategories.data.map((category) => category.name)),
-            this.checkedCategoriesSet
-          );
+        this._categoriesSrv
+          .list({ topic: this.topic })
+          .subscribe((allCategories) => {
+            this.uncheckedCategoriesSet = SetOps.difference(
+              new Set(allCategories.data.map((category) => category.name)),
+              this.checkedCategoriesSet
+            );
 
-          this.updateCategoriesSet();
+            this.updateCategoriesSet();
 
-          this._pdfSrv.retrieve(this.id).subscribe((pdfs) => {
-            this.existingModel = pdfs.data;
+            this._pdfSrv.retrieve(this.id).subscribe((pdfs) => {
+              this.existingModel = pdfs.data;
 
-            this.form = new FormGroup({
-              title: new FormControl(this.existingModel.title, {
-                updateOn: 'change',
-                validators: [Validators.required, Validators.maxLength(160)],
-              }),
-              categories: new FormControl(this.checkedCategoriesCSV, {
-                updateOn: 'change',
-                validators: [Validators.required],
-              }),
+              this.form = new FormGroup({
+                title: new FormControl(this.existingModel.title, {
+                  updateOn: 'change',
+                  validators: [Validators.required, Validators.maxLength(160)]
+                }),
+                categories: new FormControl(this.checkedCategoriesCSV, {
+                  updateOn: 'change',
+                  validators: [Validators.required]
+                })
+              });
             });
           });
-        });
       });
   }
 
@@ -160,7 +155,7 @@ export class PdfEditComponent {
         this._alertCtrl
           .create({
             message: 'PDF updated successfully.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => {
             this._modalCtrl.dismiss();
@@ -174,7 +169,7 @@ export class PdfEditComponent {
           .create({
             message:
               'There was an error editing the PDF details. Please contact the site administrator.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => {
             this._modalCtrl.dismiss();

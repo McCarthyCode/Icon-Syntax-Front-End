@@ -8,7 +8,7 @@ import { GenericService } from './generic.service';
 import { PDF } from './models/pdf.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PdfCategoriesService extends GenericService<
   PDF.Category.IModel,
@@ -19,7 +19,7 @@ export class PdfCategoriesService extends GenericService<
 > {
   categories$ = new BehaviorSubject<PDF.Category.IClientDataList>({
     retrieved: new Date(),
-    data: [],
+    data: []
   });
 
   constructor(

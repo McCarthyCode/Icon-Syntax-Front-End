@@ -17,11 +17,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     FormsModule,
     IonicModule,
     IconsPageRoutingModule,
-    ComponentsModule,
+    ComponentsModule
   ],
-  declarations: [
-    BrowseComponent,
-    SearchResultsComponent,
-  ],
+  declarations: [BrowseComponent, SearchResultsComponent]
 })
 export class IconsPageModule {}

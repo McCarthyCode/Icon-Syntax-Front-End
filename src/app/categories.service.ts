@@ -1,20 +1,15 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { IPagination } from './interfaces/pagination.interface';
 import { Category } from './models/category.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CategoriesService {
   pagination$ = new BehaviorSubject<IPagination>(null);
@@ -44,7 +39,7 @@ export class CategoriesService {
 
     return this._http
       .get<Category.IResponseBodyList>(environment.apiBase + 'categories', {
-        params: params,
+        params: params
       })
       .pipe(
         debounceTime(250),
@@ -134,7 +129,7 @@ export class CategoriesService {
         return this._http
           .delete<null>(`${environment.apiBase}categories/${id}`, {
             headers: headers,
-            observe: 'response',
+            observe: 'response'
           })
           .pipe(
             map((data) => {

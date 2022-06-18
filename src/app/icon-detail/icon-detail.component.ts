@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {
   AlertController,
   MenuController,
-  ModalController,
+  ModalController
 } from '@ionic/angular';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AudioPlaybackService } from 'src/app/audio-playback.service';
@@ -20,7 +20,7 @@ import { IconModalComponent } from '../icon-modal/icon-modal.component';
 @Component({
   selector: 'app-icon-detail',
   templateUrl: './icon-detail.component.html',
-  styleUrls: ['./icon-detail.component.scss'],
+  styleUrls: ['./icon-detail.component.scss']
 })
 export class IconDetailComponent implements OnInit {
   icon: Icon.IModel;
@@ -126,8 +126,8 @@ export class IconDetailComponent implements OnInit {
         componentProps: {
           mode: 'update',
           icon: this.icon,
-          category: this.category,
-        },
+          category: this.category
+        }
       })
       .then((alert) => alert.present());
   }
@@ -141,8 +141,8 @@ export class IconDetailComponent implements OnInit {
         cssClass: 'alert',
         buttons: [
           { text: 'Cancel', role: 'dismiss' },
-          { text: 'Okay', handler: () => this._deleteIcon() },
-        ],
+          { text: 'Okay', handler: () => this._deleteIcon() }
+        ]
       })
       .then((alert) => alert.present());
   }
@@ -153,7 +153,7 @@ export class IconDetailComponent implements OnInit {
         .create({
           header: 'Icon Successfully Deleted',
           cssClass: 'alert',
-          buttons: ['Okay'],
+          buttons: ['Okay']
         })
         .then((alert) => {
           alert.present();

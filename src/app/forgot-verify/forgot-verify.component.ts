@@ -9,7 +9,7 @@ import { Validators as CustomValidators } from '../validators';
 @Component({
   selector: 'app-forgot-verify',
   templateUrl: './forgot-verify.component.html',
-  styleUrls: ['./forgot-verify.component.scss'],
+  styleUrls: ['./forgot-verify.component.scss']
 })
 export class ForgotVerifyComponent implements OnInit {
   form: FormGroup;
@@ -35,9 +35,9 @@ export class ForgotVerifyComponent implements OnInit {
             CustomValidators.containsUppercase(),
             CustomValidators.containsLowercase(),
             CustomValidators.containsNumber(),
-            CustomValidators.containsPunctuation(),
-          ],
-        }),
+            CustomValidators.containsPunctuation()
+          ]
+        })
       });
     });
   }
@@ -60,9 +60,9 @@ export class ForgotVerifyComponent implements OnInit {
                 buttons: [
                   {
                     text: 'Okay',
-                    handler: () => this._router.navigateByUrl('/icons/browse'),
-                  },
-                ],
+                    handler: () => this._router.navigateByUrl('/icons/browse')
+                  }
+                ]
               })
               .then((alert) => {
                 loader.dismiss();
@@ -79,13 +79,13 @@ export class ForgotVerifyComponent implements OnInit {
                   ? response.error.errors.join('\n')
                   : 'An unspecified error occurred.',
                 cssClass: 'alert',
-                buttons: ['Okay'],
+                buttons: ['Okay']
               })
               .then((alert) => {
                 loader.dismiss();
                 alert.present();
               });
-          },
+          }
         });
       });
   }

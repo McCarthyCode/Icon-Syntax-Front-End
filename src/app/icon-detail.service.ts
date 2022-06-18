@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Icon } from './models/icon.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class IconDetailService {
   icon$ = new BehaviorSubject<Icon.IModel>(null);

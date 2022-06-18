@@ -3,13 +3,13 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
-  RouterStateSnapshot,
+  RouterStateSnapshot
 } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   constructor(
@@ -37,12 +37,7 @@ export class AuthGuard implements CanActivate {
             color: 'warning',
             duration: 5000,
             cssClass: 'toast',
-            buttons: [
-              {
-                text: 'Close',
-                role: 'cancel',
-              },
-            ],
+            buttons: [{ text: 'Close', role: 'cancel' }]
           })
           .then((toast) => toast.present());
       }
@@ -54,7 +49,7 @@ export class AuthGuard implements CanActivate {
 
   redirectToLogin(state: RouterStateSnapshot): void {
     this._router.navigate(['/login'], {
-      queryParams: { redirect: state.url },
+      queryParams: { redirect: state.url }
     });
   }
 }

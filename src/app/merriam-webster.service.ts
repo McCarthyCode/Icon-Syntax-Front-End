@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { IWordEntry } from './interfaces/word-entry.interface';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MerriamWebsterService {
   constructor(private _http: HttpClient) {}

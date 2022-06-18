@@ -9,7 +9,7 @@ const maxIndent = 3;
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss'],
+  styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent {
   @Input() comment: Post.Comment.IModel;
@@ -48,7 +48,7 @@ export class CommentComponent {
 
   constructor(
     private _alertCtrl: AlertController,
-    private _postSrv: PostService,
+    private _postSrv: PostService
   ) {}
 
   resetEditState(): void {
@@ -94,7 +94,7 @@ export class CommentComponent {
           message: this.editInput
             ? 'Submitting a duplicate edit is not permitted. Please make changes to your comment before hitting "Edit."'
             : 'Your comment cannot be blank. Please enter some text before submitting.',
-          buttons: ['Okay'],
+          buttons: ['Okay']
         })
         .then((alert) => alert.present());
 
@@ -111,7 +111,7 @@ export class CommentComponent {
         this._alertCtrl
           .create({
             message: 'Comment updated successfully.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => alert.present());
       });
@@ -122,7 +122,7 @@ export class CommentComponent {
       this._alertCtrl
         .create({
           message: 'Please enter a reply before submitting.',
-          buttons: ['Okay'],
+          buttons: ['Okay']
         })
         .then((alert) => alert.present());
 
@@ -142,7 +142,7 @@ export class CommentComponent {
         this._alertCtrl
           .create({
             message: 'Reply posted successfully.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => alert.present());
       });
@@ -163,13 +163,13 @@ export class CommentComponent {
                 this._alertCtrl
                   .create({
                     message: 'You have successfully deleted this comment.',
-                    buttons: ['Okay'],
+                    buttons: ['Okay']
                   })
                   .then((alert) => alert.present());
               });
-            },
-          },
-        ],
+            }
+          }
+        ]
       })
       .then((alert) => alert.present());
   }

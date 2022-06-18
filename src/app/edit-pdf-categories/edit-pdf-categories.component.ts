@@ -6,13 +6,13 @@ import { PdfCategoriesService } from '../pdf-categories.service';
 const topics = {
   1: 'About',
   2: 'Icon Literature',
-  3: 'Personal',
+  3: 'Personal'
 };
 
 @Component({
   selector: 'app-edit-pdf-categories',
   templateUrl: './edit-pdf-categories.component.html',
-  styleUrls: ['./edit-pdf-categories.component.scss'],
+  styleUrls: ['./edit-pdf-categories.component.scss']
 })
 export class EditPdfCategoriesComponent {
   topic: number;
@@ -88,16 +88,16 @@ export class EditPdfCategoriesComponent {
         buttons: [
           {
             text: 'Cancel',
-            role: 'dismiss',
+            role: 'dismiss'
           },
           {
             text: 'Okay',
             handler: () =>
               this.categoriesSrv.delete(id).subscribe(() => {
                 this.refreshCategories();
-              }),
-          },
-        ],
+              })
+          }
+        ]
       })
       .then((alert) => alert.present());
   }

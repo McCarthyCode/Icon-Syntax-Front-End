@@ -10,7 +10,7 @@ import { PostService } from './post.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
+  styleUrls: ['./post.component.scss']
 })
 export class PostComponent {
   post: Post.IModel;
@@ -47,7 +47,7 @@ export class PostComponent {
     private _modalCtrl: ModalController,
     private _alertCtrl: AlertController,
     private _router: Router,
-    private _authSrv: AuthService,
+    private _authSrv: AuthService
   ) {}
 
   ionViewWillEnter() {
@@ -81,11 +81,11 @@ export class PostComponent {
             this._alertCtrl
               .create({
                 message: 'The blog post was updated successfully.',
-                buttons: ['Okay'],
+                buttons: ['Okay']
               })
               .then((alert) => alert.present());
-          },
-        },
+          }
+        }
       })
       .then((modal) => modal.present());
   }
@@ -107,13 +107,13 @@ export class PostComponent {
                 this._alertCtrl
                   .create({
                     message: 'The blog post was deleted successfully.',
-                    buttons: ['Okay'],
+                    buttons: ['Okay']
                   })
                   .then((alert) => alert.present());
               });
-            },
-          },
-        ],
+            }
+          }
+        ]
       })
       .then((alert) => alert.present());
   }
@@ -127,7 +127,7 @@ export class PostComponent {
       this._alertCtrl
         .create({
           message: 'Please enter a comment before submitting.',
-          buttons: ['Okay'],
+          buttons: ['Okay']
         })
         .then((alert) => alert.present());
 
@@ -143,7 +143,7 @@ export class PostComponent {
         this._alertCtrl
           .create({
             message: 'Comment posted successfully.',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => alert.present());
       },
@@ -154,7 +154,7 @@ export class PostComponent {
               this.isAuthenticated
                 ? {
                     message: 'You must verify your email to post a comment.',
-                    buttons: [{ text: 'Okay', role: 'dismiss' }],
+                    buttons: [{ text: 'Okay', role: 'dismiss' }]
                   }
                 : {
                     message:
@@ -166,16 +166,16 @@ export class PostComponent {
                         handler: () => {
                           this._router.navigate(['/login'], {
                             queryParams: {
-                              redirect: `%2Fblog%2F${this.post.id}`,
-                            },
+                              redirect: `%2Fblog%2F${this.post.id}`
+                            }
                           });
-                        },
-                      },
-                    ],
-                  },
+                        }
+                      }
+                    ]
+                  }
             )
             .then((alert) => alert.present());
-      },
+      }
     );
   }
 

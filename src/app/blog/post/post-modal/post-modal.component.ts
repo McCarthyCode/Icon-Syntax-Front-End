@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Post } from 'src/app/models/post.model';
 import { environment } from 'src/environments/environment';
 import { PostService } from '../post.service';
@@ -8,7 +8,7 @@ import { PostService } from '../post.service';
 @Component({
   selector: 'app-post-modal',
   templateUrl: './post-modal.component.html',
-  styleUrls: ['./post-modal.component.scss'],
+  styleUrls: ['./post-modal.component.scss']
 })
 export class PostModalComponent implements OnInit {
   mode: 'create' | 'update';
@@ -38,7 +38,7 @@ export class PostModalComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl(this.mode === 'create' ? '' : this.post?.title, {
         updateOn: 'change',
-        validators: [Validators.required, Validators.maxLength(80)],
+        validators: [Validators.required, Validators.maxLength(80)]
       }),
       content: new FormControl(
         this.mode === 'create' ? '' : this.post?.content,
@@ -46,10 +46,10 @@ export class PostModalComponent implements OnInit {
           updateOn: 'change',
           validators: [
             Validators.required,
-            Validators.maxLength(this.contentLimit),
-          ],
+            Validators.maxLength(this.contentLimit)
+          ]
         }
-      ),
+      )
     });
 
     this.refresh.subscribe(this.onRefresh);

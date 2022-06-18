@@ -9,7 +9,7 @@ import { Category } from '../models/category.model';
 @Component({
   selector: 'app-create-icon',
   templateUrl: './create-icon.component.html',
-  styleUrls: ['./create-icon.component.scss'],
+  styleUrls: ['./create-icon.component.scss']
 })
 export class CreateIconComponent {
   categoriesTree: Category.ITreeNode;
@@ -63,8 +63,8 @@ export class CreateIconComponent {
           component: CategoryModalComponent,
           componentProps: {
             mode: 'create',
-            parent: parent,
-          },
+            parent: parent
+          }
         })
         .then((modal) => modal.present());
     });
@@ -79,8 +79,8 @@ export class CreateIconComponent {
             component: IconModalComponent,
             componentProps: {
               category: clientData,
-              mode: 'create',
-            },
+              mode: 'create'
+            }
           })
           .then((modal) => modal.present());
       });

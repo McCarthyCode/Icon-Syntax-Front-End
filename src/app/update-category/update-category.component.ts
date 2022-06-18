@@ -9,7 +9,7 @@ import { Category } from '../models/category.model';
 @Component({
   selector: 'app-update-category',
   templateUrl: './update-category.component.html',
-  styleUrls: ['./update-category.component.scss'],
+  styleUrls: ['./update-category.component.scss']
 })
 export class UpdateCategoryComponent implements OnInit {
   category: Category.IClientData = null;
@@ -43,7 +43,7 @@ export class UpdateCategoryComponent implements OnInit {
       data: categories.data.filter((category) => {
         return category.id !== this.category.data.id;
       }),
-      retrieved: categories.retrieved,
+      retrieved: categories.retrieved
     };
   }
 
@@ -67,15 +67,15 @@ export class UpdateCategoryComponent implements OnInit {
                 header: 'Category Not Found',
                 message: 'The category could not be found in our database.',
                 cssClass: 'alert',
-                buttons: ['Okay'],
+                buttons: ['Okay']
               })
               .then((alert) =>
                 alert
                   .present()
                   .then(() => this._router.navigateByUrl('/icons/browse'))
-              ),
+              )
         });
-      },
+      }
     });
   }
 
@@ -93,7 +93,7 @@ export class UpdateCategoryComponent implements OnInit {
         retrieved: category.retrieved,
         data: category.data.children.filter((cat) => {
           return cat.id !== this.category.data.id;
-        }),
+        })
       };
       this.categories$.next(categories);
 
@@ -110,14 +110,14 @@ export class UpdateCategoryComponent implements OnInit {
             parent: parent,
             category: this.category,
             path: changePath ? this.path : this.category.data.path,
-            mode: 'update',
-          },
+            mode: 'update'
+          }
         })
         .then((modal) => modal.present());
     };
 
     if (this.breadcrumbs.length > 0) {
-      const clientData = this.breadcrumbs[this.breadcrumbs.length - 1]
+      const clientData = this.breadcrumbs[this.breadcrumbs.length - 1];
       presentModal(clientData);
     } else {
       presentModal(null);
@@ -140,16 +140,18 @@ export class UpdateCategoryComponent implements OnInit {
         this.loading = false;
       });
     } else {
-      this._categoriesSrv.retrieve(category.data.parent).subscribe((category) => {
-        this.categories$.next(
-          this.removeCategory({
-            data: category.data.children,
-            retrieved: new Date(),
-          })
-        );
+      this._categoriesSrv
+        .retrieve(category.data.parent)
+        .subscribe((category) => {
+          this.categories$.next(
+            this.removeCategory({
+              data: category.data.children,
+              retrieved: new Date()
+            })
+          );
 
-        this.loading = false;
-      });
+          this.loading = false;
+        });
     }
   }
 }

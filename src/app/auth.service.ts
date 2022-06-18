@@ -1,7 +1,7 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
+  HttpHeaders
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   credentials$ = new BehaviorSubject<Auth.ICredentials>(null);
@@ -29,7 +29,7 @@ export class AuthService {
         }
 
         return new HttpHeaders({
-          Authorization: `Bearer ${credentials.tokens.access}`,
+          Authorization: `Bearer ${credentials.tokens.access}`
         });
       })
     );
@@ -64,7 +64,7 @@ export class AuthService {
 
   registerVerify(access: string): Observable<Auth.IResponse> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${access}`,
+      Authorization: `Bearer ${access}`
     });
 
     return this._http.post<Auth.ISuccessResponse>(
@@ -92,7 +92,7 @@ export class AuthService {
   refresh(): Observable<Auth.IResponse> {
     return this._http
       .post<Auth.IResponse>(environment.apiBase + 'auth/refresh', {
-        refresh: this.credentials$.value.tokens.refresh,
+        refresh: this.credentials$.value.tokens.refresh
       })
       .pipe(
         tap((response: Auth.ISuccessResponse) => {
@@ -103,7 +103,7 @@ export class AuthService {
 
   logout(refresh = true): Observable<Auth.IResponse | HttpErrorResponse> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.credentials$.value.tokens.access}`,
+      Authorization: `Bearer ${this.credentials$.value.tokens.access}`
     });
 
     return this._http
@@ -135,7 +135,7 @@ export class AuthService {
     access: string
   ): Observable<Auth.IResponse> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${access}`,
+      Authorization: `Bearer ${access}`
     });
 
     return this._http.post(

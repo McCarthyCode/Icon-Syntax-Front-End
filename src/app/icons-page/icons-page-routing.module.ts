@@ -10,15 +10,15 @@ const routes: Routes = [
     path: '',
     component: IconsPage,
     children: [
-      { path: '', pathMatch: 'full' , redirectTo: '/icons/browse'},
+      { path: '', pathMatch: 'full', redirectTo: '/icons/browse' },
       { path: 'browse', component: BrowseComponent },
-      { path: 'search-results', component: SearchResultsComponent },
-    ],
-  },
+      { path: 'search-results', component: SearchResultsComponent }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class IconsPageRoutingModule {}

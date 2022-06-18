@@ -24,24 +24,24 @@ import { PostComponent } from './blog/post/post.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: HomeComponent
   },
   {
     path: 'about',
-    component: AboutComponent,
+    component: AboutComponent
   },
   {
     path: 'personal',
-    component: PersonalComponent,
+    component: PersonalComponent
   },
   {
     path: 'icons',
     loadChildren: () =>
-      import('./icons-page/icons-page.module').then((m) => m.IconsPageModule),
+      import('./icons-page/icons-page.module').then((m) => m.IconsPageModule)
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginComponent
   },
   // {
   //   path: 'register',
@@ -53,31 +53,31 @@ const routes: Routes = [
   // },
   {
     path: 'icon-lit',
-    component: IconLitComponent,
+    component: IconLitComponent
   },
   {
     path: 'notes',
-    component: NotesComponent,
+    component: NotesComponent
   },
   {
     path: 'pdfs/create',
-    component: CreatePdfComponent,
+    component: CreatePdfComponent
   },
   {
     path: 'category/update/:id',
     component: UpdateCategoryComponent,
     canActivate: [AuthGuard],
-    data: { allowAdmin: true },
+    data: { allowAdmin: true }
   },
   {
     path: 'icons/create',
     component: CreateIconComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'icons/update/:id',
     component: UpdateIconComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   // {
   //   path: 'forgot-password',
@@ -91,33 +91,31 @@ const routes: Routes = [
     path: 'pdfs/:id',
     component: PdfViewComponent,
     loadChildren: () =>
-      import('./adobe-viewer/components.module').then(
-        (m) => m.ComponentsModule
-      ),
+      import('./adobe-viewer/components.module').then((m) => m.ComponentsModule)
   },
   {
     path: 'subscribe',
-    component: SubscribeComponent,
+    component: SubscribeComponent
   },
   {
     path: 'blog',
-    component: BlogComponent,
+    component: BlogComponent
   },
   {
     path: 'blog/:id',
-    component: PostComponent,
+    component: PostComponent
   },
   {
     path: '404',
-    component: NotFoundComponent,
+    component: NotFoundComponent
   },
-  { path: '**', pathMatch: 'full', component: NotFoundComponent },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

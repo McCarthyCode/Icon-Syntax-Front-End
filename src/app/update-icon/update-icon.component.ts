@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   AlertController,
   MenuController,
-  ModalController,
+  ModalController
 } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { CategoriesService } from '../categories.service';
@@ -15,7 +15,7 @@ import { Icon } from '../models/icon.model';
 @Component({
   selector: 'app-update-icon',
   templateUrl: './update-icon.component.html',
-  styleUrls: ['./update-icon.component.scss'],
+  styleUrls: ['./update-icon.component.scss']
 })
 export class UpdateIconComponent implements OnInit {
   categories$ = new BehaviorSubject<Category.IClientDataList>(null);
@@ -54,7 +54,7 @@ export class UpdateIconComponent implements OnInit {
       data: categories.data.filter((category) => {
         return this.icon ? category.id !== this.icon.data.category : true;
       }),
-      retrieved: categories.retrieved,
+      retrieved: categories.retrieved
     };
   }
 
@@ -80,7 +80,7 @@ export class UpdateIconComponent implements OnInit {
           header: 'Icon Not Found',
           message: 'The icon could not be found in our database.',
           cssClass: 'alert',
-          buttons: ['Okay'],
+          buttons: ['Okay']
         })
         .then((alert) =>
           alert
@@ -108,9 +108,9 @@ export class UpdateIconComponent implements OnInit {
                 });
             });
           },
-          error: () => iconNotFoundAlert(),
+          error: () => iconNotFoundAlert()
         });
-      },
+      }
     });
   }
 
@@ -126,7 +126,7 @@ export class UpdateIconComponent implements OnInit {
 
       const categories: Category.IClientDataList = {
         retrieved: category.retrieved,
-        data: category.data.children,
+        data: category.data.children
       };
       this.categories$.next(categories);
       this.loading = false;
@@ -153,7 +153,7 @@ export class UpdateIconComponent implements OnInit {
         .subscribe((category) => {
           this.categories$.next({
             data: category.data.children,
-            retrieved: new Date(),
+            retrieved: new Date()
           });
           this.loading = false;
         });
@@ -174,8 +174,8 @@ export class UpdateIconComponent implements OnInit {
               ? this.category.data.path
               : '',
             mode: 'update',
-            breadcrumbs: this.breadcrumbs,
-          },
+            breadcrumbs: this.breadcrumbs
+          }
         })
         .then((modal) => modal.present());
     } else {
@@ -190,8 +190,8 @@ export class UpdateIconComponent implements OnInit {
                 category: category,
                 path: category ? category.data.path : '',
                 mode: 'update',
-                breadcrumbs: this.breadcrumbs,
-              },
+                breadcrumbs: this.breadcrumbs
+              }
             })
             .then((modal) => modal.present());
         });

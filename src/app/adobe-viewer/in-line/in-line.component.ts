@@ -19,7 +19,7 @@ import { ViewSDKClient } from '../view-sdk.service';
 @Component({
   selector: 'pdf-in-line',
   templateUrl: './in-line.component.html',
-  styleUrls: ['./in-line.component.scss'],
+  styleUrls: ['./in-line.component.scss']
 })
 export class InLineComponent implements AfterViewInit {
   @Input() pdf: PDF.IModel;
@@ -31,7 +31,7 @@ export class InLineComponent implements AfterViewInit {
       /* Invoke file preview */
       this.viewSDKClient.previewFile(this.pdf, {
         /* Pass the embed mode option here */
-        embedMode: 'IN_LINE',
+        embedMode: 'IN_LINE'
       });
     });
   }

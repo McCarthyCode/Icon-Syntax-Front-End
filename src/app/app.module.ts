@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ComponentsModule as IconsModule} from './icons-page/components.module';
+import { ComponentsModule as IconsModule } from './icons-page/components.module';
 import { ComponentsModule as AdobeViewerModule } from './adobe-viewer/components.module';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -74,7 +74,7 @@ import { CommentComponent } from './blog/comment/comment.component';
     SubscribeComponent,
     UpdateCategoryComponent,
     UpdateIconComponent,
-    LineBreaksPipe,
+    LineBreaksPipe
   ],
   entryComponents: [],
   imports: [
@@ -89,6 +89,6 @@ import { CommentComponent } from './blog/comment/comment.component';
     AdobeViewerModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

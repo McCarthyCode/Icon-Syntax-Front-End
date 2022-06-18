@@ -7,14 +7,14 @@ import { shared } from './environment.shared';
 
 const development = {
   production: false,
-  urlRoot: 'http://localhost:8000',
+  urlRoot: 'http://localhost:8000'
 };
 
 export const environment = {
   apiBase: development.urlRoot + '/api/v0-alpha/',
   ...development,
   ...shared,
-  ...secret,
+  ...secret
 };
 
 /*

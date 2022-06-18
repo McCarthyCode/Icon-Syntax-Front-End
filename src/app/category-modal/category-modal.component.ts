@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import {
   AlertController,
   ModalController,
-  ToastController,
+  ToastController
 } from '@ionic/angular';
 import { CategoriesService } from '../categories.service';
 import { Category } from '../models/category.model';
@@ -13,7 +13,7 @@ import { Model } from '../models/model';
 @Component({
   selector: 'app-category-modal',
   templateUrl: './category-modal.component.html',
-  styleUrls: ['./category-modal.component.scss'],
+  styleUrls: ['./category-modal.component.scss']
 })
 export class CategoryModalComponent implements OnInit {
   parent: Category.IClientData;
@@ -41,17 +41,16 @@ export class CategoryModalComponent implements OnInit {
         this.mode === 'update' ? this.category?.id : undefined,
         {
           updateOn: 'change',
-          validators:
-            this.mode === 'update' ? [Validators.required] : undefined,
+          validators: this.mode === 'update' ? [Validators.required] : undefined
         }
       ),
       name: new FormControl(this.category ? this.category.name : '', {
         updateOn: 'change',
-        validators: [Validators.required, Validators.maxLength(40)],
+        validators: [Validators.required, Validators.maxLength(40)]
       }),
       parent: new FormControl(this.parent ? this.parent.data.id : null, {
-        updateOn: 'change',
-      }),
+        updateOn: 'change'
+      })
     });
   }
 
@@ -72,9 +71,9 @@ export class CategoryModalComponent implements OnInit {
             buttons: [
               {
                 text: 'Close',
-                role: 'cancel',
-              },
-            ],
+                role: 'cancel'
+              }
+            ]
           })
           .then((toast) => toast.present());
       }
@@ -94,13 +93,13 @@ export class CategoryModalComponent implements OnInit {
                   handler: () => {
                     this._modalCtrl.dismiss();
                     this._router.navigateByUrl('/icons/browse');
-                  },
-                },
-              ],
+                  }
+                }
+              ]
             })
             .then((alert: HTMLIonAlertElement) => alert.present());
         },
-        error: errorHandler,
+        error: errorHandler
       });
     } else if (this.mode === 'update') {
       this._categoriesSrv.update(this.form.value).subscribe({
@@ -116,13 +115,13 @@ export class CategoryModalComponent implements OnInit {
                   handler: () => {
                     this._modalCtrl.dismiss();
                     this._router.navigateByUrl('/icons/browse');
-                  },
-                },
-              ],
+                  }
+                }
+              ]
             })
             .then((alert: HTMLIonAlertElement) => alert.present());
         },
-        error: errorHandler,
+        error: errorHandler
       });
     }
   }

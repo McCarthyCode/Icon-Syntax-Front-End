@@ -6,7 +6,7 @@ import { Category } from '../models/category.model';
 @Component({
   selector: 'app-category-node',
   templateUrl: './category-node.component.html',
-  styleUrls: ['./category-node.component.scss'],
+  styleUrls: ['./category-node.component.scss']
 })
 export class CategoryNodeComponent implements OnInit {
   @Input() category: Category.ITreeNode;
@@ -61,5 +61,4 @@ export class CategoryNodeComponent implements OnInit {
       this._findSrv.onClickCategory();
     }
   }
-
 }

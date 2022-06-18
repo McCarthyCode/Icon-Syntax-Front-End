@@ -7,7 +7,7 @@ import { Auth } from '../interfaces/auth.interface';
 @Component({
   selector: 'app-forgot',
   templateUrl: './forgot.component.html',
-  styleUrls: ['./forgot.component.scss'],
+  styleUrls: ['./forgot.component.scss']
 })
 export class ForgotComponent implements OnInit {
   form: FormGroup;
@@ -22,8 +22,8 @@ export class ForgotComponent implements OnInit {
     this.form = new FormGroup({
       email: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required],
-      }),
+        validators: [Validators.required]
+      })
     });
   }
 
@@ -41,7 +41,7 @@ export class ForgotComponent implements OnInit {
                 header: 'Password Reset Link Sent to Email',
                 message: response.success,
                 cssClass: 'alert',
-                buttons: ['Okay'],
+                buttons: ['Okay']
               })
               .then((alert) => {
                 loader.dismiss();

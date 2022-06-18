@@ -2,7 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-  HttpResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service';
 import { Subscription } from '../models/subscription.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SubscribeService {
   constructor(private http: HttpClient, private authSrv: AuthService) {}
@@ -50,7 +50,7 @@ export class SubscribeService {
   ): Observable<HttpResponse<null>> {
     return this.http
       .delete<null>(environment.apiBase + 'auth/unsubscribe/' + id, {
-        headers: headers,
+        headers: headers
       })
       .pipe(
         debounceTime(250),
@@ -73,7 +73,7 @@ export class SubscribeService {
   ): Observable<Subscription.IModel[]> {
     return this.http
       .get<any>(environment.apiBase + 'auth/subscriptions.' + ext, {
-        params: { detail: detail, header: header },
+        params: { detail: detail, header: header }
       })
       .pipe(debounceTime(250));
   }

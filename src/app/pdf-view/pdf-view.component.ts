@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-pdf-view',
   templateUrl: './pdf-view.component.html',
-  styleUrls: ['./pdf-view.component.scss'],
+  styleUrls: ['./pdf-view.component.scss']
 })
 export class PdfViewComponent {
   pdf: PDF.IModel;
@@ -66,8 +66,8 @@ export class PdfViewComponent {
         component: PdfEditComponent,
         componentProps: {
           id: this.pdf.id,
-          topic: this.pdf.topic,
-        },
+          topic: this.pdf.topic
+        }
       })
       .then((modal) => {
         this._pdfSrv.refresh(this.pdf.topic).subscribe();
@@ -95,13 +95,13 @@ export class PdfViewComponent {
                       message:
                         'You have successfully deleted the PDF titled ' +
                         `"${title}".`,
-                      buttons: ['Okay'],
+                      buttons: ['Okay']
                     })
                     .then((successAlert) => successAlert.present());
                 });
-            },
-          },
-        ],
+            }
+          }
+        ]
       })
       .then((confirmAlert) => confirmAlert.present());
   }

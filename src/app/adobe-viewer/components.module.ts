@@ -9,6 +9,6 @@ const components = [InLineComponent, SizedContainerComponent];
   declarations: components,
   imports: [CommonModule],
   exports: components,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

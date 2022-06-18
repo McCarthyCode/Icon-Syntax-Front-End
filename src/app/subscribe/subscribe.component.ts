@@ -9,7 +9,7 @@ import { SubscribeService } from './subscribe.service';
 @Component({
   selector: 'app-subscribe',
   templateUrl: './subscribe.component.html',
-  styleUrls: ['./subscribe.component.scss'],
+  styleUrls: ['./subscribe.component.scss']
 })
 export class SubscribeComponent implements OnInit {
   get isAdmin(): boolean {
@@ -30,8 +30,8 @@ export class SubscribeComponent implements OnInit {
     this.form = new FormGroup({
       email: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required, Validators.email],
-      }),
+        validators: [Validators.required, Validators.email]
+      })
     });
   }
 
@@ -43,7 +43,7 @@ export class SubscribeComponent implements OnInit {
           .create({
             message:
               'Your email address has been saved successfully. Thank you for subscribing to iconSyntax!',
-            buttons: ['Okay'],
+            buttons: ['Okay']
           })
           .then((alert) => alert.present());
       },

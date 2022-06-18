@@ -9,7 +9,7 @@ import { Validators as CustomValidators } from '../validators';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
@@ -29,11 +29,11 @@ export class RegisterComponent implements OnInit {
     this.form = new FormGroup({
       username: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required],
+        validators: [Validators.required]
       }),
       email: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required, Validators.email],
+        validators: [Validators.required, Validators.email]
       }),
       password: new FormControl('', {
         updateOn: 'change',
@@ -43,9 +43,9 @@ export class RegisterComponent implements OnInit {
           CustomValidators.containsUppercase(),
           CustomValidators.containsLowercase(),
           CustomValidators.containsNumber(),
-          CustomValidators.containsPunctuation(),
-        ],
-      }),
+          CustomValidators.containsPunctuation()
+        ]
+      })
     });
   }
 
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     this.errors = {
       username: [],
       email: [],
-      password: [],
+      password: []
     };
   }
 
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
                 header: 'Email Confirmation Required',
                 message: response.success,
                 cssClass: 'alert',
-                buttons: ['Okay'],
+                buttons: ['Okay']
               })
               .then((alert) => {
                 loader.dismiss();
@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
               this.errors[key] = response.error[key];
             });
             loader.dismiss();
-          },
+          }
         });
       });
   }

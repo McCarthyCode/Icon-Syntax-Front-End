@@ -122,7 +122,7 @@ export abstract class PdfListComponent {
     this._modalCtrl
       .create({
         component: CreatePdfComponent,
-        componentProps: { topic: this.topic },
+        componentProps: { topic: this.topic }
       })
       .then((modal) => modal.present());
   }
@@ -133,8 +133,8 @@ export abstract class PdfListComponent {
         component: PdfEditComponent,
         componentProps: {
           id: id,
-          topic: this.topic,
-        },
+          topic: this.topic
+        }
       })
       .then((modal) => {
         this._pdfSrv.refresh(this.topic).subscribe();
@@ -163,16 +163,16 @@ export abstract class PdfListComponent {
                         message:
                           'You have successfully deleted the PDF titled ' +
                           `"${title}".`,
-                        buttons: ['Okay'],
+                        buttons: ['Okay']
                       })
                       .then((successAlert) => {
                         this.updateCategories();
                         successAlert.present();
                       });
                   });
-              },
-            },
-          ],
+              }
+            }
+          ]
         })
         .then((confirmAlert) => confirmAlert.present());
     });
@@ -184,8 +184,8 @@ export abstract class PdfListComponent {
         component: EditPdfCategoriesComponent,
         componentProps: {
           categories: this.categories,
-          topic: this.topic,
-        },
+          topic: this.topic
+        }
       })
       .then((modal) => modal.present());
   }

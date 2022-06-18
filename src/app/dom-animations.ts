@@ -65,5 +65,5 @@ export const DOMAnimations = {
     } else {
       return this.slideUp(element, duration);
     }
-  },
+  }
 };

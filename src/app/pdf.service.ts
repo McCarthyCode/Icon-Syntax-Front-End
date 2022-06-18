@@ -10,7 +10,7 @@ import { GenericService } from './generic.service';
 import { PDF } from './models/pdf.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PdfService extends GenericService<
   PDF.IModel,

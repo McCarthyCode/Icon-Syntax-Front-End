@@ -2,7 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-  HttpResponse,
+  HttpResponse
 } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -17,13 +17,13 @@ export abstract class GenericService<
   IResponseBody extends Model.IResponseBody<IModel>,
   IResponseBodyList extends Model.IResponseBodyList<IModel>,
   IClientData extends Model.IClientData<IModel>,
-  IClientDataList extends Model.IClientDataList<IModel>,
+  IClientDataList extends Model.IClientDataList<IModel>
 > {
   constructor(
     private _path: string,
     private _http: HttpClient,
     private _authSrv: AuthService,
-    private _modalCtrl: ModalController,
+    private _modalCtrl: ModalController
   ) {}
 
   pagination$ = new BehaviorSubject<IPagination>(null);
@@ -37,7 +37,7 @@ export abstract class GenericService<
   convert(result: IResponseBody): IClientData {
     const clientData: any = {
       data: result.data,
-      retrieved: new Date(),
+      retrieved: new Date()
     };
 
     if (result.success) clientData['success'] = result.success;
@@ -52,7 +52,7 @@ export abstract class GenericService<
   convertList(results: IResponseBodyList): IClientDataList {
     const clientDataList: any = {
       retrieved: new Date(),
-      ...results,
+      ...results
     };
 
     return clientDataList as IClientDataList;
@@ -67,20 +67,20 @@ export abstract class GenericService<
   list(params: any = {}): Observable<IClientDataList> {
     return this._http
       .get<IResponseBodyList>(environment.apiBase + this._path, {
-        params: params,
+        params: params
       })
       .pipe(
         debounceTime(250),
         tap((responseBodyList) =>
-          this.pagination$.next(responseBodyList.pagination),
+          this.pagination$.next(responseBodyList.pagination)
         ),
-        map(this.convertList),
+        map(this.convertList)
       );
   }
 
   create(
     formData: FormData,
-    auth = true,
+    auth = true
   ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
@@ -91,7 +91,7 @@ export abstract class GenericService<
           }
 
           return this._create(formData, headers);
-        }),
+        })
       );
     }
 
@@ -101,11 +101,11 @@ export abstract class GenericService<
   private _create(
     formData: FormData,
     headers: HttpHeaders = undefined,
-    refresh = true,
+    refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .post<IResponseBody>(environment.apiBase + this._path, formData, {
-        headers: headers,
+        headers: headers
       })
       .pipe(
         debounceTime(250),
@@ -118,14 +118,14 @@ export abstract class GenericService<
 
           return of(null);
         }),
-        map(this.convert),
+        map(this.convert)
       );
   }
 
   update(
     id: number,
     formData: FormData,
-    auth = true,
+    auth = true
   ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
@@ -135,7 +135,7 @@ export abstract class GenericService<
           }
 
           return this._update(id, formData, headers);
-        }),
+        })
       );
     }
 
@@ -146,13 +146,13 @@ export abstract class GenericService<
     id: number,
     formData: FormData,
     headers: HttpHeaders = undefined,
-    refresh = true,
+    refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .put<IResponseBody>(
         environment.apiBase + [this._path, id].join('/'),
         formData,
-        { headers: headers },
+        { headers: headers }
       )
       .pipe(
         debounceTime(250),
@@ -161,20 +161,20 @@ export abstract class GenericService<
             return this._authSrv
               .refresh()
               .pipe(
-                switchMap(() => this._update(id, formData, headers, false)),
+                switchMap(() => this._update(id, formData, headers, false))
               );
           }
 
           return of(null);
         }),
-        map(this.convert),
+        map(this.convert)
       );
   }
 
   partialUpdate(
     id: number,
     formData: FormData,
-    auth = true,
+    auth = true
   ): Observable<IClientData | HttpErrorResponse> {
     if (auth) {
       return this._authSrv.authHeader$.pipe(
@@ -184,7 +184,7 @@ export abstract class GenericService<
           }
 
           return this._partialUpdate(id, formData, headers);
-        }),
+        })
       );
     }
 
@@ -195,13 +195,13 @@ export abstract class GenericService<
     id: number,
     formData: FormData,
     headers: HttpHeaders = undefined,
-    refresh = true,
+    refresh = true
   ): Observable<IClientData | HttpErrorResponse> {
     return this._http
       .patch<IResponseBody>(
         environment.apiBase + [this._path, id].join('/'),
         formData,
-        { headers: headers },
+        { headers: headers }
       )
       .pipe(
         debounceTime(250),
@@ -211,14 +211,14 @@ export abstract class GenericService<
               .refresh()
               .pipe(
                 switchMap(() =>
-                  this._partialUpdate(id, formData, headers, false),
-                ),
+                  this._partialUpdate(id, formData, headers, false)
+                )
               );
           }
 
           return of(null);
         }),
-        map(this.convert),
+        map(this.convert)
       );
   }
 
@@ -231,7 +231,7 @@ export abstract class GenericService<
           }
 
           return this._delete(id, headers);
-        }),
+        })
       );
     }
 
@@ -241,11 +241,11 @@ export abstract class GenericService<
   private _delete(
     id: number,
     headers: HttpHeaders = undefined,
-    refresh = true,
+    refresh = true
   ): Observable<HttpResponse<null>> {
     return this._http
       .delete<null>(environment.apiBase + [this._path, id].join('/'), {
-        headers: headers,
+        headers: headers
       })
       .pipe(
         debounceTime(250),
@@ -257,7 +257,7 @@ export abstract class GenericService<
           }
 
           return of(null);
-        }),
+        })
       );
   }
 }

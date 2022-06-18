@@ -8,7 +8,7 @@ import { Category } from './models/category.model';
 import { Icon } from './models/icon.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class FindService {
   // Behavior Subjects
@@ -110,18 +110,16 @@ export class FindService {
       // this.loadingCategories = false;
 
       const listParams = {
-        page: this.page,
+        page: this.page
       };
       if (this.query) listParams['search'] = this.query;
       if (!this.allIcons) listParams['category'] = this.categoryId;
 
       if (this.iconsSub) this.iconsSub.unsubscribe();
-      this.iconsSub = this._iconsSrv
-        .list(listParams)
-        .subscribe((icons) => {
-          this.icons$.next(icons);
-          this.loadingIcons = false;
-        });
+      this.iconsSub = this._iconsSrv.list(listParams).subscribe((icons) => {
+        this.icons$.next(icons);
+        this.loadingIcons = false;
+      });
     });
   }
 
@@ -138,7 +136,7 @@ export class FindService {
       // this.loadingCategories = false;
 
       const listParams = {
-        page: this.page,
+        page: this.page
       };
       if (this.query) listParams['search'] = this.query;
       if (!this.allIcons) listParams['category'] = this.categoryId;
@@ -167,13 +165,13 @@ export class FindService {
 
       const categories: Category.IClientDataList = {
         retrieved: category.retrieved,
-        data: category.data.children,
+        data: category.data.children
       };
       this.categories$.next(categories);
       this.loadingCategories = false;
 
       const listParams = {
-        page: this.page,
+        page: this.page
       };
       if (this.query) listParams['search'] = this.query;
       if (!this.allIcons) listParams['category'] = this.categoryId;

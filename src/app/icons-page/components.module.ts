@@ -13,6 +13,6 @@ const components = [HeaderComponent, IconComponent, CategoryNodeComponent];
   declarations: components,
   imports: [CommonModule, FormsModule, IonicModule],
   exports: components,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

@@ -6,7 +6,7 @@ import {
   AlertController,
   MenuController,
   ModalController,
-  ToastController,
+  ToastController
 } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { IconsService } from '../icons.service';
@@ -16,7 +16,7 @@ import { Icon } from '../models/icon.model';
 @Component({
   selector: 'app-icon-modal',
   templateUrl: './icon-modal.component.html',
-  styleUrls: ['./icon-modal.component.scss'],
+  styleUrls: ['./icon-modal.component.scss']
 })
 export class IconModalComponent implements OnInit {
   form: FormGroup;
@@ -39,20 +39,20 @@ export class IconModalComponent implements OnInit {
     this.form = new FormGroup({
       icon: new FormControl(null, {
         updateOn: 'change',
-        validators: this.mode === 'create' ? [Validators.required] : undefined,
+        validators: this.mode === 'create' ? [Validators.required] : undefined
       }),
       word: new FormControl(this.icon ? this.icon.word : '', {
         updateOn: 'change',
-        validators: [Validators.required, Validators.maxLength(40)],
+        validators: [Validators.required, Validators.maxLength(40)]
       }),
       descriptor: new FormControl(this.icon ? this.icon.descriptor : '', {
         updateOn: 'change',
-        validators: [Validators.maxLength(80)],
+        validators: [Validators.maxLength(80)]
       }),
       category: new FormControl(this.category ? this.category.id : null, {
         updateOn: 'change',
-        validators: [Validators.required],
-      }),
+        validators: [Validators.required]
+      })
     });
   }
 
@@ -98,9 +98,9 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Close',
-                  role: 'cancel',
-                },
-              ],
+                  role: 'cancel'
+                }
+              ]
             })
             .then((toast) => toast.present());
         });
@@ -117,9 +117,9 @@ export class IconModalComponent implements OnInit {
           buttons: [
             {
               text: 'Okay',
-              handler: redirectLibrary,
-            },
-          ],
+              handler: redirectLibrary
+            }
+          ]
         })
         .then((alert) => {
           alert.present();
@@ -166,15 +166,15 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  handler: redirectLibrary,
-                },
-              ],
+                  handler: redirectLibrary
+                }
+              ]
             })
             .then((alert) => {
               alert.present();
             });
         },
-        error: errorHandler,
+        error: errorHandler
       });
     } else if (this.mode === 'update') {
       const formData = new FormData();
@@ -203,15 +203,15 @@ export class IconModalComponent implements OnInit {
               buttons: [
                 {
                   text: 'Okay',
-                  role: 'cancel',
-                },
-              ],
+                  role: 'cancel'
+                }
+              ]
             })
             .then((alert) => {
               alert.present().then(redirectLibrary);
             });
         },
-        error: errorHandler,
+        error: errorHandler
       });
     }
   }

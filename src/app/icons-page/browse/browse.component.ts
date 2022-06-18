@@ -5,7 +5,7 @@ import { Category } from 'src/app/models/category.model';
 @Component({
   selector: 'app-browse',
   templateUrl: './browse.component.html',
-  styleUrls: ['./browse.component.scss'],
+  styleUrls: ['./browse.component.scss']
 })
 export class BrowseComponent implements OnInit {
   categoriesTree: Category.ITreeNode;

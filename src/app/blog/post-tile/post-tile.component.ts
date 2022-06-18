@@ -4,7 +4,7 @@ import { Post } from 'src/app/models/post.model';
 @Component({
   selector: 'app-post-tile',
   templateUrl: './post-tile.component.html',
-  styleUrls: ['./post-tile.component.scss'],
+  styleUrls: ['./post-tile.component.scss']
 })
 export class PostTileComponent {
   previewMax = 500;

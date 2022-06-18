@@ -10,7 +10,7 @@ import { Auth } from '../interfaces/auth.interface';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
@@ -33,16 +33,16 @@ export class LoginComponent implements OnInit {
     this.form = new FormGroup({
       identifier: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required],
+        validators: [Validators.required]
       }),
       password: new FormControl('', {
         updateOn: 'change',
-        validators: [Validators.required],
-      }),
+        validators: [Validators.required]
+      })
     });
     this.errors$ = new BehaviorSubject({
       identifier: [],
-      password: [],
+      password: []
     });
   }
 
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     this._loadingCtrl
       .create({
         message: 'Logging in&hellip;',
-        cssClass: 'loader',
+        cssClass: 'loader'
       })
       .then((loader: HTMLIonLoadingElement) => {
         loader.present();
@@ -89,9 +89,9 @@ export class LoginComponent implements OnInit {
         buttons: [
           {
             text: 'Close',
-            role: 'cancel',
-          },
-        ],
+            role: 'cancel'
+          }
+        ]
       })
       .then((success) => {
         this.form.reset();
@@ -113,9 +113,9 @@ export class LoginComponent implements OnInit {
             buttons: [
               {
                 text: 'Close',
-                role: 'cancel',
-              },
-            ],
+                role: 'cancel'
+              }
+            ]
           })
           .then((warning) => {
             setTimeout(() => warning.present(), 5000);
@@ -145,9 +145,9 @@ export class LoginComponent implements OnInit {
             buttons: [
               {
                 text: 'Close',
-                role: 'cancel',
-              },
-            ],
+                role: 'cancel'
+              }
+            ]
           })
           .then((toast) => toast.present());
       }
