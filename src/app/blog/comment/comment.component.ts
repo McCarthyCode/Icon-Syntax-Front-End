@@ -48,7 +48,7 @@ export class CommentComponent {
 
   constructor(
     private _alertCtrl: AlertController,
-    private _postSrv: PostService
+    private _postSrv: PostService,
   ) {}
 
   resetEditState(): void {
@@ -131,7 +131,9 @@ export class CommentComponent {
 
     this._postSrv
       .comment(this.comment.post, this.replyInput, this.comment.id)
-      .subscribe((reply: Post.Comment.IModel) => {
+      .subscribe((clientData: Post.Comment.IClientData) => {
+        const reply = clientData.data;
+
         this.resetReplyState();
         this.comment.replies = this.comment.replies
           ? [reply, ...this.comment.replies]

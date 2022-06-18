@@ -2,7 +2,9 @@ export namespace Auth {
   export interface ICredentials {
     username: string;
     email: string;
+    userId: number;
     isAdmin: boolean;
+    isVerified: boolean;
     tokens: { access: string; refresh: string };
   }
   export interface ISuccessResponse {

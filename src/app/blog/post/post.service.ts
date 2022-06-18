@@ -1,8 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
+import { Observable, of } from 'rxjs';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth.service';
 import { GenericService } from 'src/app/generic.service';
 import { Post } from 'src/app/models/post.model';
@@ -20,26 +25,45 @@ export class PostService extends GenericService<
 > {
   constructor(
     private http: HttpClient,
-    authSrv: AuthService,
-    modalCtrl: ModalController
+    private authSrv: AuthService,
+    private alertCtrl: AlertController,
+    private router: Router,
+    modalCtrl: ModalController,
   ) {
     super('blog/posts', http, authSrv, modalCtrl);
+  }
+
+  convertComment(result: Post.Comment.IModel): Post.Comment.IClientData {
+    return { data: result, retrieved: new Date() };
   }
 
   comment(
     post: number,
     content: string,
-    parent: number = undefined
-  ): Observable<Post.Comment.IModel> {
-    const formData = new FormData();
+    parent: number = undefined,
+  ): Observable<Post.Comment.IClientData | HttpErrorResponse> {
+    return this.authSrv.authHeader$.pipe(
+      switchMap((headers) => {
+        if (headers === null) {
+          return of(null);
+        }
 
-    formData.append('post', String(post));
-    formData.append('content', content);
-    if (parent) formData.append('parent', String(parent));
+        const formData = new FormData();
 
-    return this.http.post<Post.Comment.IModel>(
-      environment.apiBase + 'blog/comments',
-      formData
+        formData.append('post', String(post));
+        formData.append('content', content);
+        if (parent) formData.append('parent', String(parent));
+
+        return this.http
+          .post<Post.Comment.IModel>(
+            environment.apiBase + 'blog/comments',
+            formData,
+            {
+              headers: headers,
+            },
+          )
+          .pipe(debounceTime(500), map(this.convertComment));
+      }),
     );
   }
 
@@ -47,14 +71,14 @@ export class PostService extends GenericService<
     return this.http
       .get<Post.Comment.IClientDataList>(
         environment.apiBase + 'blog/comments',
-        { params: { post: post, page: page } }
+        { params: { post: post, page: page } },
       )
       .pipe(debounceTime(250));
   }
 
   updateComment(
     comment: number,
-    content: string
+    content: string,
   ): Observable<Post.Comment.IModel> {
     const formData = new FormData();
 
@@ -62,13 +86,13 @@ export class PostService extends GenericService<
 
     return this.http.patch<Post.Comment.IModel>(
       environment.apiBase + 'blog/comments/' + comment,
-      formData
+      formData,
     );
   }
 
   deleteComment(comment: number): Observable<null> {
     return this.http.delete<null>(
-      environment.apiBase + 'blog/comments/' + comment
+      environment.apiBase + 'blog/comments/' + comment,
     );
   }
 }

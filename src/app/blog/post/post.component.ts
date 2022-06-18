@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth.service';
@@ -28,6 +28,9 @@ export class PostComponent {
       return updated.getTime() - created.getTime() > 1000;
     }
   }
+  get isAuthenticated(): boolean {
+    return this._authSrv.isAuthenticated;
+  }
   get isAdmin(): boolean {
     return this._authSrv.isAdmin;
   }
@@ -44,7 +47,7 @@ export class PostComponent {
     private _modalCtrl: ModalController,
     private _alertCtrl: AlertController,
     private _router: Router,
-    private _authSrv: AuthService
+    private _authSrv: AuthService,
   ) {}
 
   ionViewWillEnter() {
@@ -131,9 +134,10 @@ export class PostComponent {
       return;
     }
 
-    this._postSrv
-      .comment(this.post.id, this.commentInput)
-      .subscribe((comment: Post.Comment.IModel) => {
+    this._postSrv.comment(this.post.id, this.commentInput).subscribe(
+      (clientData: Post.Comment.IClientData) => {
+        const comment = clientData.data;
+
         this.commentInput = '';
         this.comments = [comment, ...this.comments];
         this._alertCtrl
@@ -142,7 +146,37 @@ export class PostComponent {
             buttons: ['Okay'],
           })
           .then((alert) => alert.present());
-      });
+      },
+      (response) => {
+        if (response.status === 401)
+          this._alertCtrl
+            .create(
+              this.isAuthenticated
+                ? {
+                    message: 'You must verify your email to post a comment.',
+                    buttons: [{ text: 'Okay', role: 'dismiss' }],
+                  }
+                : {
+                    message:
+                      'You must login and verify your email to post a comment.',
+                    buttons: [
+                      { text: 'Cancel', role: 'dismiss' },
+                      {
+                        text: 'Okay',
+                        handler: () => {
+                          this._router.navigate(['/login'], {
+                            queryParams: {
+                              redirect: `%2Fblog%2F${this.post.id}`,
+                            },
+                          });
+                        },
+                      },
+                    ],
+                  },
+            )
+            .then((alert) => alert.present());
+      },
+    );
   }
 
   firstPage(): void {
