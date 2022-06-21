@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+.comments-margin {
+  @media screen and (min-width: 992px) {
+    margin: 0 0.5rem;
+  }
+}
+
 h1 {
   margin: 20px 0;
 }

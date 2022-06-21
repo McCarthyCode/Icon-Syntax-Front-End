@@ -41,7 +41,7 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size-lg="9" size-xl="8">
         <h2>Comments</h2>
-        <ion-card class="ion-no-margin">
+        <ion-card class="margin-bottom-strict">
           <ion-card-content>
             <ion-textarea
               (ionChange)="onCommentChange($event)"
@@ -73,8 +73,10 @@
             </ion-button>
           </ion-card-content>
         </ion-card>
-        <app-comment *ngFor="let comment of comments" [comment]="comment">
-        </app-comment>
+        <div class="comments-margin">
+          <app-comment *ngFor="let comment of comments" [comment]="comment">
+          </app-comment>
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>

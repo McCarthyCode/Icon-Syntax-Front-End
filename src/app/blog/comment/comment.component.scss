@@ -4,6 +4,7 @@ p {
 }
 
 ion-card {
+  margin: 0 0 0.5rem 0;
   background-color: rgba(30, 30, 30, 50%);
 }
 
@@ -46,9 +47,9 @@ ion-textarea {
 }
 
 .indent {
-  margin-left: 1.25rem;
+  margin-left: 0.5rem;
 
   @media screen and (min-width: 992px) {
-    margin-left: 2.5rem;
+    margin-left: 1rem;
   }
 }

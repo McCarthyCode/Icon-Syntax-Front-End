@@ -104,7 +104,7 @@
   </ion-card-content>
 </ion-card>
 
-<div [class]="indent ? 'indent' : ''" *ngIf="visible">
+<div [class.indent]="indent" *ngIf="visible">
   <app-comment
     [comment]="reply"
     [indentLevel]="indentLevel + 1"
