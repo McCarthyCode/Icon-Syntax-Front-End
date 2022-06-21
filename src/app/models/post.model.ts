@@ -16,6 +16,10 @@ export namespace Post {
       post: number;
       content: string;
       parent?: number;
+      owner?: {
+        id: number;
+        username: string;
+      };
       replies: IModel[];
     }
 

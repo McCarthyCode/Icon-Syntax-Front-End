@@ -5,7 +5,8 @@
     <div class="flex">
       <ion-card-subtitle color="primary">
         <em>
-          Created:&nbsp;{{ comment.created | date: 'MM/dd/YYYY' }}
+          By:&nbsp;{{ username }}
+          &bull; Created:&nbsp;{{ comment.created | date: 'MM/dd/YYYY' }}
           <ng-template [ngIf]="updated">
             &bull; Updated:&nbsp;{{ comment.updated | date: 'MM/dd/YYYY' }}
           </ng-template>
@@ -20,13 +21,15 @@
           >
           </ion-icon>
         </ion-button>
-        <ion-button (click)="toggleEdit()">
-          <ion-icon [name]="editState ? 'close' : 'pencil'" slot="icon-only">
-          </ion-icon>
-        </ion-button>
-        <ion-button (click)="delete()">
-          <ion-icon name="trash" slot="icon-only"></ion-icon>
-        </ion-button>
+        <ng-template [ngIf]="isOwner || isAdmin">
+          <ion-button (click)="toggleEdit()">
+            <ion-icon [name]="editState ? 'close' : 'pencil'" slot="icon-only">
+            </ion-icon>
+          </ion-button>
+          <ion-button (click)="delete()">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ng-template>
       </ion-buttons>
     </div>
 

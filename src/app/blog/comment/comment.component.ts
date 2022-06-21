@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from 'src/app/auth.service';
 import { Post } from 'src/app/models/post.model';
 import { environment } from 'src/environments/environment';
 import { PostService } from '../post/post.service';
@@ -38,6 +39,17 @@ export class CommentComponent {
     return this.editInput && this.editInput.length <= this.characterLimit;
   }
 
+  get isOwner(): boolean {
+    return this._authSrv.credentials$.value?.userId === this.comment.owner?.id;
+  }
+  get isAdmin(): boolean {
+    return this._authSrv.credentials$.value?.isAdmin;
+  }
+
+  get username(): string {
+    return this.comment.owner?.username;
+  }
+
   visible = true;
 
   replyInput: string;
@@ -48,7 +60,8 @@ export class CommentComponent {
 
   constructor(
     private _alertCtrl: AlertController,
-    private _postSrv: PostService
+    private _postSrv: PostService,
+    private _authSrv: AuthService
   ) {}
 
   resetEditState(): void {
@@ -105,8 +118,9 @@ export class CommentComponent {
       .updateComment(this.comment.id, this.editInput)
       .subscribe((comment: Post.Comment.IModel) => {
         this.resetEditState();
-        this.comment.content = comment.content;
-        this.comment.updated = new Date();
+        const replies = this.comment.replies;
+        this.comment = comment;
+        this.comment.replies = replies;
 
         this._alertCtrl
           .create({

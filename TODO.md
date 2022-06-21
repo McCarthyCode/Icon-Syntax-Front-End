@@ -2,7 +2,8 @@
 
 ## High Priorities
 
-1. Define permissions for blog
+1. Retry 401 responses with refresh token before redirecting to login
+1. Fix duplicate blog comments bug
 1. Setup email subscribe/unsubscribe
 1. Testing
 
