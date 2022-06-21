@@ -1,3 +1,11 @@
+.comments-ended {
+  height: 66px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 h1 {
   margin: 20px 0;
 }
@@ -24,11 +32,11 @@ ion-card {
       margin-right: 4px;
     }
 
-    &[color="primary"]::part(native) {
+    &[color='primary']::part(native) {
       border: 2px solid var(--ion-color-primary);
     }
 
-    &[color="medium"]::part(native) {
+    &[color='medium']::part(native) {
       border: 2px solid var(--ion-color-medium);
     }
   }

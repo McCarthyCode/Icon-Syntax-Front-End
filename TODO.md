@@ -2,7 +2,7 @@
 
 ## High Priorities
 
-1. Fix duplicate blog comments bug
+1. Fix margins on blog post comments
 1. Setup email subscribe/unsubscribe
 1. Testing
 

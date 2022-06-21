@@ -15,7 +15,8 @@ import { PostService } from './post.service';
 export class PostComponent {
   post: Post.IModel;
   comments: Post.Comment.IModel[] = [];
-  commentsLoaded = false;
+  commentsEnded = false;
+  commentsLoading = false;
 
   commentInput = '';
   commentPage = 1;
@@ -58,7 +59,7 @@ export class PostComponent {
     this.post = undefined;
     this.comments = [];
 
-    this.commentsLoaded = false;
+    this.commentsEnded = false;
     this.commentPage = 1;
 
     this._route.paramMap.subscribe((paramMap) => {
@@ -180,32 +181,36 @@ export class PostComponent {
   }
 
   firstPage(): void {
-    if (this.post && !this.commentsLoaded) {
+    if (!(this.commentsEnded || this.commentsLoading) && this.post) {
+      this.commentsLoading = true;
       this._postSrv
         .comments(this.post.id)
         .subscribe((clientData: Post.Comment.IClientDataList) => {
           this.comments.push(...clientData.data);
           this.commentPage = 2;
+          this.commentsLoading = false;
 
           if (!clientData.pagination.nextPageExists) {
-            this.commentsLoaded = true;
+            this.commentsEnded = true;
           }
         });
     }
   }
 
   nextPage($event: any): void {
-    if (this.post && !this.commentsLoaded) {
+    if (!(this.commentsEnded || this.commentsLoading) && this.post) {
+      this.commentsLoading = true;
       this._postSrv
         .comments(this.post.id, this.commentPage)
         .subscribe((clientData: Post.Comment.IClientDataList) => {
           this.comments.push(...clientData.data);
           this.commentPage++;
 
+          this.commentsLoading = false;
           $event.target.complete();
 
           if (!clientData.pagination.nextPageExists) {
-            this.commentsLoaded = true;
+            this.commentsEnded = true;
           }
         });
     }

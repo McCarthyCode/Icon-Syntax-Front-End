@@ -30,9 +30,9 @@
         </p>
         <ion-text color="primary">
           <em>
-            Created:&nbsp;{{ post?.created | date: "MM/dd/YYYY" }}
+            Created:&nbsp;{{ post?.created | date: 'MM/dd/YYYY' }}
             <span *ngIf="updated">
-              &bull; Updated:&nbsp;{{ post?.updated | date: "MM/dd/YYYY" }}
+              &bull; Updated:&nbsp;{{ post?.updated | date: 'MM/dd/YYYY' }}
             </span>
           </em>
         </ion-text>
@@ -79,10 +79,13 @@
     </ion-row>
   </ion-grid>
   <ion-infinite-scroll
-    [hidden]="commentsLoaded"
+    [hidden]="commentsEnded"
     threshold="200px"
     (ionInfinite)="nextPage($event)"
   >
     <ion-infinite-scroll-content> </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+  <div [hidden]="!commentsEnded" class="comments-ended">
+    <ion-text color="medium"><em>All comments loaded</em></ion-text>
+  </div>
 </ion-content>
