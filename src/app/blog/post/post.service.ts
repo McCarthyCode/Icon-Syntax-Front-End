@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth.service';
 import { GenericService } from 'src/app/generic.service';
 import { Post } from 'src/app/models/post.model';
@@ -22,7 +22,6 @@ export class PostService extends GenericService<
   constructor(
     private http: HttpClient,
     private authSrv: AuthService,
-    private alertCtrl: AlertController,
     private router: Router,
     modalCtrl: ModalController
   ) {
@@ -36,7 +35,8 @@ export class PostService extends GenericService<
   comment(
     post: number,
     content: string,
-    parent: number = undefined
+    parent: number = undefined,
+    refresh = true
   ): Observable<Post.Comment.IClientData | HttpErrorResponse> {
     return this.authSrv.authHeader$.pipe(
       switchMap((headers) => {
@@ -54,11 +54,22 @@ export class PostService extends GenericService<
           .post<Post.Comment.IModel>(
             environment.apiBase + 'blog/comments',
             formData,
-            {
-              headers: headers
-            }
+            { headers: headers }
           )
-          .pipe(debounceTime(500), map(this.convertComment));
+          .pipe(
+            debounceTime(250),
+            map(this.convertComment),
+            catchError((response) => {
+              if (refresh && response.status === 401)
+                return this.authSrv
+                  .refresh()
+                  .pipe(
+                    switchMap(() => this.comment(post, content, parent, false))
+                  );
+
+              return of(null);
+            })
+          );
       })
     );
   }
@@ -73,22 +84,68 @@ export class PostService extends GenericService<
   }
 
   updateComment(
-    comment: number,
-    content: string
+    commentId: number,
+    content: string,
+    refresh = true
   ): Observable<Post.Comment.IModel> {
-    const formData = new FormData();
+    return this.authSrv.authHeader$.pipe(
+      switchMap((headers) => {
+        if (headers === null) {
+          return of(null);
+        }
 
-    formData.append('content', content);
+        const formData = new FormData();
 
-    return this.http.patch<Post.Comment.IModel>(
-      environment.apiBase + 'blog/comments/' + comment,
-      formData
+        formData.append('content', content);
+
+        return this.http
+          .patch<Post.Comment.IModel>(
+            environment.apiBase + 'blog/comments/' + commentId,
+            formData,
+            { headers: headers }
+          )
+          .pipe(
+            debounceTime(250),
+            catchError((response) => {
+              if (refresh && response.status === 401)
+                return this.authSrv
+                  .refresh()
+                  .pipe(
+                    switchMap(() =>
+                      this.updateComment(commentId, content, false)
+                    )
+                  );
+
+              return of(null);
+            })
+          );
+      })
     );
   }
 
-  deleteComment(comment: number): Observable<null> {
-    return this.http.delete<null>(
-      environment.apiBase + 'blog/comments/' + comment
+  deleteComment(comment: number, refresh = true): Observable<null> {
+    return this.authSrv.authHeader$.pipe(
+      switchMap((headers) => {
+        if (headers === null) {
+          return of(null);
+        }
+
+        return this.http
+          .delete<null>(environment.apiBase + 'blog/comments/' + comment, {
+            headers: headers
+          })
+          .pipe(
+            debounceTime(250),
+            catchError((response) => {
+              if (refresh && response.status === 401)
+                return this.authSrv
+                  .refresh()
+                  .pipe(switchMap(() => this.deleteComment(comment, false)));
+
+              return of(null);
+            })
+          );
+      })
     );
   }
 }
