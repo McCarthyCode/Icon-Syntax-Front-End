@@ -9,7 +9,6 @@ export namespace Auth {
   }
   export interface ISuccessResponse {
     success: string;
-    redirect?: string;
     credentials?: ICredentials;
   }
   export interface IErrorResponse {
