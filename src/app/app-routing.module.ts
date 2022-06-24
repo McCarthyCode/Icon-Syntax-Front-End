@@ -20,6 +20,8 @@ import { PersonalComponent } from './pdf-list/personal/personal.component';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { BlogComponent } from './blog/blog.component';
 import { PostComponent } from './blog/post/post.component';
+import { RegisterComponent } from './register/register.component';
+import { RegisterVerifyComponent } from './register/verify/verify.component';
 
 const routes: Routes = [
   {
@@ -43,14 +45,14 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  // {
-  //   path: 'register',
-  //   component: RegisterComponent,
-  // },
-  // {
-  //   path: 'register/:access',
-  //   component: RegisterVerifyComponent,
-  // },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'register/:access',
+    component: RegisterVerifyComponent,
+  },
   {
     path: 'icon-lit',
     component: IconLitComponent
