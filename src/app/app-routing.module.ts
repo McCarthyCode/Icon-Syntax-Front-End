@@ -22,6 +22,8 @@ import { BlogComponent } from './blog/blog.component';
 import { PostComponent } from './blog/post/post.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterVerifyComponent } from './register/verify/verify.component';
+import { ForgotComponent } from './forgot/forgot.component';
+import { ForgotVerifyComponent } from './forgot-verify/forgot-verify.component';
 
 const routes: Routes = [
   {
@@ -81,14 +83,14 @@ const routes: Routes = [
     component: UpdateIconComponent,
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'forgot-password',
-  //   component: ForgotComponent,
-  // },
-  // {
-  //   path: 'forgot-password/:access',
-  //   component: ForgotVerifyComponent,
-  // },
+  {
+    path: 'forgot-password',
+    component: ForgotComponent,
+  },
+  {
+    path: 'forgot-password/:access',
+    component: ForgotVerifyComponent,
+  },
   {
     path: 'pdfs/:id',
     component: PdfViewComponent,
