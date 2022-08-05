@@ -13,7 +13,7 @@
       <ion-col>
         <form [formGroup]="form" (submit)="onSubmit()">
           <ion-item>
-            <ion-label position="floating">Username or Email</ion-label>
+            <ion-label position="floating">Username or Email Address</ion-label>
             <ion-input
               formControlName="identifier"
               (keyup.enter)="onSubmit()"
@@ -55,11 +55,13 @@
             </small>
           </ion-item>
           <div class="ion-margin-vertical" routerLinkActive="active">
-            <ion-button expand="block" color="medium" routerLink="/register">
-              Register
-            </ion-button>
-            <ion-button expand="block" color="primary" type="submit">
-              Submit
+            <ion-button
+              class="ion-margin-top"
+              expand="block"
+              color="primary"
+              type="submit"
+            >
+              Login
             </ion-button>
           </div>
           <a class="ion-text-center" routerLink="/forgot-password">

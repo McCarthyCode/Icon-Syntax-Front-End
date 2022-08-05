@@ -25,7 +25,16 @@
             (click)="onMenuClick()"
           >
             <ion-icon name="log-in" slot="start"></ion-icon>
-            <ion-text> Login / Register </ion-text>
+            <ion-text> Login </ion-text>
+          </ion-item>
+          <ion-item
+            *ngIf="!isAuthenticated"
+            button
+            routerLink="/register"
+            (click)="onMenuClick()"
+          >
+            <ion-icon name="person-add" slot="start"></ion-icon>
+            <ion-text> Register </ion-text>
           </ion-item>
           <ion-item
             *ngIf="isAuthenticated"
