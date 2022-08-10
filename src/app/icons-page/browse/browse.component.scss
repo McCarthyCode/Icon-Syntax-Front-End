@@ -1,0 +1,51 @@
+app-category-node {
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.container {
+  padding: 1rem 0 1rem 0.5rem;
+  width: 100%;
+
+  &.active {
+    background: var(--ice-blue);
+    color: var(--dark-blue);
+
+    ion-icon {
+      color: var(--dark-blue);
+    }
+  }
+}
+
+ion-icon {
+  color: var(--ion-color-medium);
+}
+
+ul {
+  margin: 1rem 0 0 0;
+  padding: 0;
+  border-left: 0.5rem solid var(--ion-color-medium);
+  padding-left: 0px;
+
+  &.top {
+    padding: 0;
+    border-left: 0;
+  }
+}
+
+li {
+  list-style: none;
+  user-select: none;
+  width: 100%;
+  --background: var(--dark-blue);
+
+  span {
+    padding: 4px;
+    border-radius: 4px;
+
+    &.selected {
+      padding: 2px;
+      border: 2px solid var(--ion-color-secondary);
+    }
+  }
+}

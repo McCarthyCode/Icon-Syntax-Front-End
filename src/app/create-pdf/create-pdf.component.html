@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Upload a PDF </ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="form" enctype="multipart/form-data">
+          <ion-item>
+            <ion-label position="floating"> Title </ion-label>
+            <ion-input type="text" name="title" formControlName="title">
+            </ion-input>
+            <ion-text
+              *ngIf="form.get('title').errors?.maxlength"
+              color="danger"
+            >
+              <small>
+                This field may not contain more than 80 characters.
+              </small>
+            </ion-text>
+            <ion-text
+              *ngIf="
+                form.get('title').touched && form.get('title').errors?.required
+              "
+              color="danger"
+            >
+              <small> This field is required. </small>
+            </ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed"> PDF File </ion-label>
+            <ion-input
+              type="file"
+              accept="application/pdf"
+              (change)="onFileChange($event)"
+            >
+            </ion-input>
+          </ion-item>
+          <h1 class="ion-margin-top ion-padding-horizontal">
+            Categories
+            <br />
+            <ion-text color="medium">
+              <small>
+                <em>
+                  Choose at least one. To enter a new category, type the name
+                  into the input box at the end of the list and click outside
+                  the box to add it to the list.
+                </em>
+              </small>
+            </ion-text>
+          </h1>
+          <ion-item *ngFor="let category of categoriesArr">
+            <ion-checkbox
+              [name]="category"
+              slot="start"
+              (ionChange)="onCheckboxChange($event)"
+            >
+            </ion-checkbox>
+            <ion-label>{{ category }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="add" slot="start"></ion-icon>
+            <ion-input
+              (keyup.enter)="onAddCategory()"
+              (ionBlur)="onAddCategory()"
+              #addCategory
+            >
+            </ion-input>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="submit()" [disabled]="form.invalid">
+        Upload
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/blog"></ion-back-button>
+      <ion-button (click)="refresh()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Blog </ion-title>
+    <ion-buttons slot="end" *ngIf="isAdmin">
+      <ion-button (click)="update()">
+        <ion-icon name="pencil" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="delete()">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="post">
+    <ion-row class="ion-justify-content-center ion-margin-bottom">
+      <ion-col size-lg="9" size-xl="8">
+        <h1 class="ion-text-center ion-padding-horizontal">
+          {{ post?.title }}
+        </h1>
+        <p class="ion-text-justify" [innerHTML]="post?.content | linebreaks">
+          &hellip;
+        </p>
+        <ion-text color="primary">
+          <em>
+            Created:&nbsp;{{ post?.created | date: 'MM/dd/YYYY' }}
+            <span *ngIf="updated">
+              &bull; Updated:&nbsp;{{ post?.updated | date: 'MM/dd/YYYY' }}
+            </span>
+          </em>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="9" size-xl="8">
+        <h2>Comments</h2>
+        <ion-card class="margin-bottom-strict">
+          <ion-card-content>
+            <ion-textarea
+              (ionChange)="onCommentChange($event)"
+              [value]="commentInput"
+              rows="5"
+              placeholder="Add a comment here."
+            >
+            </ion-textarea>
+            <div class="ion-text-right">
+              <ion-text [color]="commentLengthValid ? 'dark' : 'danger'">
+                {{ commentInput.length }}/{{ characterLimit }}
+              </ion-text>
+            </div>
+            <ion-button
+              color="primary"
+              [fill]="commentLengthValid ? 'solid' : 'outline'"
+              [disabled]="!commentLengthValid"
+              (click)="comment()"
+            >
+              Comment
+            </ion-button>
+            <ion-button
+              color="medium"
+              [fill]="commentInput.length ? 'solid' : 'outline'"
+              [disabled]="!commentInput.length"
+              (click)="commentInput = ''"
+            >
+              Clear
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+        <div class="comments-margin">
+          <app-comment *ngFor="let comment of comments" [comment]="comment">
+          </app-comment>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll
+    [hidden]="commentsEnded"
+    threshold="200px"
+    (ionInfinite)="nextPage($event)"
+  >
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <div [hidden]="!commentsEnded" class="comments-ended">
+    <ion-text color="medium"><em>All comments loaded</em></ion-text>
+  </div>
+</ion-content>

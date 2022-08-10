@@ -1,0 +1,114 @@
+<ion-card *ngIf="visible">
+  <ion-card-content>
+    <p [innerHtml]="comment.content | linebreaks"></p>
+
+    <div class="flex">
+      <ion-card-subtitle color="primary">
+        <em>
+          By:&nbsp;{{ username }}
+          &bull; Created:&nbsp;{{ comment.created | date: 'MM/dd/YYYY' }}
+          <ng-template [ngIf]="updated">
+            &bull; Updated:&nbsp;{{ comment.updated | date: 'MM/dd/YYYY' }}
+          </ng-template>
+        </em>
+      </ion-card-subtitle>
+      <ion-buttons class="ion-text-right">
+        <ion-button (click)="toggleReply()">
+          <ion-icon
+            [name]="replyState ? 'close' : 'arrow-undo'"
+            [class.rotate]="!replyState"
+            slot="icon-only"
+          >
+          </ion-icon>
+        </ion-button>
+        <ng-template [ngIf]="isOwner || isAdmin">
+          <ion-button (click)="toggleEdit()">
+            <ion-icon [name]="editState ? 'close' : 'pencil'" slot="icon-only">
+            </ion-icon>
+          </ion-button>
+          <ion-button (click)="delete()">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ng-template>
+      </ion-buttons>
+    </div>
+
+    <ng-template [ngIf]="replyState">
+      <ion-textarea
+        rows="5"
+        placeholder="Add a reply here."
+        [value]="replyInput"
+        (ionChange)="onReplyChange($event)"
+      >
+      </ion-textarea>
+      <div class="ion-text-right">
+        <ion-text [color]="replyLengthValid ? 'dark' : 'danger'">
+          {{ replyInput.length }}/{{ characterLimit }}
+        </ion-text>
+      </div>
+      <ion-button
+        color="primary"
+        [fill]="replyLengthValid ? 'solid' : 'outline'"
+        [disabled]="!replyLengthValid"
+        (click)="reply()"
+      >
+        Reply
+      </ion-button>
+      <ion-button
+        color="medium"
+        [fill]="replyInput === '' ? 'outline' : 'solid'"
+        [disabled]="replyInput === ''"
+        (click)="replyInput = ''"
+      >
+        Clear
+      </ion-button>
+      <ion-button color="medium" fill="solid" (click)="toggleReply()">
+        Cancel
+      </ion-button>
+    </ng-template>
+
+    <ng-template [ngIf]="editState">
+      <ion-textarea
+        rows="5"
+        placeholder="Edit your comment here."
+        [value]="editInput"
+        (ionChange)="onEditChange($event)"
+      >
+      </ion-textarea>
+      <div class="ion-text-right">
+        <ion-text [color]="editLengthValid ? 'dark' : 'danger'">
+          {{ editInput.length }}/{{ characterLimit }}
+        </ion-text>
+      </div>
+
+      <ion-button
+        color="primary"
+        [fill]="editLengthValid ? 'solid' : 'outline'"
+        [disabled]="!editLengthValid"
+        (click)="edit()"
+      >
+        Edit
+      </ion-button>
+      <ion-button
+        color="medium"
+        [fill]="editInput === '' ? 'outline' : 'solid'"
+        [disabled]="editInput === ''"
+        (click)="editInput = ''"
+      >
+        Clear
+      </ion-button>
+      <ion-button color="medium" fill="solid" (click)="toggleEdit()">
+        Cancel
+      </ion-button>
+    </ng-template>
+  </ion-card-content>
+</ion-card>
+
+<div [class.indent]="indent" *ngIf="visible">
+  <app-comment
+    [comment]="reply"
+    [indentLevel]="indentLevel + 1"
+    *ngFor="let reply of comment.replies"
+  >
+  </app-comment>
+</div>

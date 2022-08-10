@@ -1,0 +1,30 @@
+<ion-card class="ion-margin-bottom" [routerLink]="['/blog/', post.id]">
+  <ion-card-header>
+    <ion-card-title color="dark" class="ion-no-padding">
+      {{ post.title }}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p
+      class="ion-text-justify"
+      *ngIf="post?.content.length > 0"
+      [innerHtml]="
+        (post.content.length >= previewMax
+          ? post.content + '&hellip;'
+          : post.content
+        ) | linebreaks
+      "
+    >
+      &hellip;
+    </p>
+    <ion-text color="primary">
+      <em>
+        Created:&nbsp;{{ post.created | date: "MM/dd/YYYY" }}
+        <span *ngIf="updated">
+          &bull; Updated:&nbsp;{{ post.updated | date: "MM/dd/YYYY" }}
+        </span>
+      </em>
+    </ion-text>
+  </ion-card-content>
+</ion-card>

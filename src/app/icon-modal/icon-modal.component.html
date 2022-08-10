@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{ mode === "create" ? "Add" : "Update" }} an Icon </ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" (click)="onClose()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <p id="breadcrumbs" class="ion-padding-horizontal">
+    <ion-text color="medium">
+      <span *ngIf="category?.path"> {{ category.path }} » </span>
+      {{ category.name }} » {{ form.value.word }}
+      <span *ngIf="!form.value.word">
+        <em>[choose a word]</em>
+      </span>
+    </ion-text>
+  </p>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <form [formGroup]="form" enctype="multipart/form-data">
+          <ion-list>
+            <ion-item *ngIf="mode === 'create'">
+              <ion-input
+                type="file"
+                name="icon"
+                accept="image/*"
+                formControlName="icon"
+                (change)="onFileChange($event)"
+              >
+              </ion-input>
+              <ion-text
+                *ngIf="
+                  form.get('icon').touched && form.get('icon').errors?.required
+                "
+                class="file-error"
+                color="danger"
+              >
+                <small>This field is required.</small>
+              </ion-text>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">
+                Spelling and Capitalization
+              </ion-label>
+              <ion-input
+                name="word"
+                type="text"
+                formControlName="word"
+                (ionChange)="onWordChange($event)"
+              >
+              </ion-input>
+              <ion-text
+                *ngIf="
+                  form.get('word').touched && form.get('word').errors?.required
+                "
+                class="error"
+                color="danger"
+              >
+                <small>This field is required.</small>
+              </ion-text>
+              <ion-text
+                *ngIf="form.get('word').errors?.maxlength"
+                class="error"
+                color="danger"
+              >
+                <small>
+                  This field may not contain more than 40 characters.
+                </small>
+              </ion-text>
+            </ion-item>
+            <!-- <ion-item>
+              <ion-label position="floating">
+                Descriptor
+                <ion-text color="medium">
+                  <em>(optional)</em>
+                </ion-text>
+              </ion-label>
+              <ion-input
+                name="descriptor"
+                type="text"
+                formControlName="descriptor"
+                (ionChange)="onDescriptorChange($event)"
+              ></ion-input>
+              <ion-text
+                *ngIf="form.get('descriptor').errors?.maxlength"
+                class="error"
+                color="danger"
+              >
+                <small>
+                  This field may not contain more than 80 characters.
+                </small>
+              </ion-text>
+            </ion-item> -->
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button
+      class="ion-margin-horizontal"
+      slot="end"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!form.valid"
+    >
+      Submit
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

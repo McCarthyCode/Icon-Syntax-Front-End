@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{ mode === "create" ? "Add" : "Update" }} a Subcategory
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()" shape="round">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <p id="breadcrumbs">
+    <ion-text color="secondary">
+      <span *ngIf="parent?.data.path"> {{ parent.data.path }} » </span>
+      {{ parent.data.name }}
+    </ion-text>
+    <ion-text color="medium">
+      »
+      <em *ngIf="!form.value.name">[choose a subcategory name]</em>
+      {{ form.value.name }}
+    </ion-text>
+  </p>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p>Please name your subcategory and hit <em>Submit</em>.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating"> Name </ion-label>
+              <ion-input
+                [value]="form.value.name"
+                formControlName="name"
+                (ionChange)="onInputChange($event)"
+              ></ion-input>
+              <ion-text
+                *ngIf="
+                  form.get('name').touched && form.get('name').errors?.required
+                "
+                class="error"
+                color="danger"
+              >
+                <small>This field is required.</small>
+              </ion-text>
+              <ion-text
+                *ngIf="form.get('name').errors?.maxlength"
+                class="error"
+                color="danger"
+              >
+                <small>
+                  This field may not contain more than 40 characters.
+                </small>
+              </ion-text>
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button
+      class="ion-margin-horizontal"
+      slot="end"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!form.valid"
+    >
+      Submit
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

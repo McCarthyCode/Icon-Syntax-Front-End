@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button shape="round" routerLink="/login" routerDirection="back">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button contentId="menu"> </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">Username</ion-label>
+            <ion-input formControlName="username" (ionFocus)="clearErrors()">
+            </ion-input>
+            <small *ngFor="let error of errors?.username">
+              <ion-text color="danger">
+                {{ error }}
+              </ion-text>
+            </small>
+            <small
+              *ngIf="
+                !errors?.username.length &&
+                form.get('username').touched &&
+                form.get('username').errors?.required
+              "
+            >
+              <ion-text color="danger">This field may not be blank.</ion-text>
+            </small>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email Address</ion-label>
+            <ion-input
+              type="email"
+              formControlName="email"
+              (ionFocus)="clearErrors()"
+            >
+            </ion-input>
+            <small *ngFor="let error of errors?.email">
+              <ion-text color="danger">
+                {{ error }}
+              </ion-text>
+            </small>
+            <div *ngIf="!errors?.email.length && form.get('password').touched">
+              <small *ngIf="form.get('email').errors?.required">
+                <ion-text color="danger">This field may not be blank.</ion-text>
+              </small>
+              <small *ngIf="form.get('email').errors?.email">
+                <ion-text color="danger"
+                  >This field must be a valid email address.</ion-text
+                >
+              </small>
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input
+              type="password"
+              formControlName="password"
+              (ionFocus)="clearErrors()"
+            >
+            </ion-input>
+            <small *ngFor="let error of errors?.password">
+              <ion-text color="danger">
+                {{ error }}
+              </ion-text>
+            </small>
+            <div *ngIf="form.get('password').touched">
+              <small
+                *ngIf="
+                  !errors?.password.length &&
+                  form.get('password').errors?.required
+                "
+              >
+                <ion-text color="danger">This field may not be blank.</ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.minLength">
+                <ion-text color="danger">
+                  This field must contain at least 8 characters.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsUppercase">
+                <ion-text color="danger">
+                  This field must contain at least 1 uppercase character.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsLowercase">
+                <ion-text color="danger">
+                  This field must contain at least 1 lowercase character.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsNumber">
+                <ion-text color="danger">
+                  This field must contain at least 1 number.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsPunctuation">
+                <ion-text color="danger">
+                  This field must contain at least 1 punctuation character.
+                </ion-text>
+              </small>
+            </div>
+          </ion-item>
+          <ion-button
+            class="ion-margin-top"
+            expand="block"
+            color="primary"
+            type="submit"
+          >
+            Create Account
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,21 @@
+<div
+  (click)="onClick($event)"
+  [class]="active ? 'container active' : 'container'"
+>
+  <ion-icon
+    [name]="expand ? 'caret-down-outline' : 'caret-forward-outline'"
+    [style.visibility]="category.children.length > 0 ? 'visible' : 'hidden'"
+  >
+  </ion-icon>
+  <ion-text> {{ category.name }}</ion-text>
+  <ul *ngIf="expand && category.children.length > 0">
+    <li *ngFor="let subcategory of category.children">
+      <app-category-node
+        *ngIf="subcategory"
+        [category]="subcategory"
+        [expand]="false"
+      >
+      </app-category-node>
+    </li>
+  </ul>
+</div>

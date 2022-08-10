@@ -2,8 +2,19 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { development as secret } from './environment.secret';
+import { shared } from './environment.shared';
+
+const development = {
+  production: false,
+  urlRoot: 'http://localhost:8000'
+};
+
 export const environment = {
-  production: false
+  apiBase: development.urlRoot + '/api/v0-alpha/',
+  ...development,
+  ...shared,
+  ...secret
 };
 
 /*

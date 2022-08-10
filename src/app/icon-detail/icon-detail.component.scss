@@ -1,0 +1,25 @@
+app-icon {
+  display: inline-block;
+}
+
+ion-button {
+  font-size: 1em;
+}
+
+.suggestions li {
+  cursor: pointer;
+}
+
+ion-icon.speaker {
+  padding: 0 8px;
+  cursor: pointer;
+  font-size: 2rem;
+  transform: translateY(8px);
+}
+
+@media screen and (min-width: 768px) {
+  ion-menu {
+    --min-width: 448px;
+    --max-width: 448px;
+  }
+}

@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button color="light" contentId="menu"> </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div routerLink="/icons">
+    <ion-img src="/assets/logo_black_animated.gif"></ion-img>
+    <p>
+      <ion-text color="light">{{ text ? text : '&nbsp;' }}</ion-text>
+    </p>
+  </div>
+</ion-content>

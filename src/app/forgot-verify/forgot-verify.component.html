@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button shape="round" routerLink="/login" routerDirection="back">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Password Reset</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button contentId="menu"> </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <p>
+          <ion-text color="medium">
+            To continue, please provide a new password.
+          </ion-text>
+        </p>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">New Password</ion-label>
+            <ion-input
+              type="password"
+              clearOnEdit="false"
+              formControlName="password"
+              (keyup.enter)="onSubmit()"
+            >
+            </ion-input>
+            <div *ngIf="form.get('password').touched">
+              <small *ngIf="form.get('password').errors?.required">
+                <ion-text color="danger">This field may not be blank.</ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.minLength">
+                <ion-text color="danger">
+                  This field must contain at least 8 characters.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsUppercase">
+                <ion-text color="danger">
+                  This field must contain at least 1 uppercase character.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsLowercase">
+                <ion-text color="danger">
+                  This field must contain at least 1 lowercase character.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsNumber">
+                <ion-text color="danger">
+                  This field must contain at least 1 number.
+                </ion-text>
+              </small>
+              <small *ngIf="form.get('password').errors?.containsPunctuation">
+                <ion-text color="danger">
+                  This field must contain at least 1 punctuation character.
+                </ion-text>
+              </small>
+            </div>
+          </ion-item>
+          <div class="ion-margin-vertical" routerLinkActive="active">
+            <ion-button expand="block" color="primary" type="submit">
+              Submit
+            </ion-button>
+          </div>
+        </form>
+        <a class="ion-text-center" routerLink="/login" routerDirection="back">
+          Back to Login
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

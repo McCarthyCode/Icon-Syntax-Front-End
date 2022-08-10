@@ -1,0 +1,55 @@
+p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+ion-card {
+  margin: 0 0 0.5rem 0;
+  background-color: rgba(30, 30, 30, 50%);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+ion-buttons {
+  margin: 0 -0.75rem -10px 0;
+
+  ion-icon.rotate {
+    transform: rotate(180deg) translateY(-1px);
+  }
+}
+
+ion-card-content > ion-button {
+  margin: 0;
+  border-radius: 4px;
+
+  &:not(:last-child) {
+    margin-right: 4px;
+  }
+
+  &[color='primary']::part(native) {
+    border: 2px solid var(--ion-color-primary);
+  }
+
+  &[color='medium']::part(native) {
+    border: 2px solid var(--ion-color-medium);
+  }
+}
+
+ion-textarea {
+  margin-top: 1rem;
+  border: 1px solid #7f7f7f;
+  border-radius: 4px;
+}
+
+.indent {
+  margin-left: 0.5rem;
+
+  @media screen and (min-width: 992px) {
+    margin-left: 1rem;
+  }
+}

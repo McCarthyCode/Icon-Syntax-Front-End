@@ -1,0 +1,38 @@
+ion-grid {
+  &,
+  & ion-row {
+    height: 100%;
+
+    ion-col {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      align-content: stretch;
+
+      ion-list {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.icons {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: space-evenly;
+
+  a {
+    position: relative;
+
+    ion-icon {
+      font-size: 64px;
+      color: #7f7f7f;
+    }
+
+    ion-badge {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+    }
+  }
+}

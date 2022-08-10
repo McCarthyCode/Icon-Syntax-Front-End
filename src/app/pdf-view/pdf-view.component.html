@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/icon-lit"></ion-back-button>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end" *ngIf="isAdmin">
+      <ion-button shape="round" (click)="delete()">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button shape="round" (click)="edit()">
+        <ion-icon name="pencil" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <pdf-sized-container [pdf]="pdf" *ngIf="pdf"></pdf-sized-container>
+</ion-content>

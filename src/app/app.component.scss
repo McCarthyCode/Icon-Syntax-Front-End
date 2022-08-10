@@ -1,0 +1,45 @@
+ion-split-pane {
+  --side-max-width: 18rem;
+  --side-min-width: 18rem;
+  --side-width: 18rem;
+}
+
+ion-menu {
+  --max-width: 18rem;
+  --min-width: 18rem;
+  --width: 18rem;
+
+  ion-toolbar {
+    cursor: pointer;
+
+    ion-title {
+      font-family: "Libre Baskerville", serif;
+      letter-spacing: 4px;
+    }
+  }
+}
+
+.icons {
+  --background: var(--ice-blue);
+  --color: var(--ion-color-light);
+  --border-color: #777;
+
+  ion-icon {
+    color: var(--ion-color-light);
+  }
+}
+
+.library {
+  padding: 0;
+  margin-top: 1px;
+  margin-bottom: -1px;
+  border-left: 0.5rem solid var(--dark-blue);
+
+  ion-item:last-child .item-inner {
+    border: none;
+  }
+}
+
+ion-icon[name="close"] {
+  cursor: pointer;
+}

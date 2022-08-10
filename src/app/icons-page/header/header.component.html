@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar class="searchbar">
+    <ion-searchbar
+      #searchbar
+      placeholder="Search icons here."
+      showClearButton="always"
+      [value]="query"
+      (ionChange)="onSearchbarChange($event)"
+    ></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-label>All Icons</ion-label>
+      <ion-toggle
+        #toggle
+        [checked]="allIcons"
+        (ionChange)="onAllIconsChange($event)"
+      >
+      </ion-toggle>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <p id="breadcrumbs">
+    <ion-text color="secondary">{{ path }}</ion-text>
+    <ion-text color="medium"> » {{ breadcrumbs }}</ion-text>
+  </p>
+</ion-header>

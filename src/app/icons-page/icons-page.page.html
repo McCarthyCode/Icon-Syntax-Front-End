@@ -1,0 +1,13 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="browse" (click)="onBrowseClick()">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>Browse Library</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="search-results">
+      <ion-icon name="images"></ion-icon>
+      <ion-label>Search Results</ion-label>
+      <ion-badge color="danger" *ngIf="badgeVisible">{{ count }}</ion-badge>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

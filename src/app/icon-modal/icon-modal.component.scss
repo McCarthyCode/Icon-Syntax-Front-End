@@ -1,0 +1,20 @@
+#breadcrumbs {
+  display: block;
+  font-size: 14px;
+  min-height: 32px;
+  padding: 0.5rem;
+  margin: 0;
+  background-color: var(--ion-background-color);
+  line-height: 1.4;
+}
+
+ion-content {
+  --background: var(--dark-blue);
+}
+
+@media screen and (max-width: 405px) {
+  .file-error {
+    max-width: 68px;
+    line-height: 1;
+  }
+}

@@ -1,3 +1,86 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane [disabled]="homePage" when="md" contentId="main">
+    <ion-menu contentId="main">
+      <ion-header>
+        <ion-toolbar color="primary" routerLink="/">
+          <ion-buttons slot="start" (click)="$event.stopPropagation()">
+            <ion-menu-button contentId="menu">
+              <ion-icon name="close"></ion-icon>
+            </ion-menu-button>
+          </ion-buttons>
+          <ion-title class="no-select">iconSyntax</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-item button routerLink="/" (click)="onMenuClick()">
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-text> Home </ion-text>
+          </ion-item>
+          <ion-item
+            *ngIf="!isAuthenticated"
+            button
+            routerLink="/login"
+            (click)="onMenuClick()"
+          >
+            <ion-icon name="log-in" slot="start"></ion-icon>
+            <ion-text> Login </ion-text>
+          </ion-item>
+          <ion-item
+            *ngIf="!isAuthenticated"
+            button
+            routerLink="/register"
+            (click)="onMenuClick()"
+          >
+            <ion-icon name="person-add" slot="start"></ion-icon>
+            <ion-text> Register </ion-text>
+          </ion-item>
+          <ion-item
+            *ngIf="isAuthenticated"
+            button
+            (click)="logout(); onMenuClick()"
+          >
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            <ion-text> Logout </ion-text>
+          </ion-item>
+          <ion-item button routerLink="/icons/browse" (click)="onMenuClick()">
+            <ion-icon name="images" slot="start"></ion-icon>
+            <ion-text> Library </ion-text>
+          </ion-item>
+          <ion-item
+            *ngIf="isAuthenticated"
+            routerLink="/icons/create"
+            (click)="onMenuClick()"
+            button
+          >
+            <ion-icon name="add" slot="start"></ion-icon>
+            <ion-text> Add an Icon </ion-text>
+          </ion-item>
+          <ion-item routerLink="/about" button (click)="onMenuClick()">
+            <ion-icon name="information" slot="start"></ion-icon>
+            <ion-text> About </ion-text>
+          </ion-item>
+          <ion-item routerLink="/icon-lit" (click)="onMenuClick()" button>
+            <ion-icon name="library" slot="start"></ion-icon>
+            <ion-text> Icon Literature </ion-text>
+          </ion-item>
+          <ion-item routerLink="/personal" (click)="onMenuClick()" button>
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-text> Personal </ion-text>
+          </ion-item>
+          <ion-item routerLink="/blog" (click)="onMenuClick()" button>
+            <ion-icon name="chatbox" slot="start"></ion-icon>
+            <ion-text> Blog </ion-text>
+          </ion-item>
+          <ion-item routerLink="/subscribe" (click)="onMenuClick()" button>
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-text> Subscribe </ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+  <app-icon-detail></app-icon-detail>
 </ion-app>
